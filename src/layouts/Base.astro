@@ -4,6 +4,7 @@ import SkipLink from "@/components/SkipLink.astro";
 import ThemeProvider from "@/components/ThemeProvider.astro";
 import Header from "@/components/layout/Header.astro";
 import Footer from "@/components/layout/Footer.astro";
+import { ViewTransitions } from "astro:transitions";
 import { siteConfig } from "@/site.config";
 import type { SiteMeta } from "@/types";
 
@@ -22,6 +23,7 @@ const {
 >
 	<head>
 		<BaseHead articleDate={articleDate} description={description} ogImage={ogImage} title={title} />
+		<ViewTransitions />
 	</head>
 	<body class="min-w-4xl relative m-auto min-h-screen w-full max-w-6xl grow bg-bgColor">
 		<ThemeProvider />
