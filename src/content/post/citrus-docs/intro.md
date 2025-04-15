@@ -1,11 +1,11 @@
 ---
-title: "Introducing Astro Citrus!"
-publishDate: "20 December 2024"
-description: "Astro Citrus is a versatile template for managing blogs and creating comprehensive project documentation"
+title: "Welcome to LMMs-Lab Models"
+publishDate: "20 April 2025"
+description: "Aero Audio is a versatile template for managing blogs and creating comprehensive project documentation"
 seriesId: citrus-docs
 orderInSeries: 1
 featured: false
-tags: ["example", "series", "citrus"]
+tags: ["lmms-lab-models"]
 ogImage: ""
 ---
 
