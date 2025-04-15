@@ -1,23 +1,26 @@
 ---
 import { type CollectionEntry, getCollection } from "astro:content";
 import SocialList from "@/components/SocialList.astro";
-import PostPreview from "@/components/blog/PostPreview.astro";
-import Note from "@/components/note/Note.astro";
-import { getAllPosts } from "@/data/post";
+// Remove PostPreview and Note imports as they are no longer used on this page
+// import PostPreview from "@/components/blog/PostPreview.astro";
+// import Note from "@/components/note/Note.astro";
+// Remove post/note fetching logic
+// import { getAllPosts } from "@/data/post";
 import PageLayout from "@/layouts/Base.astro";
-import { collectionDateSort } from "@/utils/date";
+// Remove date sorting if not needed elsewhere
+// import { collectionDateSort } from "@/utils/date";
 
-// Posts
-const MAX_POSTS = 10;
-const allPosts = await getAllPosts();
-const allPostsByDate = allPosts
-	.sort(collectionDateSort)
-	.slice(0, MAX_POSTS) as CollectionEntry<"post">[];
+// Remove Posts logic
+// const MAX_POSTS = 10;
+// const allPosts = await getAllPosts();
+// const allPostsByDate = allPosts
+// 	.sort(collectionDateSort)
+// 	.slice(0, MAX_POSTS) as CollectionEntry<"post">[];
 
-// Notes
-const MAX_NOTES = 2;
-const allNotes = await getCollection("note");
-const latestNotes = allNotes.sort(collectionDateSort).slice(0, MAX_NOTES);
+// Remove Notes logic
+// const MAX_NOTES = 2;
+// const allNotes = await getCollection("note");
+// const latestNotes = allNotes.sort(collectionDateSort).slice(0, MAX_NOTES);
 ---
 
 <PageLayout meta={{ title: "Home" }}>
@@ -29,34 +32,83 @@ const latestNotes = allNotes.sort(collectionDateSort).slice(0, MAX_NOTES);
 		<div class="absolute top-[-20%] left-[-50%] w-[85%] h-full bg-gradient-to-b from-indigo-300 via-orange-300 to-transparent rounded-full opacity-60 dark:opacity-10"></div>
 		<div class="absolute top-[-20%] right-[-50%] w-[85%] h-full bg-gradient-to-b from-orange-300 via-indigo-300 to-transparent rounded-full opacity-60 dark:opacity-10"></div>
 	</div>
-	<section class="max-w-xl mx-auto relative flex items-center justify-center h-screen -mt-24">
-		<div class="w-full text-center">
-			<span class="title text-3xl bg-gradient-to-r from-accent-two/85 via-accent-one/85 to-accent-two/85 dark:from-accent-two dark:via-accent-one dark:to-accent-two bg-clip-text text-transparent">
-				Introducing Astro Citrus!
-			</span>
-			<p class="mt-4 mb-4 text-lg font-medium">
-				Hi, I’m an Astro theme for building websites or blogs. To customize, add posts, or make it yours, click the GitHub icon below to visit my repo.
+	<section class="relative flex flex-col items-center justify-center min-h-screen text-center px-6 -mt-16">
+		<div class="max-w-3xl">
+			<h1 class="text-5xl md:text-7xl font-bold tracking-tight mb-4">
+				Powerful Web Framework.
+				<span class="block xl:inline bg-gradient-to-r from-accent-two/85 via-accent-one/85 to-accent-two/85 dark:from-accent-two dark:via-accent-one dark:to-accent-two bg-clip-text text-transparent">
+					Minimal Footprint.
+				</span>
+			</h1>
+			<p class="mt-4 mb-8 text-lg text-textColor/80 dark:text-textColorDark/80">
+				Astro Citrus is a modern theme designed for performance and flexibility. Build fast, content-focused websites with ease. Simple setup, powerful features.
 			</p>
-			<div class="flex justify-center mb-4">
-				<SocialList />
-			</div>
-			<div class="flex justify-center space-x-4 mt-4">
-				<a href="/posts/" class="relative flex items-center justify-center h-8 px-4 rounded-lg shadow-lg hover:brightness-110 transition-all bg-gradient-to-r from-accent-one to-accent-two">
+			<div class="flex flex-col sm:flex-row justify-center gap-4">
+				<a href="/quick-start/" class="relative flex items-center justify-center h-12 px-6 rounded-lg shadow-lg hover:brightness-110 transition-all bg-gradient-to-r from-accent-one to-accent-two">
 					<span class="text-bgColor font-semibold">
-						Read Blog
+						Start Building
 					</span>
 				</a>
-
-				<a href="/notes/wake-up/" class="relative flex items-center justify-center h-8 px-4 rounded-lg shadow-lg bg-special-lighter hover:brightness-110 hover:bg-special-lightest">
-					<span class="bg-clip-text text-transparent font-semibold bg-gradient-to-r from-accent-one to-accent-two">
-						Wake up
+				<a href="/features/" class="relative flex items-center justify-center h-12 px-6 rounded-lg shadow-lg bg-bgColor dark:bg-bgColorDark border border-borderColor dark:border-borderColorDark hover:brightness-110 hover:bg-bgColor/90 dark:hover:bg-bgColorDark/90">
+					<span class="font-semibold text-textColor dark:text-textColorDark">
+						Learn More
 					</span>
+					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 ml-2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" /></svg>
 				</a>
 			</div>
 		</div>
 	</section>
 
-	<!-- Posts Section -->
+	<!-- Features Section -->
+	<section class="py-16 md:py-24 px-6">
+		<div class="max-w-5xl mx-auto">
+			<div class="text-center mb-12">
+				<span class="inline-block px-3 py-1 text-sm font-semibold tracking-wider text-accent-one uppercase rounded-full bg-accent-one/10 mb-2">Features</span>
+				<h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Development at Warp Speed</h2>
+				<p class="text-lg text-textColor/70 dark:text-textColorDark/70 max-w-2xl mx-auto">
+					Forget complex setups and heavy infrastructure. With Astro Citrus, you get a streamlined experience focused on what matters most: your content.
+				</p>
+			</div>
+
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+				<!-- Feature 1 -->
+				<div class="p-6 rounded-lg bg-bgColor/50 dark:bg-bgColorDark/50 border border-borderColor/50 dark:border-borderColorDark/50 shadow-sm">
+					<div class="flex items-center mb-3">
+						<div class="p-2 rounded-full bg-accent-one/10 mr-3">
+							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-accent-one"><path stroke-linecap="round" stroke-linejoin="round" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z" /></svg>
+						</div>
+						<h3 class="text-xl font-semibold">Ridiculously Lightweight</h3>
+					</div>
+					<p class="text-textColor/70 dark:text-textColorDark/70">Built on Astro for incredible performance. Zero JS by default. Fast loads, happy users.</p>
+				</div>
+
+				<!-- Feature 2 -->
+				<div class="p-6 rounded-lg bg-bgColor/50 dark:bg-bgColorDark/50 border border-borderColor/50 dark:border-borderColorDark/50 shadow-sm">
+					<div class="flex items-center mb-3">
+						<div class="p-2 rounded-full bg-accent-two/10 mr-3">
+							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-accent-two"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5" /></svg>
+						</div>
+						<h3 class="text-xl font-semibold">Simple by Design</h3>
+					</div>
+					<p class="text-textColor/70 dark:text-textColorDark/70">Easy setup, intuitive customization. Focus on creating, not configuring.</p>
+				</div>
+
+				<!-- Feature 3 -->
+				<div class="p-6 rounded-lg bg-bgColor/50 dark:bg-bgColorDark/50 border border-borderColor/50 dark:border-borderColorDark/50 shadow-sm">
+					<div class="flex items-center mb-3">
+						<div class="p-2 rounded-full bg-purple-500/10 mr-3">
+							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-purple-500"><path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122a3 3 0 0 0-5.78 1.128 2.25 2.25 0 0 1-2.4 2.245 4.5 4.5 0 0 0 8.4-2.245c0-.399-.078-.78-.22-1.128Zm0 0a15.998 15.998 0 0 0 3.388-1.62m-5.043-.025a15.994 15.994 0 0 1 1.622-3.395m3.42 3.42a15.995 15.995 0 0 0 4.764-4.648l3.876-5.814a1.151 1.151 0 0 0-1.597-1.597L14.146 6.32a15.996 15.996 0 0 0-4.649 4.763m3.42 3.42a6.776 6.776 0 0 0-3.42-3.42" /></svg>
+						</div>
+						<h3 class="text-xl font-semibold">Versatile & Extensible</h3>
+					</div>
+					<p class="text-textColor/70 dark:text-textColorDark/70">Perfect for blogs, portfolios, or landing pages. Easily add integrations.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Remove Posts Section -->
+	<!--
 	<section aria-label="Blog post list" class="'mt-[-100vh] pt-[100vh]'">
 		<h2 class="title mb-6 text-xl text-accent-two">
 			<a href="/posts/">Posts</a>
@@ -71,8 +123,10 @@ const latestNotes = allNotes.sort(collectionDateSort).slice(0, MAX_NOTES);
 			}
 		</ul>
 	</section>
+	-->
 
-	<!-- Notes Section -->
+	<!-- Remove Notes Section -->
+	<!--
 	{
 		latestNotes.length > 0 && (
 			<section class="mt-12">
@@ -91,8 +145,9 @@ const latestNotes = allNotes.sort(collectionDateSort).slice(0, MAX_NOTES);
 			</section>
 		)
 	}
+	-->
 
-	<!-- Debug -->
+	<!-- Remove Debug Section -->
 	<!--
 	<div class="flex justify-between flex-wrap gap-y-1.5 mt-6 text-sm font-medium">
 		<div class="text-center content-center h-10 w-10 bg-color-50"><span class="text-textColor">50</span></div>
