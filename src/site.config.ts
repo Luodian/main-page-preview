@@ -24,17 +24,13 @@ export const siteConfig: SiteConfig = {
 
 // Used to generate links in both the Header & Footer.
 export const menuLinks: { path: string; title: string }[] = [
-	{
-		path: "/",
-		title: "Home",
-	},
-	{
-		path: "/about/",
-		title: "About",
-	},
+	// {
+	// 	path: "/",
+	// 	title: "Home",
+	// },
 	{
 		path: "/posts/",
-		title: "Blog",
+		title: "Blogs",
 	},
 	{
 		path: "/notes/",
@@ -43,5 +39,9 @@ export const menuLinks: { path: string; title: string }[] = [
 	{
 		path: "/posts/citrus-docs/intro/",
 		title: "Docs",
+	},
+	{
+		path: "/about/",
+		title: "About",
 	},
 ];
