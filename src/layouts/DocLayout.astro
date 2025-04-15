@@ -1,0 +1,77 @@
+---
+import { type CollectionEntry, render } from "astro:content";
+import BaseLayout from "./Base.astro";
+
+interface Props {
+	doc: CollectionEntry<"docs">;
+}
+
+const { doc } = Astro.props;
+const { title, description, publishDate } = doc.data;
+const socialImage = `/og-image/${doc.id}.png`; // Default OG image based on doc ID
+const articleDate = publishDate.toISOString(); // Docs don't have updatedDate
+const { headings } = await render(doc);
+---
+
+<BaseLayout meta={{ articleDate, description, ogImage: socialImage, title }}>
+	<div class="fixed left-0 top-0 z-10 flex h-16 md:h-20 w-full bg-bgColor overflow-hidden">
+		<!-- Simplified background or remove if not needed for docs -->
+		<div class="absolute top-0 left-1/2 -ml-[50vw] w-screen min-h-screen pointer-events-none blur-2xl opacity-20 dark:opacity-5">
+			<div class="absolute top-[-85%] right-[25%] w-[55%] h-full bg-gradient-to-b from-blue-300 to-transparent rounded-full"></div>
+			<div class="absolute top-[-85%] left-[25%] w-[55%] h-full bg-gradient-to-b from-indigo-300 to-transparent rounded-full"></div>
+		</div>
+	</div>
+
+	<!-- Maybe a simpler header/masthead for docs? -->
+	<header class="mt-16 pt-8 pb-4 text-center">
+		<h1 class="text-4xl font-bold text-accent-base">{title}</h1>
+		{description && <p class="mt-2 text-lg text-fgColor-muted">{description}</p>}
+		<p class="mt-1 text-sm text-fgColor-muted/70">
+			Published on: <time datetime={articleDate}>{new Date(articleDate).toLocaleDateString()}</time>
+		</p>
+	</header>
+
+	<div class="mt-6 flex justify-center">
+		<article class="grid flex-grow max-w-4xl grid-cols-1 break-words pt-4">
+			<div class="prose prose-citrus max-w-none flex-grow prose-headings:font-semibold prose-headings:text-accent-base prose-headings:before:text-accent-two sm:prose-headings:before:content-['#'] sm:prose-th:before:content-none">
+				<slot /> <!-- Renders the MDX/Markdown content -->
+			</div>
+			<!-- No WebMentions or complex components needed for docs? -->
+		</article>
+		<!-- No TOC or SeriesPanel for docs layout? Add if needed -->
+	</div>
+
+	<!-- Keep Back to Top? -->
+	<div class="left-0 right-12 z-50 ml-auto w-fit md:absolute">
+		<button
+			id="to-top-button"
+			class="fixed bottom-14 flex h-12 w-12 text-light translate-y-28 items-center justify-center rounded-full bg-bgColor text-3xl drop-shadow-xl transition-all duration-300 hover:text-accent-two data-[show=true]:translate-y-0 data-[show=true]:opacity-100"
+			aria-label="Back to Top"
+			data-show="false"
+		>
+			<span class="absolute inset-0 rounded-full bg-special-lighter flex items-center justify-center" aria-hidden="true">
+				<svg class="h-6 w-6" fill="none" focusable="false" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+					<path d="M4.5 15.75l7.5-7.5 7.5 7.5" stroke-linecap="round" stroke-linejoin="round"></path>
+				</svg>
+			</span>
+		</button>
+	</div>
+
+	<!-- Include necessary scripts, e.g., for back-to-top -->
+	<script>
+		document.addEventListener("DOMContentLoaded", () => {
+			const toTopButton = document.getElementById("to-top-button");
+			if (toTopButton) {
+				const handleScroll = () => {
+					const scrollY = window.scrollY;
+					toTopButton.dataset.show = String(scrollY > 400);
+				};
+				window.addEventListener("scroll", handleScroll);
+				toTopButton.addEventListener("click", () => {
+					window.scrollTo({ top: 0, behavior: "smooth" });
+				});
+				handleScroll(); // Initial check
+			}
+		});
+	</script>
+</BaseLayout> 
