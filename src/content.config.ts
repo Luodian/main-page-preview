@@ -53,7 +53,6 @@ const note = defineCollection({
 const series = defineCollection({
 	loader: glob({ base: "./src/content/series", pattern: "**/*.{md,mdx}" }),
 	schema: z.object({
-		id: z.string(),
 		title: z.string(),
 		description: z.string(),
 		featured: z.boolean().default(false), // Пометка для популярных серий

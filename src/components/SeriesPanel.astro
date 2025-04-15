@@ -8,18 +8,23 @@ const currentPath = Astro.url.pathname;
 const posts = await getCollection("post");
 const series = await getCollection("series");
 
+// DEBUGGING START
+console.log("Series ID Prop:", seriesId);
+console.log("Available Series Entries:", series.map((s: CollectionEntry<'series'>) => ({ id: s.id, dataId: s.data.id, slug: s.slug })));
+// DEBUGGING END
+
 // Находим серию по переданному `seriesId` указанному в посте
-const postsSeries = series.find((s) => s.id === seriesId);
+const postsSeries = series.find((s: CollectionEntry<'series'>) => s.id === seriesId);
 if (!postsSeries) {
-  	throw new Error(`Post(s) with Series ID '${seriesId}' not found.`);
+	throw new Error(`Post(s) with Series ID '${seriesId}' not found.`);
 }
 // console.log("Post(s) Series:", postsSeries); // Debug. Логируем найденную серию
 
 let seriesPosts: CollectionEntry<"post">[] = [];
 if (seriesId) {
 	seriesPosts = posts
-		.filter((p) => p.data.seriesId === seriesId)
-		.sort((a, b) => (a.data.orderInSeries || 0) - (b.data.orderInSeries || 0));
+		.filter((p: CollectionEntry<'post'>) => p.data.seriesId === seriesId)
+		.sort((a: CollectionEntry<'post'>, b: CollectionEntry<'post'>) => (a.data.orderInSeries || 0) - (b.data.orderInSeries || 0));
 }
 ---
 

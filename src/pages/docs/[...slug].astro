@@ -1,0 +1,21 @@
+import { render } from "astro:content";
+import { getAllDocs } from "@/data/docs"; // Use the new docs helper
+import PostLayout from "@/layouts/BlogPost.astro"; // Use PostLayout for now, consider creating a DocLayout
+import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
+
+export const getStaticPaths = (async () => {
+	const docEntries = await getAllDocs();
+	return docEntries.map((doc) => ({
+		params: { slug: doc.id }, // Use doc.id for routing parameters
+		props: { doc },
+	}));
+}) satisfies GetStaticPaths;
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { doc } = Astro.props;
+const { Content } = await render(doc);
+
+<PostLayout post={doc}> { /* Pass doc data to layout */ }
+	<Content />
+</PostLayout> 
