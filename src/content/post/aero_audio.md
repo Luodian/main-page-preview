@@ -81,7 +81,7 @@ A common approach for current long-form ASR tasks is to split the audio into sma
     <td class="tg-c3ow">12.14</td>
     <td class="tg-c3ow">1.79</td>
     <td class="tg-c3ow">3.31</td>
-    <td class="tg-c3ow">3.3</td>
+    <td class="tg-c3ow">3.30</td>
     <td class="tg-c3ow">3.17</td>
     <td class="tg-c3ow">6.36</td>
   </tr>
@@ -93,7 +93,7 @@ A common approach for current long-form ASR tasks is to split the audio into sma
     <td class="tg-c3ow">2.88</td>
     <td class="tg-c3ow">6.23</td>
     <td class="tg-c3ow">4.05</td>
-    <td class="tg-c3ow">2.8</td>
+    <td class="tg-c3ow">2.80</td>
     <td class="tg-c3ow">6.50</td>
   </tr>
   <tr>
@@ -108,7 +108,7 @@ A common approach for current long-form ASR tasks is to split the audio into sma
     <td class="tg-c3ow">6.66</td>
   </tr>
   <tr>
-    <td class="tg-c3ow">Assembly.AI/Assembly_Best</td>
+    <td class="tg-c3ow">Assembly.AI/AssemblyBest</td>
     <td class="tg-c3ow">N/A</td>
     <td class="tg-c3ow">15.64</td>
     <td class="tg-c3ow">13.54</td>
@@ -123,8 +123,8 @@ A common approach for current long-form ASR tasks is to split the audio into sma
     <td class="tg-c3ow">7B</td>
     <td class="tg-c3ow">12.41</td>
     <td class="tg-c3ow">12.74</td>
-    <td class="tg-c3ow">1.8</td>
-    <td class="tg-c3ow">3.4</td>
+    <td class="tg-c3ow">1.80</td>
+    <td class="tg-c3ow">3.40</td>
     <td class="tg-c3ow">2.35</td>
     <td class="tg-c3ow">3.11</td>
     <td class="tg-c3ow">5.97</td>
@@ -133,7 +133,7 @@ A common approach for current long-form ASR tasks is to split the audio into sma
     <td class="tg-c3ow">Microsoft/Phi-4-Multimodal</td>
     <td class="tg-c3ow">4B+1.6B</td>
     <td class="tg-c3ow">11.45</td>
-    <td class="tg-c3ow">10.5</td>
+    <td class="tg-c3ow">10.50</td>
     <td class="tg-c3ow">1.67</td>
     <td class="tg-c3ow">3.82</td>
     <td class="tg-c3ow">3.11</td>
