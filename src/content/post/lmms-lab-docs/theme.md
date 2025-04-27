@@ -2,7 +2,7 @@
 title: Flexible Theming System
 description: A flexible theming system based on HSL (Hue, Saturation, Lightness) using CSS variables, allowing for dynamic color adjustments and seamless theme management
 publishDate: 03 Feb 2025
-seriesId: citrus-docs
+seriesId: lmms-lab-docs
 orderInSeries: 3
 tags: ["theming", "CSS", "citrus"]
 ---

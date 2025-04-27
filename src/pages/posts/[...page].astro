@@ -14,7 +14,7 @@ export const getStaticPaths = (async ({ paginate }) => {
 	const MAX_TAGS = 20;
 	const allPosts = await getAllPosts();
 	// Filter out posts belonging to the 'citrus-docs' series
-	const filteredPosts = allPosts.filter(post => post.data.seriesId !== "citrus-docs");
+	const filteredPosts = allPosts.filter(post => post.data.seriesId !== "lmms-lab-docs");
 	const uniqueTags = getUniqueTags(filteredPosts).slice(0, MAX_TAGS);
 	return paginate(filteredPosts.sort(collectionDateSort), {
 		pageSize: MAX_POSTS_PER_PAGE,

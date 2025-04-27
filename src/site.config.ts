@@ -37,7 +37,7 @@ export const menuLinks: { path: string; title: string }[] = [
 		title: "Notes",
 	},
 	{
-		path: "/posts/citrus-docs/intro/",
+		path: "/posts/lmms-lab-docs/intro/",
 		title: "Docs",
 	},
 	{

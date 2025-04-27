@@ -2,7 +2,7 @@
 title: "Welcome to LMMs-Lab Models"
 publishDate: "20 April 2025"
 description: "Aero Audio is a versatile template for managing blogs and creating comprehensive project documentation"
-seriesId: citrus-docs
+seriesId: lmms-lab-docs
 orderInSeries: 1
 featured: false
 tags: ["lmms-lab-models"]

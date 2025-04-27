@@ -2,7 +2,7 @@
 title: "Setup Citrus"
 publishDate: "21 December 2024"
 description: "An example second post for Citrus Docs series"
-seriesId: citrus-docs
+seriesId: lmms-lab-docs
 orderInSeries: 2
 updatedDate: "22 December 2024"
 featured: false
