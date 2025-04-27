@@ -29,12 +29,15 @@ One of the key strengths of our training recipe lies in the quality and quantity
 
 
 ## What's insightful
-In this release, our primary focus is on developing an audio model capable of handling multiple audio tasks. The following examples showcase its core abilities across tasks such as audio understanding and speech recognition. Most notably, we highlight the model’s capability to perform long-form ASR, as demonstrated in the example below.
+In this release, our primary focus is on developing an audio model capable of handling multiple audio tasks. The following examples showcase its core abilities across tasks such as audio understanding and speech recognition. Most notably, we highlight the model's capability to perform long-form ASR, as demonstrated in the example below.
 
 ### Long ASR
-<iframe width="520" height="415"
-src="https://www.youtube.com/embed/uYyoEB6Xu58">
-</iframe>
+
+<div style="text-align: center;">
+ <iframe width="780" height="415"
+ src="https://www.youtube.com/embed/uYyoEB6Xu58">
+ </iframe>
+</div>
 
 A common approach for current long-form ASR tasks is to split the audio into smaller, processable chunks and perform ASR on each segment individually. However, with the advancement of large language models (LLMs), long-context understanding has become increasingly important. We argue that a model's ability to process long audio sequences continuously is essential for effective audio understanding and should be considered a critical capability. To demonstrate this, we set up a simple use case using examples from an NVIDIA conference and calculate the WER with respect to the auto-generated YouTube subtitles.
 
@@ -55,7 +58,7 @@ A common approach for current long-form ASR tasks is to split the audio into sma
 <table class="tg"><thead>
   <tr>
     <th class="tg-c3ow">Model</th>
-    <th class="tg-c3ow">Parameters</th>
+    <th class="tg-c3ow" style="width: 20px;">Parameters</th>
     <th class="tg-c3ow" colspan="6">Automatic Speech Recognition</th>
     <th class="tg-c3ow">Average</th>
   </tr></thead>
@@ -138,7 +141,7 @@ A common approach for current long-form ASR tasks is to split the audio into sma
     <td class="tg-c3ow">5.57</td>
   </tr>
   <tr>
-    <td class="tg-c3ow">LMMs-Lab/Aero-1-Audio</td>
+    <td class="tg-c3ow"><a href="https://huggingface.co/LMMs-Lab/Aero-1-Audio">LMMs-Lab/Aero-1-Audio</a></td>
     <td class="tg-c3ow">1.5B</td>
     <td class="tg-c3ow">10.53</td>
     <td class="tg-c3ow">13.79</td>
@@ -158,12 +161,12 @@ A common approach for current long-form ASR tasks is to split the audio into sma
   overflow:hidden;padding:10px 5px;word-break:normal;}
 .tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
   font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
-.tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+.tg .tg-0pky{border-color:inherit;text-align:center;vertical-align:top}
 </style>
 <table class="tg"><thead>
   <tr>
     <th class="tg-0pky">Model</th>
-    <th class="tg-0pky">Parameters</th>
+    <th class="tg-0pky" style="width: 20px;">Parameters</th>
     <th class="tg-0pky" colspan="6">Speech Analysis and Understanding</th>
     <th class="tg-0pky" colspan="2">Speech Instruction</th>
     <th class="tg-0pky" colspan="3">Audio Scene Understanding</th>
@@ -199,91 +202,91 @@ A common approach for current long-form ASR tasks is to split the audio into sma
   <tr>
     <td class="tg-0pky">Alibaba/Qwen2-Audio-Instruct</td>
     <td class="tg-0pky">7B</td>
-    <td class="tg-0pky">7.18</td>
-    <td class="tg-0pky">6.99</td>
-    <td class="tg-0pky">6.79</td>
-    <td class="tg-0pky">6.77</td>
-    <td class="tg-0pky">6.9325</td>
+    <td class="tg-0pky">7.2</td>
+    <td class="tg-0pky">7.0</td>
+    <td class="tg-0pky">6.8</td>
+    <td class="tg-0pky">6.8</td>
+    <td class="tg-0pky">6.9</td>
     <td class="tg-0pky">49.2</td>
     <td class="tg-0pky">46.8</td>
     <td class="tg-0pky">49.2</td>
-    <td class="tg-0pky">62.89</td>
-    <td class="tg-0pky">55.42</td>
-    <td class="tg-0pky">56.77</td>
-    <td class="tg-0pky">56.73</td>
+    <td class="tg-0pky">62.9</td>
+    <td class="tg-0pky">55.4</td>
+    <td class="tg-0pky">56.8</td>
+    <td class="tg-0pky">56.7</td>
   </tr>
   <tr>
     <td class="tg-0pky">Alibaba/Qwen2.5-Omni</td>
     <td class="tg-0pky">7B</td>
-    <td class="tg-0pky">6.82</td>
-    <td class="tg-0pky">5.66</td>
-    <td class="tg-0pky">4.81</td>
-    <td class="tg-0pky">5.42</td>
-    <td class="tg-0pky">5.6775</td>
+    <td class="tg-0pky">6.8</td>
+    <td class="tg-0pky">5.7</td>
+    <td class="tg-0pky">4.8</td>
+    <td class="tg-0pky">5.4</td>
+    <td class="tg-0pky">5.7</td>
     <td class="tg-0pky">65.6</td>
     <td class="tg-0pky">57.2</td>
     <td class="tg-0pky">57.4</td>
-    <td class="tg-0pky">67.21</td>
-    <td class="tg-0pky">76.32</td>
-    <td class="tg-0pky">62.99</td>
-    <td class="tg-0pky">64.35</td>
+    <td class="tg-0pky">67.2</td>
+    <td class="tg-0pky">76.3</td>
+    <td class="tg-0pky">63.0</td>
+    <td class="tg-0pky">64.4</td>
   </tr>
   <tr>
     <td class="tg-0pky">Microsoft/Phi-4-Multimodal</td>
     <td class="tg-0pky">4B+1.6B</td>
-    <td class="tg-0pky">7.47</td>
-    <td class="tg-0pky">7</td>
-    <td class="tg-0pky">6.67</td>
-    <td class="tg-0pky">6.78</td>
-    <td class="tg-0pky">6.98</td>
-    <td class="tg-0pky">65</td>
+    <td class="tg-0pky">7.5</td>
+    <td class="tg-0pky">7.0</td>
+    <td class="tg-0pky">6.7</td>
+    <td class="tg-0pky">6.8</td>
+    <td class="tg-0pky">7.0</td>
+    <td class="tg-0pky">65.0</td>
     <td class="tg-0pky">57.8</td>
     <td class="tg-0pky">62.6</td>
-    <td class="tg-0pky">48.27</td>
-    <td class="tg-0pky">40.55</td>
-    <td class="tg-0pky">35.49</td>
-    <td class="tg-0pky">52.82</td>
+    <td class="tg-0pky">48.3</td>
+    <td class="tg-0pky">40.6</td>
+    <td class="tg-0pky">35.5</td>
+    <td class="tg-0pky">52.8</td>
   </tr>
   <tr>
     <td class="tg-0pky">Tencent/Ola</td>
     <td class="tg-0pky">7B</td>
-    <td class="tg-0pky">7.34</td>
+    <td class="tg-0pky">7.3</td>
     <td class="tg-0pky">6.4</td>
     <td class="tg-0pky">5.9</td>
-    <td class="tg-0pky">6.01</td>
-    <td class="tg-0pky">6.4125</td>
+    <td class="tg-0pky">6.0</td>
+    <td class="tg-0pky">6.4</td>
     <td class="tg-0pky">70.3</td>
     <td class="tg-0pky">62.6</td>
     <td class="tg-0pky">62.8</td>
-    <td class="tg-0pky">58.82</td>
+    <td class="tg-0pky">58.8</td>
     <td class="tg-0pky">70.4</td>
-    <td class="tg-0pky">53.08</td>
-    <td class="tg-0pky">63.22</td>
+    <td class="tg-0pky">53.1</td>
+    <td class="tg-0pky">63.2</td>
   </tr>
   <tr>
     <td class="tg-0pky">Tencent/Vita 1.5</td>
     <td class="tg-0pky">7B</td>
-    <td class="tg-0pky">4.83</td>
-    <td class="tg-0pky">5.48</td>
-    <td class="tg-0pky">4.91</td>
-    <td class="tg-0pky">2.92</td>
-    <td class="tg-0pky">4.535</td>
+    <td class="tg-0pky">4.8</td>
+    <td class="tg-0pky">5.5</td>
+    <td class="tg-0pky">4.9</td>
+    <td class="tg-0pky">2.9</td>
+    <td class="tg-0pky">4.5</td>
     <td class="tg-0pky">35.5</td>
     <td class="tg-0pky">9.6</td>
-    <td class="tg-0pky">7</td>
-    <td class="tg-0pky">31.47</td>
-    <td class="tg-0pky">24.08</td>
-    <td class="tg-0pky">25.53</td>
-    <td class="tg-0pky">28.59</td>
+    <td class="tg-0pky">7.0</td>
+    <td class="tg-0pky">31.5</td>
+    <td class="tg-0pky">24.1</td>
+    <td class="tg-0pky">25.5</td>
+    <td class="tg-0pky">28.6</td>
   </tr>
   <tr>
     <td class="tg-0pky">InspirAI/Mini-Omni2</td>
     <td class="tg-0pky">0.5B</td>
-    <td class="tg-0pky">3.58</td>
-    <td class="tg-0pky">3.54</td>
-    <td class="tg-0pky">2.62</td>
-    <td class="tg-0pky">3.08</td>
-    <td class="tg-0pky">3.205</td>
+    <td class="tg-0pky">3.6</td>
+    <td class="tg-0pky">3.5</td>
+    <td class="tg-0pky">2.6</td>
+    <td class="tg-0pky">3.1</td>
+    <td class="tg-0pky">3.2</td>
     <td class="tg-0pky">-</td>
     <td class="tg-0pky">-</td>
     <td class="tg-0pky">-</td>
@@ -293,20 +296,20 @@ A common approach for current long-form ASR tasks is to split the audio into sma
     <td class="tg-0pky">-</td>
   </tr>
   <tr>
-    <td class="tg-0pky">LMMs-Lab/Aero-1-Audio</td>
+    <td class="tg-0pky"><a href="https://huggingface.co/lmms-lab/Aero-1-Audio-1.5B">LMMs-Lab/Aero-1-Audio</a></td>
     <td class="tg-0pky">1.5B</td>
-    <td class="tg-0pky">5.66</td>
-    <td class="tg-0pky">5.25</td>
-    <td class="tg-0pky">4.66</td>
-    <td class="tg-0pky">5.84</td>
-    <td class="tg-0pky">5.3525</td>
+    <td class="tg-0pky">5.7</td>
+    <td class="tg-0pky">5.3</td>
+    <td class="tg-0pky">4.7</td>
+    <td class="tg-0pky">5.8</td>
+    <td class="tg-0pky">5.4</td>
     <td class="tg-0pky">59.4</td>
-    <td class="tg-0pky">40</td>
+    <td class="tg-0pky">40.0</td>
     <td class="tg-0pky">45.4</td>
-    <td class="tg-0pky">48.03</td>
-    <td class="tg-0pky">57.55</td>
-    <td class="tg-0pky">44.19</td>
-    <td class="tg-0pky">50.45</td>
+    <td class="tg-0pky">48.0</td>
+    <td class="tg-0pky">57.6</td>
+    <td class="tg-0pky">44.2</td>
+    <td class="tg-0pky">50.5</td>
   </tr>
 </tbody></table>
 

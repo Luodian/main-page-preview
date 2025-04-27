@@ -78,14 +78,6 @@ const { headings } = await render(post);
 			</div>
 			<WebMentions />
 		</article>
-		{!!headings.length && (
-			<aside 
-				id="toc-panel" 
-				class="md:sticky md:top-20 z-10 hidden md:w-[14rem] md:min-w-[14rem] md:rounded-lg md:block"
-			>
-				<TOC headings={headings} />
-			</aside>
-		)}
 	</div>
 
 	<div class="left-0 right-12 z-50 ml-auto w-fit md:absolute">
