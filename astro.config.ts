@@ -49,7 +49,7 @@ export default defineConfig({
       // short_name: "Astro_Citrus",
       description: siteConfig.description,
       lang: siteConfig.lang,
-      icon: "public/icon.svg", // the source for generating favicon & icons
+      icon: "public/assets/logo.png", // the source for generating favicon & icons
       icons: [
         {
           src: "icons/apple-touch-icon.png", // used in src/components/BaseHead.astro L:26
