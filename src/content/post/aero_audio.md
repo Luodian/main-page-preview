@@ -32,7 +32,13 @@ One of the key strengths of our training recipe lies in the quality and quantity
 In this release, our primary focus is on developing an audio model capable of handling multiple audio tasks. The following examples showcase its core abilities across tasks such as audio understanding and speech recognition. Most notably, we highlight the model’s capability to perform long-form ASR, as demonstrated in the example below.
 
 ### Long ASR
+<iframe width="520" height="415"
+src="https://www.youtube.com/embed/uYyoEB6Xu58">
+</iframe>
 
+A common approach for current long-form ASR tasks is to split the audio into smaller, processable chunks and perform ASR on each segment individually. However, with the advancement of large language models (LLMs), long-context understanding has become increasingly important. We argue that a model's ability to process long audio sequences continuously is essential for effective audio understanding and should be considered a critical capability. To demonstrate this, we set up a simple use case using examples from an NVIDIA conference and calculate the WER with respect to the auto-generated YouTube subtitles.
+
+[![Long-ASR-eval.png](https://i.postimg.cc/w3Y9dyBp/Long-ASR-eval.png)](https://postimg.cc/301sXwpS)
 
 
 ## Evaluation Result
