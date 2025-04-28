@@ -1,7 +1,7 @@
 ---
 title: "Welcome to LMMs-Lab Models"
 publishDate: "20 April 2025"
-description: "Aero Audio is a versatile template for managing blogs and creating comprehensive project documentation"
+description: "LMMs-Lab Documentation for model usage"
 seriesId: lmms-lab-docs
 orderInSeries: 1
 featured: false
@@ -11,22 +11,16 @@ ogImage: ""
 
 ## Introducing
 
-Hi, I’m a theme for Astro, a simple starter that you can use to create your website or blog. If you want to know more about how you can customise me, add more posts, and make it your own, click on the GitHub icon link below and it will take you to my repo.
+LMMs-Lab is an open research organization founded by students and faculty from NTU, Singapore, in close collaboration with research labs and companies worldwide. Our released models include abilities from vision, audio, and text. This is a model documentation page for the released model
 
-## About Citrus
+## Model List
 
-Citrus is a powerful and stylish template designed for both blogging and creating comprehensive documentation with Astro. The template combines the simplicity of a blog layout with the robust features needed for project documentation. It offers:
+[Aero-1-Audio](https://huggingface.co/lmms-lab/Aero-1-Audio-1.5B) : Aero is a compact audio model capable of handling a range of audio tasks, including speech recognition, audio understanding, and audio instructions following.
 
-- **Clean and minimalist design**, suitable for blogs and technical documentation alike.
-- **User-friendly navigation**, with menus and sections tailored for easy access to content.
-- **High performance** with Astro’s static site generation for fast loading speeds.
-- **Markdown support**, streamlining the writing and editing process.
-- **Flexible customization**, including colors, fonts, layout structure, and more.
+## More info
 
-## Benefits of Using Astro Citrus
-
-1. **Dual-purpose template**: Seamlessly switch between blogging and project documentation.
-2. **Responsive design**: Optimized for desktops, tablets, and mobile devices.
-3. **Fast and SEO-friendly**: Astro ensures quick loading times and better search engine rankings.
-4. **Expandable features**: Add analytics, search, or other integrations effortlessly.
-5. **Easy to deploy**: Works flawlessly on platforms like Netlify or Vercel.
+[GitHub](https://github.com/EvolvingLMMs-Lab)
+<br>
+[HuggingFace](https://huggingface.co/lmms-lab)
+<br>
+[QuickStart](../quick_start)
