@@ -2,7 +2,7 @@
 title: "LLaVA-NeXT-Video"
 description: "Video Instruction Tuning With Synthetic Data"
 publishDate: "2024-10-03"
-tags: ["vision", "models"]
+tags: ["vision", "models", "research"]
 ---
 
 We explore LLaVA-NeXT's capabilities in video understanding tasks, highlighting its strong performance. Key improvements include:

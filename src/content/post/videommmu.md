@@ -2,7 +2,7 @@
 title: "Video-MMMU"
 description: "VideoMMMU"
 publishDate: "2025-01-13"
-tags: ["vision", "benchmarks"]
+tags: ["vision", "benchmarks", "research"]
 ---
 
 ![Banner](https://github.com/EvolvingLMMs-Lab/VideoMMMU/blob/main/assets/figure1_0308.png?raw=true)

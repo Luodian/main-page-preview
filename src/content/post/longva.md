@@ -2,7 +2,7 @@
 title: "LongVA"
 description: "Long Context Transfer from Language to Vision"
 publishDate: "2024-06-24"
-tags: ["vision", "models"]
+tags: ["vision", "models", "research"]
 ---
 
 ![Banner](https://github.com/EvolvingLMMs-Lab/LongVA/blob/main/vision_niah/niah_output/LongVA-7B/heatmap.png?raw=true)

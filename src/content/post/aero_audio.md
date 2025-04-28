@@ -2,7 +2,7 @@
 title: "Aero-1-Audio"
 description: "Aero-1-Audio is a 1.5B compact audio model capable of handling a range of audio tasks, including speech recognition, audio understanding, and audio instructions following."
 publishDate: "2025-05-01"
-tags: ["audio", "models"]
+tags: ["audio", "models", "research"]
 ---
 
 [![Pix-Pin-2025-04-28-12-16-06.gif](https://i.postimg.cc/NfMJfZ51/Pix-Pin-2025-04-28-12-16-06.gif)](https://postimg.cc/V5xBKG96)
