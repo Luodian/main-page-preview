@@ -44,6 +44,94 @@ A common approach for current long-form ASR tasks is to split the audio into sma
 [![Long-ASR-eval.png](https://i.postimg.cc/w3Y9dyBp/Long-ASR-eval.png)](https://postimg.cc/301sXwpS)
 
 
+#### Model's Output
+
+<ins>**Qwen Omni (12 minutes chunk)**</ins>
+
+When processing the audio in 12-minute chunks, Qwen-Omni failed to recognize the full speech content and was only able to capture portions of the audio.
+
+```
+that's like what's going on why does itfocused on um ai and parallel parallelizable workloads but it's still general to an extent it's not as use case specific as something like grock with a queue that's really designed to you know spit out tokens as fast as possible and that like is a goldilocks zone where it's flexible enough to handle different workloads but not um but still much faster than um a traditional cpu and that google is one of the only companies that has a scaled internal custom silicon effort
+```
+
+<ins>**Phi-4-Multimodal (full chunk)**</ins>
+
+When processing the full audio without splitting, the Phi-4-Multimodal model began to ignore the instructions and instead generated an overall summary of the audio.
+
+```
+The conversation covered Nvidia's focus on inference over training, the partnership with GM, the release of GUT-N1 for humanoid robotics, and the impact of China's AI initiatives on global chip demand.
+```
+
+<ins>**Aero (full chunk)**</ins>
+
+Aero Audio is able to generate the complete ASR output and accurately identify the full transcript.
+
+```
+Welcome to the brainstorm episode eighty two frank downing joining us recap of nvidia's gtc conference that is the gpu technology conference frank what happened what were the big takeaways i on my side i saw a gm and in video partnering but we can circle back to that what was 
+
+...
+
+right nice timing good timing all right we'll see everyone next week see everyone thank you
+```
+
+#### Results on LibriSpeech Unchunked
+
+In the previous release, LibriSpeech split their audio files into smaller chunks and calculated the overall Word Error Rate (WER) based on these segmented samples. However, as we observed, it is straightforward to concatenate the chunks back into their original form, thereby creating a simple long-form Audio Speech Recognition benchmark. We evaluated various models on these benchmarks and found that their performance generally declined compared to their results on shorter samples. Among the models tested, our model achieved the best performance, showing the smallest drop in accuracy relative to the chunked version.
+
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-c3ow{border-color:inherit;text-align:center;vertical-align:top}
+.tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+</style>
+<table class="tg"><thead>
+  <tr>
+    <th class="tg-0pky"></th>
+    <th class="tg-c3ow">LS.Clean</th>
+    <th class="tg-c3ow">LS.Other</th>
+    <th class="tg-c3ow">LS.Clean(Long)</th>
+    <th class="tg-c3ow">LS.Other(Long)</th>
+    <th class="tg-c3ow">Avg Diff</th>
+  </tr></thead>
+<tbody>
+  <tr>
+    <td class="tg-0pky">Phi-4</td>
+    <td class="tg-c3ow">1.68</td>
+    <td class="tg-c3ow">3.83</td>
+    <td class="tg-c3ow">11.51</td>
+    <td class="tg-c3ow">24.72</td>
+    <td class="tg-c3ow">30.72</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">Qwen2-Audio-Instruct</td>
+    <td class="tg-c3ow">3.59</td>
+    <td class="tg-c3ow">7.46</td>
+    <td class="tg-c3ow">93.01</td>
+    <td class="tg-c3ow">93.63</td>
+    <td class="tg-c3ow">175.59</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">Qwen2.5-Omni</td>
+    <td class="tg-c3ow">1.80</td>
+    <td class="tg-c3ow">3.40</td>
+    <td class="tg-c3ow">13.03</td>
+    <td class="tg-c3ow">13.29</td>
+    <td class="tg-c3ow">21.12</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">Aero-1-Audio</td>
+    <td class="tg-c3ow">1.49</td>
+    <td class="tg-c3ow">3.17</td>
+    <td class="tg-c3ow">5.31</td>
+    <td class="tg-c3ow">11.71</td>
+    <td class="tg-c3ow">12.36</td>
+  </tr>
+</tbody></table>
+
+
 ## Evaluation Result
 
 ### ASR Benchmarks
@@ -314,80 +402,56 @@ A common approach for current long-form ASR tasks is to split the audio into sma
 </tbody></table>
 
 
-## Why Use Font Subsetting?
+## Training Techniques
 
-Font files often contain thousands of glyphs, including symbols and characters for multiple languages. Subsetting removes unnecessary glyphs, reducing file size and improving website performance. This is particularly useful when only a specific language set or symbols are needed.
+### Dynamic Batch Size
+We implemented a dynamic batching strategy based on the estimated token length to control the batch size per device. In many cases, using a fixed batch size requires setting it conservatively small to avoid out-of-memory (OOM) errors on longer samples, which leads to underutilization of computing resources. To address this, we group samples into batches such that the total token length stays within a predefined threshold, thereby minimizing computational waste and improving efficiency.
 
-For example, I encountered an issue when using the SF Pro Rounded font with the Satori library for generating OG images, as described in this post: [Example OG Social Image](posts/social-image/). When using multiple font variants, the project failed to build due to memory overflow errors. Increasing the memory limit did not help. Moreover, using even a single font file larger than ~3.5MB is considered bad practice, let alone multiple variants at the same time.
+### Sequence Packing
+To further optimize dynamic batching, we implemented sequence packing for both the audio encoder and the language model, enabling larger batch sizes and faster training. This operation was then fused with the Liger kernel to achieve even higher throughput and lower memory usage. With a fixed packing length of 4096 to regulate the dynamic batch size, the average Model FLOP Utilization (MFU) was limited to 0.03. However, with sequence packing enabled, the average MFU increased to approximately 0.34, demonstrating a significant improvement in training efficiency.
 
-After subsetting the font, I ended up with two subsets, both containing **only Latin characters**: one slightly over 100KB and another around 355KB. This significantly reduced the overall font size while keeping the necessary glyphs.
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-c3ow{border-color:inherit;text-align:center;vertical-align:top}
+</style>
+<table class="tg"><thead>
+  <tr>
+    <th class="tg-c3ow">Packing Length</th>
+    <th class="tg-c3ow">Sequence Packing</th>
+    <th class="tg-c3ow">Num GPUs</th>
+    <th class="tg-c3ow">Avg MFU</th>
+    <th class="tg-c3ow">Zero</th>
+    <th class="tg-c3ow">OOM</th>
+  </tr></thead>
+<tbody>
+  <tr>
+    <td class="tg-c3ow">4096</td>
+    <td class="tg-c3ow">FALSE</td>
+    <td class="tg-c3ow">64</td>
+    <td class="tg-c3ow">0.03</td>
+    <td class="tg-c3ow">2</td>
+    <td class="tg-c3ow">No</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">32768</td>
+    <td class="tg-c3ow">FALSE</td>
+    <td class="tg-c3ow">64</td>
+    <td class="tg-c3ow">NA</td>
+    <td class="tg-c3ow">2</td>
+    <td class="tg-c3ow">Yes</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">32768</td>
+    <td class="tg-c3ow">TRUE</td>
+    <td class="tg-c3ow">32</td>
+    <td class="tg-c3ow">0.34</td>
+    <td class="tg-c3ow">2</td>
+    <td class="tg-c3ow">No</td>
+  </tr>
+</tbody>
+</table>
 
-## Creating a Font Subset with Transfonter
-
-Let's take **SF Pro Rounded**, a multilingual font, and divide it into two subsets:
-
-- **Basic subset**: Includes Latin characters and essential symbols.
-- **Extended subset**: Includes additional glyphs beyond the basic set.
-
-### Upload the Font
-1. Go to [Transfonter](https://transfonter.org/).
-2. Click **Add Fonts** and select the **SF Pro Rounded Regular** font file (TTF or OTF format).
-
-### Define Unicode Ranges
-For subsetting, use the following ranges:
-
-#### Basic Subset
-
-transfonter.org latin + essential symbols unicode-range:
-```
-0000-007F, 00A0-024F, 2190-22FF, 2934-2937, F6D5-F6D8
-```
-
-#### Extended Subset
-
-transfonter.org additional glyphs unicode-range:
-```
-0080-00A0, 0250-218F, 2300-FFFF
-```
-
-:::tip
-You can find out the character codes and view the glyph tables of a font using built-in system tools:
-- Windows: Use Character Map (charmap). Open the Start menu, search for "Character Map," and select a font to see its glyphs and Unicode codes.
-- macOS: Open Font Book, select a font, and switch to "Repertoire" mode to see all available characters along with their codes.
-- Linux: Use gucharmap (GNOME Character Map) or kcharselect (for KDE) to browse Unicode symbols in installed fonts.
-:::
-
-### Generate the Font Files
-1. Check the **Subset** box in Transfonter.
-2. Enter the Unicode ranges above for each subset.
-3. Click **Convert** to generate the optimized font files.
-4. Download the converted fonts.
-
-:::tip
-Additionally, when using Transfonter, you can upload and convert multiple fonts at the same time. The tool allows batch processing, and after conversion, all optimized fonts can be downloaded as a ZIP archive, making it easier to manage multiple font files efficiently.
-:::
-
-### Implement in CSS
-Once the fonts are ready, use `@font-face` to load them efficiently:
-
-```css
-@font-face {
-  font-family: "SFProRounded";
-  src: url("/fonts/SF-Pro-Rounded-Regular-Basic.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "SFProRounded";
-  src: url("/fonts/SF-Pro-Rounded-Regular-Extended.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-}
-```
-
-### Test the Fonts
-Ensure the fonts load correctly by inspecting network requests in the browser's developer tools. Verify that only necessary subsets are downloaded.
-
-## Conclusion
-Using Transfonter for font subsetting helps optimize web performance by reducing font file sizes while keeping necessary glyphs. Try it out with your fonts to enhance your website's loading speed!
