@@ -118,4 +118,30 @@ cont = outputs[:, inputs["input_ids"].shape[-1] :]
 print(processor.batch_decode(cont, skip_special_tokens=True))
 ```
 
+### vLLM
+
+To deploy using vllm, you can install vllm with this script
+
+```bash
+VLLM_USE_PRECOMPILED=1 python3 -m pip install vllm@git+https://github.com/kcz358/vllm@dev/aero
+
+python3 -m pip install hf_transfer
+python3 -m pip install decord librosa
+```
+
+#### [Optional]
+
+If you encountered some error related to the transformers `LazyConfigMapping`, you can install transformers from here
+
+```bash
+python3 -m pip install transformers@git+https://github.com/kcz358/transformers@vllm/stable
+```
+
+Then you can run
+
+```bash
+vllm serve lmms-lab/Aero-1-Audio-1.5B --trust-remote-code
+```
+
+to serve the model
 
