@@ -43,12 +43,18 @@ import PageLayout from "@/layouts/Base.astro";
 			<p class="mt-4 mb-6 text-lg text-textColor/80 dark:text-textColorDark/80">
 				Aero-1-Audio is a 1.5B compact audio model capable of handling a range of audio tasks, including speech recognition, audio understanding, and audio instructions following.
 			</p>
-			<img 
-                src="https://i.postimg.cc/dV2Zz98g/barplot-figure-1.png" 
-                alt="Aero-1-Audio Models Bar Plot" 
-                class="my-6 max-w-full h-auto mx-auto rounded-lg shadow-md hover:brightness-110 transition-all bg-gradient-to-r from-accent-one to-accent-two" 
-                style="clip-path: inset(0.2% 0 0 0.2%);" 
-            />
+			<!-- Replaced img with responsive YouTube iframe embed -->
+			<div class="relative my-6 mx-auto rounded-lg shadow-md overflow-hidden hover:brightness-110 transition-all w-full max-w-3xl" style="padding-bottom: 56.25%;"> <!-- 16:9 Aspect Ratio -->
+				<iframe
+					class="absolute top-0 left-0 w-full h-full"
+					src="https://www.youtube.com/embed/yjlOfI0FPCM"
+					title="YouTube video player for Aero-1-Audio"
+					frameborder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+					referrerpolicy="strict-origin-when-cross-origin"
+					allowfullscreen>
+				</iframe>
+			</div>
 			<div class="flex flex-col sm:flex-row justify-center gap-4">
 				<a href="/posts/lmms-lab-docs/intro/" class="relative flex items-center justify-center h-12 px-6 rounded-lg shadow-lg hover:brightness-110 transition-all bg-gradient-to-r from-accent-one to-accent-two">
 					<span class="text-bgColor font-semibold">
