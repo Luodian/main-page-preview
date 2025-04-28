@@ -493,9 +493,9 @@ We tested our implementations on different settings to demonstrate the efficienc
 <address class="author"><a rel="author" href="https://jingkang50.github.io/">Jingkang Yang</a></address>
 <address class="author"><a rel="author" href="http://kcz358.github.io/">Kaichen Zhang*</a></address>
 <address class="author"><a rel="author" href="https://scholar.google.com/citations?user=_oHHACwAAAAJ">Kairui Hu</a></address>
+<address class="author"><a rel="author" href="https://github.com/Devininthelab">Luu Minh Thang*</a></address>
 <address class="author"><a rel="author" href="https://github.com/ngquangtrung57">Nguyen Quang Trung*</a></address>
 <address class="author"><a rel="author" href="https://pbcong.netlify.app/">Pham Ba Cong*</a></address>
-<address class="author"><a rel="author" href="https://github.com/Devininthelab">Thang Luu*</a></address>
 <address class="author"><a rel="author" href="https://choiszt.github.io/">Shuai Liu</a></address>
 <address class="author"><a rel="author" href="https://scholar.google.com/citations?user=g-VEnLEAAAAJ&hl=zh-CN">Yezhen Wang*</a></address>
 <address class="author"><a rel="author" href="https://liuziwei7.github.io/">Ziwei Liu</a></address>
