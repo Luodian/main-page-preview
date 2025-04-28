@@ -51,6 +51,8 @@ A common approach for current long-form ASR tasks is to split the audio into sma
 
 The image above presents a heatmap comparison of different models performing ASR tasks on a video with varying audio input lengths. As shown in the heatmap, Qwen-Omni and Phi-4 exhibit instability across different lengths and do not consistently produce the desired output.
 
+*Note: The ground truth is derived from the auto-generated subtitles downloaded from YouTube. Therefore, the WER does not necessarily imply that our model achieves perfect results, but rather demonstrates that our model is comparable to the YouTube ASR pipeline.e*
+
 
 #### Model's Output
 
