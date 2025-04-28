@@ -9,10 +9,13 @@ tags: ["audio", "models"]
 
 ## What is Aero Audio?
 
-`Aero` is a compact audio model capable of handling a range of audio tasks, including speech recognition, audio understanding, and audio instructions following. Built on the Qwen2.5-1.5B base language model, Aero achieves strong performance across multiple audio benchmarks while maintaining an efficient parameter size.
-Although models like Qwen2-Audio and Kimi-Audio represent early explorations into audio modeling, the development of tiny audio models for practical applications remains in its early stages. In this work, we take a small step toward advancing the field by proposing an efficient training recipe for audio tasks, which can be completed within one day using 16 H100 GPUs. As audio modalities become increasingly important in AI systems, the demand for both efficient and high-performing models continues to grow. While models such as Whisper have achieved impressive results on several tasks, there remains a need for models that can perform deeper audio understanding and reasoning across a broader range of tasks.
+`Aero-1-Audio` is a compact audio model adept at various audio tasks, including speech recognition, audio understanding, and following audio instructions. 
 
-Therefore, we are excited to release the first version of Aero-audio!
+1. Built upon the Qwen-2.5-1.5B language model, Aero delivers strong performance across multiple audio benchmarks while remaining parameter-efficient, even compared with larger advanced models like Whisper and Qwen-2-Audio and Phi-4-Multimodal, or commercial services like ElevenLabs/Scribe.
+
+2. Aero is trained within one day on 16 H100 GPUs using just 50k hours of audio data. Our insight suggests that audio model training could be sample efficient with high quality and filtered data.
+
+3. Aero can accurately perform ASR and audio understanding on continuous audio inputs up to 15 minutes in length, which we find the scenario is still a challenge for other models.
 
 ## ASR & Audio Understanding Performance
 
@@ -479,6 +482,8 @@ To further optimize dynamic batching, we implemented sequence packing for both t
 We tested our implementations on different settings to demonstrate the efficiency of our implementation
 
 ## Contributor List
+
+> alphabetical order
 
 <address class="author"><a rel="author" href="https://brianboli.com/">Bo Li*</a></address>
 <address class="author"><a rel="author" href="https://www.mmlab-ntu.com/person/ccloy/index.html">Chen Change Loy</a></address>
