@@ -4,7 +4,9 @@ description: "Aero-1-Audio is a compact audio model capable of handling a range 
 publishDate: "2025-05-01"
 tags: ["audio", "models"]
 ---
+
 [![Pix-Pin-2025-04-28-12-16-06.gif](https://i.postimg.cc/NfMJfZ51/Pix-Pin-2025-04-28-12-16-06.gif)](https://postimg.cc/V5xBKG96)
+
 ## What is Aero Audio?
 
 `Aero` is a compact audio model capable of handling a range of audio tasks, including speech recognition, audio understanding, and audio instructions following. Built on the Qwen2.5-1.5B base language model, Aero achieves strong performance across multiple audio benchmarks while maintaining an efficient parameter size.
