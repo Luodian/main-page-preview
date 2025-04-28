@@ -2,7 +2,7 @@
 title: "Aero Audio"
 description: "Aero is a compact audio model capable of handling a range of audio tasks, including speech recognition, audio understanding, and audio instructions following."
 publishDate: "2025-05-01"
-tags: ["audio"]
+tags: ["audio", "models"]
 ---
 
 ## What is Aero Audio?
