@@ -190,11 +190,8 @@ const { headings } = await render(post);
 
 	// Function to check if the panel is visible
 	const isPanelVisible = () => {
-		const isScreenLg = window.matchMedia("(min-width: 1024px)").matches; // Large screens
-		return (
-			(isScreenLg && seriesPanel.classList.contains("lg:block")) ||
-			(!isScreenLg && !seriesPanel.classList.contains("hidden"))
-		);
+		// The panel is considered not visible if it has the 'hidden' class.
+		return !seriesPanel.classList.contains("hidden");
 	};
 
 	// Function to hide the panel
