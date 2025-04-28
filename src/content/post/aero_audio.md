@@ -9,6 +9,8 @@ tags: ["audio", "models", "research"]
 
 ## What is Aero Audio?
 
+[🤗 Model Checkpoints](https://huggingface.co/lmms-lab/Aero-1-Audio-1.5B) | [📖 Evaluation Results](https://github.com/EvolvingLMMs-Lab/lmms-eval) | [📚 Cookbook](https://www.lmms-lab.com/posts/lmms-lab-docs/aero_audio/)
+
 `Aero-1-Audio` is a compact audio model adept at various audio tasks, including speech recognition, audio understanding, and following audio instructions. 
 
 1. Built upon the Qwen-2.5-1.5B language model, Aero delivers strong performance across multiple audio benchmarks while remaining parameter-efficient, even compared with larger advanced models like Whisper and Qwen-2-Audio and Phi-4-Multimodal, or commercial services like ElevenLabs/Scribe.
