@@ -1,5 +1,5 @@
 ---
-title: "QuickStart"
+title: "Aero-Audio"
 publishDate: "20 April 2025"
 description: "LMMs-Lab Documentation for model usage"
 seriesId: lmms-lab-docs
