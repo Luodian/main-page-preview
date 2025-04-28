@@ -4,7 +4,7 @@ description: "Aero-1-Audio is a compact audio model capable of handling a range 
 publishDate: "2025-05-01"
 tags: ["audio", "models"]
 ---
-
+[![Pix-Pin-2025-04-28-12-16-06.gif](https://i.postimg.cc/NfMJfZ51/Pix-Pin-2025-04-28-12-16-06.gif)](https://postimg.cc/V5xBKG96)
 ## What is Aero Audio?
 
 `Aero` is a compact audio model capable of handling a range of audio tasks, including speech recognition, audio understanding, and audio instructions following. Built on the Qwen2.5-1.5B base language model, Aero achieves strong performance across multiple audio benchmarks while maintaining an efficient parameter size.
@@ -14,12 +14,16 @@ Therefore, we are excited to release the first version of Aero-audio!
 
 ## ASR & Audio Understanding Performance
 
+We evaluate our model performance on multiple dimensions and different benchmarks. Let's first take a look at its overall performance compare with other models
+
 [![ASR-Understanding-Compare.png](https://i.postimg.cc/vHtJmSq9/ASR-Understanding-Compare.png)](https://postimg.cc/ZC077jhK)
 [![ASR-Detail.png](https://i.postimg.cc/cL55gqQK/ASR-Detail.png)](https://postimg.cc/TKgcF4NG)
 
 Our model achieves a balance between performance and parameter efficiency. We evaluate it across multiple ASR and audio understanding benchmarks. On ASR tasks, our model attains the lowest WER scores on datasets such as AMI, LibriSpeech, and SPGISpeech. It also demonstrates strong audio understanding capabilities on various comprehension benchmarks. As illustrated in the plotted graph, our model falls within the highlighted triangular region that represents an optimal trade-off between parameter efficiency and performance.
 
 ## Data Distribution
+
+We present the contributions of our data mixture here. Our SFT data mixture includes over 20 publicly available datasets, and comparisons with other models highlight the data's lightweight nature.
 
 [![Data-distribution.png](https://i.postimg.cc/MZbP0f7J/Data-distribution.png)](https://postimg.cc/c6CB0HkF)
 [![training-time.png](https://i.postimg.cc/Hn26TFYk/training-time.png)](https://postimg.cc/XBrf8HBR)
@@ -42,6 +46,8 @@ In this release, our primary focus is on developing an audio model capable of ha
 A common approach for current long-form ASR tasks is to split the audio into smaller, processable chunks and perform ASR on each segment individually. However, with the advancement of large language models (LLMs), long-context understanding has become increasingly important. We argue that a model's ability to process long audio sequences continuously is essential for effective audio understanding and should be considered a critical capability. To demonstrate this, we set up a simple use case using examples from an NVIDIA conference and calculate the WER with respect to the auto-generated YouTube subtitles.
 
 [![Long-ASR-eval.png](https://i.postimg.cc/w3Y9dyBp/Long-ASR-eval.png)](https://postimg.cc/301sXwpS)
+
+The image above presents a heatmap comparison of different models performing ASR tasks on a video with varying audio input lengths. As shown in the heatmap, Qwen-Omni and Phi-4 exhibit instability across different lengths and do not consistently produce the desired output.
 
 
 #### Model's Output
@@ -131,8 +137,12 @@ In the previous release, LibriSpeech split their audio files into smaller chunks
   </tr>
 </tbody></table>
 
+We present the evaluation of various models on the unchunked LibriSpeech dataset. The average result is calculated by averaging the WER score differences across the same splits. All models show some degradation when handling longer audio, whereas our model exhibits the least amount of performance drop.
+
 
 ## Evaluation Result
+
+We then present the full evaluation result here with the evaluation scores
 
 ### ASR Benchmarks
 <style type="text/css">
@@ -241,7 +251,11 @@ In the previous release, LibriSpeech split their audio files into smaller chunks
   </tr>
 </tbody></table>
 
+We evaluate our model on AMI, Earnings22, LibriSpeech, SPGISpeech, and TedLium. Our model achieves the second-best WER score compared to other models, while maintaining a small and efficient size.
+
 ### Audio Understanding Result
+
+We then test our model's understanding result across 3 dimensions, Audio Analysis and Understanding, Speech Instruction, and Audio Scene Understanding
 
 <style type="text/css">
 .tg  {border-collapse:collapse;border-spacing:0;}
@@ -255,7 +269,7 @@ In the previous release, LibriSpeech split their audio files into smaller chunks
   <tr>
     <th class="tg-0pky">Model</th>
     <th class="tg-0pky" style="width: 20px;">Parameters</th>
-    <th class="tg-0pky" colspan="6">Speech Analysis and Understanding</th>
+    <th class="tg-0pky" colspan="6">Audio Analysis and Understanding</th>
     <th class="tg-0pky" colspan="2">Speech Instruction</th>
     <th class="tg-0pky" colspan="3">Audio Scene Understanding</th>
     <th class="tg-0pky">Average</th>
@@ -401,6 +415,8 @@ In the previous release, LibriSpeech split their audio files into smaller chunks
   </tr>
 </tbody></table>
 
+We conducted evaluations on AIR-Bench-Chat and MMAU for audio analysis and understanding. Our model achieved an average score of 5.35, outperforming Mini-Omni2 and Vita. For Audio Instruction Following, we evaluated on OpenHermes and Alpaca-Audio, following the same pipeline as AudioBench. Our model demonstrates a strong ability to understand instructions in speech and provide correct responses. Additionally, when evaluated on AIR-Bench-Foundation for Audio Scene Understanding, our model outperformed Phi-4-Multimodal in the sound and music dimensions. Overall, the average score of our model indicates strong performance relative to other models with larger parameter sizes.
+
 
 ## Training Techniques
 
@@ -455,3 +471,19 @@ To further optimize dynamic batching, we implemented sequence packing for both t
 </tbody>
 </table>
 
+We tested our implementations on different settings to demonstrate the efficiency of our implementation
+
+## Contributor List
+
+<address class="author"><a rel="author" href="https://brianboli.com/">Bo Li*</a></address>
+<address class="author"><a rel="author" href="https://www.mmlab-ntu.com/person/ccloy/index.html">Chen Change Loy</a></address>
+<address class="author"><a rel="author" href="http://pufanyi.github.io/">Fanyi Pu</a></address>
+<address class="author"><a rel="author" href="https://jingkang50.github.io/">Jingkang Yang</a></address>
+<address class="author"><a rel="author" href="http://kcz358.github.io/">Kaichen Zhang*</a></address>
+<address class="author"><a rel="author" href="https://scholar.google.com/citations?user=_oHHACwAAAAJ">Kairui Hu</a></address>
+<address class="author"><a rel="author" href="https://github.com/ngquangtrung57">Nguyen Quang Trung*</a></address>
+<address class="author"><a rel="author" href="https://choiszt.github.io/">Shuai Liu</a></address>
+<address class="author"><a rel="author" href="https://scholar.google.com/citations?user=g-VEnLEAAAAJ&hl=zh-CN">Yezhen Wang*</a></address>
+<address class="author"><a rel="author" href="https://liuziwei7.github.io/">Ziwei Liu</a></address>
+
+**main contributors*
