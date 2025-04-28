@@ -31,6 +31,7 @@ We present the contributions of our data mixture here. Our SFT data mixture incl
 [![training-time.png](https://i.postimg.cc/Hn26TFYk/training-time.png)](https://postimg.cc/XBrf8HBR)
 
 *The hours of some training datasets are estimated and may not be fully accurate
+<br>
 One of the key strengths of our training recipe lies in the quality and quantity of our data. Our training dataset consists of approximately 5 billion tokens, corresponding to around 50,000 hours of audio. Compared to models such as Qwen-Omni and Phi-4, our dataset is over 100 times smaller, yet our model achieves competitive performance. All data is sourced from publicly available open-source datasets, highlighting the sample efficiency of our training approach. A detailed breakdown of our data distribution is provided below, along with comparisons to other models.
 
 
