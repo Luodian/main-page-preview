@@ -12,6 +12,7 @@ import { siteConfig } from "./src/site.config";
 import remarkDirective from "remark-directive"; /* handle ::: directives as nodes */
 import { remarkAdmonitions } from "./src/plugins/remark-admonitions"; /* add admonitions */
 import { remarkReadingTime } from "./src/plugins/remark-reading-time";
+import { remarkCollapsible } from "./src/plugins/remark-collapsible"; /* add collapsible sections */
 
 // Rehype plugins
 import rehypeExternalLinks from "rehype-external-links";
@@ -81,7 +82,7 @@ export default defineConfig({
   markdown: {
     syntaxHighlight: false,
 
-    remarkPlugins: [remarkReadingTime, remarkDirective, remarkAdmonitions],
+    remarkPlugins: [remarkReadingTime, remarkDirective, remarkAdmonitions, remarkCollapsible],
     remarkRehype: {
       footnoteLabelProperties: {
         className: [""],

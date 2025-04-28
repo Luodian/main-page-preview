@@ -66,29 +66,29 @@ The image above presents a heatmap comparison of different models performing ASR
 
 When processing the audio in 12-minute chunks, Qwen-Omni failed to recognize the full speech content and was only able to capture portions of the audio.
 
-```
+:::collapsible{summary="Qwen Omni (12 minutes chunk)"}
 that's like what's going on why does itfocused on um ai and parallel parallelizable workloads but it's still general to an extent it's not as use case specific as something like grock with a queue that's really designed to you know spit out tokens as fast as possible and that like is a goldilocks zone where it's flexible enough to handle different workloads but not um but still much faster than um a traditional cpu and that google is one of the only companies that has a scaled internal custom silicon effort
-```
+:::
 
 <ins>**Phi-4-Multimodal (full chunk)**</ins>
 
 When processing the full audio without splitting, the Phi-4-Multimodal model began to ignore the instructions and instead generated an overall summary of the audio.
 
-```
+:::collapsible{summary="Phi-4-Multimodal (full chunk)"}
 The conversation covered Nvidia's focus on inference over training, the partnership with GM, the release of GUT-N1 for humanoid robotics, and the impact of China's AI initiatives on global chip demand.
-```
+:::
 
 <ins>**Aero (full chunk)**</ins>
 
 Aero Audio is able to generate the complete ASR output and accurately identify the full transcript.
 
-```
+:::collapsible{summary="Aero (full chunk)"}
 Welcome to the brainstorm episode eighty two frank downing joining us recap of nvidia's gtc conference that is the gpu technology conference frank what happened what were the big takeaways i on my side i saw a gm and in video partnering but we can circle back to that what was 
 
 ...
 
 right nice timing good timing all right we'll see everyone next week see everyone thank you
-```
+:::
 
 #### Results on LibriSpeech Unchunked
 
