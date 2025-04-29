@@ -23,8 +23,8 @@ tags: ["audio", "models", "research"]
 
 We evaluate our model performance on multiple dimensions and different benchmarks. Let's first take a look at its overall performance compare with other models
 
-[![ASR-Understanding-Compare.png](https://i.postimg.cc/vHtJmSq9/ASR-Understanding-Compare.png)](https://postimg.cc/ZC077jhK)
-[![ASR-Detail.png](https://i.postimg.cc/cL55gqQK/ASR-Detail.png)](https://postimg.cc/TKgcF4NG)
+[![ASR-Understanding-Compare.png](https://i.postimg.cc/ZnxKf7kx/Picture_1.png)](https://postimg.cc/ZC077jhK)
+[![ASR-Detail.png](https://i.postimg.cc/8ztw8Ndq/Picture-2.png)](https://postimg.cc/TKgcF4NG)
 
 Our model achieves a balance between performance and parameter efficiency. We evaluate it across multiple ASR and audio understanding benchmarks. On ASR tasks, our model attains the lowest WER scores on datasets such as AMI, LibriSpeech, and SPGISpeech. It also demonstrates strong audio understanding capabilities on various comprehension benchmarks. As illustrated in the plotted graph, our model falls within the highlighted triangular region that represents an optimal trade-off between parameter efficiency and performance.
 
