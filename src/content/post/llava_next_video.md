@@ -1,5 +1,5 @@
 ---
-title: "LLaVA Video"
+title: "LLaVA-Video"
 description: "Video Instruction Tuning With Synthetic Data"
 publishDate: "2024-09-30"
 tags: ["vision", "models", "research"]

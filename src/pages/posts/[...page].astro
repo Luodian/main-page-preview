@@ -1,55 +1,74 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import Pagination from "@/components/Paginator.astro";
+// Remove Pagination component import
+// import Pagination from "@/components/Paginator.astro";
 import PostPreview from "@/components/blog/PostPreview.astro";
 import { getAllPosts, getUniqueTags, groupPostsByYear } from "@/data/post";
 import PageLayout from "@/layouts/Base.astro";
 import { collectionDateSort } from "@/utils/date";
-import type { GetStaticPaths, Page } from "astro";
+// Remove Page type import
+// import type { GetStaticPaths, Page } from "astro";
+import type { GetStaticPaths } from "astro";
 import { Icon } from "astro-icon/components";
 import Badge from "@/components/Badge.astro";
 
-export const getStaticPaths = (async ({ paginate }) => {
-	const MAX_POSTS_PER_PAGE = 5;
+// Modify getStaticPaths to return a single path with all posts
+export const getStaticPaths = (async () => {
+	// const MAX_POSTS_PER_PAGE = 5; // No longer needed
 	const MAX_TAGS = 20;
 	const allPosts = await getAllPosts();
-	// Filter out posts belonging to the 'citrus-docs' series
+	// Filter out posts belonging to the 'lmms-lab-docs' series
 	const filteredPosts = allPosts.filter(post => post.data.seriesId !== "lmms-lab-docs");
 	const uniqueTags = getUniqueTags(filteredPosts).slice(0, MAX_TAGS);
-	return paginate(filteredPosts.sort(collectionDateSort), {
-		pageSize: MAX_POSTS_PER_PAGE,
-		props: { uniqueTags },
-	});
+
+	// Return a single path, passing all filtered posts and tags as props
+	return [
+		{
+			params: { page: undefined }, // Use undefined or a specific slug like 'all' if preferred
+			props: { allPosts: filteredPosts.sort(collectionDateSort), uniqueTags },
+		},
+	];
+
+	// Remove the original paginate call
+	// return paginate(filteredPosts.sort(collectionDateSort), {
+	// 	pageSize: MAX_POSTS_PER_PAGE,
+	// 	props: { uniqueTags },
+	// });
 }) satisfies GetStaticPaths;
 
+// Update Props interface to use allPosts instead of page
 interface Props {
-	page: Page<CollectionEntry<"post">>;
+	// page: Page<CollectionEntry<"post">>; // Remove page prop
+	allPosts: CollectionEntry<"post">[]; // Add allPosts prop
 	uniqueTags: string[];
 }
 
-const { page, uniqueTags } = Astro.props;
+// Update props destructuring
+const { allPosts, uniqueTags } = Astro.props; // Use allPosts instead of page
 
 const meta = {
 	description: "Read my collection of posts and the things that interest me",
 	title: "Posts",
 };
 
-const paginationProps = {
-	...(page.url.prev && {
-		prevUrl: {
-			text: "← Previous Page",
-			url: page.url.prev,
-		},
-	}),
-	...(page.url.next && {
-		nextUrl: {
-			text: "Next Page →",
-			url: page.url.next,
-		},
-	}),
-};
+// Remove paginationProps definition as it's no longer needed
+// const paginationProps = {
+// 	...(page.url.prev && {
+// 		prevUrl: {
+// 			text: "← Previous Page",
+// 			url: page.url.prev,
+// 		},
+// 	}),
+// 	...(page.url.next && {
+// 		nextUrl: {
+// 			text: "Next Page →",
+// 			url: page.url.next,
+// 		},
+// 	}),
+// };
 
-const groupedByYear = groupPostsByYear(page.data);
+// Group posts using the full allPosts list
+const groupedByYear = groupPostsByYear(allPosts);
 const descYearKeys = Object.keys(groupedByYear).sort((a, b) => +b - +a);
 ---
 
@@ -123,5 +142,6 @@ const descYearKeys = Object.keys(groupedByYear).sort((a, b) => +b - +a);
 			)
 		}
 	</div>
-	<Pagination {...paginationProps} />
+	{/* Remove the Pagination component */}
+	{/* <Pagination {...paginationProps} /> */}
 </PageLayout>
