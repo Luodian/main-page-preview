@@ -11,7 +11,7 @@ tags: ["audio", "models", "research"]
 
 [Github](https://github.com/EvolvingLMMs-Lab/Aero-1/blob/main/README.md) | [Playground](https://huggingface.co/spaces/lmms-lab/Aero-1-Audio-Demo) | [Models](https://huggingface.co/lmms-lab/Aero-1-Audio-1.5B) | [Evaluation Results](https://github.com/EvolvingLMMs-Lab/lmms-eval/pull/658) | [Cookbook](https://www.lmms-lab.com/posts/lmms-lab-docs/aero_audio/)
 
-`Aero-1-Audio` is a compact audio model adept at various audio tasks, including speech recognition, audio understanding, and following audio instructions. 
+`Aero-1-Audio` is a compact audio model adept at various audio tasks, including speech recognition, audio understanding, and following audio instructions. It is part of the `Aero-1` series, the first generation of lightweight multimodal models developed by LMMs-Lab, with future expansions planned across additional modalities.
 
 1. Built upon the Qwen-2.5-1.5B language model, Aero delivers strong performance across multiple audio benchmarks while remaining parameter-efficient, even compared with larger advanced models like Whisper and Qwen-2-Audio and Phi-4-Multimodal, or commercial services like ElevenLabs/Scribe.
 
