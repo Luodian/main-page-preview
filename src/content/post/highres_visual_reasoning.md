@@ -121,9 +121,6 @@ All experiments of MGPO are conducted using a fixed two-turn template, rather th
 
 Nevertheless, we believe that our trained models can be leveraged to generate high-quality chain-ofthought (CoT) data for subsequent SFT. By adopting a multi-stage training strategy that combines SFT and RL, as in DeepSeek-R1, may ultimately enable the model to autonomously decide when and how to perform grounding. We leave this direction for future work.
 
-## Appendix
-
-![Figure 9: A full conversation example of MGPO post-trained model on high-resolution image tasks.](https://raw.githubusercontent.com/xinyu1205/MGPO/main/images/14.png)
 
 ## Authors
 
@@ -136,6 +133,7 @@ Nevertheless, we believe that our trained models can be leveraged to generate hi
 - Zejun Ma
 
 ## Citation
+If you find our work to be useful for your research, please consider citing.
 
 ```bibtex
 @article{huang2025highres,
@@ -145,3 +143,7 @@ Nevertheless, we believe that our trained models can be leveraged to generate hi
   year={2025}
 }
 ```
+
+## Appendix
+
+![Figure 9: A full conversation example of MGPO post-trained model on high-resolution image tasks.](https://raw.githubusercontent.com/xinyu1205/MGPO/main/images/14.png)
