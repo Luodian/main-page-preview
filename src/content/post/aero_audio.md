@@ -502,3 +502,14 @@ We tested our implementations on different settings to demonstrate the efficienc
 <address class="author"><a rel="author" href="https://liuziwei7.github.io/">Ziwei Liu</a></address>
 
 **main contributors*
+
+## Citation
+
+```bibtex
+@article{li2025aero,
+  title={Aero: Audio-enhanced large language models},
+  author={Li, Bo and Chen Change Loy and Pu Fanyi and Yang Jingkang and Zhang Kaichen and Hu Kairui and Thang Luu Minh and Trung Nguyen Quang and Cong Pham Ba and Liu Shuai and Wang Yezhen and Liu Ziwei},
+  url={https://www.lmms-lab.com/posts/aero_audio/},
+  year={2025}
+}
+```
