@@ -5,7 +5,8 @@ publishDate: "2025-05-26"
 tags: ["vision", "models", "reinforcement-learning", "research"]
 ---
 
-![MGPO](https://raw.githubusercontent.com/xinyu1205/MGPO/main/images/1.png)
+<!-- ![MGPO](https://raw.githubusercontent.com/xinyu1205/MGPO/main/images/1.png) -->
+<img src="https://raw.githubusercontent.com/xinyu1205/MGPO/main/images/1.png" width="40%">
 <!-- [![1.png](https://i.postimg.cc/d3cvhPt0/1.png)](https://postimg.cc/47Pj00cC) -->
 
 
@@ -96,7 +97,9 @@ To assess whether models can develop accurate grounding capabilities in the abse
 
 Additionally, we evaluate whether the grounding sub-images from the test set can be directly used to answer the question using Qwen2.5-VL-7B. As presented in Table 3, the comparative results across different methods demonstrate the superior accuracy of grounding achieved by MGPO. In the second stage of MGPO, the model is provided with either the cropped subimage or the original image, without any auxiliary reward for generating valid sub-image coordinates. Notably, the model autonomously increases the proportion of valid grounding coordinates, suggesting that it is capable of learning to localize key regions and utilize subimages to improve question answering performance.
 
-![Table 3: Ratio of grounding subimages that can directly answer the question using Qwen2.5-VL-7B on the V* Bench.](https://raw.githubusercontent.com/xinyu1205/MGPO/main/images/11.png)
+<!-- ![Table 3: Ratio of grounding subimages that can directly answer the question using Qwen2.5-VL-7B on the V* Bench.](https://raw.githubusercontent.com/xinyu1205/MGPO/main/images/11.png) -->
+<img src="https://raw.githubusercontent.com/xinyu1205/MGPO/main/images/11.png" alt="Table 3: Ratio of grounding subimages that can directly answer the question using Qwen2.5-VL-7B on the V* Bench." width="50%">
+
 
 ### 4.2 Further Experiments on Image Counting Tasks
 
@@ -106,7 +109,9 @@ During GRPO post-training, the model is prompted to first grounding (point) each
 
 The results, summarized in Table 4, indicate that introducing the additional point reward does not yield significant performance improvements. We further visualize the outputs of the GRPO model trained solely with the accuracy reward (see Figure 8), and observe that the model is capable of accurately localizing object points even without explicit grounding supervision. These results support our conclusion that explicit grounding annotations are not necessary for effective RL-based learning, as the model inherently learns to perform precise grounding as a prerequisite for solving the counting task.
 
-![Table 4: Performance comparison of image count task. Additional point reward do not lead to significant performance improvements.](https://raw.githubusercontent.com/xinyu1205/MGPO/main/images/12.png)
+<!-- ![Table 4: Performance comparison of image count task. Additional point reward do not lead to significant performance improvements.](https://raw.githubusercontent.com/xinyu1205/MGPO/main/images/12.png) -->
+
+<img src="https://raw.githubusercontent.com/xinyu1205/MGPO/main/images/12.png" alt="Table 4: Performance comparison of image count task. Additional point reward do not lead to significant performance improvements." width="60%">
 
 ![Figure 8: Visualization of point predictions from the GRPO model trained with only accuracy reward.](https://raw.githubusercontent.com/xinyu1205/MGPO/main/images/13.png)
 
