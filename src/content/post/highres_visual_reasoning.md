@@ -1,15 +1,16 @@
 ---
 title: "High-Resolution Visual Reasoning via Multi-Turn Grounding-Based Reinforcement Learning"
-description: "MGPO enables LMMs to iteratively focus on key image regions through automatic cropping, achieving superior performance on high-resolution visual tasks without requiring grounding annotations"
+description: "MGPO enables LMMs to iteratively focus on key image regions through visual grounding, achieving superior performance on high-resolution visual tasks without requiring grounding annotations"
 publishDate: "2025-05-26"
 tags: ["vision", "models", "reinforcement-learning", "research"]
 ---
 
-[![v2-0ae2cec95c7e5a2b67fd74203c5f5120-1440w.jpg](https://i.postimg.cc/26yHF2ZT/v2-0ae2cec95c7e5a2b67fd74203c5f5120-1440w.jpg)](https://postimg.cc/V5xBKG96)
+<!-- ![MGPO](https://raw.githubusercontent.com/xinyu1205/MGPO/main/images/1.png) -->
+<img src="https://raw.githubusercontent.com/xinyu1205/MGPO/main/images/1.png" width="40%">
+<!-- [![1.png](https://i.postimg.cc/d3cvhPt0/1.png)](https://postimg.cc/47Pj00cC) -->
 
 
-[Code](https://github.com/xinyu1205/MGPO) | [Model](https://huggingface.co/xinyu1205/MGPO-Qwen2.5-VL-7B) | [Paper](https://arxiv.org/abs/2505.14606)
-
+[Code](https://github.com/xinyu1205/MGPO) 
 ## 1. Introduction
 
 SOTA large multimodal model (LMM) architectures, such as Qwen2.5-VL, typically build on a powerful large language model (LLM) (e.g. Qwen2.5) integrated with an external Native Resolution Vision Transformer (NaViT). Such approach also presents challenges in high-resolution real-world scenarios, as these inputs are converted into enormous visual tokens, many of which are irrelevant to the downstream task. By comparison, when processing high-resolution real-world scenarios, the human visual system employs task-driven visual search strategies to ground and scrutinize critical regions of interest. Motivated by this biological mechanism, we attempt to equip LLMs with similar visual search capabilities by leveraging visual grounding to focus on key image regions.
@@ -18,7 +19,7 @@ However, empowering LMMs with such grounding-based visual reasoning capabilities
 
 To this end, we introduce **Multi-turn Grounding-based Policy Optimization (MGPO)**, a reinforcement learning (RL) algorithm that enables LMMs to iteratively focus on key image regions by automatically cropping sub-images, based on model-predicted grounding coordinates within a multi-turn conversation framework. Given a high-resolution image and a question, the model first predicts the coordinates of key regions relevant to the query. An image cropping function is then triggered to extract and return the corresponding sub-image. In subsequent turns, the model can integrate previous in-context convesations (including both the original image and cropped sub-image) to solve the question. 
 
-![Figure 1: Examples of models trained with multi-turn grounding-based RL on high-resolution realworld tasks. The model first identifies key regions, which are then automatically cropped and returned as sub-images. Notably, despite only a binary reward function derived from the correctness of the final answer, the model gradually emerge robust grounding capability throughout the RL process. The conversation in the figure only shows key parts, the full conversation is provided in Figure 9.](https://github.com/xinyu1205/MGPO/blob/main/figures/figure1.png?raw=true)
+![Figure 1: Examples of models trained with multi-turn grounding-based RL on high-resolution realworld tasks. The model first identifies key regions, which are then automatically cropped and returned as sub-images. Notably, despite only a binary reward function derived from the correctness of the final answer, the model gradually emerge robust grounding capability throughout the RL process. The conversation in the figure only shows key parts, the full conversation is provided in Figure 9.](https://raw.githubusercontent.com/xinyu1205/MGPO/main/images/2.png)
 
 In summary, MGPO mainly offers the following advantages:
 
@@ -32,15 +33,15 @@ Ultimately, we utilize MGPO to post-train Qwen2.5-VL-7B using visual-question-sh
 
 Figure illustrates a comparison of different post-training paradigms for LMMs. In our MGPO, the model operates over K sequential interaction, dynamically grounding and reasoning by conditioning on the full history of visual and textual context at each step.
 
-![Figure 2: Comparison of different post-training paradigms for LMMs. Our MGPO automatically crops and returns sub-image to the model based on its predicted grounding coordinates, enabling the model to iteratively focus on key regions and effectively solve high-resolution visual tasks.](https://github.com/xinyu1205/MGPO/blob/main/figures/figure2.png?raw=true)
+![Figure 2: Comparison of different post-training paradigms for LMMs. Our MGPO automatically crops and returns sub-image to the model based on its predicted grounding coordinates, enabling the model to iteratively focus on key regions and effectively solve high-resolution visual tasks.](https://raw.githubusercontent.com/xinyu1205/MGPO/main/images/3.png)
 
 **Multi-turn Template without Cold Start.** In practice, we observe that LLMs struggle to autonomously generate grounding coordinates during the rollout process, which hinder effective multi-turn RL. To address this, we design a fixed two-turn dialogue template, as shown in Figure 3, to explicitly activate the model's grounding and reasoning abilities.
 
-![Figure 3: Fixed multi-turn grounding template, which eliminate cold start SFT process.](https://github.com/xinyu1205/MGPO/blob/main/figures/figure3.png?raw=true)
+![Figure 3: Fixed multi-turn grounding template, which eliminate cold start SFT process.](https://raw.githubusercontent.com/xinyu1205/MGPO/main/images/4.png)
 
 **Grounding Key Visual Areas.** Within the two-turn MGPO framework, the extraction of sub-images is performed with respect to the original high-resolution image. Since the grounding coordinates predicted by Qwen2.5-VL are inherently dependent on the resolution of the input image, it is necessary to normalize the predicted coordinates by the input image dimensions and subsequently map them back to the coordinate space of the original image. This normalization procedure is particularly crucial when the original image resolution exceeds the maximum pixel limit of the LMM, as it enables the model to access higher-fidelity sub-image for processing. A illustration of this process is provided in the Figure 4.
 
-![Figure 4: A illustration of cropping sub-image based on grounding coordinates.](https://github.com/xinyu1205/MGPO/blob/main/figures/figure4.png?raw=true)
+![Figure 4: A illustration of cropping sub-image based on grounding coordinates.](https://raw.githubusercontent.com/xinyu1205/MGPO/main/images/5.png)
 
 ## 3. Experiments
 
@@ -56,7 +57,7 @@ All datasets employ the multiple-choice question format, and model performance i
 measured by accuracy on both the in-distribution (MME-Realworld) and out-of-distribution (V*
 Bench) test sets. Figure 5 illustrates the distribution of image resolutions across different datasets.
 
-![Figure 5: Distribution of image resolutions (width × height) across different datasets.](https://github.com/xinyu1205/MGPO/blob/main/figures/figure5_resolution.png?raw=true)
+![Figure 5: Distribution of image resolutions (width × height) across different datasets.](https://raw.githubusercontent.com/xinyu1205/MGPO/main/images/6.png)
 
 ### 3.2 Experimental Setup
 
@@ -74,15 +75,15 @@ In contrast, our MGPO algorithm achieves remarkable gains, outperforming both SF
 
 Additionally, we compare our results with OpenAI's o1 and GPT-4o models. To ensure a fair comparison, we report only the OOD V* Bench results. Notably, our MGPO post-trained model surpasses both o1 and GPT-4o, despite being based on a 7B model and trained with a small-scale dataset of 21k samples.
 
-![Table 1: Performance comparison of different post-training paradigms for LMMs. V* Bench serves as an out-of-distribution evaluation, while MME-Realworld serves as an in-distribution evaluation. Abbreviations: OCR—Optical Character Recognition in the wild; RS—Remote Sensing; DT—Diagram and Table; MO—Video Monitoring; AD—Autonomous Driving.](https://github.com/xinyu1205/MGPO/blob/main/figures/table1.png?raw=true)
+![Table 1: Performance comparison of different post-training paradigms for LMMs. V* Bench serves as an out-of-distribution evaluation, while MME-Realworld serves as an in-distribution evaluation. Abbreviations: OCR—Optical Character Recognition in the wild; RS—Remote Sensing; DT—Diagram and Table; MO—Video Monitoring; AD—Autonomous Driving.](https://raw.githubusercontent.com/xinyu1205/MGPO/main/images/7.png)
 
 Figure 6 illustrates the comparative performance trajectories of MGPO and GRPO on the V* Bench throughout the RL training process. As training progresses, MGPO consistently surpasses GRPO, highlighting its superior capacity to address high-resolution scenarios that remain unresolved by GRPO.
 
-![Figure 6: Performance comparison of V* Bench between MGPO and GRPO.](https://github.com/xinyu1205/MGPO/blob/main/figures/figure6_performance.png?raw=true)
+![Figure 6: Performance comparison of V* Bench between MGPO and GRPO.](https://raw.githubusercontent.com/xinyu1205/MGPO/main/images/8.png)
 
 **Effect of LMM Maximum Input Image Resolution.** Table 2 compares the impact of varying maximum input image resolutions for LMMs. We observe that MGPO yields greater performance improvements on the V* Bench when the maximum input pixel limit is lower. This is because, when high-resolution images are aggressively resized, many tasks become more challenging to solve directly. however, MGPO can first identify key regions and crop clearer sub-images from the original image, thereby facilitating more effective task completion.
 
-![Table 2: Performance comparison of various post-training paradigms for LMMs under different maximum input image resolutions.](https://github.com/xinyu1205/MGPO/blob/main/figures/table2.png?raw=true)
+![Table 2: Performance comparison of various post-training paradigms for LMMs under different maximum input image resolutions.](https://raw.githubusercontent.com/xinyu1205/MGPO/main/images/9.png)
 
 ## 4. Grounding-based RL without Grounding Annotations
 
@@ -92,11 +93,13 @@ In this section, we highlight the insight that it is feasible to train powerful 
 
 To assess whether models can develop accurate grounding capabilities in the absence of grounding supervision, we analyze the proportion of rollouts that generate valid grounding coordinates during RL training (e.g., ensuring coordinates within the input image boundaries). Figure 7 illustrates the comparison between GRPO and MGPO. Regarding to GRPO, the ratio of valid grounding coordinates remains low and exhibits minimal improvement throughout training, indicating that the model struggles to ground correct image regions. In contrast, MGPO demonstrates a clear upward trajectory, with the proportion of valid grounding coordinates steadily increasing as training progresses.
 
-![Figure 7: The ratio of valid grounding coordinates during RL rollouts.](https://github.com/xinyu1205/MGPO/blob/main/figures/figure7_ratio.png?raw=true)
+![Figure 7: The ratio of valid grounding coordinates during RL rollouts.](https://raw.githubusercontent.com/xinyu1205/MGPO/main/images/10.png)
 
 Additionally, we evaluate whether the grounding sub-images from the test set can be directly used to answer the question using Qwen2.5-VL-7B. As presented in Table 3, the comparative results across different methods demonstrate the superior accuracy of grounding achieved by MGPO. In the second stage of MGPO, the model is provided with either the cropped subimage or the original image, without any auxiliary reward for generating valid sub-image coordinates. Notably, the model autonomously increases the proportion of valid grounding coordinates, suggesting that it is capable of learning to localize key regions and utilize subimages to improve question answering performance.
 
-![Table 3: Ratio of grounding subimages that can directly answer the question using Qwen2.5-VL-7B on the V* Bench.](https://github.com/xinyu1205/MGPO/blob/main/figures/table3.png?raw=true)
+<!-- ![Table 3: Ratio of grounding subimages that can directly answer the question using Qwen2.5-VL-7B on the V* Bench.](https://raw.githubusercontent.com/xinyu1205/MGPO/main/images/11.png) -->
+<img src="https://raw.githubusercontent.com/xinyu1205/MGPO/main/images/11.png" alt="Table 3: Ratio of grounding subimages that can directly answer the question using Qwen2.5-VL-7B on the V* Bench." width="50%">
+
 
 ### 4.2 Further Experiments on Image Counting Tasks
 
@@ -106,9 +109,11 @@ During GRPO post-training, the model is prompted to first grounding (point) each
 
 The results, summarized in Table 4, indicate that introducing the additional point reward does not yield significant performance improvements. We further visualize the outputs of the GRPO model trained solely with the accuracy reward (see Figure 8), and observe that the model is capable of accurately localizing object points even without explicit grounding supervision. These results support our conclusion that explicit grounding annotations are not necessary for effective RL-based learning, as the model inherently learns to perform precise grounding as a prerequisite for solving the counting task.
 
-![Table 4: Performance comparison of image count task. Additional point reward do not lead to significant performance improvements.](https://github.com/xinyu1205/MGPO/blob/main/figures/table4.png?raw=true)
+<!-- ![Table 4: Performance comparison of image count task. Additional point reward do not lead to significant performance improvements.](https://raw.githubusercontent.com/xinyu1205/MGPO/main/images/12.png) -->
 
-![Figure 8: Visualization of point predictions from the GRPO model trained with only accuracy reward.](https://github.com/xinyu1205/MGPO/blob/main/figures/figure8_points.png?raw=true)
+<img src="https://raw.githubusercontent.com/xinyu1205/MGPO/main/images/12.png" alt="Table 4: Performance comparison of image count task. Additional point reward do not lead to significant performance improvements." width="60%">
+
+![Figure 8: Visualization of point predictions from the GRPO model trained with only accuracy reward.](https://raw.githubusercontent.com/xinyu1205/MGPO/main/images/13.png)
 
 ## 5. Limitation
 
@@ -116,9 +121,6 @@ All experiments of MGPO are conducted using a fixed two-turn template, rather th
 
 Nevertheless, we believe that our trained models can be leveraged to generate high-quality chain-ofthought (CoT) data for subsequent SFT. By adopting a multi-stage training strategy that combines SFT and RL, as in DeepSeek-R1, may ultimately enable the model to autonomously decide when and how to perform grounding. We leave this direction for future work.
 
-## Appendix
-
-![Figure 9: A full conversation example of MGPO post-trained model on high-resolution image tasks.](https://github.com/xinyu1205/MGPO/blob/main/figures/figure9_example.png?raw=true)
 
 ## Authors
 
@@ -131,6 +133,7 @@ Nevertheless, we believe that our trained models can be leveraged to generate hi
 - Zejun Ma
 
 ## Citation
+If you find our work to be useful for your research, please consider citing.
 
 ```bibtex
 @article{huang2025highres,
@@ -140,3 +143,7 @@ Nevertheless, we believe that our trained models can be leveraged to generate hi
   year={2025}
 }
 ```
+
+## Appendix
+
+![Figure 9: A full conversation example of MGPO post-trained model on high-resolution image tasks.](https://raw.githubusercontent.com/xinyu1205/MGPO/main/images/14.png)
