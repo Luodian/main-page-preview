@@ -6,11 +6,14 @@ tags: ["vision", "models", "reinforcement-learning", "research"]
 ---
 
 <!-- ![MGPO](https://raw.githubusercontent.com/xinyu1205/MGPO/main/images/1.png) -->
-<img src="https://raw.githubusercontent.com/xinyu1205/MGPO/main/images/1.png" width="40%">
+<!-- <img src="https://raw.githubusercontent.com/xinyu1205/MGPO/main/images/1.png" width="40%"> -->
 <!-- [![1.png](https://i.postimg.cc/d3cvhPt0/1.png)](https://postimg.cc/47Pj00cC) -->
 
+[![Pix-Pin-2025-04-28-12-16-06.gif](https://i.postimg.cc/26yHF2ZT/v2-0ae2cec95c7e5a2b67fd74203c5f5120-1440w.jpg)](https://postimg.cc/V5xBKG96)
 
-[Code](https://github.com/xinyu1205/MGPO) 
+
+[Code@Github](https://github.com/xinyu1205/MGPO) 
+
 ## 1. Introduction
 
 SOTA large multimodal model (LMM) architectures, such as Qwen2.5-VL, typically build on a powerful large language model (LLM) (e.g. Qwen2.5) integrated with an external Native Resolution Vision Transformer (NaViT). Such approach also presents challenges in high-resolution real-world scenarios, as these inputs are converted into enormous visual tokens, many of which are irrelevant to the downstream task. By comparison, when processing high-resolution real-world scenarios, the human visual system employs task-driven visual search strategies to ground and scrutinize critical regions of interest. Motivated by this biological mechanism, we attempt to equip LLMs with similar visual search capabilities by leveraging visual grounding to focus on key image regions.
