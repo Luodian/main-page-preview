@@ -42,9 +42,6 @@ const postSeries = content.data.seriesId
 				aria-label="Toggle Series Panel"
 				aria-controls="series-panel"
 			>
-				{/*
-				<Icon aria-hidden="true" class="h-6 w-6" focusable="false" name="hugeicons:sidebar-left" />
-				*/}
 				<Icon aria-hidden="true" class="flex-shrink-0 h-6 w-6" focusable="false" name="solar:notes-bold" />
 			</button>
 		) : null 
@@ -63,9 +60,11 @@ const postSeries = content.data.seriesId
 	}
 
 	<h1 
-		class="title ml-2 md:sticky md:top-4 md:z-20 line-clamp-none md:max-w-full"
+		id="post-title"
+		class="title ml-2 md:sticky md:top-4 md:z-20 truncate md:max-w-[60ch] lg:max-w-[80ch] transition-all duration-300 ease-in-out"
 		title={content.data.title}
 		data-pagefind-body
+		data-full-title={content.data.title}
 	>
 		{content.data.title}
 	</h1>
@@ -154,3 +153,52 @@ const postSeries = content.data.seriesId
 		)
 	}
 </div>
+
+<script>
+	document.addEventListener("DOMContentLoaded", () => {
+		const titleElement = document.getElementById("post-title");
+		if (!titleElement) return;
+
+		const fullTitle = titleElement.getAttribute("data-full-title") || "";
+		const shortTitle = fullTitle.length > 50 ? fullTitle.substring(0, 47) + "..." : fullTitle;
+		
+		let lastScrollY = window.scrollY;
+		let isScrollingDown = false;
+		let scrollTimeout: number;
+
+		const updateTitle = () => {
+			const currentScrollY = window.scrollY;
+			const scrollThreshold = 100; // Start showing short title after 100px scroll
+
+			// Determine scroll direction
+			if (currentScrollY > lastScrollY) {
+				isScrollingDown = true;
+			} else {
+				isScrollingDown = false;
+			}
+			lastScrollY = currentScrollY;
+
+			// Update title based on scroll position and direction
+			if (currentScrollY > scrollThreshold && isScrollingDown) {
+				titleElement.textContent = shortTitle;
+				titleElement.classList.add("text-sm", "md:text-base");
+				titleElement.classList.remove("text-xl", "md:text-2xl");
+			} else if (currentScrollY <= scrollThreshold || !isScrollingDown) {
+				titleElement.textContent = fullTitle;
+				titleElement.classList.remove("text-sm", "md:text-base");
+				titleElement.classList.add("text-xl", "md:text-2xl");
+			}
+		};
+
+		// Throttled scroll handler
+		const handleScroll = () => {
+			clearTimeout(scrollTimeout);
+			scrollTimeout = setTimeout(updateTitle, 10);
+		};
+
+		window.addEventListener("scroll", handleScroll, { passive: true });
+		
+		// Initial call
+		updateTitle();
+	});
+</script>
