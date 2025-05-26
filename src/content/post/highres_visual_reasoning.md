@@ -1,7 +1,7 @@
 ---
 title: "High-Resolution Visual Reasoning via Multi-Turn Grounding-Based Reinforcement Learning"
 description: "MGPO enables LMMs to iteratively focus on key image regions through automatic cropping, achieving superior performance on high-resolution visual tasks without requiring grounding annotations"
-publishDate: "2025-05-26"
+publishDate: "2025-05-28"
 tags: ["vision", "models", "reinforcement-learning", "research"]
 ---
 
