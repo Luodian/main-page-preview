@@ -12,7 +12,7 @@ tags: ["vision", "models", "reinforcement-learning", "research"]
 [![Pix-Pin-2025-04-28-12-16-06.gif](https://i.postimg.cc/26yHF2ZT/v2-0ae2cec95c7e5a2b67fd74203c5f5120-1440w.jpg)](https://postimg.cc/V5xBKG96)
 
 
-[Code@Github](https://github.com/xinyu1205/MGPO) 
+[Code@Github](https://github.com/EvolvingLMMs-Lab/MGPO) 
 
 ## 1. Introduction
 
@@ -139,7 +139,7 @@ If you find our work to be useful for your research, please consider citing.
 @article{huang2025highres,
   title={High-Resolution Visual Reasoning via Multi-Turn Grounding-Based Reinforcement Learning},
   author={Huang, Xinyu and Dong, Yuhao and Li, Wei and Wu, Jinming and Deng, Zihao and Li, Bo and Ma, Zejun},
-  url={https://github.com/xinyu1205/MGPO},
+  url={https://github.com/EvolvingLMMs-Lab/MGPO},
   year={2025}
 }
 ```
