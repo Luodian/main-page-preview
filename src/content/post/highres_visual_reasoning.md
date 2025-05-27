@@ -147,3 +147,5 @@ If you find our work to be useful for your research, please consider citing.
 ## Appendix
 
 ![Figure 9: A full conversation example of MGPO post-trained model on high-resolution image tasks.](https://raw.githubusercontent.com/xinyu1205/MGPO/main/images/14.png)
+
+
