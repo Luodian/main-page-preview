@@ -1,9 +1,13 @@
 ---
-title: "Search-R1"
-description: "Search-R1 is a new method for image retrieval that uses a combination of a large language model and a retrieval-augmented model to achieve state-of-the-art performance"
+title: "Multimodal Search R1"
+description: "MMSearch-R1 is a new method for image retrieval that uses a combination of a large language model and a retrieval-augmented model to achieve state-of-the-art performance"
 publishDate: "2025-06-01"
 tags: ["vision", "models", "research"]
 ---
+
+<div style="text-align: center;">
+![Thumbnail](https://i.postimg.cc/dtq2PjtQ/istockphoto-1519732762-612x612.jpg)
+</div>
 
 **TL;DR**
 
