@@ -5,8 +5,8 @@ publishDate: "2025-06-01"
 tags: ["vision", "models", "research"]
 ---
 
-<div style="text-align: center;">
-![Thumbnail](https://i.postimg.cc/dtq2PjtQ/istockphoto-1519732762-612x612.jpg)
+<div style="display: flex; justify-content: center;">
+<img src="https://i.postimg.cc/dtq2PjtQ/istockphoto-1519732762-612x612.jpg" alt="Thumbnail">
 </div>
 
 **TL;DR**
@@ -27,7 +27,7 @@ Integrating search capabilities into LMMs offers a promising solution to above l
 
 To address these limitations, we aim to train LMMs that can interact with real-world environments and acquire three essential search-related capabilities: (1) *when to search*, (2) *what to search for*, and (3) *how to reason over search results to answer user queries*. Building on these goals, we introduce **MMSearch-R1**, the first end-to-end reinforcement learning framework designed to empower LMMs with on-demand search capabilities in open, internet-based environments. Our efforts are summarized as follows:
 
-- **Dataset Construction** We propose an automated approach to construct a multimodal search VQA dataset by estimating the model’s familiarity with each question. This enables the generation of search-required and search-free samples, further complemented by manually annotated test data covering diverse knowledge types and difficulty levels.
+- **Dataset Construction** We propose an automated approach to construct a multimodal search VQA dataset by estimating the model's familiarity with each question. This enables the generation of search-required and search-free samples, further complemented by manually annotated test data covering diverse knowledge types and difficulty levels.
 - **Multimodal Search Tool Integration** We develop a real-world search pipeline combining an image search tool and a text search tool, enabling LMMs to retrieve relevant visual and textual information for unfamiliar inputs.
 - **Wiser Search via Reinforcement Learning** We introduce a GRPO-based RL framework that trains LMMs to decide when, what, and how to search. Our method achieves superior performance over RAG-based baselines while reducing search calls by over 30%.
 - **Open-Sourced Dataset and Framework** We will release our model, dataset and training framework to support future research in search-augmented multimodal reasoning.
@@ -58,7 +58,7 @@ $$
 
 To effectively train models for on-demand search using simple outcome-based reinforcement learning, we require a **search-balanced dataset** that includes both search-required and search-free questions. This balance allows the model to learn when to rely on internal knowledge and when to invoke external search. We propose three key criteria for such datasets: (1). Coverage of Both Search-Required/Free Questions; (2). Concise and Verifiabl Answers; (3). Diversity in Knowledge and Difficulty. Follow these criteria, we construct a multimodal search VQA dataset, **FactualVQA (FVQA)**, using a combination of automated pipelines and manual annotation.
 
-- **VQA Collection** We first gather a pool of candidate VQA samples requiring either visual or textual knowledge. For visual knowledge, we develop an automated pipeline that collects images related to head and tail visual concepts in the MetaCLIP vocabulary from the internet. Based on these images, we use GPT-4o to generate corresponding questions that assess the model’s recognition capabilities. For textual knowledge, we sample questions from the InfoSeek training set. We annotate the knowledge type for each question using GPT4o and maintain a balanced distribution across categories.
+- **VQA Collection** We first gather a pool of candidate VQA samples requiring either visual or textual knowledge. For visual knowledge, we develop an automated pipeline that collects images related to head and tail visual concepts in the MetaCLIP vocabulary from the internet. Based on these images, we use GPT-4o to generate corresponding questions that assess the model's recognition capabilities. For textual knowledge, we sample questions from the InfoSeek training set. We annotate the knowledge type for each question using GPT4o and maintain a balanced distribution across categories.
 - **Search Balancing** To distinguish between search-required and search-free questions, we use a preliminary model equipped with search capabilities to classify the collected VQA samples. Based on this classification, we construct a search-balanced training set of 5,000 examples, named FVQA-train, which includes approximately 3,400 search-required and 1,600 search-free questions.
 - **Human Annotation** Human annotators are involved throughout the data curation process to ensure diversity, authenticity, and label quality—especially for the test set of FVQA.
 
@@ -76,7 +76,7 @@ We evaluated MMSearch-R1 against both closed-source models (GPT-4o and Gemini 2.
 
 **Figure 4:** (a). Performance comparison between the Base model and the RL-trained model under the RAG workflow. (b). Answer behavior breakdown of Base (inner circle) and RL (outer circle) models in InfoSeek and SimpleVQA.
 
-- ***Finding 2: RL training enhances the model’s ability to generate effective text queries and summarize retrieved information.*** To evaluate the ablities of query generation and information summarization, we follow a fixed RAG setup where both image and text search are executed for every question. This isolates the model's ability to interact with retrieved information. As shown in Figure 4(a), MMSearch-R1-7B consistently outperforms the base model on both in-domain and out-of-domain tasks.
+- ***Finding 2: RL training enhances the model's ability to generate effective text queries and summarize retrieved information.*** To evaluate the ablities of query generation and information summarization, we follow a fixed RAG setup where both image and text search are executed for every question. This isolates the model's ability to interact with retrieved information. As shown in Figure 4(a), MMSearch-R1-7B consistently outperforms the base model on both in-domain and out-of-domain tasks.
 - ***Finding 3: RL improves the model's ability to utilize its internal knowledge.*** As shown in Figure 4(b), there is a clear upward trend in the *Correct without Search* proportion from the base model to the RL-trained model. These gains indicate that the RL-trained model can answer substantially more questions correctly without invoking the search tool, demonstrating improved recall and reasoning based on its internal knowledge.
 
 ![**Figure 5:** (a). Performance improvements of SFT and RL over Base across five VQA datasets. (b). Training dynamics of reward and search ratio for different strategies](attachment:196738f1-a6d1-4835-97fa-b63abb12be86:image.png)
