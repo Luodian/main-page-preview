@@ -9,11 +9,10 @@ tags: ["vision", "models", "research"]
 <img src="https://i.postimg.cc/dtq2PjtQ/istockphoto-1519732762-612x612.jpg" alt="Thumbnail">
 </div>
 
-**TL;DR**
+🔗 [Code](https://github.com/EvolvingLMMs-Lab/multimodal-search-r1) | [Paper](https://arxiv.org/abs/2506.00000) | [Model](https://huggingface.co/EvolvingLMMs-Lab/MMSearch-R1-7B) | [Data](https://huggingface.co/datasets/EvolvingLMMs-Lab/FVQA)
+
 
 MMSearch-R1 is the first end-to-end RL-based solution designed to equip LMMs with the capability to perform search on demand in real-world internet environments. It outperforms same-sized RAG baselines and approaches the performance of larger models while requiring significantly fewer search calls.
-
-🔗 [Code](https://github.com/EvolvingLMMs-Lab/multimodal-search-r1) | [Paper](https://arxiv.org/abs/2506.00000) | [Model](https://huggingface.co/EvolvingLMMs-Lab/MMSearch-R1-7B) | [Data](https://huggingface.co/datasets/EvolvingLMMs-Lab/FVQA)
 
 ![**Figure 1:** MMSearch-R1 learns to recognize the boundaries of its knowledge and perform on-demand search, significantly reducing the number of searches required while outperforming RAG-based models on knowledge-intensive and info-seeking VQA tasks.](attachment:851b0ffd-2a3e-4383-a793-5f705995fd9d:image.png)
 
