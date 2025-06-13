@@ -14,9 +14,12 @@ tags: ["vision", "models", "research"]
 
 MMSearch-R1 is the first end-to-end RL-based solution designed to equip LMMs with the capability to perform search on demand in real-world internet environments. It outperforms same-sized RAG baselines and approaches the performance of larger models while requiring significantly fewer search calls.
 
-![**Figure 1:** MMSearch-R1 learns to recognize the boundaries of its knowledge and perform on-demand search, significantly reducing the number of searches required while outperforming RAG-based models on knowledge-intensive and info-seeking VQA tasks.](attachment:851b0ffd-2a3e-4383-a793-5f705995fd9d:image.png)
-
-**Figure 1:** MMSearch-R1 learns to recognize the boundaries of its knowledge and perform on-demand search, significantly reducing the number of searches required while outperforming RAG-based models on knowledge-intensive and info-seeking VQA tasks.
+<figure>
+  <img src="https://i.postimg.cc/1X75bbSS/MMSearch-R1-Figure1.png" alt="MMSearch-R1-Blog-Fig1">
+  <figcaption>
+    Figure 1: MMSearch-R1 learns to recognize the boundaries of its knowledge and perform on-demand search, significantly reducing the number of searches required while outperforming RAG-based models on knowledge-intensive and info-seeking VQA tasks.
+  </figcaption>
+</figure>
 
 ## 1. Introduction
 
@@ -35,9 +38,12 @@ To address these limitations, we aim to train LMMs that can interact with real-w
 
 ### **2.1. Building Iterative Multimodal Search-Integrated RL Framework**
 
-![**Figure 2:** Illustration of training in MMSearch-R1. Top: The GRPO training pipeline integrated with multimodal search tools. Bottom: A detailed view of the rollout process and search tool execution.](attachment:975f8b1d-4c70-4020-a640-297a13837e41:image.png)
-
-**Figure 2:** Illustration of training in MMSearch-R1. Top: The GRPO training pipeline integrated with multimodal search tools. Bottom: A detailed view of the rollout process and search tool execution.
+<figure>
+  <img src="https://i.postimg.cc/4d53QmFm/MMSearch-R1-Figure2.png" alt="MMSearch-R1-Blog-Fig2">
+  <figcaption>
+    Figure 2: Illustration of training in MMSearch-R1. Top: The GRPO training pipeline integrated with multimodal search tools. Bottom: A detailed view of the rollout process and search tool execution.
+  </figcaption>
+</figure>
 
 We built on veRL and adopt standard GRPO as our base RL algorithm, with modifications to allow search interactions with the real-world environment during the rollout process, as illustrated in Figure 2 and below.
 
@@ -46,14 +52,17 @@ We built on veRL and adopt standard GRPO as our base RL algorithm, with modifica
 - **Reward Modeling** Our reward consists of two components: an accuracy score with search penalty and a format score. For accuracy score, we evaluate model performance using exact string match against the ground truth, assigning a score of 1 for correct answers and 0 otherwise. For correct responses, a penalty factor (between 0 and 1) is applied if any search was used, encouraging the model to rely on internal knowledge and invoke search only when necessary. This design promotes efficient, on-demand search behavior. The format score verifies whether the model follows the required output structure, ensuring compatibility with the environment interface.
 
 $$
-reward = (1 - \alpha)\cdot Acc\_Score\cdot Search\_Penalty + \alpha\cdot Format\_Score
+\texttt{reward} = (1 - \alpha)\cdot \texttt{Acc\_Score}\cdot \texttt{Search\_Penalty} + \alpha\cdot \texttt{Format\_Score}
 $$
 
 ### 2.2. Curating Search-balanced VQA Datasets
 
-![**Figure 3:** Illustration of data construction process of FVQA dataset: (a). An automated pipeline for visual knowledge-required VQA samples collection; (b). Knowledge taxonomy; (c). Overall pipeline showing the composition and origin of FVQA from various automatic and manually curated sources.](attachment:fc80bc76-a435-4272-a8b8-adb029d65787:image.png)
-
-**Figure 3:** Illustration of data construction process of FVQA dataset: (a). An automated pipeline for visual knowledge-required VQA samples collection; (b). Knowledge taxonomy; (c). Overall pipeline showing the composition and origin of FVQA from various automatic and manually curated sources.
+<figure>
+  <img src="https://i.postimg.cc/rswwnMvg/MMSearch-R1-Figure3.png" alt="MMSearch-R1-Blog-Fig3">
+  <figcaption>
+    Figure 3: Illustration of data construction process of FVQA dataset: (a). An automated pipeline for visual knowledge-required VQA samples collection; (b). Knowledge taxonomy; (c). Overall pipeline showing the composition and origin of FVQA from various automatic and manually curated sources.
+  </figcaption>
+</figure>
 
 To effectively train models for on-demand search using simple outcome-based reinforcement learning, we require a **search-balanced dataset** that includes both search-required and search-free questions. This balance allows the model to learn when to rely on internal knowledge and when to invoke external search. We propose three key criteria for such datasets: (1). Coverage of Both Search-Required/Free Questions; (2). Concise and Verifiabl Answers; (3). Diversity in Knowledge and Difficulty. Follow these criteria, we construct a multimodal search VQA dataset, **FactualVQA (FVQA)**, using a combination of automated pipelines and manual annotation.
 
@@ -65,22 +74,32 @@ To effectively train models for on-demand search using simple outcome-based rein
 
 We evaluated MMSearch-R1 against both closed-source models (GPT-4o and Gemini 2.5 Pro) and open-source models from the Qwen2.5-VL series on knowledge-intensive and information-seeking VQA tasks (FVQA-test, InfoSeek, MMSearch, SimpleVQA, and LiveVQA). All baseline models are tasked with solving VQA problems in two different workflows. (1) Direct Answer: Models are prompted to directly generate a short and precise answer without accessing external information. (2) Answer under RAG Workflow: In this workflow, models are required to perform exactly two search operations using our multimodal search tools for each VQA example, first performing an image search and then a text search. Specifically, given an input image and question, the model is provided with the image search results and the original question in the first round and is prompted to generate a text query to assist in answering. In the second round, the retrieved results based on the text query are fed into the model, and the model is asked to produce the final answer. Under a fixed budget of search steps, the RAG workflow typically exposes the model to more external information compared to the on-demand search strategy.
 
-![**Table 1:** Performance of MMSearch-R1 across benchmarks. "Acc (%)" denotes the accuracy evaluated by LLM-as-Judge, while "SR (%)" represents the search ratio, defined as the percentage of total search calls made relative to the maximum allowed search steps for each method.](attachment:3d99aa88-cfa7-40f5-8afa-9374f9b7c41d:image.png)
-
-**Table 1:** Performance of MMSearch-R1 across benchmarks. "Acc (%)" denotes the accuracy evaluated by LLM-as-Judge, while "SR (%)" represents the search ratio, defined as the percentage of total search calls made relative to the maximum allowed search steps for each method.
+<figure>
+  <img src="https://i.postimg.cc/kgbXhjpr/MMSearch-R1-Table1.png" alt="MMSearch-R1-Blog-Tab1">
+  <figcaption>
+    Table 1: Performance of MMSearch-R1 across benchmarks. "Acc (%)" denotes the accuracy evaluated by LLM-as-Judge, while "SR (%)" represents the search ratio, defined as the percentage of total search calls made relative to the maximum allowed search steps for each method.
+  </figcaption>
+</figure>
 
 - ***Finding 1: RL training enables models to better recognize the boundaries of their knowledge and perform on-demand search more effectively.*** As shown in Table 1, MMSearch-R1-7B outperforms same-sized RAG-based models by an average of **3%** in accuracy while reducing the average search rate by **32.9%**, across both in-domain and out-of-domain test sets. This demonstrates that our RL-trained model achieves higher correctness with fewer search calls, indicating more efficient and selective use of external information.
 
-![**Figure 4:** (a). Performance comparison between the Base model and the RL-trained model under the RAG workflow. (b). Answer behavior breakdown of Base (inner circle) and RL (outer circle) models in InfoSeek and SimpleVQA.](attachment:55f9746c-dca1-4ef8-9604-a37c3ac3b34f:image.png)
-
-**Figure 4:** (a). Performance comparison between the Base model and the RL-trained model under the RAG workflow. (b). Answer behavior breakdown of Base (inner circle) and RL (outer circle) models in InfoSeek and SimpleVQA.
+<figure>
+  <img src="https://i.postimg.cc/sXyXWpmk/MMSearch-R1-Figure4.png" alt="MMSearch-R1-Blog-Fig4">
+  <figcaption>
+    Figure 4: (a). Performance comparison between the Base model and the RL-trained model under the RAG workflow. (b). Answer behavior breakdown of Base (inner circle) and RL (outer circle) models in InfoSeek and SimpleVQA.
+  </figcaption>
+</figure>
 
 - ***Finding 2: RL training enhances the model's ability to generate effective text queries and summarize retrieved information.*** To evaluate the ablities of query generation and information summarization, we follow a fixed RAG setup where both image and text search are executed for every question. This isolates the model's ability to interact with retrieved information. As shown in Figure 4(a), MMSearch-R1-7B consistently outperforms the base model on both in-domain and out-of-domain tasks.
 - ***Finding 3: RL improves the model's ability to utilize its internal knowledge.*** As shown in Figure 4(b), there is a clear upward trend in the *Correct without Search* proportion from the base model to the RL-trained model. These gains indicate that the RL-trained model can answer substantially more questions correctly without invoking the search tool, demonstrating improved recall and reasoning based on its internal knowledge.
 
-![**Figure 5:** (a). Performance improvements of SFT and RL over Base across five VQA datasets. (b). Training dynamics of reward and search ratio for different strategies](attachment:196738f1-a6d1-4835-97fa-b63abb12be86:image.png)
+<figure>
+  <img src="https://i.postimg.cc/28JSGpTF/MMSearch-R1-Figure5.png" alt="MMSearch-R1-Blog-Fig5">
+  <figcaption>
+    Figure 5: (a). Performance improvements of SFT and RL over Base across five VQA datasets. (b). Training dynamics of reward and search ratio for different strategies.
+  </figcaption>
+</figure>
 
-**Figure 5:** (a). Performance improvements of SFT and RL over Base across five VQA datasets. (b). Training dynamics of reward and search ratio for different strategies
 
 - ***Finding 4: RL achieves greater performance improvements and exhibits higher data efficiency compared to supervised SFT.*** We distill GPT-4o's behavior on our collected VQA samples to construct SFT data, and fine-tune Qwen2.5-VL-7B on it. This serves as a supervised learning baseline for comparison against our reinforcement learning-trained model. As shown in Figure 5(a), the results show that the model trained with RL consistently outperforms the one trained with SFT across all tasks, despite being trained on only about half as much data.
 - ***Finding 5: Training with balanced data and a search penalty in the reward effectively guide the model to perform on-demand search.*** Figure 5(b) illustrates the training dynamics of reward and search ratio during reinforcement learning. Removing either the search penalty or data balancing leads to distinct trade-offs. Although both ablated variants achieve slightly higher rewards, they do so at the cost of overusing the search tool, with search ratios rapidly converging to nearly 100%.
