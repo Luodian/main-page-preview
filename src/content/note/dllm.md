@@ -26,7 +26,7 @@ At inference time, however, an AR model customarily produces **one token per ste
 
 ## 2 Diffusion Language Models
 
-**Diffusion Language Models (DLMs)**——in particular, focusing on the prevailing **mask-based/absorbing-state** variants (hereafter collectively referred to as **MDLLM**)
+**Diffusion Language Models (DLMs)** - in particular, focusing on the prevailing **mask-based/absorbing-state** variants (hereafter collectively referred to as **MDLLM**)
 
 ### 2.1 Notations
 
