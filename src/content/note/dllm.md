@@ -14,13 +14,13 @@ We seek to consolidate our recent reflections on diffusion language models (DLLM
 
 ## 1 Autoregressive Models
 
-In classical *autoregressive* (AR) language models, training is typically performed with **next-token prediction** under **teacher forcing**. The learning objective is
+In classical autoregressive (AR) language models, training is typically performed with **next-token prediction** under **teacher forcing**. The learning objective is
 
 $$
 -\log p_{\boldsymbol{\theta}}(\boldsymbol{x})=-\sum_{i=1}^n \log p_{\boldsymbol{\theta}}\left(\boldsymbol{x}^i \mid \boldsymbol{x}^{<i}\right):=\mathcal{L}_{\mathrm{AR}}
 $$
 
-i.e., maximizing the log-likelihood of the next token  *$\boldsymbol{x}^{i}$* conditioned on the prefix   $\boldsymbol{x}^{<i}$ . This paradigm has achieved outstanding success across a wide range of natural-language processing tasks.
+i.e., maximizing the log-likelihood of the next token  $\boldsymbol{x}^{i}$ conditioned on the prefix   $\boldsymbol{x}^{<i}$ . This paradigm has achieved outstanding success across a wide range of natural-language processing tasks.
 
 At inference time, however, an AR model customarily produces **one token per step**. If KV-caching is ignored, the decoding complexity scales as $O(n^{2})$ with sequence length $n$. With KV-caching, the complexity reduces to $O(n)$. Although this is efficient for many short-text scenarios, it remains a bottleneck for long-form generation.
 
@@ -70,10 +70,10 @@ Figure below (not shown here) illustrates the three stages of an MDLLM pipeline 
 |  | Process |
 | --- | --- |
 | **(a) Pre-training** | Mask every token in a sentence **independently**, with the masking ratio $t\sim\mathrm{U}[0,1]$.  The model receives the noisy sequence $x_{t}$ as input and outputs a reconstruction distribution for every masked position; the objective is the MDLLM loss $\mathcal{L}_{\text{MDM}}$. |
-| **(b) Supervised Fine-Tuning (SFT)** | Under a *prompt–response* setting, mask **only** the tokens in the *response*, leaving the *prompt* fully visible so as to strengthen conditional generation.  The loss is evaluated exactly as in pre-training. |
+| **(b) Supervised Fine-Tuning (SFT)** | Under a prompt–response setting, mask **only** the tokens in the response, leaving the prompt fully visible so as to strengthen conditional generation.  The loss is evaluated exactly as in pre-training. |
 | **(c) Sampling** | Begin from a fully masked state $x_{1}$ and iterate over a discrete schedule $1=t_{0}>t_{1}>\dots>t_{K}=0$:
 1. Predict the masked tokens given the current $x_{t_{k}}$.
-2. Retain high-confidence predictions while *re-masking* low-confidence positions (the “remask” strategy) to preserve stochasticity.
+2. Retain high-confidence predictions while re-masking low-confidence positions (the “remask” strategy) to preserve stochasticity.
 3. Proceed to the next time step $t_{k+1}$
 After several iterations the process yields the final text $x_0$.  In **LLaDA**, the confidence filter keeps a fixed number of tokens in each denoising step: for a target length $N$ and $T$ denoising steps, exactly $\max\{1,\,N/T\}$tokens are preserved per step. |
 
@@ -85,21 +85,22 @@ After several iterations the process yields the final text $x_0$.  In **LLaDA**,
 2. **Inter-block Autoregression** Generate the blocks left-to-right—first *Block 0*, then *Block 1*, and so on—thereby preserving causality across blocks；
 3. **Intra-block Diffusion** Within each block, tokens are denoised through MDLLM’s unmasking mechanism ;
 
-This design yields a *trade-off* between pure AR and full MDLLM decoding:
+This design yields a trade-off between pure AR and full MDLLM decoding:
 
 - **Block length $= 1$ $\rightarrow$  pure AR decoding**；
 - **Block length $=$ sequence length** $\rightarrow$ **single-shot MDLLM**；
 
-The figure blow schematically illustrates the semi-autoregressive sampling schedule.  At the initial step ($t=1$) all tokens except the prompt are masked.  The model then successively reconstructs *Block 0 → Block 1 → Block 2 → ⋯*, reaching a fully realized sequence at  $t=0$.
+The figure blow schematically illustrates the semi-autoregressive sampling schedule.  At the initial step ($t=1$) all tokens except the prompt are masked.  The model then successively reconstructs *Block 0 -> Block 1 -> Block 2 -> ⋯*, reaching a fully realized sequence at  $t=0$.
 
 ![image.png](DLM_images/image1.png)
 
-- It’s worth noting that In LLada’s implementation, even under semi-AR generation the *entire* sequence is fed to the model at **every** forward pass.  When generating *Block 0*, for example, the input is *Prompt + Block 0 + Block 1 + Block 2 + ⋯*, rather than *Prompt + Block 0* alone.  We conjecture that this choice ensures consistency with the supervised fine-tuning (SFT) regime, which conditions on the full sequence.
-- If the training phase employed *Prompt + Block 0 + … + Block i* for predicting tokens of the *Block i + 1***,** then inference could naturally exploit **KV-caching / semi KV caching**, as only the past blocks would need to be re-introduced.  In the latter Section, we will introduce BD3LM which utilized this training paradigm.
+- It’s worth noting that In LLada’s implementation, even under semi-AR generation the entire sequence is fed to the model at **every** forward pass.  When generating *Block 0*, for example, the input is *Prompt + Block 0 + Block 1 + Block 2 + ⋯*, rather than *Prompt + Block 0* alone.  We conjecture that this choice ensures consistency with the supervised fine-tuning (SFT) regime, which conditions on the full sequence.
+
+- If the training phase employed *Prompt + Block 0 + … + Block i* for predicting tokens of the *Block i + 1*, then inference could naturally exploit **KV-caching / semi KV caching**, as only the past blocks would need to be re-introduced.  In the latter Section, we will introduce BD3LM which utilized this training paradigm.
 
 ### 2.5 Any-Order Autoregressive (**AO-AR)**
 
-In **RADD** [4], the authors give a formal proof that the optimization objective of a **Mask-Based Diffusion Language Model** (MDLLM) is equivalent to that of an **arbitrary-order autoregressive** (AO-AR) model—exemplified by ***$\sigma$-GPT*** [14]. Readers interested in the full derivation are referred to the original paper [4]. Specifically, the AO-AR loss can be expressed as
+In **RADD** [4], the authors give a formal proof that the optimization objective of a **Mask-Based Diffusion Language Model** (MDLLM) is equivalent to that of an **arbitrary-order autoregressive** (AO-AR) model—exemplified by **$\sigma$-GPT** [14]. Readers interested in the full derivation are referred to the original paper [4]. Specifically, the AO-AR loss can be expressed as
 
 $$
 -\log p_{\theta}(\boldsymbol{x}) = -\log \mathbb{E}_{\sigma \sim \mathcal{U}(S_n)} p_{\theta}(\boldsymbol{x} \mid \boldsymbol{\sigma}) \le \mathbb{E}_{\sigma \sim \mathcal{U}(S_n)} \left[ - \sum_{i=1}^{n} \log p_{\theta}(\boldsymbol{x}_{\sigma_i} \mid \boldsymbol{x}_{\sigma_{<i}}) \right] := \mathcal{L}_{\text{AOAR}}
@@ -108,12 +109,12 @@ $$
 ### Intuitively
 
 - **MDLLM** decodes by iteratively unmasking randomly chosen positions, so the order of its outputs is inherently unordered ;
-- An **AO-AR** model (e.g., *$\sigma$-GPT*) first applies an explicit **random permutation** to the input sequence and then predicts tokens in that permuted order.
+- An **AO-AR** model (e.g., $\sigma$-GPT) first applies an explicit **random permutation** to the input sequence and then predicts tokens in that permuted order.
 - Both mechanisms break the sequence’s original causal order, making their theoretical equivalence unsurprising.
 
-## 3 some problems
+## 3 Some problems
 
-- ***The sampling is inefficient***
+- **The sampling is inefficient**
     1. **KV caching**
         
         For a pure autoregressive (AR) model, the implementation of the KV-caching mechanism is quite natural due to the causal nature of its attention mask (here, the "attention mask" refers specifically to the one used within the attention layer, which should be distinguished from the mask tokens added to the input sequence in MDLLM). As illustrated below, at each step, the model attends only to the current token and its preceding tokens. This design allows the previously computed key and value (K and V) representations to be cached and reused when predicting the next token, thus avoiding redundant computation.
@@ -132,11 +133,11 @@ $$
         
 - ***Relative to a standard autoregressive (AR) model, training an MDLLM model appears to be appreciably more complex***
     
-    Because we have not yet had the opportunity to conduct large-scale training ourselves, we draw on the most recent findings of an arxiv paper[3], whose experiments are built on equivalent objectives between **AO-AR** models and **MDLLM** [4]. A direct head-to-head comparison between AR and MDLLM would confound architectural effects: AR models are almost always implemented in a *decoder-only* form, whereas MDLLM is *encoder-only*. The authors therefore begin by contrasting an **AO-AR** model with a conventional **AR** model, since both can share the same decoder-only architecture and the AO-AR training objective is equivalent to that of MDLLM [4]. By simply juxtaposing the training losses of, for example, AO-AR and a baseline AR model, one can gauge the relative ease or difficulty of training MDLLM versus AR models.
+    Because we have not yet had the opportunity to conduct large-scale training ourselves, we draw on the most recent findings of an arxiv paper[3], whose experiments are built on equivalent objectives between **AO-AR** models and **MDLLM** [4]. A direct head-to-head comparison between AR and MDLLM would confound architectural effects: AR models are almost always implemented in a decoder-only form, whereas MDLLM is encoder-only. The authors therefore begin by contrasting an **AO-AR** model with a conventional **AR** model, since both can share the same decoder-only architecture and the AO-AR training objective is equivalent to that of MDLLM [4]. By simply juxtaposing the training losses of, for example, AO-AR and a baseline AR model, one can gauge the relative ease or difficulty of training MDLLM versus AR models.
     
     1. **Left panel**
         
-        *GPT-2-small* represents the AR baseline, and *AO-GPT-small* the AO-AR counterpart. Both models decode left-to-right, but at input time the AR baseline receives the sequence in its original causal order, whereas the AO-AR model is fed a *randomly permuted* version. Under identical numbers of training steps, the AR model attains a lower loss, indicating that learning from text is easier for the AR model than for the AO-AR (and hence MDLLM). This result is intuitive: most random permutations partially destroy the information carried by the original word order, and textual data possess an intrinsic causal structure that an AR model can exploit naturally.
+        GPT-2-small represents the AR baseline, and AO-GPT-small the AO-AR counterpart. Both models decode left-to-right, but at input time the AR baseline receives the sequence in its original causal order, whereas the AO-AR model is fed a randomly permuted version. Under identical numbers of training steps, the AR model attains a lower loss, indicating that learning from text is easier for the AR model than for the AO-AR (and hence MDLLM). This result is intuitive: most random permutations partially destroy the information carried by the original word order, and textual data possess an intrinsic causal structure that an AR model can exploit naturally.
         
     2. **Right panel**
         
@@ -159,27 +160,27 @@ $$
 ### 4.1 KV Caching
 
 1. **Fast-DLLM [6]：approximated KV-Caching**
-    1. Empirical results in [6] show that, although a masked diffusion language model (MDLLM) theoretically requires every token to attend to the keys and values of *all* positions in the input sequence—forcing a complete refresh of **K** and **V** at each forward pass—the cosine similarity between the **K** and **V** vectors at the *same* position across consecutive denoising steps is nevertheless quite high (the authors verified this on two models, **LLaDA** [1] and **Dream** [13]).
-    2. Leveraging this observation, one can implement a *localized* approximate KV-caching mechanism within a short temporal window (e.g., successive denoising steps inside the same block). Even though a strict KV-cache is formally incompatible with MDLLM, this high inter-step similarity can still be exploited to reduce redundant computation.
+    1. Empirical results in [6] show that, although a masked diffusion language model (MDLLM) theoretically requires every token to attend to the keys and values of all positions in the input sequence—forcing a complete refresh of **K** and **V** at each forward pass—the cosine similarity between the **K** and **V** vectors at the same position across consecutive denoising steps is nevertheless quite high (the authors verified this on two models, **LLaDA** [1] and **Dream** [13]).
+    2. Leveraging this observation, one can implement a localized approximate KV-caching mechanism within a short temporal window (e.g., successive denoising steps inside the same block). Even though a strict KV-cache is formally incompatible with MDLLM, this high inter-step similarity can still be exploited to reduce redundant computation.
         
         ![image.png](DLM_images/image5.png)
         
-    3. Because Fast-DLLM is based on **LLaDA[1]** and **Dream[13]**, consistency between training and inference requires that each forward pass still feed the prompt **and every block** into the model. This constraint led the authors to introduce **dual caching**. Standard KV-caching can be regarded as *prefix caching*, since it stores only the keys and values for positions *preceding* the current block. Dual caching, by contrast, also caches the tensors for the blocks *following* the current one—reflecting the fact that Fast-DLLM must repeatedly process the prompt together with the full set of blocks at every step.
+    3. Because Fast-DLLM is based on **LLaDA[1]** and **Dream[13]**, consistency between training and inference requires that each forward pass still feed the prompt **and every block** into the model. This constraint led the authors to introduce **dual caching**. Standard KV-caching can be regarded as prefix caching, since it stores only the keys and values for positions preceding the current block. Dual caching, by contrast, also caches the tensors for the blocks following the current one—reflecting the fact that Fast-DLLM must repeatedly process the prompt together with the full set of blocks at every step.
         
         ![image.png](DLM_images/image6.png)
         
 2. **BD3LM [8]：more consistent KV-Cache**
-    1. *Training‐time semi-causal masking.*
-        1. Introducing a **semi-causal mask** during training allows an MDLLM to support **semi-KV caching** natively, though it also nudges the model’s behavior toward the autoregressive (AR) regime.
+    1. **Training‐time semi-causal masking.**
+        Introducing a **semi-causal mask** during training allows an MDLLM to support **semi-KV caching** natively, though it also nudges the model’s behavior toward the autoregressive (AR) regime.
     2. **Comparison with Fast-DLLM**
         
-        i. For **BD3LM**, sampling **with** KV-caching produces *exactly* the same outputs as sampling **without** KV-caching; the mechanism is therefore exact rather than approximate.
+        i. For **BD3LM**, sampling **with** KV-caching produces exactly the same outputs as sampling **without** KV-caching; the mechanism is therefore exact rather than approximate.
         
-        ii. At inference, only the *current* block and its *preceding* blocks need to be processed.  The model no longer receives the full input sequence, yielding lower computational cost.
+        ii. At inference, only the current block and its preceding blocks need to be processed.  The model no longer receives the full input sequence, yielding lower computational cost.
         
         iii. The main drawback is that an existing MDLLM must be **re-trained** or at least **fine-tuned**, whereas Fast-DLLM can be applied directly to a fully-trained model with no additional adjustment.
         
-        iv. Their **Vectorized Training** strategy is also noteworthy: by concatenating $x_{0}$ and $x_{t}$ and employing a specially designed attention mask, they achieve highly efficient vectorized optimization.  This constitutes an effective fusion of teacher forcing and diffusion-style training.  Detailed mechanics are given in the paper—see especially Appendix B.6 on the *Specialized Attention Mask*—and are not expanded upon here.
+        iv. Their **Vectorized Training** strategy is also noteworthy: by concatenating $x_{0}$ and $x_{t}$ and employing a specially designed attention mask, they achieve highly efficient vectorized optimization.  This constitutes an effective fusion of teacher forcing and diffusion-style training.  Detailed mechanics are given in the paper—see especially Appendix B.6 on the Specialized Attention Mask—and are not expanded upon here.
         
 
 ![image.png](DLM_images/image7.png)
@@ -212,21 +213,21 @@ $$
 - **Practical implementation strategy**
     - **Fixed-threshold control.**
         
-        In practice, **Fast-DLLM** does not enforce the theorem’s exact condition.  Instead, it regulates the degree of parallel decoding in each denoising step with a *fixed probability threshold*.
+        In practice, **Fast-DLLM** does not enforce the theorem’s exact condition.  Instead, it regulates the degree of parallel decoding in each denoising step with a fixed probability threshold.
         
     - **Concrete procedure (threshold = 0.9).**
         - If a masked position attains a predicted probability **> 0.9**, its token is accepted immediately—regardless of how many unmasked tokens have already been accepted in the current step.
-        - Otherwise, the algorithm checks whether *any* masked position exceeds the 0.9 threshold. If none does, it accepts **the token with the highest predicted probability**, thereby guaranteeing that at least one token is produced in every step.
+        - Otherwise, the algorithm checks whether **any** masked position exceeds the 0.9 threshold. If none does, it accepts **the token with the highest predicted probability**, thereby guaranteeing that at least one token is produced in every step.
     - **Empirical performance.**
         
         This heuristic substantially reduces computational overhead and performs well in practice.  Although it deviates from the theorem’s strictly greedy criterion, system-level experiments indicate that the approach is effective.
         
 - **Strict implementation under the theorem.**
-    - We reproduced the theorem’s *exact* procedure in code and carried out a small-scale test; in practice it **does work.**
+    - We reproduced the theorem’s exact procedure in code and carried out a small-scale test; in practice it **does work.**
     - Concrete algorithmic steps:
         - **Collect greedy-unmasking probabilities.**
             
-            For every masked region (*block*), perform one round of *greedy unmasking* at all masked positions and record the probability assigned to the selected token at each position. *Example.* For the sequence “今天吃 [mask1][mask2]”, suppose the model’s distribution for **[mask1]** is {“什”: 0.7, “鱼”: 0.2, “其他”: 0.1}.  Greedy unmasking chooses the token “什” with probability 0.7.
+            For every masked region (block), perform one round of greedy unmasking at all masked positions and record the probability assigned to the selected token at each position. Example. For the sequence “今天吃 [mask1][mask2]”, suppose the model’s distribution for **[mask1]** is {“什”: 0.7, “鱼”: 0.2, “其他”: 0.1}.  Greedy unmasking chooses the token “什” with probability 0.7.
             
         - **Sort in descending order.**
             
@@ -253,23 +254,23 @@ $$
 
 ## 5 Multi-Token Prediction
 
-The central idea of **Multi-Token Prediction** is to emit *several* future tokens per decoding step while incurring **negligible additional compute**.  Current implementations (the list is not exhaustive) fall into two broad categories:
+The central idea of **Multi-Token Prediction** is to emit several future tokens per decoding step while incurring negligible additional compute.  Current implementations (the list is not exhaustive) fall into two broad categories:
 
 1. **Multi-head parallel prediction** [11].
     
-    Additional prediction heads ($head_1 … head_k$) simultaneously generate $x^{t+1},\dots,x^{t+k}$.  A high-confidence teacher model then verifies and filters the candidates token by token — i.e., *speculative decoding*.  A representative example is **Medusa** [12].
+    Additional prediction heads ($head_1 … head_k$) simultaneously generate $x^{t+1},\dots,x^{t+k}$.  A high-confidence teacher model then verifies and filters the candidates token by token — i.e., speculative decoding.  A representative example is **Medusa** [12].
     
 2. **Register-token schemes**.
-    
-    *Register tokens* are periodically inserted into the input; their hidden states are used to predict several subsequent *regular* tokens.  A recent instance is **MuToR** [7].  (MuToR is aimed not at higher throughput but at **improved performance**; recent work [11] suggests that MTP training, by injecting forecasts of future tokens, provides stronger planning signals.  These issues, however, lie outside the focus of the present note.)
+
+    Register tokens are periodically inserted into the input; their hidden states are used to predict several subsequent regular tokens.  A recent instance is **MuToR** [7].  (MuToR is aimed not at higher throughput but at **improved performance**; recent work [11] suggests that MTP training, by injecting forecasts of future tokens, provides stronger planning signals.  These issues, however, lie outside the focus of the present note.)
     
 
 ![image.png](DLM_images/image9.png)
 
 For today’s mainstream **Semi-AR MDLLM** variants, their behavior is in many ways reminiscent of **register-token** MTP schemes:
 
-- The right-hand panel (excerpted from *MuToR*) can be read as predicting, at each step, **one regular token and one register token**.  Both tokens attend only to themselves and the preceding regular tokens.  The register token forecasts a future token that is offset by a pre-defined shift $d$.
-- Suppose we ignore Fast-DLLM’s threshold-driven parallel decoding and adopt the *simplest* policy—generating a fixed $C$ tokens per denoising step—and likewise set the block size to $C$.  When processing block $k$, we can treat *every* **[MASK]** position as a register token and assign to each a distinct random shift $d\in[1,C]$.  Under this construction, Semi-AR decoding reduces exactly to the second type of MTP outlined above.
+- The right-hand panel (excerpted from MuToR) can be read as predicting, at each step, **one regular token and one register token**.  Both tokens attend only to themselves and the preceding regular tokens.  The register token forecasts a future token that is offset by a pre-defined shift $d$.
+- Suppose we ignore Fast-DLLM’s threshold-driven parallel decoding and adopt the simplest policy—generating a fixed $C$ tokens per denoising step—and likewise set the block size to $C$.  When processing block $k$, we can treat every **[MASK]** position as a register token and assign to each a distinct random shift $d\in[1,C]$.  Under this construction, Semi-AR decoding reduces exactly to the second type of MTP outlined above.
 - In a conventional AR model, position $i$ predicts token $x^{i+1}$; in an MDLLM, position $i$ typically predicts $x^i$.  This is not a hard rule, however: for example, in [13] the authors align MDLLM positions to match AR decoding.
 
 ## Contributions
