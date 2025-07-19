@@ -24,7 +24,7 @@ i.e., maximizing the log-likelihood of the next token  $\boldsymbol{x}^{i}$ cond
 
 At inference time, however, an AR model customarily produces **one token per step**. If KV-caching is ignored, the decoding complexity scales as $O(n^{2})$ with sequence length $n$. With KV-caching, the complexity reduces to $O(n)$. Although this is efficient for many short-text scenarios, it remains a bottleneck for long-form generation.
 
-## 2 What is Diffusion Language Models
+## 2 Diffusion Language Models
 
 **Diffusion Language Models (DLMs)**——in particular, focusing on the prevailing **mask-based/absorbing-state** variants (hereafter collectively referred to as **MDLLM**)
 
