@@ -1,11 +1,16 @@
 ---
-title: "Diffusion Language Models"
-description: "Assessing MDLLM's viability for multi‑token prediction, diagnosing their efficiency and learning challenges, and surveying emerging solutions within the broader multi‑token prediction landscape."
-publishDate: "2025-07-18"
-tags: ["Diffusion", "Multi-token Prediciton", "Autoregressive Models", "Any-Order AR Models"]
+title: "Assessing Diffusion LM in the view of Multi-token Prediction"
+publishDate: "2025-07-18T18:26:00Z"
+updateDate: "2076-04-10T14:32:00Z"
 ---
 
-This blog seeks to consolidate my recent reflections on diffusion language models (DLLMs), with particular emphasis on the mainstream semi‑autoregressive, mask‑based variants. Whether DLLMs can ultimately replace autoregressive (AR) models as the default backbone for large language models remains an open question; nevertheless, they offer a promising alternative for multi‑token prediction tasks. Present‑day open-source DLLMs confront two principal challenges. First, the generation efficiency of pure DLLMs is still under debate: their architectures do not naturally accommodate key‑value caching, and overly aggressive reductions in the number of denoising function evaluations (NFEs) can markedly impair generation quality. Second, because a mask‑based DLLM can be regarded as any‑order AR model, it faces a higher learning complexity on textual data than a pure AR counterpart. This article reviews these challenges, surveys current exploratory solutions, and discusses how DLLMs intersect with the broader paradigm of multi‑token prediction.
+<p align="center">
+  <img src="https://i.postimg.cc/bwbxLD8n/vecteezy-colorful-illustrative-3d-animation-of-neural-network-deep-42719737.gif" alt="image"/>
+</p>
+
+> Assessing masked diffusion language models viability for multi‑token prediction, diagnosing their efficiency and learning challenges, and surveying emerging solutions within the broader multi‑token prediction landscape. 
+
+We seek to consolidate our recent reflections on diffusion language models (DLLMs), with particular emphasis on the mainstream semi‑autoregressive, mask‑based variants. Whether DLLMs can ultimately replace autoregressive (AR) models as the default backbone for large language models remains an open question; nevertheless, they offer a promising alternative for multi‑token prediction tasks. Present‑day open-source DLLMs confront two principal challenges. First, the generation efficiency of pure DLLMs is still under debate: their architectures do not naturally accommodate key‑value caching, and overly aggressive reductions in the number of denoising function evaluations (NFEs) can markedly impair generation quality. Second, because a mask‑based DLLM can be regarded as any‑order AR model, it faces a higher learning complexity on textual data than a pure AR counterpart. This note reviews these challenges, surveys current exploratory solutions, and discusses how DLLMs intersect with the broader paradigm of multi‑token prediction.
 
 ## 1 Autoregressive Models
 
@@ -44,10 +49,10 @@ $$
 -\log p_{\boldsymbol{\theta}}(\boldsymbol{x}) \leq \int_0^1 \frac{1}{t} \mathbb{E}_{q_{t \mid 0}\left(\boldsymbol{x}_t \mid \boldsymbol{x}_0\right)}\left[\sum_{i: \boldsymbol{x}_0^i=[\mathrm{MASK}]}-\log p_{\boldsymbol{\theta}}\left(\boldsymbol{x}_0^i \mid \boldsymbol{x}_t\right)\right] \mathrm{d} t:=\mathcal{L}_{\mathrm{MDM}}
 $$
 
-Tracing the derivation back to **D3PM** [9] and a subsequent line of work [2, 4, 5, 10]—including SEDD and RADD—one eventually arrives at this expression. If we momentarily ignore the outer integral over $t$ and the conditional expectation, the remaining term
+Tracing the derivation back to **D3PM** [9] and a subsequent line of work [2, 4, 5, 10], including SEDD and RADD, one eventually arrives at this expression. If we momentarily ignore the outer integral over $t$ and the conditional expectation, the remaining term
 
 $$
-⁍ 
+\sum_{i: \boldsymbol{x}_0^i=[\mathrm{MASK}]}-\log p_{\boldsymbol{\theta}}\left(\boldsymbol{x}_0^i \mid \boldsymbol{x}_t\right)
 $$
 
 reduces to reconstructing the masked tokens within the noisy sequence $x_t$ (which contains both clear and masked tokens). This is closely analogous to
@@ -62,7 +67,7 @@ Figure below (not shown here) illustrates the three stages of an MDLLM pipeline 
 
 ![image.png](DLM_images/image.png)
 
-|  | 流程概述 |
+|  | Process |
 | --- | --- |
 | **(a) Pre-training** | Mask every token in a sentence **independently**, with the masking ratio $t\sim\mathrm{U}[0,1]$.  The model receives the noisy sequence $x_{t}$ as input and outputs a reconstruction distribution for every masked position; the objective is the MDLLM loss $\mathcal{L}_{\text{MDM}}$. |
 | **(b) Supervised Fine-Tuning (SFT)** | Under a *prompt–response* setting, mask **only** the tokens in the *response*, leaving the *prompt* fully visible so as to strengthen conditional generation.  The loss is evaluated exactly as in pre-training. |
@@ -94,16 +99,16 @@ The figure blow schematically illustrates the semi-autoregressive sampling sched
 
 ### 2.5 Any-Order Autoregressive (**AO-AR)**
 
-In **RADD** [4], the authors give a formal proof that the optimization objective of a **Mask-Based Diffusion Language Model** (MDLLM) is equivalent to that of an **arbitrary-order autoregressive** (AO-AR) model—exemplified by ***σ-GPT*** [14]. Readers interested in the full derivation are referred to the original paper [4]. Specifically, the AO-AR loss can be expressed as
+In **RADD** [4], the authors give a formal proof that the optimization objective of a **Mask-Based Diffusion Language Model** (MDLLM) is equivalent to that of an **arbitrary-order autoregressive** (AO-AR) model—exemplified by ***$\sigma$-GPT*** [14]. Readers interested in the full derivation are referred to the original paper [4]. Specifically, the AO-AR loss can be expressed as
 
 $$
-⁍
+-\log p_{\theta}(\boldsymbol{x}) = -\log \mathbb{E}_{\sigma \sim \mathcal{U}(S_n)} p_{\theta}(\boldsymbol{x} \mid \boldsymbol{\sigma}) \le \mathbb{E}_{\sigma \sim \mathcal{U}(S_n)} \left[ - \sum_{i=1}^{n} \log p_{\theta}(\boldsymbol{x}_{\sigma_i} \mid \boldsymbol{x}_{\sigma_{<i}}) \right] := \mathcal{L}_{\text{AOAR}}
 $$
 
 ### Intuitively
 
 - **MDLLM** decodes by iteratively unmasking randomly chosen positions, so the order of its outputs is inherently unordered ;
-- An **AO-AR** model (e.g., *σ-GPT*) first applies an explicit **random permutation** to the input sequence and then predicts tokens in that permuted order.
+- An **AO-AR** model (e.g., *$\sigma$-GPT*) first applies an explicit **random permutation** to the input sequence and then predicts tokens in that permuted order.
 - Both mechanisms break the sequence’s original causal order, making their theoretical equivalence unsurprising.
 
 ## 3 some problems
@@ -119,15 +124,15 @@ $$
         
     2. **Parallel Decoding**
         
-        The issue under consideration concerns MDLLM when more than one token is unmasked during each denoising step. My own experiments show that setting the number of unmasked tokens to one per step generally produces the best results—although inference is then the slowest. When the number of tokens unmasked per step is increased, evaluation performance degrades accordingly.
+        The issue under consideration concerns MDLLM when more than one token is unmasked during each denoising step. Our experiments show that setting the number of unmasked tokens to one per step generally produces the best results—although inference is then the slowest. When the number of tokens unmasked per step is increased, evaluation performance degrades accordingly.
         
-        The figure below reports my results for LLaDA-Instruct [1] on GSM8K with 5-shot prompting. The number of tokens unmasked at each step is given by $\text{gen\_length} / \text{diff\_steps}$, where “**gen_length”** is the maximum generation length and “**diff_steps”** is the total number of denoising steps. It is evident that accuracy drops substantially as the number of tokens unmasked at each step increases.
+        The figure below reports our results for LLaDA-Instruct [1] on GSM8K with 5-shot prompting. The number of tokens unmasked at each step is given by $\text{gen\_length} / \text{diff\_steps}$, where “**gen_length”** is the maximum generation length and “**diff_steps”** is the total number of denoising steps. It is evident that accuracy drops substantially as the number of tokens unmasked at each step increases.
         
         ![image.png](DLM_images/image3.png)
         
 - ***Relative to a standard autoregressive (AR) model, training an MDLLM model appears to be appreciably more complex***
     
-    Because I have not yet had the opportunity to conduct large-scale training myself, I draw on the most recent findings of an arxiv paper[3], whose experiments are built on equivalent objectives between **AO-AR** models and **MDLLM** [4]. A direct head-to-head comparison between AR and MDLLM would confound architectural effects: AR models are almost always implemented in a *decoder-only* form, whereas MDLLM is *encoder-only*. The authors therefore begin by contrasting an **AO-AR** model with a conventional **AR** model, since both can share the same decoder-only architecture and the AO-AR training objective is equivalent to that of MDLLM [4]. By simply juxtaposing the training losses of, for example, AO-AR and a baseline AR model, one can gauge the relative ease or difficulty of training MDLLM versus AR models.
+    Because we have not yet had the opportunity to conduct large-scale training ourselves, we draw on the most recent findings of an arxiv paper[3], whose experiments are built on equivalent objectives between **AO-AR** models and **MDLLM** [4]. A direct head-to-head comparison between AR and MDLLM would confound architectural effects: AR models are almost always implemented in a *decoder-only* form, whereas MDLLM is *encoder-only*. The authors therefore begin by contrasting an **AO-AR** model with a conventional **AR** model, since both can share the same decoder-only architecture and the AO-AR training objective is equivalent to that of MDLLM [4]. By simply juxtaposing the training losses of, for example, AO-AR and a baseline AR model, one can gauge the relative ease or difficulty of training MDLLM versus AR models.
     
     1. **Left panel**
         
@@ -135,7 +140,7 @@ $$
         
     2. **Right panel**
         
-        The figure probes how different *fixed* permutations affect learning difficulty for the AO-AR model (contrast this with the AO-GPT curve of left panel, where a fresh random permutation is applied to every input on-the-fly). The study evaluates
+        The figure probes how different fixed permutations affect learning difficulty for the AO-AR model (contrast this with the AO-GPT curve of left panel, where a fresh random permutation is applied to every input on-the-fly). The study evaluates
         
         - **identity** (the original left-to-right order),
         - **random** permutations (three independent instances), and
@@ -217,7 +222,7 @@ $$
         This heuristic substantially reduces computational overhead and performs well in practice.  Although it deviates from the theorem’s strictly greedy criterion, system-level experiments indicate that the approach is effective.
         
 - **Strict implementation under the theorem.**
-    - I reproduced the theorem’s *exact* procedure in code and carried out a small-scale test; in practice it **does work.**
+    - We reproduced the theorem’s *exact* procedure in code and carried out a small-scale test; in practice it **does work.**
     - Concrete algorithmic steps:
         - **Collect greedy-unmasking probabilities.**
             
@@ -267,23 +272,29 @@ For today’s mainstream **Semi-AR MDLLM** variants, their behavior is in many w
 - Suppose we ignore Fast-DLLM’s threshold-driven parallel decoding and adopt the *simplest* policy—generating a fixed $C$ tokens per denoising step—and likewise set the block size to $C$.  When processing block $k$, we can treat *every* **[MASK]** position as a register token and assign to each a distinct random shift $d\in[1,C]$.  Under this construction, Semi-AR decoding reduces exactly to the second type of MTP outlined above.
 - In a conventional AR model, position $i$ predicts token $x^{i+1}$; in an MDLLM, position $i$ typically predicts $x^i$.  This is not a hard rule, however: for example, in [13] the authors align MDLLM positions to match AR decoding.
 
+## Contributions
+
+- [Yezhen Wang](https://scholar.google.com/citations?user=g-VEnLEAAAAJ&hl=zh-CN)
+- [Bo Li](https://brianboli.com/)
+
 ## Reference
 
+<small>
 [1] Large Language Diffusion Models
 
 [2] Discrete Diffusion Modeling by Estimating the Ratios of the Data Distribution
 
 [3] Any-Order GPT as Masked Diffusion Model: Decoupling Formulation and Architecture
 
-[4] YOUR ABSORBING DISCRETE DIFFUSION SECRETLY MODELS THE CONDITIONAL DISTRIBUTIONS OF CLEAN DATA
+[4] Your Absorbing Discrete Diffusion Secretly Models the Conditional Distributions of Clean Data
 
-[5] SCORE-BASED CONTINUOUS-TIME DISCRETE DIFFUSION MODELS
+[5] Score-Based Continuous-Time Discrete Diffusion Models
 
 [6] Fast-dLLM: Training-free Acceleration of Diffusion LLM by Enabling KV Cache and Parallel Decoding
 
 [7] Multi-Token Prediction Needs Registers
 
-[8] BLOCK DIFFUSION: INTERPOLATING BETWEEN AUTOREGRESSIVE AND DIFFUSION LANGUAGE MODELS
+[8] Block Diffusion: Interpolating Between Autoregressive and Diffusion Language Models
 
 [9] Structured Denoising Diffusion Models in Discrete State-Spaces
 
@@ -293,6 +304,7 @@ For today’s mainstream **Semi-AR MDLLM** variants, their behavior is in many w
 
 [12] Medusa: Simple llm inference acceleration framework with multiple decoding heads
 
-[13] ****SCALING DIFFUSION LANGUAGE MODELS VIA ADAPTATION FROM AUTOREGRESSIVE MODELS
+[13] Scaling Diffusion Language Models via Adaptation from Autoregressive Models
 
-[14] σ-GPTs: A New Approach to Autoregressive Models
+[14] $\sigma$-GPTs: A New Approach to Autoregressive Models
+</small>
