@@ -1,9 +1,9 @@
 ---
 import { type CollectionEntry, render } from "astro:content";
-import TOC from "@/components/blog/TOC.astro";
-import BaseLayout from "./Base.astro";
 import SeriesPanel from "@/components/SeriesPanel.astro";
+import TOC from "@/components/blog/TOC.astro";
 import { Icon } from "astro-icon/components";
+import BaseLayout from "./Base.astro";
 
 interface Props {
 	series: CollectionEntry<"series">;

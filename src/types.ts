@@ -82,14 +82,14 @@ export interface Summary {
 export type AdmonitionType = "tip" | "note" | "important" | "caution" | "warning";
 
 export interface Badge {
-  variant?:
-    | "default"
-    | "accent"
-    | "accent-base"
-    | "accent-one"
-    | "accent-two"
-    | "muted"
-    | "outline";
-  showHash?: boolean;
-  title: string;
+	variant?:
+		| "default"
+		| "accent"
+		| "accent-base"
+		| "accent-one"
+		| "accent-two"
+		| "muted"
+		| "outline";
+	showHash?: boolean;
+	title: string;
 }

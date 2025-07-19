@@ -1,7 +1,8 @@
+@import "katex/dist/katex.min.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 
 @font-face {
 	font-family: "SFProRounded";
@@ -82,12 +83,12 @@
 
 		/* Для того чтобы текст имел оттенок фона --fg-hue: var(--hue) и --bg-hue: var(--hue) */
 		/* Для того чтобы текст имел оттенок фона --fg-saturation: var(--saturation) и --bg-saturation: var(--saturation) */
-		
+
 		/*** ОСНОВНЫЕ ЦВЕТА (Базовый, фон, акценты, текст) ***/
 		/* Базовый цвет-оттенок темы */
 		--hue: 200deg; /* Общий базовый цвет-оттенок элементов темы */
 		--saturation: 10%; /* Общая базовая насыщенность элементов темы, 0% - нет оттенка цвета */
-		
+
 		/* Фон (background) */
 		--bg-hue: var(--hue); /* Цвет-оттенок фона */
 		--bg-saturation: var(--saturation); /* Насыщенность оттенка фона и некоторых др. элементов, 0% - нет оттенка */
@@ -97,31 +98,31 @@
 		--theme-accent-base: var(--bg-hue) 53% 27%; /* Основной акцентный цвет */
 		--theme-accent-one: var(--bg-hue) 53% 27%; /* Первый дополнительный акцентный цвет */
 		--theme-accent-two: 351deg 66% 48%; /* Второй дополнительный акцентный цвет */
-		
+
 		/* Вариант */ /* --theme-accent-two: 344deg 63% 45%; */
-		
+
 		/* Текст (foreground, цвет-яркость текста рассчитывается ниже на базе --theme-fg) */
 		--fg-hue: var(--hue); /* Общий цвет-оттенок для рассчета градаций цвета */
 		--fg-saturation: var(--saturation); /* Общая насыщенность для рассчета градаций цвета с оттенком, 0% - нет оттенка */
 		--fg-brightness: 9%; /* Яркость для рассчета градаций цвета с оттенком, 0% - начиная от абсолютно черного */
-		--theme-text: var(--theme-color-500); /* Цвет-яркость текста уже с адаптацией под цвет фона */ 
+		--theme-text: var(--theme-color-500); /* Цвет-яркость текста уже с адаптацией под цвет фона */
 
 		/*** ВТОРОСТЕПЕННЫЕ ЦВЕТА (Внешние ссылки, нейтральный акцент, цитаты) ***/
 		--theme-link: var(--hue) 97% 31%; /* Цвет внешних ссылок */
 		--theme-accent: var(--theme-color-600); /* Нейтральный акцент, рассчитывается ниже на базе --theme-fg */
 		--theme-quote: var(--theme-text); /* Цвет цитат */
-		
+
 		/*** ДОПОЛНИТЕЛЬНЫЕ ЦВЕТА ***/
 		--theme-lightest: var(--theme-color-350);
 		--theme-lighter: var(--theme-color-400);
 		--theme-light: var(--theme-color-450);
-		
+
 		/*** СПЕЦИАЛЬНЫЕ ДЛЯ КАЖДОЙ ТЕМЫ ЦВЕТА ***/
 		--theme-special-lightest: hsl(var(--hue), var(--saturation), 100%);
 		--theme-special-lighter: hsl(var(--hue), var(--saturation), 98%);
 		--theme-special-light: hsl(var(--theme-bg));
 		--theme-special: var(--theme-color-75);
-		
+
 		/* Подсветка синтаксиса rehype-pretty-code */
 		pre code span {
 			color: var(--shiki-light) !important;
@@ -136,7 +137,7 @@
 
 		/* Для того чтобы текст имел оттенок фона --fg-hue: var(--hue) и --bg-hue: var(--hue) */
 		/* Для того чтобы текст имел оттенок фона --fg-saturation: var(--saturation) и --bg-saturation: var(--saturation) */
-		
+
 		/* --theme-bg: 200deg 93% 10%; /* DeepBlue */
 		/* --theme-bg: 190deg 86% 8%; /* DeepGreen */
 		/* --theme-bg: 237deg 22% 20%; */
@@ -156,7 +157,7 @@
 		/* Вариант 210deg 25% 15% */
 
 		/* Акценты */
-		--theme-accent-base: var(--hue) 10% 85%; 
+		--theme-accent-base: var(--hue) 10% 85%;
 		--theme-accent-one: 50deg 49% 80%; /* Первый дополнительный акцентный цвет */
 		--theme-accent-two: 50deg 72% 63%; /* 50deg 72% 63% */ /* Второй дополнительный акцентный цвет (был 45deg 80% 50%) */
 		/* --theme-accent-two: 0deg 75% 89%; */
@@ -166,7 +167,7 @@
 		--fg-hue: var(--hue); /* Общий цвет-оттенок для рассчета градаций цвета */
 		--fg-saturation: var(--saturation); /* Общая насыщенность для рассчета градаций цвета с оттенком, 0% - нет оттенка */
 		--fg-brightness: 98%; /* Яркость для рассчета градаций цвета с оттенком, 100% - начиная от абсолютно белого */
-		--theme-text: var(--theme-color-500); /* Цвет-яркость текста адаптированного под цвет фона */ 
+		--theme-text: var(--theme-color-500); /* Цвет-яркость текста адаптированного под цвет фона */
 
 		/*** ВТОРОСТЕПЕННЫЕ ЦВЕТА (Внкшние ссылки, нейтральный акцент, цитаты) ***/
 		--theme-link: var(--hue) 61% 71%; /* Цвет внешних ссылок */
@@ -182,7 +183,7 @@
 		--theme-special-lightest: var(--theme-color-250);
 		--theme-special-lighter: var(--theme-color-200);
 		--theme-special-light: var(--theme-color-150);
-		--theme-special: hsl(var(--hue) var(--saturation) 0% / 0.150);
+		--theme-special: hsl(var(--hue) var(--saturation) 0% / 0.15);
 
 		/* Подсветка синтаксиса */
 		pre code span {
@@ -199,22 +200,22 @@
 		--theme-fg: var(--fg-hue) var(--fg-saturation) var(--fg-brightness); /* Базовый цвет для рассчета градации цветов */
 
 		/* Градации базового цвета для текста и элементов */
-		--theme-color-900: hsl(var(--theme-fg) / 1.0000);
+		--theme-color-900: hsl(var(--theme-fg) / 1.0);
 		--theme-color-850: hsl(var(--theme-fg) / 0.9675);
 		--theme-color-800: hsl(var(--theme-fg) / 0.935);
-		--theme-color-750: hsl(var(--theme-fg) / 0.880);
+		--theme-color-750: hsl(var(--theme-fg) / 0.88);
 		--theme-color-700: hsl(var(--theme-fg) / 0.825);
 		--theme-color-650: hsl(var(--theme-fg) / 0.785);
 		--theme-color-600: hsl(var(--theme-fg) / 0.745);
 		--theme-color-550: hsl(var(--theme-fg) / 0.675);
 		--theme-color-500: hsl(var(--theme-fg) / 0.605);
-		--theme-color-450: hsl(var(--theme-fg) / 0.500);
+		--theme-color-450: hsl(var(--theme-fg) / 0.5);
 		--theme-color-400: hsl(var(--theme-fg) / 0.395);
-		--theme-color-350: hsl(var(--theme-fg) / 0.290);
+		--theme-color-350: hsl(var(--theme-fg) / 0.29);
 		--theme-color-300: hsl(var(--theme-fg) / 0.185);
-		--theme-color-250: hsl(var(--theme-fg) / 0.150);
+		--theme-color-250: hsl(var(--theme-fg) / 0.15);
 		--theme-color-200: hsl(var(--theme-fg) / 0.115);
-		--theme-color-150: hsl(var(--theme-fg) / 0.080);
+		--theme-color-150: hsl(var(--theme-fg) / 0.08);
 		--theme-color-100: hsl(var(--theme-fg) / 0.045);
 		--theme-color-75: hsl(var(--theme-fg) / 0.03375);
 		--theme-color-50: hsl(var(--theme-fg) / 0.0225);
@@ -250,8 +251,13 @@
 	h6 {
 		@apply text-base md:pt-[0.425rem] !important;
 	}
-	
-	h1, h2, h3, h4, h5, h6 {
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
 		@apply min-h-8 h-auto !important;
 	}
 
@@ -278,7 +284,7 @@
 
 			& + pre {
 				@apply m-0 rounded-t-none; /* Убираем верхний отступ, если есть заголовок */
-				}
+			}
 		}
 
 		/* Стиль для блоков кода */

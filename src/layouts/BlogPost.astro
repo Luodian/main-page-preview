@@ -1,11 +1,11 @@
 ---
 import { type CollectionEntry, render } from "astro:content";
+import SeriesPanel from "@/components/SeriesPanel.astro";
 import Masthead from "@/components/blog/Masthead.astro";
 import TOC from "@/components/blog/TOC.astro";
 import WebMentions from "@/components/blog/webmentions/index.astro";
-import BaseLayout from "./Base.astro";
-import SeriesPanel from "@/components/SeriesPanel.astro";
 import { Icon } from "astro-icon/components";
+import BaseLayout from "./Base.astro";
 
 interface Props {
 	post: CollectionEntry<"post">;

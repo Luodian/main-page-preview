@@ -1,9 +1,9 @@
 ---
 import { Image } from "astro:assets";
 import { type CollectionEntry, getCollection } from "astro:content";
+import Badge from '@/components/Badge.astro';
 import FormattedDate from "@/components/FormattedDate.astro";
 import { Icon } from "astro-icon/components";
-import Badge from '@/components/Badge.astro';
 import Separator from "../Separator.astro";
 
 interface Props {
@@ -15,9 +15,6 @@ const {
 
 } = Astro.props;
 
-// console.log("data:", data); // Debug
-// console.log("headings:", content.rendered?.metadata?.headings); // Debug
-// console.log("Post frontmatter:", content.rendered?.metadata?.frontmatter); // Debug
 
 const dateTimeOptions: Intl.DateTimeFormatOptions = {
 	month: "long",
@@ -164,7 +161,7 @@ const postSeries = content.data.seriesId
 		
 		let lastScrollY = window.scrollY;
 		let isScrollingDown = false;
-		let scrollTimeout: number;
+		let scrollTimeout: ReturnType<typeof setTimeout>;
 
 		const updateTitle = () => {
 			const currentScrollY = window.scrollY;

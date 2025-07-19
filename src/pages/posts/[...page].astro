@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import Badge from "@/components/Badge.astro";
 // Remove Pagination component import
 // import Pagination from "@/components/Paginator.astro";
 import PostPreview from "@/components/blog/PostPreview.astro";
@@ -10,7 +11,6 @@ import { collectionDateSort } from "@/utils/date";
 // import type { GetStaticPaths, Page } from "astro";
 import type { GetStaticPaths } from "astro";
 import { Icon } from "astro-icon/components";
-import Badge from "@/components/Badge.astro";
 
 // Modify getStaticPaths to return a single path with all posts
 export const getStaticPaths = (async () => {
