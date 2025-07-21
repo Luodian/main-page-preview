@@ -309,3 +309,14 @@ For today’s mainstream **Semi-AR MDLLM** variants, their behavior is in many w
 
 [14] $\sigma$-GPTs: A New Approach to Autoregressive Models
 </small>
+
+# Citations
+
+```bibtex
+@article{wang2025,
+  title={Assessing Diffusion LM in the view of Multi-token Prediction},
+  author={Wang, Yezhen and Li, Bo},
+  url={https://www.lmms-lab.com/notes/dllm/},
+  year={2025}
+}
+```
