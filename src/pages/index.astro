@@ -14,33 +14,30 @@ import PageLayout from "@/layouts/Base.astro";
 	<section class="relative flex flex-col items-center justify-center min-h-[40vh] text-center px-6 pb-16">
 		<div class="max-w-3xl">
 			<h1 class="text-5xl md:text-7xl font-bold tracking-tight mb-4">
-                Releasing
+                Upgrading
 				<span class="block xl:inline bg-gradient-to-r from-accent-two/85 via-accent-one/85 to-accent-two/85 dark:from-accent-two dark:via-accent-one dark:to-accent-two bg-clip-text text-transparent">
-					Aero-1-Audio Models
+					LMMs-Eval to v0.4
 				</span>
 			</h1>
 			<p class="mt-4 mb-6 text-lg text-textColor/80 dark:text-textColorDark/80">
-				Aero-1-Audio is a 1.5B compact audio model capable of handling a range of audio tasks, including speech recognition, audio understanding, and audio instructions following.
+				LMMs-Eval is a comprehensive evaluation framework for multimodal models, designed to facilitate the development and benchmarking of multimodal models.
 			</p>
-			<!-- Replaced img with responsive YouTube iframe embed -->
-			<div class="relative my-6 mx-auto rounded-lg shadow-md overflow-hidden hover:brightness-110 transition-all w-full max-w-3xl" style="padding-bottom: 56.25%;"> <!-- 16:9 Aspect Ratio -->
-				<iframe
-					class="absolute top-0 left-0 w-full h-full"
-					src="https://www.youtube.com/embed/TVTtIPuyy-M"
-					title="YouTube video player for Aero-1-Audio"
-					frameborder="0"
-					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-					referrerpolicy="strict-origin-when-cross-origin"
-					allowfullscreen>
-				</iframe>
+			<!-- Replaced YouTube iframe with image -->
+			<div class="relative my-6 mx-auto rounded-lg shadow-md overflow-hidden hover:brightness-110 transition-all w-full max-w-3xl">
+				<img
+					class="w-full h-auto"
+					src="https://i.postimg.cc/fy6hHhjj/lmms-eval-0d4.png"
+					alt="Project screenshot"
+					loading="lazy"
+				/>
 			</div>
 			<div class="flex flex-col sm:flex-row justify-center gap-4">
-				<a href="/posts/lmms-lab-docs/aero_audio/" class="relative flex items-center justify-center h-12 px-6 rounded-lg shadow-lg hover:brightness-110 transition-all bg-gradient-to-r from-accent-one to-accent-two">
+				<a href="https://github.com/EvolvingLMMs-Lab/lmms-eval" class="relative flex items-center justify-center h-12 px-6 rounded-lg shadow-lg hover:brightness-110 transition-all bg-gradient-to-r from-accent-one to-accent-two">
 					<span class="text-bgColor font-semibold">
 						Start Building
 					</span>
 				</a>
-				<a href="/posts/aero_audio/" class="relative flex items-center justify-center h-12 px-6 rounded-lg shadow-lg bg-bgColor dark:bg-bgColorDark border border-borderColor dark:border-borderColorDark hover:brightness-110 hover:bg-bgColor/90 dark:hover:bg-bgColorDark/90">
+				<a href="https://github.com/EvolvingLMMs-Lab/lmms-eval/blob/main/docs/lmms-eval-0.4.md" class="relative flex items-center justify-center h-12 px-6 rounded-lg shadow-lg bg-bgColor dark:bg-bgColorDark border border-borderColor dark:border-borderColorDark hover:brightness-110 hover:bg-bgColor/90 dark:hover:bg-bgColorDark/90">
 					<span class="font-semibold text-textColor dark:text-textColorDark">
 						Learn More
 					</span>
