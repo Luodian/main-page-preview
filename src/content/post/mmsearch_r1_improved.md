@@ -59,7 +59,7 @@ With this reasoning foundation, we can go further to improve the model's search 
 
 From the figure, compared with our original MMSearch baseline, which was built on Qwen-2.5-VL-7B (referred to as Instruct → Search in this context), we can observe that the model achieved good improvements. The reasoning-first approach enabled more intelligent search decisions, better query formulation, and more effective utilization of retrieved information.
 
-![Figure1](./mmsearch_images/figure1.png)
+![Figure1](./mmsearch_images/figure0.png)
 
 > Accuracy across four multimodal benchmarks (Infoseek, MMSearch, FVQA, and SimpleVQA). The Reasoning to Search paradigm consistently outperforms or matches Instruct -> Search, especially on Infoseek and MMSearch, demonstrating the benefit of reasoning-first strategies in complex information retrieval tasks.
 
