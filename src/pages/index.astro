@@ -4,6 +4,85 @@ import PageLayout from "@/layouts/Base.astro";
 
 <PageLayout meta={{ title: "Home" }}>
 	<!-- Hero section -->
+	<!-- Featured News Section -->
+	<section class="relative px-6 py-12 max-w-7xl mx-auto">
+		<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+			
+			<!-- Left: Big Featured Post -->
+			<div class="group col-span-2">
+				<div class="sticky top-6 flex flex-col gap-6">
+					
+					<!-- Featured Image + Overlay -->
+					<div class="relative w-full h-[60vh] rounded-2xl overflow-hidden shadow-lg">
+						<img src="/images/featured-1.jpg" alt="Featured Post" class="w-full h-full object-cover group-hover:scale-[1.02] transition-all duration-200 ease-out" />
+						<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+						<div class="absolute bottom-6 left-6 right-6 text-white">
+							<h2 class="text-3xl md:text-4xl font-bold mt-3">
+								Upgrading LMMs-Eval to v0.4
+							</h2>
+							<p class="mt-2 text-base text-gray-200 line-clamp-2">
+								LMMs-Eval is a comprehensive evaluation framework for multimodal models,
+								designed to facilitate the development and benchmarking of multimodal models.
+							</p>
+						</div>
+					</div>
+	
+					<!-- Buttons under image -->
+					<div class="flex gap-4">
+						<a href="/get-started" 
+							 class="px-5 py-2 ml-2 border border-gray-300 rounded-full text-gray-700 dark:text-gray-100 
+											hover:border-accent-one hover:text-accent-one transition-all text-sm font-medium dark:hover:text-accent-base">
+							Get Started
+						</a>
+						<a href="/learn-more" 
+							 class="px-5 py-2 border border-gray-300 bg-accent-one rounded-full text-gray-100 dark:text-gray-900 
+											hover:border-accent-one hover:bg-transparent hover: dark:hover:text-gray-200 transition-all text-sm font-medium dark:font-medium dark:hover:font-normal">
+							Learn More
+						</a>
+						
+					</div>
+					
+				</div>
+			</div>
+
+			<!-- Right: Smaller Posts -->
+			<div class="flex flex-col gap-6">
+				<!-- Post Card -->
+				<a href="/posts/aero_audio/" class="group flex flex-col gap-4 items-start mb-6">
+					<div class="w-fill aspect-square rounded-lg overflow-hidden flex-shrink-0">
+						<img src="/images/featured-2.jpg" alt="Post 1" class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform ease-out" />
+					</div>
+					<div>
+						<h3 class="font-semibold text-lg group-hover:text-accent-one transition-colors">Aero-1-Audio</h3>
+						<p class="text-sm text-textColor/70 dark:text-textColorDark/70 line-clamp-2">Our best audio model.</p>
+					</div>
+				</a>
+
+				<!-- Post Card -->
+				<a href="/posts/llava_onevision/" class="group flex flex-col gap-4 items-start mb-6">
+					<div class="w-fill aspect-square rounded-lg overflow-hidden flex-shrink-0">
+						<img src="/images/featured-3.jpg" alt="Post 2" class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform ease-out" />
+					</div>
+					<div>
+						<h3 class="font-semibold text-lg group-hover:text-accent-one transition-colors">LLaVA-OneVision</h3>
+						<p class="text-sm text-textColor/70 dark:text-textColorDark/70 line-clamp-2">Multimodal LLM.</p>
+					</div>
+				</a>
+
+				<!-- Post Card -->
+				<a href="/posts/longva/" class="group flex flex-col gap-4 items-start">
+					<div class="w-fill aspect-square rounded-lg overflow-hidden flex-shrink-0">
+						<img src="/images/featured-4.jpg" alt="Post 3" class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform ease-out" />
+					</div>
+					<div>
+						<h3 class="font-semibold text-lg group-hover:text-accent-one transition-colors">LongVA</h3>
+						<p class="text-sm text-textColor/70 dark:text-textColorDark/70 line-clamp-2">Long context capability can zero-shot transfer from language to vision.</p>
+					</div>
+				</a>
+			</div>
+		</div>
+	</section>
+
 	<!-- Background blur -->
 	<div class="absolute top-0 left-1/2 md:top-[-15%] -ml-[50vw] min-h-screen w-screen pointer-events-none blur-3xl opacity-50 overflow-x-hidden">
 		<div class="absolute top-[10%] right-[-40%] w-[65%] h-full bg-gradient-to-b from-purple-300 via-blue-300 to-transparent rounded-full opacity-30 dark:opacity-10"></div>
@@ -11,18 +90,17 @@ import PageLayout from "@/layouts/Base.astro";
 		<div class="absolute top-[-20%] left-[-50%] w-[85%] h-full bg-gradient-to-b from-indigo-300 via-orange-300 to-transparent rounded-full opacity-60 dark:opacity-10"></div>
 		<div class="absolute top-[-20%] right-[-50%] w-[85%] h-full bg-gradient-to-b from-orange-300 via-indigo-300 to-transparent rounded-full opacity-60 dark:opacity-10"></div>
 	</div>
-	<section class="relative flex flex-col items-center justify-center min-h-[40vh] text-center px-6 pb-16">
+
+	<!-- LLMs-Eval Header -->
+	 
+	<!-- <section class="relative flex flex-col items-center justify-center min-h-[40vh] text-center px-6 pb-16">
 		<div class="max-w-3xl">
-			<h1 class="text-5xl md:text-7xl font-bold tracking-tight mb-4">
-                Upgrading
-				<span class="block xl:inline bg-gradient-to-r from-accent-two/85 via-accent-one/85 to-accent-two/85 dark:from-accent-two dark:via-accent-one dark:to-accent-two bg-clip-text text-transparent">
-					LMMs-Eval to v0.4
-				</span>
+			<h1 class="text-5xl md:text-7xl font-bold tracking-tight mb-4 text-left">
+                Upgrading LMMs-Eval to v0.4
 			</h1>
 			<p class="mt-4 mb-6 text-lg text-textColor/80 dark:text-textColorDark/80">
 				LMMs-Eval is a comprehensive evaluation framework for multimodal models, designed to facilitate the development and benchmarking of multimodal models.
 			</p>
-			<!-- Replaced YouTube iframe with image -->
 			<div class="relative my-6 mx-auto rounded-lg shadow-md overflow-hidden hover:brightness-110 transition-all w-full max-w-3xl">
 				<img
 					class="w-full h-auto"
@@ -45,7 +123,7 @@ import PageLayout from "@/layouts/Base.astro";
 				</a>
 			</div>
 		</div>
-	</section>
+	</section> -->
 
 	<!-- Features Section -->
 	<section class="pt-2 md:pt-4 pb-4 md:pb-4 px-4">
