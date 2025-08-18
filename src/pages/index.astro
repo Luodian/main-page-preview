@@ -1,5 +1,6 @@
 ---
 import PageLayout from "@/layouts/Base.astro";
+import { Image } from "astro:assets";
 ---
 
 <PageLayout meta={{ title: "Home" }}>
@@ -14,7 +15,14 @@ import PageLayout from "@/layouts/Base.astro";
 					
 					<!-- Featured Image + Overlay -->
 					<div class="relative w-full h-[60vh] rounded-2xl overflow-hidden shadow-lg">
-						<img src="/images/featured-1.jpg" alt="Featured Post" class="w-full h-full object-cover group-hover:scale-[1.02] transition-all duration-200 ease-out" />
+						<Image 
+							src="/images/featured-1.jpg" 
+							alt="Featured Post" 
+							width={1200} 
+							height={800} 
+							class="w-full h-full object-cover group-hover:scale-[1.02] transition-all duration-200 ease-out" 
+							loading="eager" 
+						/>
 						<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
 						<div class="absolute bottom-6 left-6 right-6 text-white">
 							<h2 class="text-3xl md:text-4xl font-bold mt-3">
@@ -50,7 +58,14 @@ import PageLayout from "@/layouts/Base.astro";
 				<!-- Post Card -->
 				<a href="/posts/aero_audio/" class="group flex flex-col gap-4 items-start mb-6">
 					<div class="w-fill aspect-square rounded-lg overflow-hidden flex-shrink-0">
-						<img src="/images/featured-2.jpg" alt="Post 1" class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform ease-out" />
+						<Image 
+						src="/images/featured-2.jpg" 
+						alt="Post 1" 
+						width={800} 
+						height={800} 
+						class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform ease-out" 
+						loading="eager" 
+					/>
 					</div>
 					<div>
 						<h3 class="font-semibold text-lg group-hover:text-accent-one transition-colors">Aero-1-Audio</h3>
@@ -61,7 +76,14 @@ import PageLayout from "@/layouts/Base.astro";
 				<!-- Post Card -->
 				<a href="/posts/llava_onevision/" class="group flex flex-col gap-4 items-start mb-6">
 					<div class="w-fill aspect-square rounded-lg overflow-hidden flex-shrink-0">
-						<img src="/images/featured-3.jpg" alt="Post 2" class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform ease-out" />
+						<Image
+						src="/images/featured-3.jpg" 
+						alt="Post 2" 
+						width={800} 
+						height={800} 
+						class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform ease-out" 
+						loading="eager" 
+						/>
 					</div>
 					<div>
 						<h3 class="font-semibold text-lg group-hover:text-accent-one transition-colors">LLaVA-OneVision</h3>
@@ -72,7 +94,14 @@ import PageLayout from "@/layouts/Base.astro";
 				<!-- Post Card -->
 				<a href="/posts/longva/" class="group flex flex-col gap-4 items-start">
 					<div class="w-fill aspect-square rounded-lg overflow-hidden flex-shrink-0">
-						<img src="/images/featured-4.jpg" alt="Post 3" class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform ease-out" />
+						<Image 
+						src="/images/featured-4.jpg" 
+						alt="Post 3" 
+						width={800} 
+						height={800} 
+						class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform ease-out" 
+						loading="lazy" 
+						/>
 					</div>
 					<div>
 						<h3 class="font-semibold text-lg group-hover:text-accent-one transition-colors">LongVA</h3>
@@ -126,8 +155,11 @@ import PageLayout from "@/layouts/Base.astro";
 	</section> -->
 
 	<!-- Features Section -->
-	<section class="pt-2 md:pt-4 pb-4 md:pb-4 px-4">
+	<section class="pt-4 md:pt-4 pb-4 md:pb-4 px-4">
+		<div class="absolute left-0 w-screen h-px dark:bg-gray-200"></div>
+		
 		<div class="max-w-5xl mx-auto">
+
 			<div class="text-center mb-6">
 				<span class="inline-block px-3 py-1 text-sm font-semibold tracking-wider text-accent-one uppercase rounded-full bg-accent-one/10 mb-2">More</span>
 				<!-- <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Feeling and Building Multimodal Intelligence</h2> -->
