@@ -10,7 +10,7 @@ import { Image } from "astro:assets";
 		<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
 			
 			<!-- Left: Big Featured Post -->
-			<div class="group col-span-2">
+			<div class="group col-span-2 fade-in-section">
 				<div class="sticky top-6 flex flex-col gap-6">
 					
 					<!-- Featured Image + Overlay -->
@@ -56,7 +56,7 @@ import { Image } from "astro:assets";
 			<!-- Right: Smaller Posts -->
 			<div class="flex flex-col gap-6">
 				<!-- Post Card -->
-				<a href="/posts/aero_audio/" class="group flex flex-col gap-4 items-start mb-6">
+				<a href="/posts/aero_audio/" class="group flex flex-col gap-4 items-start mb-6 fade-in-section">
 					<div class="w-fill aspect-square rounded-lg overflow-hidden flex-shrink-0">
 						<Image 
 						src="/images/featured-2.jpg" 
@@ -75,7 +75,7 @@ import { Image } from "astro:assets";
 
 				<!-- Post Card -->
 				<a href="/posts/llava_onevision/" class="group flex flex-col gap-4 items-start mb-6">
-					<div class="w-fill aspect-square rounded-lg overflow-hidden flex-shrink-0">
+					<div class="w-fill aspect-square rounded-lg overflow-hidden flex-shrink-0 fade-in-section">
 						<Image
 						src="/images/featured-3.jpg" 
 						alt="Post 2" 
@@ -92,7 +92,7 @@ import { Image } from "astro:assets";
 				</a>
 
 				<!-- Post Card -->
-				<a href="/posts/longva/" class="group flex flex-col gap-4 items-start">
+				<a href="/posts/longva/" class="group flex flex-col gap-4 items-start fade-in-section">
 					<div class="w-fill aspect-square rounded-lg overflow-hidden flex-shrink-0">
 						<Image 
 						src="/images/featured-4.jpg" 
@@ -158,18 +158,18 @@ import { Image } from "astro:assets";
 	<section class="pt-4 md:pt-4 pb-4 md:pb-4 px-4">
 		<div class="absolute left-1/2 -translate-x-1/2 w-screen h-px bg-black/50 dark:bg-gray-200 opacity-20 dark:opacity-10"></div>
 		
-		<div class="max-w-5xl mt-10 mx-auto">
+		<div class="max-w-5xl mt-10 mx-auto ">
 
-			<div class="max-w-6xl mx-auto mb-10">
+			<div class="max-w-6xl mx-auto mb-10 fade-in-section">
 				{/* Left side - Square image */}
-				<div class="flex flex-col lg:flex-row items-center gap-12">
+				<div class="flex flex-col lg:flex-row items-start gap-12">
 					<div class="flex-shrink-0">
-						<div class="w-80 h-80 bg-gradient-to-br from-primary/20 to-chart-1/20 rounded-2xl overflow-hidden">
+						<div class="w-60 h-60 bg-gradient-to-br from-primary/20 to-chart-1/20 rounded-2xl overflow-hidden">
 							<Image
 								src="/images/about-us-home.jpg"
 								alt="About Us"
-								width={800}
-								height={800}
+								width={500}
+								height={500}
 								class="w-full h-full object-cover"
 								loading="lazy"
 							/>
@@ -193,8 +193,8 @@ import { Image } from "astro:assets";
 
 			<div class="absolute left-1/2 -translate-x-1/2 w-screen h-px bg-black/50 dark:bg-gray-200 opacity-20 dark:opacity-10"></div>
 
-			<h1 class="text-4xl font-bold mt-20 leading-tight">Research Areas</h1>
-			<div class="grid grid-cols-1 mt-10 md:grid-cols-2 lg:grid-cols-3 gap-8 auto-rows-fr">
+			<h1 class="text-4xl font-bold mt-20 leading-tight fade-in-section">Research Areas</h1>
+			<div class="grid grid-cols-1 mt-10 md:grid-cols-2 lg:grid-cols-3 gap-8 auto-rows-fr fade-in-section">
 				
 				<!-- Feature 1: Models -->
 				<a href="/tags/models" class="group relative block rounded-2xl p-6 duration-300 ease-in-out hover:border-accent-one/70 transition-all flex flex-col h-full">
@@ -321,4 +321,81 @@ import { Image } from "astro:assets";
 	</div>
 	-->
 </PageLayout>
+
+<style>
+	/* Fade in animation styles */
+	.fade-in-section {
+		opacity: 0;
+		transform: translateY(30px);
+		transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.fade-in-section.is-visible {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	/* Optional: Stagger animation for grid items */
+	.fade-in-section .grid > * {
+		opacity: 0;
+		transform: translateY(20px);
+		transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.fade-in-section.is-visible .grid > * {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	/* Stagger delay for grid items */
+	.fade-in-section.is-visible .grid > *:nth-child(1) { transition-delay: 0.1s; }
+	.fade-in-section.is-visible .grid > *:nth-child(2) { transition-delay: 0.2s; }
+	.fade-in-section.is-visible .grid > *:nth-child(3) { transition-delay: 0.3s; }
+
+	/* Additional opacity transitions for smoother animations */
+	.fade-in-section {
+		transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.fade-in-section.is-visible {
+		opacity: 1 !important;
+		transform: translateY(0);
+	}
+
+	/* Ensure child elements inherit opacity properly */
+	.fade-in-section.is-visible img,
+	.fade-in-section.is-visible h1,
+	.fade-in-section.is-visible h2,
+	.fade-in-section.is-visible h3,
+	.fade-in-section.is-visible p,
+	.fade-in-section.is-visible span,
+	.fade-in-section.is-visible div {
+		opacity: 1;
+	}
+</style>
+
+<script>
+	// Intersection Observer for fade-in animations
+	const observerOptions = {
+		root: null,
+		rootMargin: '0px',
+		threshold: 0.1
+	};
+
+	const observer = new IntersectionObserver((entries) => {
+		entries.forEach(entry => {
+			if (entry.isIntersecting) {
+				entry.target.classList.add('is-visible');
+			}
+		});
+	}, observerOptions);
+
+	// Observe all fade-in sections
+	document.addEventListener('DOMContentLoaded', () => {
+		const fadeSections = document.querySelectorAll('.fade-in-section');
+		fadeSections.forEach(section => {
+			observer.observe(section);
+		});
+	});
+</script>
 
