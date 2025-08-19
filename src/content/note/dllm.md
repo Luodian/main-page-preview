@@ -2,6 +2,7 @@
 title: "Assessing Diffusion LM in the view of Multi-token Prediction"
 publishDate: "2025-07-18T18:26:00Z"
 updateDate: "2076-04-10T14:32:00Z"
+image: https://i.postimg.cc/bwbxLD8n/vecteezy-colorful-illustrative-3d-animation-of-neural-network-deep-42719737.gif
 ---
 
 <p align="center">

@@ -46,14 +46,72 @@ This design prioritizes computational verification for efficiency while leveragi
 ## Result
 Based on this foundation, we can build a very strong STEM-focused reasoning model that surpasses the rest of open models.
 
-| Models | MMK12 | MathVerse (testmini) | MathVision (testmini) | MathVista (testmini) | MMMU (val) |
-|--------|-------|----------------------|----------------------|----------------------|-------------------------|
-| Qwen2.5-VL-7B | 34.4 | 46.2 | 24.0 | 66.6 | 49.8 |
-| OpenVL-Thinker | 31.0 | 45.2 | 24.0 | 70.2 | 52.3 |
-| R1-OneVision | 30.6 | 44.1 | 24.0 | 64.1 | 49.2 |
-| MM-Eureka-7B | 27.0 | 50.3 | 26.9 | 73.0 | 50.7 |
-| General STEM | 46.2 | 51.4 | 28.4 | 73.6 | 57.3 |
-| General STEM -> Search (Two Stage) | 43.0 | 51.9 | 28.0 | 72.4 | 57.9 |
+<div class="overflow-x-auto">
+  <div class="min-w-fit">
+    <table class="mx-auto">
+      <thead>
+        <tr>
+          <th>Models</th>
+          <th>MMK12</th>
+          <th>MathVerse (testmini)</th>
+          <th>MathVision (testmini)</th>
+          <th>MathVista (testmini)</th>
+          <th>MMMU (val)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Qwen2.5-VL-7B</td>
+          <td>34.4</td>
+          <td>46.2</td>
+          <td>24.0</td>
+          <td>66.6</td>
+          <td>49.8</td>
+        </tr>
+        <tr>
+          <td>OpenVL-Thinker</td>
+          <td>31.0</td>
+          <td>45.2</td>
+          <td>24.0</td>
+          <td>70.2</td>
+          <td>52.3</td>
+        </tr>
+        <tr>
+          <td>R1-OneVision</td>
+          <td>30.6</td>
+          <td>44.1</td>
+          <td>24.0</td>
+          <td>64.1</td>
+          <td>49.2</td>
+        </tr>
+        <tr>
+          <td>MM-Eureka-7B</td>
+          <td>27.0</td>
+          <td>50.3</td>
+          <td>26.9</td>
+          <td>73.0</td>
+          <td>50.7</td>
+        </tr>
+        <tr>
+          <td>General STEM</td>
+          <td>46.2</td>
+          <td>51.4</td>
+          <td>28.4</td>
+          <td>73.6</td>
+          <td>57.3</td>
+        </tr>
+        <tr>
+          <td>General STEM -> Search (Two Stage)</td>
+          <td>43.0</td>
+          <td>51.9</td>
+          <td>28.0</td>
+          <td>72.4</td>
+          <td>57.9</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 
 With this reasoning foundation, we can go further to improve the model's search abilities. We first implemented a two-stage training process to seamlessly integrate search capabilities. This approach ensures that search becomes a natural extension of the model's reasoning process rather than a separate module. 
 
@@ -89,12 +147,101 @@ We evaluated both our two-stage and unified (one-stage) models across a broad su
 
 The General STEM model showed that enhancing reasoning capabilities alone can lead to significant gains. In contrast, the General Search model revealed the multiplicative benefits of integrating reasoning with targeted search strategies. Notably, these improvements were not simply incremental - they represent fundamental advances in how models address complex, multimodal problems.
 
-| Models | MMK12 | MathVerse (testmini) | MathVision (testmini) | MathVista (testmini) | MMMU (val) | AI2D | ChartQA | MME | RealworldQA | OCRBench | DocVQA | MMBench | MMStar | MiaBench |
-|--------|-------|----------------------|----------------------|----------------------|------------|------|---------|-----|-------------|----------|--------|---------|--------|----------|
-| Qwen2.5-VL-7B | 34.4 | 46.2 | 24.0 | 66.6 | 49.8 | 93.3 | 94.4 | 630.4/1685.2 | 68.5 | 85.2 | 94.6 | 82.9 | 62.6 | 81.7 |
-| General STEM | 46.2 | 51.4 | 28.4 | 73.6 | 57.3 | 94.4 | 91.4 | 700.7/1662.1 | 67.5 | 83.7 | 92.1 | 83.8 | 65.5 | 76.0 |
-| Reason -> Search | 43.2 | 51.7 | 25.0 | 71.8 | 57.9 | 94.0 | 93.6 | 652.5/1688.3 | 67.5 | 81.7 | 93.5 | 83.2 | 63.1 | 47.6 |
-| General Search | 43.6 | 52.0 | 27.3 | 74.7 | 56.1 | 94.6 | 94.0 | 718.9/1775.3 | 65.5 | 77.8 | 89.4 | 84.0 | 60.4 | 44.4 |
+<div class="overflow-x-auto">
+  <div class="min-w-fit">
+    <table class="mx-auto">
+      <thead>
+        <tr>
+          <th>Models</th>
+          <th>MMK12</th>
+          <th>MathVerse (testmini)</th>
+          <th>MathVision (testmini)</th>
+          <th>MathVista (testmini)</th>
+          <th>MMMU (val)</th>
+          <th>AI2D</th>
+          <th>ChartQA</th>
+          <th>MME</th>
+          <th>RealworldQA</th>
+          <th>OCRBench</th>
+          <th>DocVQA</th>
+          <th>MMBench</th>
+          <th>MMStar</th>
+          <th>MiaBench</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Qwen2.5-VL-7B</td>
+          <td>34.4</td>
+          <td>46.2</td>
+          <td>24.0</td>
+          <td>66.6</td>
+          <td>49.8</td>
+          <td>93.3</td>
+          <td>94.4</td>
+          <td>630.4/1685.2</td>
+          <td>68.5</td>
+          <td>85.2</td>
+          <td>94.6</td>
+          <td>82.9</td>
+          <td>62.6</td>
+          <td>81.7</td>
+        </tr>
+        <tr>
+          <td>General STEM</td>
+          <td>46.2</td>
+          <td>51.4</td>
+          <td>28.4</td>
+          <td>73.6</td>
+          <td>57.3</td>
+          <td>94.4</td>
+          <td>91.4</td>
+          <td>700.7/1662.1</td>
+          <td>67.5</td>
+          <td>83.7</td>
+          <td>92.1</td>
+          <td>83.8</td>
+          <td>65.5</td>
+          <td>76.0</td>
+        </tr>
+        <tr>
+          <td>Reason -&gt; Search</td>
+          <td>43.2</td>
+          <td>51.7</td>
+          <td>25.0</td>
+          <td>71.8</td>
+          <td>57.9</td>
+          <td>94.0</td>
+          <td>93.6</td>
+          <td>652.5/1688.3</td>
+          <td>67.5</td>
+          <td>81.7</td>
+          <td>93.5</td>
+          <td>83.2</td>
+          <td>63.1</td>
+          <td>47.6</td>
+        </tr>
+        <tr>
+          <td>General Search</td>
+          <td>43.6</td>
+          <td>52.0</td>
+          <td>27.3</td>
+          <td>74.7</td>
+          <td>56.1</td>
+          <td>94.6</td>
+          <td>94.0</td>
+          <td>718.9/1775.3</td>
+          <td>65.5</td>
+          <td>77.8</td>
+          <td>89.4</td>
+          <td>84.0</td>
+          <td>60.4</td>
+          <td>44.4</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 
 ---
 

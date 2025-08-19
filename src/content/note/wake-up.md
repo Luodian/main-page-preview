@@ -2,6 +2,7 @@
 title: The Dream of the Digital Tide
 publishDate: "2023-08-20T18:26:00Z"
 updateDate: "2076-04-10T14:32:00Z"
+image: https://i.postimg.cc/vBwdVW1L/image.png
 ---
 
 ![image](https://i.postimg.cc/vBwdVW1L/image.png)

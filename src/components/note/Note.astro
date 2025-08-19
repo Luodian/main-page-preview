@@ -10,13 +10,16 @@ type Props<Tag extends HTMLTag> = Polymorphic<{ as: Tag }> & {
 
 const { as: Tag = "div", note, isPreview = false } = Astro.props;
 const { Content } = await render(note);
+// Optional cover image from frontmatter: note.data.image
+// Cast to any to avoid schema strictness if image isn't declared in the collection
+const coverImage = (note.data as any)?.image as string | undefined;
 ---
 
 <article
 	class:list={[isPreview && "inline-grid w-full rounded-lg bg-color-75 px-4 md:px-8 py-2 md:py-4"]}
 	data-pagefind-body={isPreview ? false : true}
 >
-	<Tag class="flex items-end title md:sticky md:top-8 md:z-10" class:list={{ "text-base": isPreview }}>
+	<Tag class="flex items-end title md:top-8 md:z-10" class:list={{ "text-base": isPreview }}>
 		{
 			isPreview ? (
 				<a class="citrus-link" href={`/notes/${note.id}/`}>
@@ -43,12 +46,26 @@ const { Content } = await render(note);
 			date={note.data.publishDate}
 		/>
 	</div>
+
+	{isPreview && coverImage && (
+		<div class="mt-3 w-full overflow-hidden rounded-lg">
+			<img src={coverImage} alt={note.data.title} class="block h-60 w-full object-cover rounded-lg" loading="lazy" />
+		</div>
+	)}
 	<div
-		class="prose prose-citrus mt-4 max-w-none [&>p:last-of-type]:mb-0"
+		class="prose prose-citrus prose-img:rounded-2xl mt-4 max-w-none [&>p:last-of-type]:mb-0"
 		class:list={{
-			"line-clamp-4": isPreview,
-			"[&>blockquote]:line-clamp-4 [&>blockquote]:mb-0": isPreview,
-			"[&>blockquote:not(:first-of-type)]:hidden": isPreview,
+			// Keep preview short and tidy
+			"max-h-48 md:max-h-56 overflow-hidden relative": isPreview,
+			// Allow first two blocks to render so a following blockquote shows up
+			"[&>*:nth-child(n+3)]:hidden": isPreview,
+			"[&>img]:hidden [&>p>img]:hidden": isPreview,
+			"[&>pre]:hidden [&>figure]:hidden [&>table]:hidden [&>iframe]:hidden [&>video]:hidden": isPreview,
+			"[&>ul]:hidden [&>ol]:hidden": isPreview,
+			// Clamp the first two text blocks if they are long
+			"[&>p:nth-child(-n+2)]:line-clamp-4 [&>blockquote:nth-child(-n+2)]:line-clamp-4": isPreview,
+			// Subtle bottom fade for previews
+			// "[&::after]:content-[''] [&::after]:pointer-events-none [&::after]:absolute [&::after]:bottom-0 [&::after]:left-0 [&::after]:right-0 [&::after]:h-10 [&::after]:bg-gradient-to-t [&::after]:from-bgColor/95 dark:[&::after]:from-bgColorDark/95 [&::after]:to-transparent": isPreview,
 			// "[&>p]:line-clamp-4": isPreview,
 			// "[&>p:not(:first-of-type)]:hidden": isPreview,
 		}} 
