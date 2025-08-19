@@ -17,7 +17,7 @@ const year = new Date().getFullYear();
 	>
 		{
 			menuLinks.map((link) => (
-				<a class="underline-offset-2 hover:text-accent hover:underline" href={link.path}>
+				<a class="underline-offset-2 hover:text-accent transition-colors" href={link.path}>
 					{link.title}
 				</a>
 			))

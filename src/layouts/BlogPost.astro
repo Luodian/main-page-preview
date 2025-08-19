@@ -370,3 +370,21 @@ const { headings } = await render(post);
 	});
 </script>
 -->
+
+<script>
+	// Center and make markdown tables scrollable without overflowing the container
+	document.addEventListener("DOMContentLoaded", () => {
+		const proseRoot = document.querySelector('.prose');
+		if (!proseRoot) return;
+		proseRoot.querySelectorAll('table').forEach((table) => {
+			const parent = table.parentElement;
+			if (!parent) return;
+			// Skip if already wrapped
+			if (parent.classList.contains('table-scroll-center')) return;
+			const wrapper = document.createElement('div');
+			wrapper.className = 'table-scroll-center overflow-x-auto w-full flex justify-center';
+			parent.insertBefore(wrapper, table);
+			wrapper.appendChild(table);
+		});
+	});
+</script>
