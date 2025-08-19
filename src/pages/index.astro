@@ -10,7 +10,7 @@ import { Image } from "astro:assets";
 		<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
 			
 			<!-- Left: Big Featured Post -->
-			<div class="group col-span-2 fade-in-section">
+			<div class="group lg:col-span-2">
 				<div class="sticky top-6 flex flex-col gap-6">
 					
 					<!-- Featured Image + Overlay -->
@@ -36,9 +36,9 @@ import { Image } from "astro:assets";
 					</div>
 	
 					<!-- Buttons under image -->
-					<div class="flex gap-4">
+					<div class="flex gap-4 mb-4 justify-center md:justify-start">
 						<a href="/get-started" 
-							 class="px-5 py-2 ml-2 border border-gray-300 rounded-full text-gray-700 dark:text-gray-100 
+							 class="px-5 py-2 border border-gray-300 rounded-full text-gray-700 dark:text-gray-100 
 											hover:border-accent-one hover:text-accent-one transition-all text-sm font-medium dark:hover:text-accent-base">
 							Get Started
 						</a>
@@ -54,9 +54,9 @@ import { Image } from "astro:assets";
 			</div>
 
 			<!-- Right: Smaller Posts -->
-			<div class="flex flex-col gap-6">
+			<div class="flex flex-col gap-6 w-full">
 				<!-- Post Card -->
-				<a href="/posts/aero_audio/" class="group flex flex-col gap-4 items-start mb-6 fade-in-section">
+				<a href="/posts/aero_audio/" class="group flex flex-col gap-4 items-start mb-6">
 					<div class="w-fill aspect-square rounded-lg overflow-hidden flex-shrink-0">
 						<Image 
 						src="/images/featured-2.jpg" 
@@ -75,7 +75,7 @@ import { Image } from "astro:assets";
 
 				<!-- Post Card -->
 				<a href="/posts/llava_onevision/" class="group flex flex-col gap-4 items-start mb-6">
-					<div class="w-fill aspect-square rounded-lg overflow-hidden flex-shrink-0 fade-in-section">
+					<div class="w-fill aspect-square rounded-lg overflow-hidden flex-shrink-0">
 						<Image
 						src="/images/featured-3.jpg" 
 						alt="Post 2" 
@@ -201,7 +201,14 @@ import { Image } from "astro:assets";
 					<span class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent-one/40 to-transparent opacity-0 transition-opacity group-hover:opacity-100"></span>
 					<div class="flex items-center gap-3">
 						<div class="rounded-lg bg-accent-one/10">
-							<img src="/images/featured-2.jpg" alt="Models Icon" class="w-24 h-24 object-cover object-center rounded-lg" />
+							<Image 
+							src="/images/featured-2.jpg" 
+							alt="Models Icon" 
+							width={96} 
+							height={96} 
+							class="w-24 h-24 object-cover object-center rounded-lg" 
+							loading="lazy"
+							/>
 						</div>
 					</div>
 					<h2 class="mt-4 text-2xl font-semibold">Models</h3>
@@ -217,7 +224,14 @@ import { Image } from "astro:assets";
 					<span class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent-two/40 to-transparent opacity-0 transition-opacity group-hover:opacity-100"></span>
 					<div class="flex items-center gap-3">
 						<div class="rounded-lg bg-accent-two/10">
-							<img src="/images/abstract-2.jpg" alt="Tools Icon" class="w-24 h-24 object-cover object-center rounded-lg" />
+							<Image 
+							src="/images/abstract-2.jpg" 
+							alt="Tools Icon" 
+							width={96} 
+							height={96} 
+							class="w-24 h-24 object-cover object-center rounded-lg" 
+							loading="lazy"
+							/>
 						</div>
 					</div>
 					<h2 class="mt-4 text-2xl font-semibold">Tools</h2>
@@ -233,7 +247,14 @@ import { Image } from "astro:assets";
 					<span class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-purple-500/40 to-transparent opacity-0 transition-opacity group-hover:opacity-100"></span>
 					<div class="flex items-center gap-3">
 						<div class="rounded-lg bg-purple-500/10">
-							<img src="/images/abstract-1.jpg" alt="Research Icon" class="w-24 h-24 object-cover object-center rounded-lg" />
+							<Image 
+							src="/images/abstract-1.jpg" 
+							alt="Research Icon" 
+							width={96} 
+							height={96} 
+							class="w-24 h-24 object-cover object-center rounded-lg" 
+							loading="lazy"
+							/>
 						</div>
 					</div>
 					<h2 class="mt-4 text-2xl font-semibold">Research</h2>
@@ -390,12 +411,24 @@ import { Image } from "astro:assets";
 		});
 	}, observerOptions);
 
-	// Observe all fade-in sections
-	document.addEventListener('DOMContentLoaded', () => {
+	// Function to reset and observe fade-in sections
+	function setupFadeAnimations() {
 		const fadeSections = document.querySelectorAll('.fade-in-section');
 		fadeSections.forEach(section => {
+			// Reset the animation state
+			section.classList.remove('is-visible');
+			// Re-observe the element
 			observer.observe(section);
 		});
-	});
+	}
+
+	// Setup animations on DOM content loaded
+	document.addEventListener('DOMContentLoaded', setupFadeAnimations);
+
+	// Setup animations when page becomes visible (for navigation)
+	document.addEventListener('astro:page-load', setupFadeAnimations);
+	
+	// Also handle view transitions if using Astro's view transitions
+	document.addEventListener('astro:after-swap', setupFadeAnimations);
 </script>
 
