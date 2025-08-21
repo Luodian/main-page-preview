@@ -40,85 +40,24 @@ import { Icon } from "astro-icon/components";
 					</svg>
 				</div>
 				-->
-				<img src="/assets/logo.png" alt={siteConfig.title} class="inline-block h-10 w-auto" />
+				<!-- <img src="/assets/logo.png" alt={siteConfig.title} class="inline-block h-10 w-auto" /> -->
+				<div class="text-2xl font-bold text-accent-base">LMMs-Lab</div>
 				
 			</a>
-			<nav
-				aria-label="Main menu"
-				class="top-20 text-lg mx-auto ml-4 ml-auto hidden flex-col items-end justify-center gap-x-4 rounded-md bg-bgColor font-medium text-accent-two shadow backdrop-blur group-[.menu-open]:z-50 group-[.menu-open]:flex sm:static sm:z-auto sm:flex-row sm:items-center sm:rounded-none sm:bg-transparent sm:shadow-none sm:backdrop-blur-none md:flex"
-				id="main-navigation-menu"
-			>	
-				<!--				
-				<a
-					aria-current={Astro.url.pathname === "/" ? "page" : false}
-					class="flex gap-x-1 h-8 items-center justify-center rounded-lg underline-offset-2 hover:underline"
-					href="/"
-				>	
-					<Icon
-						class="size-4 drop-shadow-[0px_1.5px_1.5px_rgba(0,0,0,0.175)]"
-						name="solar:home-2-bold"
-					/>
-					Home
-				</a>
-				<a
-					aria-current={Astro.url.pathname === "/" ? "page" : false}
-					class="flex gap-x-1 h-8 items-center justify-center rounded-lg underline-offset-2 hover:underline"
-					href="/"
-				>	
-					<Icon
-						class="size-4 drop-shadow-[0px_1.5px_1.5px_rgba(0,0,0,0.175)]"
-						name="solar:archive-bold"
-					/>
-					Blog
-				</a>
-				-->
 
-				<!-- Ссылки меню -->
-				{
-					menuLinks.map((link) => (
-						<a
-							aria-current={Astro.url.pathname === link.path ? "page" : false}
-							class="underline-offset-2 hover:underline"
-							data-astro-prefetch
-							href={link.path}
-						>
-							{link.title}
-						</a>
-					))
-				}
-				
-				<!-- Dropdown menu button for large screens. Needs improvement. -->
-				<!--
-				<button
-					aria-expanded="false"
-					aria-haspopup="menu"
-					aria-label="Open main menu"
-					class="hidden md:flex group text-sm relative h-8 w-16 font-medium items-center justify-center px-4 rounded-lg bg-accent-base/5 text-accent-base hover:bg-accent-base/10"
-					id="toggle-navigation-menu"
-					type="button"
-				>
-					Menu
-				</button>
-				-->
-			</nav>
-			
-			<!-- Dropdown menu for large screens. Needs improvement. -->
-			<!--
-			<div id="menu" class="absolute left-0 right-0 w-fit ml-auto top-16 z-10 hidden" aria-hidden="true">
-				<div
-					id="menu-body"
-					class="fixed bg-bgColor rounded-lg -ml-56 w-56"
-				>
+			<div class="ml-auto w-fit">
+				<div id="buttons-panel" class="top-4 md:top-8 -ml-[4.5rem] flex items-center space-x-4">
 					<nav
 						aria-label="Main menu"
-						class="px-4 py-4 rounded-lg border border-special-lighter bg-special-light shadow-[0px_10px_25px_rgba(0,0,0,0.15)] text-sm flex flex-col gap-y-2 font-medium"
+						class="hidden md:flex items-center gap-x-4 font-medium text-accent-two"
 						id="main-navigation-menu"
-					>
+					>	
+						<!-- Ссылки меню -->
 						{
 							menuLinks.map((link) => (
 								<a
 									aria-current={Astro.url.pathname === link.path ? "page" : false}
-									class="text-accent-two underline-offset-2 hover:underline rounded-lg h-8 gap-x-1 px-2 flex justify-center items-center"
+									class="opacity-70 hover:opacity-100 transition-opacity"
 									data-astro-prefetch
 									href={link.path}
 								>
@@ -126,22 +65,11 @@ import { Icon } from "astro-icon/components";
 								</a>
 							))
 						}
-						<a
-							class="flex h-8 items-center justify-center rounded-lg bg-accent-base/5 hover:bg-accent-base/10 px-4 text-accent-base"
-							data-astro-prefetch
-							href="/posts/citrus-docs/intro/"
-						>
-							Docs
-						</a>
 					</nav>
-				</div>
-			</div>
-			-->
-
-			<div class="ml-auto w-fit">
-				<div id="buttons-panel" class="top-4 md:top-8 -ml-[4.5rem] flex space-x-2">
-					<Search />
-					<ThemeToggle />
+					<div class="flex space-x-2">
+						<Search />
+						<ThemeToggle />
+					</div>
 				</div>
 			</div>	
 			

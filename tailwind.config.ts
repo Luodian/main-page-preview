@@ -97,7 +97,7 @@ export default {
       },
       fontFamily: {
         // Add any custom fonts here
-        sans: ["SFProRounded", ...fontFamily.sans],
+        sans: ["OpenSans", "Inter", ...fontFamily.sans],
         serif: ["CascadiaCode", ...fontFamily.serif],
       },
       transitionProperty: {
@@ -176,7 +176,7 @@ export default {
 
             /* Table */
             table: {
-              "@apply overflow-hidden rounded-lg": "",
+              "@apply overflow-hidden rounded-lg mx-auto": "",
             },
             "tbody tr": {
               borderBottomWidth: "none",

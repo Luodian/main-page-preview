@@ -1,9 +1,117 @@
 ---
 import PageLayout from "@/layouts/Base.astro";
+import { Image } from "astro:assets";
 ---
 
 <PageLayout meta={{ title: "Home" }}>
 	<!-- Hero section -->
+	<!-- Featured News Section -->
+	<section class="relative px-6 py-12 max-w-7xl mx-auto">
+		<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+			
+			<!-- Left: Big Featured Post -->
+			<div class="group lg:col-span-2">
+				<div class="sticky top-6 flex flex-col gap-6">
+					
+					<!-- Featured Image + Overlay -->
+					<div class="relative w-full h-[60vh] rounded-2xl overflow-hidden shadow-lg">
+						<Image 
+							src="/images/featured-1.jpg" 
+							alt="Featured Post" 
+							width={1200} 
+							height={800} 
+							class="w-full h-full object-cover group-hover:scale-[1.02] transition-all duration-200 ease-out" 
+							loading="eager" 
+						/>
+						<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+						<div class="absolute bottom-6 left-6 right-6 text-white">
+							<h2 class="text-3xl md:text-4xl font-bold mt-3">
+								Upgrading LMMs-Eval to v0.4
+							</h2>
+							<p class="mt-2 text-base text-gray-200 line-clamp-2">
+								LMMs-Eval is a comprehensive evaluation framework for multimodal models,
+								designed to facilitate the development and benchmarking of multimodal models.
+							</p>
+						</div>
+					</div>
+	
+					<!-- Buttons under image -->
+					<div class="flex gap-4 mb-4 justify-center md:justify-start">
+						<a href="/get-started" 
+							 class="px-5 py-2 border border-gray-300 rounded-full text-gray-700 dark:text-gray-100 
+											hover:border-accent-one hover:text-accent-one transition-all text-sm font-medium dark:hover:text-accent-base">
+							Get Started
+						</a>
+						<a href="/learn-more" 
+							 class="px-5 py-2 border border-gray-300 bg-accent-one rounded-full text-gray-100 dark:text-gray-900 
+											hover:border-accent-one hover:bg-transparent hover:text-accent-one dark:hover:text-gray-200 transition-all text-sm font-medium dark:font-medium dark:hover:font-normal">
+							Learn More
+						</a>
+						
+					</div>
+					
+				</div>
+			</div>
+
+			<!-- Right: Smaller Posts -->
+			<div class="flex flex-col gap-6 w-full">
+				<!-- Post Card -->
+				<a href="/posts/aero_audio/" class="group flex flex-col gap-4 items-start mb-6">
+					<div class="w-fill aspect-square rounded-lg overflow-hidden flex-shrink-0">
+						<Image 
+						src="/images/featured-2.jpg" 
+						alt="Post 1" 
+						width={800} 
+						height={800} 
+						class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform ease-out" 
+						loading="eager" 
+					/>
+					</div>
+					<div>
+						<h2 class="font-semibold text-lg group-hover:text-accent-one transition-colors">Aero-1-Audio</h2>
+						<p class="text-sm text-textColor/70 dark:text-textColorDark/70 line-clamp-2">Our best audio model.</p>
+					</div>
+				</a>
+
+				<!-- Post Card -->
+				<a href="/posts/llava_onevision/" class="group flex flex-col gap-4 items-start mb-6">
+					<div class="w-fill aspect-square rounded-lg overflow-hidden flex-shrink-0">
+						<Image
+						src="/images/featured-3.jpg" 
+						alt="Post 2" 
+						width={800} 
+						height={800} 
+						class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform ease-out" 
+						loading="eager" 
+						/>
+					</div>
+					<div>
+						<h2 class="font-semibold text-lg group-hover:text-accent-one transition-colors">LLaVA-OneVision</h2>
+						<p class="text-sm text-textColor/70 dark:text-textColorDark/70 line-clamp-2">Multimodal LLM.</p>
+					</div>
+				</a>
+
+				<!-- Post Card -->
+				<a href="/posts/longva/" class="group flex flex-col gap-4 items-start fade-in-section">
+					<div class="w-fill aspect-square rounded-lg overflow-hidden flex-shrink-0">
+						<Image 
+						src="/images/featured-4.jpg" 
+						alt="Post 3" 
+						width={800} 
+						height={800} 
+						class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform ease-out" 
+						loading="lazy" 
+						/>
+					</div>
+					<div>
+						<h2 class="font-semibold text-lg group-hover:text-accent-one transition-colors">LongVA</h2>
+						<p class="text-sm text-textColor/70 dark:text-textColorDark/70 line-clamp-2">Long context capability can zero-shot transfer from language to vision.</p>
+					</div>
+				</a>
+			</div>
+		</div>
+	</section>
+
 	<!-- Background blur -->
 	<div class="absolute top-0 left-1/2 md:top-[-15%] -ml-[50vw] min-h-screen w-screen pointer-events-none blur-3xl opacity-50 overflow-x-hidden">
 		<div class="absolute top-[10%] right-[-40%] w-[65%] h-full bg-gradient-to-b from-purple-300 via-blue-300 to-transparent rounded-full opacity-30 dark:opacity-10"></div>
@@ -11,18 +119,17 @@ import PageLayout from "@/layouts/Base.astro";
 		<div class="absolute top-[-20%] left-[-50%] w-[85%] h-full bg-gradient-to-b from-indigo-300 via-orange-300 to-transparent rounded-full opacity-60 dark:opacity-10"></div>
 		<div class="absolute top-[-20%] right-[-50%] w-[85%] h-full bg-gradient-to-b from-orange-300 via-indigo-300 to-transparent rounded-full opacity-60 dark:opacity-10"></div>
 	</div>
-	<section class="relative flex flex-col items-center justify-center min-h-[40vh] text-center px-6 pb-16">
+
+	<!-- LLMs-Eval Header -->
+	 
+	<!-- <section class="relative flex flex-col items-center justify-center min-h-[40vh] text-center px-6 pb-16">
 		<div class="max-w-3xl">
-			<h1 class="text-5xl md:text-7xl font-bold tracking-tight mb-4">
-                Upgrading
-				<span class="block xl:inline bg-gradient-to-r from-accent-two/85 via-accent-one/85 to-accent-two/85 dark:from-accent-two dark:via-accent-one dark:to-accent-two bg-clip-text text-transparent">
-					LMMs-Eval to v0.4
-				</span>
+			<h1 class="text-5xl md:text-7xl font-bold tracking-tight mb-4 text-left">
+                Upgrading LMMs-Eval to v0.4
 			</h1>
 			<p class="mt-4 mb-6 text-lg text-textColor/80 dark:text-textColorDark/80">
 				LMMs-Eval is a comprehensive evaluation framework for multimodal models, designed to facilitate the development and benchmarking of multimodal models.
 			</p>
-			<!-- Replaced YouTube iframe with image -->
 			<div class="relative my-6 mx-auto rounded-lg shadow-md overflow-hidden hover:brightness-110 transition-all w-full max-w-3xl">
 				<img
 					class="w-full h-auto"
@@ -45,54 +152,117 @@ import PageLayout from "@/layouts/Base.astro";
 				</a>
 			</div>
 		</div>
-	</section>
+	</section> -->
 
 	<!-- Features Section -->
-	<section class="pt-2 md:pt-4 pb-4 md:pb-4 px-4">
-		<div class="max-w-5xl mx-auto">
-			<div class="text-center mb-6">
-				<span class="inline-block px-3 py-1 text-sm font-semibold tracking-wider text-accent-one uppercase rounded-full bg-accent-one/10 mb-2">More</span>
-				<!-- <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Feeling and Building Multimodal Intelligence</h2> -->
-				<p class="text-lg text-textColor/70 dark:text-textColorDark/70 max-w-2xl mx-auto">
-					LMMs-Lab is a non-profit research-oriented organization with a group of passionate researchers, we share the sincere passion for developing multimodal intelligence.
-				</p>
+	<section class="pt-4 md:pt-4 pb-4 md:pb-4 px-4">
+		<div class="absolute left-1/2 -translate-x-1/2 w-screen h-px bg-black/50 dark:bg-gray-200 opacity-20 dark:opacity-10"></div>
+		
+		<div class="max-w-5xl mt-10 mx-auto ">
+
+			<div class="max-w-6xl mx-auto mb-10 fade-in-section">
+				{/* Left side - Square image */}
+				<div class="flex flex-col lg:flex-row items-start gap-12">
+					<div class="flex-shrink-0">
+						<div class="w-60 h-60 bg-gradient-to-br from-primary/20 to-chart-1/20 rounded-2xl overflow-hidden">
+							<Image
+								src="/images/about-us-home.jpg"
+								alt="About Us"
+								width={500}
+								height={500}
+								class="w-full h-full object-cover"
+								loading="lazy"
+							/>
+						</div>
+					</div>
+
+					{/* Right side - Quote content */}
+					<div class="flex-1 max-w-2xl">
+						<div class="relative">
+
+							<h1 class="font-bold mb-6 leading-tight text-right">About Us</h1>
+
+							<blockquote class="text-lg md:text-lg text-muted-foreground leading-relaxed mb-6 text-justify">
+								LMMs-Lab is a non-profit research-oriented organization with a group of passionate researchers, we share the sincere passion for developing multimodal intelligence.
+							</blockquote>
+
+						</div>
+					</div>
+				</div>
 			</div>
 
-			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+			<div class="absolute left-1/2 -translate-x-1/2 w-screen h-px bg-black/50 dark:bg-gray-200 opacity-20 dark:opacity-10"></div>
+
+			<h1 class="text-4xl font-bold mt-20 leading-tight fade-in-section">Research Areas</h1>
+			<div class="grid grid-cols-1 mt-10 md:grid-cols-2 lg:grid-cols-3 gap-8 auto-rows-fr fade-in-section">
+				
 				<!-- Feature 1: Models -->
-				<a href="/tags/models" class="block p-6 rounded-lg bg-bgColor/50 dark:bg-bgColorDark/50 border border-borderColor/100 dark:border-borderColorDark/100 shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out">
-					<div class="flex items-center mb-3">
-						<div class="p-2 rounded-full bg-accent-one/10 mr-3 shadow-md border border-borderColor/100 dark:border-borderColorDark/100">
-							<!-- Replace SVG with image for Models -->
-							<img src="/images/icons8-brain-100.png" alt="Models Icon" class="w-8 h-8" />
+				<a href="/tags/models" class="group relative block rounded-2xl p-6 duration-300 ease-in-out hover:border-accent-one/70 transition-all flex flex-col h-full">
+					<span class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent-one/40 to-transparent opacity-0 transition-opacity group-hover:opacity-100"></span>
+					<div class="flex items-center gap-3">
+						<div class="rounded-lg bg-accent-one/10">
+							<Image 
+							src="/images/featured-2.jpg" 
+							alt="Models Icon" 
+							width={96} 
+							height={96} 
+							class="w-24 h-24 object-cover object-center rounded-lg" 
+							loading="lazy"
+							/>
 						</div>
-						<h3 class="text-xl font-bold text-black">Models</h3>
 					</div>
-					<p class="text-textColor/70 dark:text-textColorDark/70">Access a growing collection of state-of-the-art open-source multimodal models.</p>
+					<h2 class="mt-4 text-2xl font-semibold">Models</h3>
+					<p class="text-sm mt-2 line-clamp-3">Access a growing collection of state-of-the-art open-source multimodal models.</p>
+					<div class="mt-8 flex items-center mt-auto">
+						<span class="text-sm font-medium group-hover:text-accent-one transition-colors">Browse</span>
+						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 ml-2 transition-transform group-hover:translate-x-0.5 group-hover:text-accent-one transition-colors"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
+					</div>
 				</a>
 
-				<!-- Feature 2: Tools -->
-				<a href="/tags/tools" class="block p-6 rounded-lg bg-bgColor/50 dark:bg-bgColorDark/50 border border-borderColor/100 dark:border-borderColorDark/100 shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out">
-					<div class="flex items-center mb-3">
-						<div class="p-2 rounded-full bg-accent-two/10 mr-3 shadow-md border border-borderColor/100 dark:border-borderColorDark/100">
-							<!-- Replace SVG with image for Tools -->
-							<img src="/images/icons8-tools-100.png" alt="Tools Icon" class="w-8 h-8" />
+								<!-- Feature 2: Tools -->
+				<a href="/tags/tools" class="group relative block rounded-2xl p-6 transition-all duration-300 ease-in-out hover:border-accent-two/70 flex flex-col h-full">
+					<span class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent-two/40 to-transparent opacity-0 transition-opacity group-hover:opacity-100"></span>
+					<div class="flex items-center gap-3">
+						<div class="rounded-lg bg-accent-two/10">
+							<Image 
+							src="/images/abstract-2.jpg" 
+							alt="Tools Icon" 
+							width={96} 
+							height={96} 
+							class="w-24 h-24 object-cover object-center rounded-lg" 
+							loading="lazy"
+							/>
 						</div>
-						<h3 class="text-xl font-bold text-black">Tools</h3>
 					</div>
-					<p class="text-textColor/70 dark:text-textColorDark/70">Utilize intuitive tools designed for efficient development and experimentation.</p>
+					<h2 class="mt-4 text-2xl font-semibold">Tools</h2>
+					<p class="text-sm mt-2 mb-6 line-clamp-3">Utilize intuitive tools designed for efficient development and experimentation.</p>
+					<div class="mt-8 flex items-center mt-auto">
+						<span class="text-sm font-medium group-hover:text-accent-two transition-colors">Explore</span>
+						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 ml-2 transition-transform group-hover:translate-x-0.5 group-hover:text-accent-two transition-colors"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>	
+					</div>
 				</a>
 
 				<!-- Feature 3: Research -->
-				<a href="/tags/research" class="block p-6 rounded-lg bg-bgColor/50 dark:bg-bgColorDark/50 border border-borderColor/100 dark:border-borderColorDark/100 shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out">
-					<div class="flex items-center mb-3">
-						<div class="p-2 rounded-full bg-purple-500/10 mr-3 shadow-md border border-borderColor/100 dark:border-borderColorDark/100">
-							<!-- Replace SVG with image for Research -->
-							<img src="/images/icons8-research-100.png" alt="Research Icon" class="w-8 h-8" />
+				<a href="/tags/research" class="group relative block rounded-2xl p-6 transition-all duration-300 ease-in-out hover:border-purple-500/70 flex flex-col h-full">
+					<span class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-purple-500/40 to-transparent opacity-0 transition-opacity group-hover:opacity-100"></span>
+					<div class="flex items-center gap-3">
+						<div class="rounded-lg bg-purple-500/10">
+							<Image 
+							src="/images/abstract-1.jpg" 
+							alt="Research Icon" 
+							width={96} 
+							height={96} 
+							class="w-24 h-24 object-cover object-center rounded-lg" 
+							loading="lazy"
+							/>
 						</div>
-						<h3 class="text-xl font-bold text-black">Research</h3>
 					</div>
-					<p class="text-textColor/70 dark:text-textColorDark/70">Explore cutting-edge research and contribute to the advancement of multimodal AI.</p>
+					<h2 class="mt-4 text-2xl font-semibold">Research</h2>
+					<p class="text-sm mt-2 line-clamp-3">Explore cutting-edge research and contribute to the advancement of multimodal AI.</p>
+					<div class="mt-8 flex items-center mt-auto">
+						<span class="text-sm font-medium group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">Dive in</span>
+						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 ml-2 transition-transform group-hover:translate-x-0.5 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>	
+					</div>
 				</a>
 			</div>
 		</div>
@@ -172,4 +342,93 @@ import PageLayout from "@/layouts/Base.astro";
 	</div>
 	-->
 </PageLayout>
+
+<style>
+	/* Fade in animation styles */
+	.fade-in-section {
+		opacity: 0;
+		transform: translateY(30px);
+		transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.fade-in-section.is-visible {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	/* Optional: Stagger animation for grid items */
+	.fade-in-section .grid > * {
+		opacity: 0;
+		transform: translateY(20px);
+		transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.fade-in-section.is-visible .grid > * {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	/* Stagger delay for grid items */
+	.fade-in-section.is-visible .grid > *:nth-child(1) { transition-delay: 0.1s; }
+	.fade-in-section.is-visible .grid > *:nth-child(2) { transition-delay: 0.2s; }
+	.fade-in-section.is-visible .grid > *:nth-child(3) { transition-delay: 0.3s; }
+
+	/* Additional opacity transitions for smoother animations */
+	.fade-in-section {
+		transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.fade-in-section.is-visible {
+		opacity: 1 !important;
+		transform: translateY(0);
+	}
+
+	/* Ensure child elements inherit opacity properly */
+	.fade-in-section.is-visible img,
+	.fade-in-section.is-visible h1,
+	.fade-in-section.is-visible h2,
+	.fade-in-section.is-visible h3,
+	.fade-in-section.is-visible p,
+	.fade-in-section.is-visible span,
+	.fade-in-section.is-visible div {
+		opacity: 1;
+	}
+</style>
+
+<script>
+	// Intersection Observer for fade-in animations
+	const observerOptions = {
+		root: null,
+		rootMargin: '0px',
+		threshold: 0.1
+	};
+
+	const observer = new IntersectionObserver((entries) => {
+		entries.forEach(entry => {
+			if (entry.isIntersecting) {
+				entry.target.classList.add('is-visible');
+			}
+		});
+	}, observerOptions);
+
+	// Function to reset and observe fade-in sections
+	function setupFadeAnimations() {
+		const fadeSections = document.querySelectorAll('.fade-in-section');
+		fadeSections.forEach(section => {
+			// Reset the animation state
+			section.classList.remove('is-visible');
+			// Re-observe the element
+			observer.observe(section);
+		});
+	}
+
+	// Setup animations on DOM content loaded
+	document.addEventListener('DOMContentLoaded', setupFadeAnimations);
+
+	// Setup animations when page becomes visible (for navigation)
+	document.addEventListener('astro:page-load', setupFadeAnimations);
+	
+	// Also handle view transitions if using Astro's view transitions
+	document.addEventListener('astro:after-swap', setupFadeAnimations);
+</script>
 
