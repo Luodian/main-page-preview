@@ -1,0 +1,9 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "rewrites": [
+    {
+      "source": "/docs/(.*)",
+      "destination": "replace with vercel url e.g. //nextjs-docs.vercel.app/docs/$1"
+    }
+  ]
+}
