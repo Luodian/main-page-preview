@@ -37,12 +37,12 @@ import { Image } from "astro:assets";
 	
 					<!-- Buttons under image -->
 					<div class="flex gap-4 mb-4 justify-center md:justify-start">
-						<a href="/get-started" 
+						<a href="https://github.com/EvolvingLMMs-Lab/lmms-eval" 
 							 class="px-5 py-2 border border-gray-300 rounded-full text-gray-700 dark:text-gray-100 
 											hover:border-accent-one hover:text-accent-one transition-all text-sm font-medium dark:hover:text-accent-base">
 							Get Started
 						</a>
-						<a href="/learn-more" 
+						<a href="https://github.com/EvolvingLMMs-Lab/lmms-eval/blob/main/docs/lmms-eval-0.4.md" 
 							 class="px-5 py-2 border border-gray-300 bg-accent-one rounded-full text-gray-100 dark:text-gray-900 
 											hover:border-accent-one hover:bg-transparent hover:text-accent-one dark:hover:text-gray-200 transition-all text-sm font-medium dark:font-medium dark:hover:font-normal">
 							Learn More
@@ -180,9 +180,9 @@ import { Image } from "astro:assets";
 					<div class="flex-1 max-w-2xl">
 						<div class="relative">
 
-							<h1 class="font-bold mb-6 leading-tight text-right">About Us</h1>
+							<h1 class="font-bold mb-6 leading-tight text-left">About Us</h1>
 
-							<blockquote class="text-lg md:text-lg text-muted-foreground leading-relaxed mb-6 text-justify">
+							<blockquote class="text-lg md:text-lg text-muted-foreground leading-relaxed mb-6 text-left">
 								LMMs-Lab is a non-profit research-oriented organization with a group of passionate researchers, we share the sincere passion for developing multimodal intelligence.
 							</blockquote>
 
@@ -396,39 +396,50 @@ import { Image } from "astro:assets";
 </style>
 
 <script>
-	// Intersection Observer for fade-in animations
-	const observerOptions = {
-		root: null,
-		rootMargin: '0px',
-		threshold: 0.1
-	};
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.1
+  };
 
-	const observer = new IntersectionObserver((entries) => {
-		entries.forEach(entry => {
-			if (entry.isIntersecting) {
-				entry.target.classList.add('is-visible');
-			}
-		});
-	}, observerOptions);
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target); // Optional: stop observing once visible
+      }
+    });
+  }, observerOptions);
 
-	// Function to reset and observe fade-in sections
-	function setupFadeAnimations() {
-		const fadeSections = document.querySelectorAll('.fade-in-section');
-		fadeSections.forEach(section => {
-			// Reset the animation state
-			section.classList.remove('is-visible');
-			// Re-observe the element
-			observer.observe(section);
-		});
-	}
+  function setupFadeAnimations() {
+    const fadeSections = document.querySelectorAll('.fade-in-section');
 
-	// Setup animations on DOM content loaded
-	document.addEventListener('DOMContentLoaded', setupFadeAnimations);
+    fadeSections.forEach(section => {
+      // Reset the animation state
+      section.classList.remove('is-visible');
 
-	// Setup animations when page becomes visible (for navigation)
-	document.addEventListener('astro:page-load', setupFadeAnimations);
-	
-	// Also handle view transitions if using Astro's view transitions
-	document.addEventListener('astro:after-swap', setupFadeAnimations);
+      // Observe the element
+      observer.observe(section);
+
+      // Immediately check if the element is already in view
+      const rect = section.getBoundingClientRect();
+      const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+      const windowWidth = window.innerWidth || document.documentElement.clientWidth;
+
+      if (
+        rect.top <= windowHeight &&
+        rect.bottom >= 0 &&
+        rect.left <= windowWidth &&
+        rect.right >= 0
+      ) {
+        section.classList.add('is-visible');
+        observer.unobserve(section);
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', setupFadeAnimations);
+  document.addEventListener('astro:page-load', setupFadeAnimations);
+  document.addEventListener('astro:after-swap', setupFadeAnimations);
 </script>
 
