@@ -7,7 +7,20 @@ const year = new Date().getFullYear();
 <footer
 	class="semibold mt-auto flex w-full flex-col items-center justify-center gap-y-2 pb-4 pt-8 text-center align-top text-accent sm:flex-row sm:justify-between sm:text-sm"
 >
-<div class="flex flex-col items-start">
+<nav
+		aria-label="More on this site"
+		class="justify-between space-x-4 font-medium text-light md:w-[14rem] mb-4 w-auto flex md:hidden"
+	>
+		{
+			menuLinks.map((link) => (
+				<a class="underline-offset-2 hover:text-accent transition-colors" href={link.path}>
+					{link.title}
+				</a>
+			))
+		}
+	</nav>
+
+<div class="flex flex-col text-center items-center md:items-start text-[0.625rem] sm:text-sm leading-[1rem] sm:leading-normal">
 	<div class="me-0 font-semibold sm:me-4">
 		&copy; {siteConfig.author}
 		{year}.<span class="inline-block">&nbsp;🚀&nbsp;Feeling and Building Multimodal Intelligence</span>
@@ -17,7 +30,7 @@ const year = new Date().getFullYear();
 	
 	<nav
 		aria-label="More on this site"
-		class="flex justify-between space-x-4 font-medium text-light md:w-[14rem] w-auto"
+		class=" justify-between space-x-4 font-medium text-light md:w-[14rem] w-auto hidden md:flex"
 	>
 		{
 			menuLinks.map((link) => (
