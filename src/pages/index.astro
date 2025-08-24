@@ -6,7 +6,7 @@ import { Image } from "astro:assets";
 <PageLayout meta={{ title: "Home" }}>
 	<!-- Hero section -->
 	<!-- Featured News Section -->
-	<section class="relative px-6 py-12 max-w-7xl mx-auto">
+	<section class="relative px-6 pb-12 md:py-12 max-w-7xl mx-auto">
 		<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
 			
 			<!-- Left: Big Featured Post -->
@@ -25,10 +25,10 @@ import { Image } from "astro:assets";
 						/>
 						<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
 						<div class="absolute bottom-6 left-6 right-6 text-white">
-							<h2 class="text-3xl md:text-4xl font-bold mt-3">
+							<h2 class="text-4xl md:text-4xl font-bold mt-3">
 								Upgrading LMMs-Eval to v0.4
 							</h2>
-							<p class="mt-2 text-base text-gray-200 line-clamp-2">
+							<p class="mt-2 text-xs md:text-base text-gray-200">
 								LMMs-Eval is a comprehensive evaluation framework for multimodal models,
 								designed to facilitate the development and benchmarking of multimodal models.
 							</p>
@@ -39,12 +39,12 @@ import { Image } from "astro:assets";
 					<div class="flex gap-4 mb-4 justify-center md:justify-start">
 						<a href="https://github.com/EvolvingLMMs-Lab/lmms-eval" 
 							 class="px-5 py-2 border border-gray-300 rounded-full text-gray-700 dark:text-gray-100 
-											hover:border-accent-one hover:text-accent-one transition-all text-sm font-medium dark:hover:text-accent-base">
+											hover:border-accent-one hover:text-accent-one transition-all text-xs md:text-sm font-medium dark:hover:text-accent-base">
 							Get Started
 						</a>
 						<a href="https://github.com/EvolvingLMMs-Lab/lmms-eval/blob/main/docs/lmms-eval-0.4.md" 
 							 class="px-5 py-2 border border-gray-300 bg-accent-one rounded-full text-gray-100 dark:text-gray-900 
-											hover:border-accent-one hover:bg-transparent hover:text-accent-one dark:hover:text-gray-200 transition-all text-sm font-medium dark:font-medium dark:hover:font-normal">
+											hover:border-accent-one hover:bg-transparent hover:text-accent-one dark:hover:text-gray-200 transition-all text-xs md:text-sm font-medium dark:font-medium dark:hover:font-normal">
 							Learn More
 						</a>
 						
@@ -56,7 +56,7 @@ import { Image } from "astro:assets";
 			<!-- Right: Smaller Posts -->
 			<div class="flex flex-col gap-6 w-full">
 				<!-- Post Card -->
-				<a href="/posts/aero_audio/" class="group flex flex-col gap-4 items-start mb-6">
+				<a href="/posts/aero_audio/" class="group flex flex-col gap-4 items-start mb-6 fade-in-section">
 					<div class="w-fill aspect-square rounded-lg overflow-hidden flex-shrink-0">
 						<Image 
 						src="/images/featured-2.jpg" 
@@ -74,7 +74,7 @@ import { Image } from "astro:assets";
 				</a>
 
 				<!-- Post Card -->
-				<a href="/posts/llava_onevision/" class="group flex flex-col gap-4 items-start mb-6">
+				<a href="/posts/llava_onevision/" class="group flex flex-col gap-4 items-start mb-6 fade-in-section">
 					<div class="w-fill aspect-square rounded-lg overflow-hidden flex-shrink-0">
 						<Image
 						src="/images/featured-3.jpg" 
@@ -180,9 +180,9 @@ import { Image } from "astro:assets";
 					<div class="flex-1 max-w-2xl">
 						<div class="relative">
 
-							<h1 class="font-bold mb-6 leading-tight text-left">About Us</h1>
+							<h1 class="text-sm md:text-lg font-bold mb-6 leading-tight text-left">About Us</h1>
 
-							<blockquote class="text-lg md:text-lg text-muted-foreground leading-relaxed mb-6 text-left">
+							<blockquote class="text-sm md:text-lg text-muted-foreground leading-relaxed mb-6 text-left">
 								LMMs-Lab is a non-profit research-oriented organization with a group of passionate researchers, we share the sincere passion for developing multimodal intelligence.
 							</blockquote>
 
