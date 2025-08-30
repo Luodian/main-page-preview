@@ -30,6 +30,15 @@ import {
 export default defineConfig({
   image: {
     domains: ["webmention.io"],
+    service: process.env.VERCEL
+      ? {
+          // Default Sharp service (used automatically on Vercel)
+          entrypoint: "astro/assets/services/sharp",
+        }
+      : {
+          // No-op service (for local dev or special cases)
+          entrypoint: "astro/assets/services/noop",
+        },
   },
   integrations: [
     icon(),
@@ -84,7 +93,13 @@ export default defineConfig({
   markdown: {
     syntaxHighlight: false,
 
-    remarkPlugins: [remarkReadingTime, remarkDirective, remarkAdmonitions, remarkCollapsible, remarkMath],
+    remarkPlugins: [
+      remarkReadingTime,
+      remarkDirective,
+      remarkAdmonitions,
+      remarkCollapsible,
+      remarkMath,
+    ],
     remarkRehype: {
       footnoteLabelProperties: {
         className: [""],
