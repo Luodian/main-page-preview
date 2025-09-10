@@ -16,8 +16,8 @@ import { Image } from "astro:assets";
 					<!-- Featured Image + Overlay -->
 					<div class="relative w-full h-[60vh] rounded-2xl overflow-hidden shadow-lg">
 						<Image 
-							src="/images/featured-1.jpg" 
-							alt="Featured Post" 
+							src="/images/featured-4.jpg" 
+							alt="LLaVA-Critic-R1" 
 							width={1200} 
 							height={800} 
 							class="w-full h-full object-cover group-hover:scale-[1.02] transition-all duration-200 ease-out" 
@@ -26,23 +26,23 @@ import { Image } from "astro:assets";
 						<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
 						<div class="absolute bottom-6 left-6 right-6 text-white">
 							<h2 class="text-4xl md:text-4xl font-bold mt-3">
-								Upgrading LMMs-Eval to v0.4
+								LLaVA-Critic-R1
 							</h2>
 							<p class="mt-2 text-xs md:text-base text-gray-200">
-								LMMs-Eval is a comprehensive evaluation framework for multimodal models,
-								designed to facilitate the development and benchmarking of multimodal models.
+								Unified Critic and Policy Model Through Reinforcement Learning,
+								achieving SoTA policy performance at 7B scale.
 							</p>
 						</div>
 					</div>
 	
 					<!-- Buttons under image -->
 					<div class="flex gap-4 mb-4 justify-center md:justify-start">
-						<a href="https://github.com/EvolvingLMMs-Lab/lmms-eval" 
+						<a href="/posts/llava_critic_r1/" 
 							 class="px-5 py-2 border border-gray-300 rounded-full text-gray-700 dark:text-gray-100 
 											hover:border-accent-one hover:text-accent-one transition-all text-[0.625rem] leading-[1rem] md:text-sm font-medium dark:hover:text-accent-base">
 							Get Started
 						</a>
-						<a href="https://github.com/EvolvingLMMs-Lab/lmms-eval/blob/main/docs/lmms-eval-0.4.md" 
+						<a href="https://github.com/EvolvingLMMs-Lab/LLaVA-Critic-R1" 
 							 class="px-5 py-2 border border-gray-300 bg-accent-one rounded-full text-gray-100 dark:text-gray-900 
 											hover:border-accent-one hover:bg-transparent hover:text-accent-one dark:hover:text-gray-200 transition-all text-[0.625rem] leading-[1rem] md:text-sm font-medium dark:font-medium dark:hover:font-normal">
 							Learn More
@@ -55,12 +55,12 @@ import { Image } from "astro:assets";
 
 			<!-- Right: Smaller Posts -->
 			<div class="flex flex-col gap-6 w-full">
-				<!-- Post Card -->
-				<a href="/posts/aero_audio/" class="group flex flex-col gap-4 items-start mb-6 fade-in-section">
+				<!-- Post Card - LMMs-Eval -->
+				<a href="https://github.com/EvolvingLMMs-Lab/lmms-eval" class="group flex flex-col gap-4 items-start mb-6 fade-in-section">
 					<div class="w-fill aspect-square rounded-lg overflow-hidden flex-shrink-0">
 						<Image 
-						src="/images/featured-2.jpg" 
-						alt="Post 1" 
+						src="/images/featured-1.jpg" 
+						alt="LMMs-Eval" 
 						width={800} 
 						height={800} 
 						class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform ease-out" 
@@ -68,17 +68,17 @@ import { Image } from "astro:assets";
 					/>
 					</div>
 					<div>
-						<h2 class="font-semibold text-lg group-hover:text-accent-one transition-colors">Aero-1-Audio</h2>
-						<p class="text-sm text-textColor/70 dark:text-textColorDark/70 line-clamp-2">Frontier Open Audio Models.</p>
+						<h2 class="font-semibold text-lg group-hover:text-accent-one transition-colors">LMMs-Eval v0.4</h2>
+						<p class="text-sm text-textColor/70 dark:text-textColorDark/70 line-clamp-2">Comprehensive evaluation framework for multimodal models.</p>
 					</div>
 				</a>
 
-				<!-- Post Card -->
+				<!-- Post Card - LLaVA-OneVision -->
 				<a href="/posts/llava_onevision/" class="group flex flex-col gap-4 items-start mb-6 fade-in-section">
 					<div class="w-fill aspect-square rounded-lg overflow-hidden flex-shrink-0">
 						<Image
 						src="/images/featured-3.jpg" 
-						alt="Post 2" 
+						alt="LLaVA-OneVision" 
 						width={800} 
 						height={800} 
 						class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform ease-out" 
@@ -91,12 +91,12 @@ import { Image } from "astro:assets";
 					</div>
 				</a>
 
-				<!-- Post Card -->
-				<a href="/posts/longva/" class="group flex flex-col gap-4 items-start fade-in-section">
+				<!-- Post Card - Aero-1-Audio -->
+				<a href="/posts/aero_audio/" class="group flex flex-col gap-4 items-start fade-in-section">
 					<div class="w-fill aspect-square rounded-lg overflow-hidden flex-shrink-0">
 						<Image 
-						src="/images/featured-4.jpg" 
-						alt="Post 3" 
+						src="/images/featured-2.jpg" 
+						alt="Aero-1-Audio" 
 						width={800} 
 						height={800} 
 						class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform ease-out" 
@@ -104,8 +104,8 @@ import { Image } from "astro:assets";
 						/>
 					</div>
 					<div>
-						<h2 class="font-semibold text-lg group-hover:text-accent-one transition-colors">LongVA</h2>
-						<p class="text-sm text-textColor/70 dark:text-textColorDark/70 line-clamp-2">Long context capability for zero-shot transfer from language to vision.</p>
+						<h2 class="font-semibold text-lg group-hover:text-accent-one transition-colors">Aero-1-Audio</h2>
+						<p class="text-sm text-textColor/70 dark:text-textColorDark/70 line-clamp-2">Frontier Open Audio Models.</p>
 					</div>
 				</a>
 			</div>
