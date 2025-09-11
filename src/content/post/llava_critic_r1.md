@@ -56,7 +56,7 @@ Our results reveal that RL training on critic data can produce a unified model e
 ### 🚀 [Code Repository](https://github.com/LLaVA-VL/LLaVA-NeXT/tree/main/LLaVA-Critic-R1)
 Access training code and implementation details
 
-### 🤗 [Model Collection](https://huggingface.co/collections/lmms-lab/llava-critic-r1)
+### 🤗 [Model Collection](https://huggingface.co/collections/lmms-lab/llava-critic-r1-68922484e5822b89fab4aca1)
 Download pre-trained model checkpoints
 
 ### 📝 [Paper](https://arxiv.org/abs/2509.00676)
