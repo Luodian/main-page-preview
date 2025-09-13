@@ -23,7 +23,11 @@ export const siteConfig: SiteConfig = {
 };
 
 // Used to generate links in both the Header & Footer.
-export const menuLinks: { path: string; title: string }[] = [
+export const menuLinks: {
+  path: string;
+  title: string;
+  is_external?: boolean;
+}[] = [
   // {
   // 	path: "/",
   // 	title: "Home",
@@ -37,8 +41,9 @@ export const menuLinks: { path: string; title: string }[] = [
     title: "Notes",
   },
   {
-    path: "/docs",
+    path: "https://lmms-eval-docs.vercel.app/docs",
     title: "Docs",
+    is_external: true,
   },
   {
     path: "/about/",

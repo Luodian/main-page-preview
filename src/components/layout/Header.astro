@@ -3,6 +3,7 @@ import Search from "@/components/Search.astro";
 import ThemeToggle from "@/components/ThemeToggle.astro";
 import { menuLinks, siteConfig } from "@/site.config";
 import { Icon } from "astro-icon/components";
+import { SquareArrowOutUpRight } from "@lucide/astro";
 ---
 
 <header
@@ -57,11 +58,16 @@ import { Icon } from "astro-icon/components";
 							menuLinks.map((link) => (
 								<a
 									aria-current={Astro.url.pathname === link.path ? "page" : false}
-									class="opacity-70 hover:opacity-100 transition-opacity"
-									data-astro-prefetch
+									class="opacity-70 hover:opacity-100 transition-opacity flex items-center gap-1"
+									data-astro-prefetch={!link.is_external}
 									href={link.path}
+									target={link.is_external ? "_blank" : undefined}
+									rel={link.is_external ? "noopener noreferrer" : undefined}
 								>
 									{link.title}
+									{link.is_external && (
+										<SquareArrowOutUpRight class="h-5 w-5" />	
+									)}
 								</a>
 							))
 						}
@@ -134,11 +140,16 @@ import { Icon } from "astro-icon/components";
 				menuLinks.map((link) => (
 					<a
 						aria-current={Astro.url.pathname === link.path ? "page" : false}
-						class="underline-offset-2 hover:underline"
-						data-astro-prefetch
+						class="underline-offset-2 hover:underline flex items-center gap-1"
+						data-astro-prefetch={!link.is_external}
 						href={link.path}
+						target={link.is_external ? "_blank" : undefined}
+						rel={link.is_external ? "noopener noreferrer" : undefined}
 					>
 						{link.title}
+						{link.is_external && (
+							<SquareArrowOutUpRight class="h-5 w-5" />	
+						)}
 					</a>
 				))
 			}
