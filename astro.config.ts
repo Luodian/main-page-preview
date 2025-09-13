@@ -13,6 +13,7 @@ import remarkDirective from "remark-directive"; /* handle ::: directives as node
 import { remarkAdmonitions } from "./src/plugins/remark-admonitions"; /* add admonitions */
 import { remarkReadingTime } from "./src/plugins/remark-reading-time";
 import { remarkCollapsible } from "./src/plugins/remark-collapsible"; /* add collapsible sections */
+import { remarkLazyImages } from "./src/plugins/remark-lazy-images"; /* add skeleton loading to images */
 import remarkMath from "remark-math"; /* handle LaTeX math */
 
 // Rehype plugins
@@ -98,6 +99,7 @@ export default defineConfig({
       remarkDirective,
       remarkAdmonitions,
       remarkCollapsible,
+      // remarkLazyImages, // Temporarily disabled to test
       remarkMath,
     ],
     remarkRehype: {

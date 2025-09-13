@@ -389,3 +389,24 @@
 .prose th {
   white-space: nowrap;
 }
+
+/* Skeleton loading animation for markdown images */
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Dark theme skeleton styles */
+.dark .skeleton-loader {
+  background: linear-gradient(
+    90deg,
+    transparent 25%,
+    rgba(255, 255, 255, 0.2) 50%,
+    transparent 75%
+  ) !important;
+  background-size: 200% 100% !important;
+}
