@@ -97,7 +97,7 @@ export default {
       },
       fontFamily: {
         // Add any custom fonts here
-        sans: ["OpenSans", "Inter", ...fontFamily.sans],
+        sans: ["OpenAISans", ...fontFamily.sans],
         serif: ["CascadiaCode", ...fontFamily.serif],
       },
       transitionProperty: {

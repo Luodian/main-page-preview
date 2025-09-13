@@ -5,6 +5,7 @@ import Badge from '@/components/Badge.astro';
 import FormattedDate from "@/components/FormattedDate.astro";
 import { Icon } from "astro-icon/components";
 import Separator from "../Separator.astro";
+import LazyImage from "@/components/LazyImage.astro";
 
 interface Props {
 	content: CollectionEntry<"post">;
@@ -93,12 +94,14 @@ const postSeries = content.data.seriesId
 {
 	content.data.coverImage && (
 		<div class="mb-4 mt-2 overflow-auto rounded-lg">
-			<Image
+			<LazyImage
 				alt={content.data.coverImage.alt}
 				class="object-cover"
 				fetchpriority="high"
 				loading="lazy" // loading="eager"
 				src={content.data.coverImage.src}
+				rounded={true}
+				skeletonClass="rounded-lg"
 			/>
 		</div>
 	)

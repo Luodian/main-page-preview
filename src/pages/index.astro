@@ -1,6 +1,7 @@
 ---
 import PageLayout from "@/layouts/Base.astro";
 import { Image } from "astro:assets";
+import LazyImage from "@/components/LazyImage.astro";
 ---
 
 <PageLayout meta={{ title: "Home" }}>
@@ -15,20 +16,22 @@ import { Image } from "astro:assets";
 					
 					<!-- Featured Image + Overlay -->
 					<div class="relative w-full h-[60vh] rounded-2xl overflow-hidden shadow-lg">
-						<Image 
+						<LazyImage 
 							src="/images/featured-4.jpg" 
 							alt="LLaVA-Critic-R1" 
 							width={1200} 
 							height={800} 
 							class="w-full h-full object-cover group-hover:scale-[1.02] transition-all duration-200 ease-out" 
-							loading="eager" 
+							loading="eager"
+							rounded={true}
+							skeletonClass="rounded-2xl"
 						/>
 						<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
 						<div class="absolute bottom-6 left-6 right-6 text-white">
 							<h2 class="text-4xl md:text-4xl font-bold mt-3">
 								LLaVA-Critic-R1
 							</h2>
-							<p class="mt-2 text-xs md:text-base text-gray-200">
+							<p class="mt-2 text-xs font-medium md:text-base text-gray-200">
 								Unified Critic and Policy Model Through Reinforcement Learning,
 								achieving SoTA policy performance at 7B scale.
 							</p>
@@ -56,56 +59,68 @@ import { Image } from "astro:assets";
 			<!-- Right: Smaller Posts -->
 			<div class="flex flex-col gap-6 w-full">
 				<!-- Post Card - LMMs-Eval -->
-				<a href="https://github.com/EvolvingLMMs-Lab/lmms-eval" class="group flex flex-col gap-4 items-start mb-6 fade-in-section">
+				<a href="https://github.com/EvolvingLMMs-Lab/lmms-eval" class="group flex flex-col gap-4 items-start mb-6">
 					<div class="w-fill aspect-square rounded-lg overflow-hidden flex-shrink-0">
-						<Image 
+						<LazyImage 
 						src="/images/featured-1.jpg" 
 						alt="LMMs-Eval" 
 						width={800} 
 						height={800} 
 						class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform ease-out" 
-						loading="eager" 
+						format="webp"
+						loading="eager"
+						aspectRatio="1/1"
+						rounded={true}
+						skeletonClass="rounded-lg"
 					/>
 					</div>
 					<div>
 						<h2 class="font-semibold text-lg group-hover:text-accent-one transition-colors">LMMs-Eval v0.4</h2>
-						<p class="text-sm text-textColor/70 dark:text-textColorDark/70 line-clamp-2">Comprehensive evaluation framework for multimodal models.</p>
+						<p class="text-sm font-medium text-textColor/70 dark:text-textColorDark/70 line-clamp-2">Comprehensive evaluation framework for multimodal models.</p>
 					</div>
 				</a>
 
 				<!-- Post Card - LLaVA-OneVision -->
-				<a href="/posts/llava_onevision/" class="group flex flex-col gap-4 items-start mb-6 fade-in-section">
+				<a href="/posts/llava_onevision/" class="group flex flex-col gap-4 items-start mb-6">
 					<div class="w-fill aspect-square rounded-lg overflow-hidden flex-shrink-0">
-						<Image
+						<LazyImage
 						src="/images/featured-3.jpg" 
 						alt="LLaVA-OneVision" 
 						width={800} 
 						height={800} 
 						class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform ease-out" 
-						loading="eager" 
+						format="webp"
+						loading="eager"
+						aspectRatio="1/1"
+						rounded={true}
+						skeletonClass="rounded-lg"
 						/>
 					</div>
 					<div>
 						<h2 class="font-semibold text-lg group-hover:text-accent-one transition-colors">LLaVA-OneVision</h2>
-						<p class="text-sm text-textColor/70 dark:text-textColorDark/70 line-clamp-2">Frontier Open Multimodal Models.</p>
+						<p class="text-sm font-medium text-textColor/70 dark:text-textColorDark/70 line-clamp-2">Frontier Open Multimodal Models.</p>
 					</div>
 				</a>
 
 				<!-- Post Card - Aero-1-Audio -->
-				<a href="/posts/aero_audio/" class="group flex flex-col gap-4 items-start fade-in-section">
+				<a href="/posts/aero_audio/" class="group flex flex-col gap-4 items-start">
 					<div class="w-fill aspect-square rounded-lg overflow-hidden flex-shrink-0">
-						<Image 
+						<LazyImage 
 						src="/images/featured-2.jpg" 
 						alt="Aero-1-Audio" 
 						width={800} 
 						height={800} 
 						class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform ease-out" 
-						loading="lazy" 
+						format="webp"
+						loading="lazy"
+						aspectRatio="1/1"
+						rounded={true}
+						skeletonClass="rounded-lg"
 						/>
 					</div>
 					<div>
 						<h2 class="font-semibold text-lg group-hover:text-accent-one transition-colors">Aero-1-Audio</h2>
-						<p class="text-sm text-textColor/70 dark:text-textColorDark/70 line-clamp-2">Frontier Open Audio Models.</p>
+						<p class="text-sm font-medium text-textColor/70 dark:text-textColorDark/70 line-clamp-2">Frontier Open Audio Models.</p>
 					</div>
 				</a>
 			</div>
@@ -160,29 +175,33 @@ import { Image } from "astro:assets";
 		
 		<div class="max-w-5xl mt-10 mx-auto ">
 
-			<div class="max-w-6xl mx-auto mb-10 fade-in-section">
+			<div class="max-w-6xl mx-auto mb-10">
 				{/* Left side - Square image */}
 				<div class="flex flex-col lg:flex-row items-start gap-12">
 					<div class="flex-shrink-0">
 						<div class="w-60 h-60 bg-gradient-to-br from-primary/20 to-chart-1/20 rounded-2xl overflow-hidden">
-							<Image
+							<LazyImage
 								src="/images/about-us-home.jpg"
 								alt="About Us"
 								width={500}
 								height={500}
 								class="w-full h-full object-cover"
+								format="webp"
 								loading="lazy"
+								aspectRatio="1/1"
+								rounded={true}
+								skeletonClass="rounded-2xl"
 							/>
 						</div>
 					</div>
 
 					{/* Right side - Quote content */}
-					<div class="flex-1 max-w-2xl">
+					<div class="flex-1 max-w-2xl fade-in-section">
 						<div class="relative">
 
 							<h1 class="text-sm md:text-lg font-bold mb-6 leading-tight text-left">About Us</h1>
 
-							<blockquote class="text-sm md:text-lg text-muted-foreground leading-relaxed mb-6 text-left">
+							<blockquote class="text-sm font-medium md:text-lg text-muted-foreground leading-relaxed mb-6 text-left">
 								LMMs-Lab is a non-profit research-oriented organization with a group of passionate researchers, we share the sincere passion for developing multimodal intelligence.
 							</blockquote>
 
@@ -207,6 +226,7 @@ import { Image } from "astro:assets";
 							width={96} 
 							height={96} 
 							class="w-24 h-24 object-cover object-center rounded-lg" 
+							format="webp"
 							loading="lazy"
 							/>
 						</div>
@@ -230,6 +250,7 @@ import { Image } from "astro:assets";
 							width={96} 
 							height={96} 
 							class="w-24 h-24 object-cover object-center rounded-lg" 
+							format="webp"
 							loading="lazy"
 							/>
 						</div>
@@ -253,6 +274,7 @@ import { Image } from "astro:assets";
 							width={96} 
 							height={96} 
 							class="w-24 h-24 object-cover object-center rounded-lg" 
+							format="webp"
 							loading="lazy"
 							/>
 						</div>

@@ -2,6 +2,7 @@
 import { Image } from "astro:assets";
 import type { WebmentionsChildren } from "@/types";
 import { Icon } from "astro-icon/components";
+import LazyImage from "@/components/LazyImage.astro";
 
 interface Props {
 	mentions: WebmentionsChildren[];
@@ -39,21 +40,27 @@ const comments = mentions.filter(
 									target="_blank"
 									title={mention.author.name}
 								>
-									<Image
+									<LazyImage
 										alt={mention.author?.name}
 										class="u-photo my-0 h-12 w-12"
 										height={48}
 										src={mention.author?.photo}
 										width={48}
+										aspectRatio="1/1"
+										rounded={true}
+										skeletonClass="rounded-full"
 									/>
 								</a>
 							) : (
-								<Image
+								<LazyImage
 									alt={mention.author?.name}
 									class="u-photo my-0 h-12 w-12 rounded-full"
 									height={48}
 									src={mention.author?.photo}
 									width={48}
+									aspectRatio="1/1"
+									rounded={true}
+									skeletonClass="rounded-full"
 								/>
 							)
 						) : null}

@@ -3,6 +3,7 @@ import Search from "@/components/Search.astro";
 import ThemeToggle from "@/components/ThemeToggle.astro";
 import { menuLinks, siteConfig } from "@/site.config";
 import { Icon } from "astro-icon/components";
+import { SquareArrowOutUpRight } from "@lucide/astro";
 ---
 
 <header
@@ -57,11 +58,16 @@ import { Icon } from "astro-icon/components";
 							menuLinks.map((link) => (
 								<a
 									aria-current={Astro.url.pathname === link.path ? "page" : false}
-									class="opacity-70 hover:opacity-100 transition-opacity"
-									data-astro-prefetch
+									class="opacity-70 hover:opacity-100 transition-opacity flex items-center gap-1"
+									data-astro-prefetch={!link.is_external}
 									href={link.path}
+									target={link.is_external ? "_blank" : undefined}
+									rel={link.is_external ? "noopener noreferrer" : undefined}
 								>
 									{link.title}
+									{link.is_external && (
+										<SquareArrowOutUpRight class="h-5 w-5" />	
+									)}
 								</a>
 							))
 						}
@@ -73,7 +79,7 @@ import { Icon } from "astro-icon/components";
 				</div>
 			</div>	
 			
-			<mobile-button
+			<button
 				aria-expanded="false"
 				aria-haspopup="menu"
 				aria-label="Open main menu"
@@ -95,7 +101,7 @@ import { Icon } from "astro-icon/components";
 					focusable="false"
 					name="hugeicons:cancel-01"
 				/>
-			</mobile-button>
+			</button>
 		</div>
 	</div>
 </header>
@@ -103,7 +109,7 @@ import { Icon } from "astro-icon/components";
 <div id="drawer" class="fixed inset-0 z-10 hidden" aria-hidden="true">
 	<div
 		id="drawer-body"
-		class="absolute inset-0 -translate-y-full transform bg-bgColor transition-all duration-300 ease-in-out"
+		class="absolute inset-0 transform bg-bgColor transition-all duration-300 ease-in-out"
 	>
 		<!-- Background 
 			TODO: This approach is not optimal and requires improvements. 
@@ -134,11 +140,16 @@ import { Icon } from "astro-icon/components";
 				menuLinks.map((link) => (
 					<a
 						aria-current={Astro.url.pathname === link.path ? "page" : false}
-						class="underline-offset-2 hover:underline"
-						data-astro-prefetch
+						class="underline-offset-2 hover:underline flex items-center gap-1"
+						data-astro-prefetch={!link.is_external}
 						href={link.path}
+						target={link.is_external ? "_blank" : undefined}
+						rel={link.is_external ? "noopener noreferrer" : undefined}
 					>
 						{link.title}
+						{link.is_external && (
+							<SquareArrowOutUpRight class="h-5 w-5" />	
+						)}
 					</a>
 				))
 			}
@@ -147,13 +158,15 @@ import { Icon } from "astro-icon/components";
 </div>
 
 <script>
-	document.addEventListener("DOMContentLoaded", () => {
+	// Function to initialize mobile menu functionality
+	function initializeMobileMenu() {
+		console.log("Initializing mobile menu...");
 		const toggleNavMenuMobileButton = document.getElementById("toggle-nav-menu-mobile");
 		const openMenuIcon = document.getElementById("open-nav-menu-icon");
 		const closeMenuIcon = document.getElementById("close-nav-menu-icon");
 		const drawer = document.getElementById("drawer");
 
-		// Проверяем существование элементов
+		// Check if elements exist
 		if (!toggleNavMenuMobileButton || !openMenuIcon || !closeMenuIcon || !drawer) {
 			console.error("One or more required elements are missing in the DOM.");
 			return;
@@ -165,39 +178,92 @@ import { Icon } from "astro-icon/components";
 			return;
 		}
 
-		toggleNavMenuMobileButton.addEventListener("click", () => {
-			const isOpen = toggleNavMenuMobileButton.getAttribute("aria-expanded") === "true";
+		// Remove existing event listeners to prevent duplicates
+		const newToggleButton = toggleNavMenuMobileButton.cloneNode(true) as HTMLElement;
+		if (toggleNavMenuMobileButton.parentNode) {
+			toggleNavMenuMobileButton.parentNode.replaceChild(newToggleButton, toggleNavMenuMobileButton);
+		}
+
+		// Ensure drawer starts in correct state
+		drawer.classList.add("hidden");
+		drawerBody.style.transform = "translateY(-100%)";
+		drawerBody.classList.remove("opacity-0");
+
+		// Add click event listener to the new button
+		newToggleButton.addEventListener("click", () => {
+			const isOpen = newToggleButton.getAttribute("aria-expanded") === "true";
+			console.log("Mobile menu button clicked, current state:", isOpen);
 
 			if (isOpen) {
-				// Закрываем меню
-				drawerBody.classList.add("opacity-0", "-translate-y-full");
-				drawerBody.classList.remove("translate-y-0");
+				// Close menu
+				console.log("Closing mobile menu");
+				drawerBody.style.transform = "translateY(-100%)";
+				drawerBody.classList.add("opacity-0");
 
-				// Убираем после анимации
+				// Hide after animation
 				setTimeout(() => {
 					drawer.classList.add("hidden");
 				}, 300);
 
-				// Меняем иконки
+				// Change icons
 				openMenuIcon.classList.add("scale-100", "opacity-100");
 				closeMenuIcon.classList.add("scale-0", "opacity-0");
 				closeMenuIcon.classList.remove("scale-100", "opacity-100");
 			} else {
-				// Показываем меню
+				// Show menu
+				console.log("Opening mobile menu");
 				drawer.classList.remove("hidden");
-				drawerBody.classList.add("translate-y-0");
+				
+				// Temporarily disable transition for initial positioning
+				drawerBody.style.transition = "none";
+				
+				// Set initial position using inline styles to ensure it works
+				drawerBody.style.transform = "translateY(0)";
 				drawerBody.classList.remove("opacity-0", "-translate-y-full");
+				
+				// Re-enable transition and force reflow
+				setTimeout(() => {
+					drawerBody.style.transition = "";
+					drawerBody.offsetHeight;
+				}, 10);
 
-				// Меняем иконки
+				// Change icons
 				openMenuIcon.classList.add("scale-0", "opacity-0");
 				closeMenuIcon.classList.add("scale-100", "opacity-100");
 				openMenuIcon.classList.remove("scale-100", "opacity-100");
 			}
 
-			// Обновляем состояние кнопки
-			toggleNavMenuMobileButton.setAttribute("aria-expanded", (!isOpen).toString());
+			// Update button state
+			newToggleButton.setAttribute("aria-expanded", (!isOpen).toString());
+			console.log("Menu state updated to:", !isOpen);
 		});
+	}
+
+	// Initialize on DOM content loaded
+	document.addEventListener("DOMContentLoaded", () => {
+		console.log("DOMContentLoaded event fired");
+		initializeMobileMenu();
 	});
+
+	// Initialize on view transition events (for Astro view transitions)
+	document.addEventListener("astro:page-load", () => {
+		console.log("astro:page-load event fired");
+		initializeMobileMenu();
+	});
+	document.addEventListener("astro:after-swap", () => {
+		console.log("astro:after-swap event fired");
+		initializeMobileMenu();
+	});
+
+	// Also initialize immediately if DOM is already ready
+	if (document.readyState === "loading") {
+		// DOM is still loading, wait for DOMContentLoaded
+		console.log("DOM is still loading, waiting for DOMContentLoaded");
+	} else {
+		// DOM is already ready, initialize immediately
+		console.log("DOM is already ready, initializing immediately");
+		initializeMobileMenu();
+	}
 </script>
 
 

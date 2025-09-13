@@ -19,6 +19,7 @@
     "@astrojs/rss": "4.0.11",
     "@astrojs/sitemap": "3.2.1",
     "@astrojs/tailwind": "5.1.4",
+    "@lucide/astro": "^0.544.0",
     "@shikijs/transformers": "^1.25.1",
     "astro": "5.1.2",
     "astro-icon": "^1.1.5",
