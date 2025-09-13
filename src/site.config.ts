@@ -41,12 +41,12 @@ export const menuLinks: {
     title: "Notes",
   },
   {
+    path: "/about/",
+    title: "About",
+  },
+  {
     path: "https://lmms-eval-docs.vercel.app/docs",
     title: "Docs",
     is_external: true,
-  },
-  {
-    path: "/about/",
-    title: "About",
   },
 ];
