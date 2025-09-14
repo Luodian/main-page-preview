@@ -2,6 +2,7 @@
 import { type CollectionEntry, render } from "astro:content";
 import FormattedDate from "@/components/FormattedDate.astro";
 import type { HTMLTag, Polymorphic } from "astro/types";
+import LazyImage from "@/components/LazyImage.astro";
 
 type Props<Tag extends HTMLTag> = Polymorphic<{ as: Tag }> & {
 	note: CollectionEntry<"note">;
@@ -49,7 +50,17 @@ const coverImage = (note.data as any)?.image as string | undefined;
 
 	{isPreview && coverImage && (
 		<div class="mt-3 w-full overflow-hidden rounded-lg">
-			<img src={coverImage} alt={note.data.title} class="block h-60 w-full object-cover rounded-lg" loading="lazy" />
+			<LazyImage 
+				src={coverImage} 
+				alt={note.data.title} 
+				class="block h-60 w-full object-cover rounded-lg" 
+				loading="lazy"
+				height={240}
+				width={400}
+				aspectRatio="5/3"
+				rounded={true}
+				skeletonClass="rounded-lg"
+			/>
 		</div>
 	)}
 	<div
