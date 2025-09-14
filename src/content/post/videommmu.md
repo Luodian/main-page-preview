@@ -168,7 +168,7 @@ Fig. 6 denotes a successful learning from video, turning an initial wronog answe
 
 ## Authors
 
-🖋 [Kairui Hu](https://kairuihu.github.io/), [Penghao Wu](https://penghao-wu.github.io/), [Fanyi Pu](https://github.com/pufanyi), [Wang Xiao](https://www.ntu.edu.sg/s-lab), [Xiang Yue](https://xiangyue9607.github.io/), [Bo Li](https://brianboli.com/), [Yuanhan Zhang](https://zhangyuanhan-ai.github.io/), and [Ziwei Liu](https://liuziwei7.github.io/)
+🖋 [Kairui Hu](https://kairuihu.github.io/), [Penghao Wu](https://penghao-wu.github.io/), [Fanyi Pu](https://github.com/pufanyi), [Wang Xiao](https://www.ntu.edu.sg/s-lab), [Xiang Yue](https://xiangyue9607.github.io/), [Yuanhan Zhang](https://zhangyuanhan-ai.github.io/), [Bo Li](https://brianboli.com/),  and [Ziwei Liu](https://liuziwei7.github.io/)
 
 ---
 
