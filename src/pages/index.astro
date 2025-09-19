@@ -216,7 +216,7 @@ import LazyImage from "@/components/LazyImage.astro";
 			<div class="grid grid-cols-1 mt-10 md:grid-cols-2 lg:grid-cols-3 gap-8 auto-rows-fr fade-in-section">
 				
 				<!-- Feature 1: Models -->
-				<a href="/tags/models" class="group relative rounded-2xl p-6 duration-300 ease-in-out hover:border-accent-one/70 transition-all flex flex-col h-full">
+				<a href="/tags/models" class="group relative rounded-2xl p-6 duration-300 ease-in-out hover:border-accent-one/70 transition-all flex flex-col h-full fade-in-section">
 					<span class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent-one/40 to-transparent opacity-0 transition-opacity group-hover:opacity-100"></span>
 					<div class="flex items-center gap-3">
 						<div class="rounded-lg bg-accent-one/10">
@@ -225,9 +225,9 @@ import LazyImage from "@/components/LazyImage.astro";
 							alt="Models Icon" 
 							width={96} 
 							height={96} 
-							class="w-24 h-24 object-cover object-center rounded-lg" 
+							class="w-24 h-24 object-cover object-center rounded-lg will-change-transform transition-transform" 
 							format="webp"
-							loading="lazy"
+							loading="eager"
 							/>
 						</div>
 					</div>
@@ -240,7 +240,7 @@ import LazyImage from "@/components/LazyImage.astro";
 				</a>
 
 								<!-- Feature 2: Tools -->
-				<a href="/tags/tools" class="group relative rounded-2xl p-6 transition-all duration-300 ease-in-out hover:border-accent-two/70 flex flex-col h-full">
+				<a href="/tags/tools" class="group relative rounded-2xl p-6 transition-all duration-300 ease-in-out hover:border-accent-two/70 flex flex-col h-full fade-in-section">
 					<span class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent-two/40 to-transparent opacity-0 transition-opacity group-hover:opacity-100"></span>
 					<div class="flex items-center gap-3">
 						<div class="rounded-lg bg-accent-two/10">
@@ -249,9 +249,9 @@ import LazyImage from "@/components/LazyImage.astro";
 							alt="Tools Icon" 
 							width={96} 
 							height={96} 
-							class="w-24 h-24 object-cover object-center rounded-lg" 
+							class="w-24 h-24 object-cover object-center rounded-lg will-change-transform transition-transform" 
 							format="webp"
-							loading="lazy"
+							loading="eager"
 							/>
 						</div>
 					</div>
@@ -264,7 +264,7 @@ import LazyImage from "@/components/LazyImage.astro";
 				</a>
 
 				<!-- Feature 3: Research -->
-				<a href="/tags/research" class="group relative rounded-2xl p-6 transition-all duration-300 ease-in-out hover:border-purple-500/70 flex flex-col h-full">
+				<a href="/tags/research" class="group relative rounded-2xl p-6 transition-all duration-300 ease-in-out hover:border-purple-500/70 flex flex-col h-full fade-in-section">
 					<span class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-purple-500/40 to-transparent opacity-0 transition-opacity group-hover:opacity-100"></span>
 					<div class="flex items-center gap-3">
 						<div class="rounded-lg bg-purple-500/10">
@@ -273,9 +273,9 @@ import LazyImage from "@/components/LazyImage.astro";
 							alt="Research Icon" 
 							width={96} 
 							height={96} 
-							class="w-24 h-24 object-cover object-center rounded-lg" 
+							class="w-24 h-24 object-cover object-center rounded-lg will-change-transform transition-transform" 
 							format="webp"
-							loading="lazy"
+							loading="eager"
 							/>
 						</div>
 					</div>
@@ -371,6 +371,7 @@ import LazyImage from "@/components/LazyImage.astro";
 		opacity: 0;
 		transform: translateY(30px);
 		transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+		will-change: opacity, transform;
 	}
 
 	.fade-in-section.is-visible {
@@ -383,6 +384,7 @@ import LazyImage from "@/components/LazyImage.astro";
 		opacity: 0;
 		transform: translateY(20px);
 		transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+		will-change: opacity, transform;
 	}
 
 	.fade-in-section.is-visible .grid > * {
@@ -391,9 +393,9 @@ import LazyImage from "@/components/LazyImage.astro";
 	}
 
 	/* Stagger delay for grid items */
-	.fade-in-section.is-visible .grid > *:nth-child(1) { transition-delay: 0.1s; }
-	.fade-in-section.is-visible .grid > *:nth-child(2) { transition-delay: 0.2s; }
-	.fade-in-section.is-visible .grid > *:nth-child(3) { transition-delay: 0.3s; }
+	/* .fade-in-section.is-visible .grid > *:nth-child(1) { transition-delay: 0.1s; }
+	.fade-in-section.is-visible .grid > *:nth-child(2) { transition-delay: 1.5s; }
+	.fade-in-section.is-visible .grid > *:nth-child(3) { transition-delay: 7.0s; } */
 
 	/* Additional opacity transitions for smoother animations */
 	.fade-in-section {
@@ -418,50 +420,34 @@ import LazyImage from "@/components/LazyImage.astro";
 </style>
 
 <script>
-  const observerOptions = {
-    root: null,
-    rootMargin: '0px',
-    threshold: 0.1
-  };
+  const observer = new IntersectionObserver((entries, obs) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      // Add visible class to the section
+      entry.target.classList.add('is-visible');
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
-        observer.unobserve(entry.target); // Optional: stop observing once visible
-      }
-    });
-  }, observerOptions);
+      // Handle grid children with stagger
+      const children = entry.target.querySelectorAll('.grid > *');
+      children.forEach((child, i) => {
+        const el = child as HTMLElement; // Type assertion
+        el.style.transitionDelay = `${i * 0.35}s`; // 0.35s stagger per item
+        el.classList.add('is-visible');
+      });
 
-  function setupFadeAnimations() {
-    const fadeSections = document.querySelectorAll('.fade-in-section');
+      obs.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
 
-    fadeSections.forEach(section => {
-      // Reset the animation state
-      section.classList.remove('is-visible');
+function setupFadeAnimations() {
+  document.querySelectorAll('.fade-in-section').forEach(section => observer.observe(section));
+}
 
-      // Observe the element
-      observer.observe(section);
+document.addEventListener('DOMContentLoaded', setupFadeAnimations);
+document.addEventListener('astro:page-load', setupFadeAnimations);
+document.addEventListener('astro:after-swap', setupFadeAnimations);
 
-      // Immediately check if the element is already in view
-      const rect = section.getBoundingClientRect();
-      const windowHeight = window.innerHeight || document.documentElement.clientHeight;
-      const windowWidth = window.innerWidth || document.documentElement.clientWidth;
 
-      if (
-        rect.top <= windowHeight &&
-        rect.bottom >= 0 &&
-        rect.left <= windowWidth &&
-        rect.right >= 0
-      ) {
-        section.classList.add('is-visible');
-        observer.unobserve(section);
-      }
-    });
-  }
-
-  document.addEventListener('DOMContentLoaded', setupFadeAnimations);
-  document.addEventListener('astro:page-load', setupFadeAnimations);
-  document.addEventListener('astro:after-swap', setupFadeAnimations);
 </script>
+
 
