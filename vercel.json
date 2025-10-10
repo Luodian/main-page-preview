@@ -3,7 +3,7 @@
   "rewrites": [
     {
       "source": "/docs/(.*)",
-      "destination": "replace with vercel url e.g. //nextjs-docs.vercel.app/docs/$1"
+      "destination": "https://lmms-eval-docs-beta.vercel.app/docs/$1"
     }
   ]
 }
