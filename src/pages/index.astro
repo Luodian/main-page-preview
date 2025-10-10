@@ -112,7 +112,7 @@ import LazyImage from "@/components/LazyImage.astro";
 						height={800} 
 						class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform ease-out" 
 						format="webp"
-						loading="lazy"
+						loading="eager"
 						aspectRatio="1/1"
 						rounded={true}
 						skeletonClass="rounded-lg"
@@ -196,7 +196,7 @@ import LazyImage from "@/components/LazyImage.astro";
 					</div>
 
 					{/* Right side - Quote content */}
-					<div class="flex-1 max-w-2xl fade-in-section">
+					<div class="flex-1 max-w-2xl">
 						<div class="relative">
 
 							<h1 class="text-sm md:text-lg font-bold mb-6 leading-tight text-left">About Us</h1>
@@ -212,11 +212,11 @@ import LazyImage from "@/components/LazyImage.astro";
 
 			<div class="absolute left-1/2 -translate-x-1/2 w-screen h-px bg-black/50 dark:bg-gray-200 opacity-20 dark:opacity-10"></div>
 
-			<h1 class="text-4xl font-bold mt-20 leading-tight fade-in-section">Research Areas</h1>
-			<div class="grid grid-cols-1 mt-10 md:grid-cols-2 lg:grid-cols-3 gap-8 auto-rows-fr fade-in-section">
+			<h1 class="text-4xl font-bold mt-20 leading-tight">Research Areas</h1>
+			<div class="grid grid-cols-1 mt-10 md:grid-cols-2 lg:grid-cols-3 gap-8 auto-rows-fr">
 				
 				<!-- Feature 1: Models -->
-				<a href="/tags/models" class="group relative rounded-2xl p-6 duration-300 ease-in-out hover:border-accent-one/70 transition-all flex flex-col h-full fade-in-section">
+				<a href="/tags/models" class="group relative rounded-2xl p-6 duration-300 ease-in-out hover:border-accent-one/70 transition-all flex flex-col h-full">
 					<span class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent-one/40 to-transparent opacity-0 transition-opacity group-hover:opacity-100"></span>
 					<div class="flex items-center gap-3">
 						<div class="rounded-lg bg-accent-one/10">
@@ -227,7 +227,7 @@ import LazyImage from "@/components/LazyImage.astro";
 							height={96} 
 							class="w-24 h-24 object-cover object-center rounded-lg will-change-transform transition-transform" 
 							format="webp"
-							loading="eager"
+							loading="lazy"
 							/>
 						</div>
 					</div>
@@ -235,12 +235,12 @@ import LazyImage from "@/components/LazyImage.astro";
 					<p class="text-sm mt-2 line-clamp-3">Access a growing collection of state-of-the-art open-source multimodal models.</p>
 					<div class="mt-8 flex items-center">
 						<span class="text-sm font-medium group-hover:text-accent-one transition-colors">Browse</span>
-						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 ml-2 transition-transform group-hover:translate-x-0.5 group-hover:text-accent-one transition-colors"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
+						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 ml-2 group-hover:translate-x-0.5 group-hover:text-accent-one transition-all"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
 					</div>
 				</a>
 
 								<!-- Feature 2: Tools -->
-				<a href="/tags/tools" class="group relative rounded-2xl p-6 transition-all duration-300 ease-in-out hover:border-accent-two/70 flex flex-col h-full fade-in-section">
+				<a href="/tags/tools" class="group relative rounded-2xl p-6 transition-all duration-300 ease-in-out hover:border-accent-two/70 flex flex-col h-full">
 					<span class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent-two/40 to-transparent opacity-0 transition-opacity group-hover:opacity-100"></span>
 					<div class="flex items-center gap-3">
 						<div class="rounded-lg bg-accent-two/10">
@@ -251,7 +251,7 @@ import LazyImage from "@/components/LazyImage.astro";
 							height={96} 
 							class="w-24 h-24 object-cover object-center rounded-lg will-change-transform transition-transform" 
 							format="webp"
-							loading="eager"
+							loading="lazy"
 							/>
 						</div>
 					</div>
@@ -259,12 +259,12 @@ import LazyImage from "@/components/LazyImage.astro";
 					<p class="text-sm mt-2 mb-6 line-clamp-3">Utilize intuitive tools designed for efficient development and experimentation.</p>
 					<div class="mt-8 flex items-center mt-auto">
 						<span class="text-sm font-medium group-hover:text-accent-two transition-colors">Explore</span>
-						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 ml-2 transition-transform group-hover:translate-x-0.5 group-hover:text-accent-two transition-colors"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>	
+						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 ml-2 group-hover:translate-x-0.5 group-hover:text-accent-two transition-all"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>	
 					</div>
 				</a>
 
 				<!-- Feature 3: Research -->
-				<a href="/tags/research" class="group relative rounded-2xl p-6 transition-all duration-300 ease-in-out hover:border-purple-500/70 flex flex-col h-full fade-in-section">
+				<a href="/tags/research" class="group relative rounded-2xl p-6 transition-all duration-300 ease-in-out hover:border-purple-500/70 flex flex-col h-full">
 					<span class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-purple-500/40 to-transparent opacity-0 transition-opacity group-hover:opacity-100"></span>
 					<div class="flex items-center gap-3">
 						<div class="rounded-lg bg-purple-500/10">
@@ -275,15 +275,15 @@ import LazyImage from "@/components/LazyImage.astro";
 							height={96} 
 							class="w-24 h-24 object-cover object-center rounded-lg will-change-transform transition-transform" 
 							format="webp"
-							loading="eager"
+							loading="lazy"
 							/>
 						</div>
 					</div>
 					<h2 class="mt-4 text-2xl font-semibold">Research</h2>
 					<p class="text-sm mt-2 line-clamp-3">Explore cutting-edge research and contribute to the advancement of multimodal AI.</p>
-					<div class="mt-8 flex items-center mt-auto">
+					<div class="mt-8 flex items-center">
 						<span class="text-sm font-medium group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">Dive in</span>
-						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 ml-2 transition-transform group-hover:translate-x-0.5 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>	
+						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 ml-2 group-hover:translate-x-0.5 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-all"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>	
 					</div>
 				</a>
 			</div>
@@ -308,146 +308,8 @@ import LazyImage from "@/components/LazyImage.astro";
 	</section>
 	-->
 
-	<!-- Remove Notes Section -->
-	<!--
-	{
-		latestNotes.length > 0 && (
-			<section class="mt-12">
-				<h2 class="title mb-6 text-accent-two">
-					<a href="/notes/">Notes</a>
-				</h2>
-				<div class="grid grid-cols-1 gap-8 sm:grid-cols-2">
-					{
-						latestNotes.map((note) => (
-							<div>
-								<Note note={note} as="h4" isPreview />
-							</div>
-						))
-					}
-				</div>
-			</section>
-		)
-	}
-	-->
 
-	<!-- Remove Debug Section -->
-	<!--
-	<div class="flex justify-between flex-wrap gap-y-1.5 mt-6 text-sm font-medium">
-		<div class="text-center content-center h-10 w-10 bg-color-50"><span class="text-textColor">50</span></div>
-		<div class="text-center content-center h-10 w-10 bg-color-75"><span class="text-textColor">75</span></div>
-		<div class="text-center content-center h-10 w-10 bg-color-100"><span class="text-textColor">100</span></div>
-		<div class="text-center content-center h-10 w-10 bg-color-150"><span class="text-textColor">150</span></div>
-		<div class="text-center content-center h-10 w-10 bg-color-200"><span class="text-textColor">200</span></div>
-		<div class="text-center content-center h-10 w-10 bg-color-250"><span class="text-textColor">250</span></div>
-		<div class="text-center content-center h-10 w-10 bg-color-300"><span class="text-textColor">300</span></div>
-		<div class="text-center content-center h-10 w-10 bg-color-350"><span class="text-textColor">350</span></div>
-		<div class="text-center content-center h-10 w-10 bg-color-400">
-			<span class="text-textColor">400</span>
-			<span class="text-bgColor">400</span>
-		</div>
-		<div class="text-center content-center h-10 w-10 bg-color-450">
-			<span class="text-textColor">450</span>
-			<span class="text-bgColor">450</span>
-		</div>
-		<div class="text-center content-center h-10 w-10 bg-color-500">
-			<span class="text-textColor">500</span>
-			<span class="text-bgColor">500</span>
-		</div>
-		<div class="text-center content-center h-10 w-10 bg-color-550"><span class="text-bgColor">550</span></div>
-		<div class="text-center content-center h-10 w-10 bg-color-600"><span class="text-bgColor">600</span></div>
-		<div class="text-center content-center h-10 w-10 bg-color-650"><span class="text-bgColor">650</span></div>
-		<div class="text-center content-center h-10 w-10 bg-color-700"><span class="text-bgColor">700</span></div>
-		<div class="text-center content-center h-10 w-10 bg-color-750"><span class="text-bgColor">750</span></div>
-		<div class="text-center content-center h-10 w-10 bg-color-800"><span class="text-bgColor">800</span></div>
-		<div class="text-center content-center h-10 w-10 bg-color-850"><span class="text-bgColor">850</span></div>
-		<div class="text-center content-center h-10 w-10 bg-color-900"><span class="text-bgColor">900</span></div>
-	</div>
-	-->
 </PageLayout>
 
-<style>
-	/* Fade in animation styles */
-	.fade-in-section {
-		opacity: 0;
-		transform: translateY(30px);
-		transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-		will-change: opacity, transform;
-	}
-
-	.fade-in-section.is-visible {
-		opacity: 1;
-		transform: translateY(0);
-	}
-
-	/* Optional: Stagger animation for grid items */
-	.fade-in-section .grid > * {
-		opacity: 0;
-		transform: translateY(20px);
-		transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-		will-change: opacity, transform;
-	}
-
-	.fade-in-section.is-visible .grid > * {
-		opacity: 1;
-		transform: translateY(0);
-	}
-
-	/* Stagger delay for grid items */
-	/* .fade-in-section.is-visible .grid > *:nth-child(1) { transition-delay: 0.1s; }
-	.fade-in-section.is-visible .grid > *:nth-child(2) { transition-delay: 1.5s; }
-	.fade-in-section.is-visible .grid > *:nth-child(3) { transition-delay: 7.0s; } */
-
-	/* Additional opacity transitions for smoother animations */
-	.fade-in-section {
-		transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-	}
-
-	.fade-in-section.is-visible {
-		opacity: 1 !important;
-		transform: translateY(0);
-	}
-
-	/* Ensure child elements inherit opacity properly */
-	.fade-in-section.is-visible img,
-	.fade-in-section.is-visible h1,
-	.fade-in-section.is-visible h2,
-	.fade-in-section.is-visible h3,
-	.fade-in-section.is-visible p,
-	.fade-in-section.is-visible span,
-	.fade-in-section.is-visible div {
-		opacity: 1;
-	}
-</style>
-
-<script>
-  const observer = new IntersectionObserver((entries, obs) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      // Add visible class to the section
-      entry.target.classList.add('is-visible');
-
-      // Handle grid children with stagger
-      const children = entry.target.querySelectorAll('.grid > *');
-      children.forEach((child, i) => {
-        const el = child as HTMLElement; // Type assertion
-        el.style.transitionDelay = `${i * 0.35}s`; // 0.35s stagger per item
-        el.classList.add('is-visible');
-      });
-
-      obs.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.1 });
-
-function setupFadeAnimations() {
-  document.querySelectorAll('.fade-in-section').forEach(section => observer.observe(section));
-}
-
-document.addEventListener('DOMContentLoaded', setupFadeAnimations);
-document.addEventListener('astro:page-load', setupFadeAnimations);
-document.addEventListener('astro:after-swap', setupFadeAnimations);
-
-
-</script>
 
 
