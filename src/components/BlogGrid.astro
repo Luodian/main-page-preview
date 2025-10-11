@@ -241,16 +241,16 @@ const { years, tags: categories } = getUniqueYearsAndTags(posts);
     // Initial run
     updateFilterCount();
     filterPosts();
-  });
+  }, { once: true });
 
-  document.addEventListener('astro:before-swap', () => {
-    console.log("Cleaning up filter listeners before navigating away.");
-    const filterButton = document.getElementById('filterButton');
-    const clearFiltersButton = document.getElementById('clearFilters');
-    const checkboxes = document.querySelectorAll('input[name="topic"], input[name="year"]');
-    filterButton?.removeEventListener('click', handleFilterButtonClick);
-    clearFiltersButton?.removeEventListener('click', handleClearFiltersClick);
-    checkboxes.forEach(checkbox => checkbox.removeEventListener('change', handleCheckboxChange));
-    document.removeEventListener('click', handleDocumentClick);
-  });
+  // document.addEventListener('astro:before-swap', () => {
+  //   console.log("Cleaning up filter listeners before navigating away.");
+  //   const filterButton = document.getElementById('filterButton');
+  //   const clearFiltersButton = document.getElementById('clearFilters');
+  //   const checkboxes = document.querySelectorAll('input[name="topic"], input[name="year"]');
+  //   filterButton?.removeEventListener('click', handleFilterButtonClick);
+  //   clearFiltersButton?.removeEventListener('click', handleClearFiltersClick);
+  //   checkboxes.forEach(checkbox => checkbox.removeEventListener('change', handleCheckboxChange));
+  //   document.removeEventListener('click', handleDocumentClick);
+  // }, { once: true });
 </script>
