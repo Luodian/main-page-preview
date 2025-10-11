@@ -17,7 +17,7 @@ const { years, tags: categories } = getUniqueYearsAndTags(posts);
       <div class="flex gap-3 items-center">
         
         <!-- Filter button and dropdown -->
-        <div class="relative">
+        <div id="filterContainer" class="relative">
           <button 
             id="filterButton"
             class="px-4 py-2 border border-gray-300 rounded-full hover:bg-gray-50 transition-colors font-medium flex items-center gap-2 bg-white"
@@ -226,9 +226,19 @@ const { years, tags: categories } = getUniqueYearsAndTags(posts);
     }
   };
 
-  document.addEventListener('astro:page-load', () => {
-    console.log("Setting up filter listeners and initial state.");
-    // --- 1. SETUP PHASE: Find elements and add listeners ---
+  const initialiseFilterButton = () => {
+    const filterContainer = document.getElementById('filterContainer');
+    
+    // check if filterContainer exists
+    if (!filterContainer) return;
+
+    // remove existing event listener to prevent duplicates
+    const newFilterGroup = filterContainer.cloneNode(true) as HTMLElement;
+    if (filterContainer.parentNode) {
+      filterContainer.parentNode.replaceChild(newFilterGroup, filterContainer);
+    }
+
+    // re-attach event listener
     const filterButton = document.getElementById('filterButton');
     const clearFiltersButton = document.getElementById('clearFilters');
     const checkboxes = document.querySelectorAll('input[name="topic"], input[name="year"]');
@@ -238,19 +248,29 @@ const { years, tags: categories } = getUniqueYearsAndTags(posts);
     checkboxes.forEach(checkbox => checkbox.addEventListener('change', handleCheckboxChange));
     document.addEventListener('click', handleDocumentClick);
 
-    // Initial run
+    // initial run
     updateFilterCount();
     filterPosts();
-  }, { once: true });
+  };
 
-  // document.addEventListener('astro:before-swap', () => {
-  //   console.log("Cleaning up filter listeners before navigating away.");
-  //   const filterButton = document.getElementById('filterButton');
-  //   const clearFiltersButton = document.getElementById('clearFilters');
-  //   const checkboxes = document.querySelectorAll('input[name="topic"], input[name="year"]');
-  //   filterButton?.removeEventListener('click', handleFilterButtonClick);
-  //   clearFiltersButton?.removeEventListener('click', handleClearFiltersClick);
-  //   checkboxes.forEach(checkbox => checkbox.removeEventListener('change', handleCheckboxChange));
-  //   document.removeEventListener('click', handleDocumentClick);
-  // }, { once: true });
+  document.addEventListener("DOMContentLoaded", () => {
+    console.log("Setting up filter listeners and initial state on DOMContentLoaded.");
+    initialiseFilterButton();
+  });
+
+  document.addEventListener('astro:page-load', () => {
+    console.log("Astro page load detected, re-initializing filter button.");
+    initialiseFilterButton();
+  });
+
+  document.addEventListener('astro:before-swap', () => {
+    document.removeEventListener('click', handleDocumentClick);
+  });
+
+  if (document.readyState === "loading") {
+    console.log("Document still loading, waiting for DOMContentLoaded.");
+  } else {
+    console.log("Document already loaded, initializing filter button immediately.");
+    initialiseFilterButton();
+  }
 </script>
