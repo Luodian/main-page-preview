@@ -200,6 +200,7 @@ const { years, tags: categories } = getUniqueYearsAndTags(posts);
   const handleFilterButtonClick = (e: MouseEvent) => {
     e.stopPropagation();
     toggleDropdown();
+    console.log("Filter button clicked, toggling dropdown.");
   };
 
   const handleCheckboxChange = () => {
