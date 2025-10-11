@@ -197,36 +197,37 @@ const { years, tags: categories } = getUniqueYearsAndTags(posts);
     }
   }
 
-  const handleFilterButtonClick = (e: MouseEvent) => {
-    e.stopPropagation();
-    toggleDropdown();
-    console.log("Filter button clicked, toggling dropdown.");
-  };
-
-  const handleCheckboxChange = () => {
-    filterPosts();
-  };
-
-  const handleClearFiltersClick = () => {
-    document.querySelectorAll('input[name="topic"], input[name="year"]').forEach(checkbox => {
-      (checkbox as HTMLInputElement).checked = false;
-    });
-    filterPosts();
-  };
-
-  const handleDocumentClick = (e: MouseEvent) => {
-    const filterButton = document.getElementById('filterButton');
-    const dropdown = document.getElementById('filterDropdown');
-    
-    // Check if the click is outside the button and dropdown
-    if (dropdown && filterButton && !dropdown.contains(e.target as Node) && !filterButton.contains(e.target as Node)) {
-      // Hide dropdown
-      dropdown.classList.remove('opacity-100', 'scale-100');
-      dropdown.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
-    }
-  };
+  
 
   document.addEventListener('astro:page-load', () => {
+    const handleFilterButtonClick = (e: MouseEvent) => {
+      e.stopPropagation();
+      toggleDropdown();
+      console.log("Filter button clicked, toggling dropdown.");
+    };
+
+    const handleCheckboxChange = () => {
+      filterPosts();
+    };
+
+    const handleClearFiltersClick = () => {
+      document.querySelectorAll('input[name="topic"], input[name="year"]').forEach(checkbox => {
+        (checkbox as HTMLInputElement).checked = false;
+      });
+      filterPosts();
+    };
+
+    const handleDocumentClick = (e: MouseEvent) => {
+      const filterButton = document.getElementById('filterButton');
+      const dropdown = document.getElementById('filterDropdown');
+      
+      // Check if the click is outside the button and dropdown
+      if (dropdown && filterButton && !dropdown.contains(e.target as Node) && !filterButton.contains(e.target as Node)) {
+        // Hide dropdown
+        dropdown.classList.remove('opacity-100', 'scale-100');
+        dropdown.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
+      }
+    };
     // --- 1. SETUP PHASE: Find elements and add listeners ---
     const filterButton = document.getElementById('filterButton');
     const clearFiltersButton = document.getElementById('clearFilters');
@@ -235,8 +236,6 @@ const { years, tags: categories } = getUniqueYearsAndTags(posts);
     filterButton?.addEventListener('click', handleFilterButtonClick);
     clearFiltersButton?.addEventListener('click', handleClearFiltersClick);
     checkboxes.forEach(checkbox => checkbox.addEventListener('change', handleCheckboxChange));
-    
-    // The crucial document listener
     document.addEventListener('click', handleDocumentClick);
 
     // Initial run
@@ -246,11 +245,10 @@ const { years, tags: categories } = getUniqueYearsAndTags(posts);
     // --- 2. CLEANUP PHASE: Return a function that removes all listeners ---
     // This function will be called by Astro before the next page loads.
     return () => {
+      console.log("🧹 Cleaning up old event listeners.");
       filterButton?.removeEventListener('click', handleFilterButtonClick);
       clearFiltersButton?.removeEventListener('click', handleClearFiltersClick);
       checkboxes.forEach(checkbox => checkbox.removeEventListener('change', handleCheckboxChange));
-      
-      // Most importantly, remove the listener from the persistent `document` object
       document.removeEventListener('click', handleDocumentClick);
     };
   });
