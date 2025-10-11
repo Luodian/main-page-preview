@@ -118,120 +118,139 @@ const { years, tags: categories } = getUniqueYearsAndTags(posts);
 </section>
 
 <script>
+  function updateFilterCount() {
+    const selectedTopics = Array.from(document.querySelectorAll<HTMLInputElement>('input[name="topic"]:checked')).map(el => el.value);
+    const selectedYears = Array.from(document.querySelectorAll<HTMLInputElement>('input[name="year"]:checked')).map(el => el.value);
+
+    const selectedItems = [...selectedTopics, ...selectedYears];
+    const filterCount = document.getElementById('filterCount');
+
+    if (!filterCount) return;
+
+    if (selectedItems.length === 0) {
+      filterCount.textContent = "Filter";
+      filterCount.classList.remove('hidden');
+    } else if (selectedItems.length === 1) {
+      filterCount.textContent = selectedItems[0] ?? "Filter";
+      filterCount.classList.remove('hidden');
+    } else {
+      const firstItem = selectedItems[0];
+      const extraCount = selectedItems.length - 1;
+      filterCount.textContent = `${firstItem} +${extraCount}`;
+      filterCount.classList.remove('hidden');
+    }
+  }
+
+  function filterPosts() {
+    // Get selected topics
+    const selectedTopics = Array.from(
+      document.querySelectorAll('input[name="topic"]:checked')
+    ).map(checkbox => (checkbox as HTMLInputElement).value);
+    
+    // Get selected years
+    const selectedYears = Array.from(
+      document.querySelectorAll('input[name="year"]:checked')
+    ).map(checkbox => (checkbox as HTMLInputElement).value);
+
+    const posts = document.querySelectorAll('.blog-post');
+    let visibleCount = 0;
+
+    posts.forEach(post => {
+      const postElement = post as HTMLElement;
+      const category = postElement.dataset.category || [''];
+      const year = postElement.dataset.year || '';
+      const title = postElement.dataset.title || '';
+
+      const matchesCategory = selectedTopics.length === 0 || selectedTopics.some(topic => category.includes(topic));
+      const matchesYear = selectedYears.length === 0 || selectedYears.includes(year);
+
+      if (matchesCategory && matchesYear) {
+        postElement.style.display = 'block';
+        visibleCount++;
+      } else {
+        postElement.style.display = 'none';
+      }
+    });
+
+    // Show/hide no results message
+    const noResults = document.getElementById('noResults');
+    if (noResults) {
+      noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+    }
+
+    // Update filter count badge
+    updateFilterCount();
+  }
+
+  function toggleDropdown() {
+    const dropdown = document.getElementById('filterDropdown');
+    if (!dropdown) return;
+
+    if (dropdown.classList.contains('opacity-0')) {
+      // Show dropdown
+      dropdown.classList.remove('opacity-0', 'scale-95', 'pointer-events-none');
+      dropdown.classList.add('opacity-100', 'scale-100');
+    } else {
+      // Hide dropdown (with transition)
+      dropdown.classList.remove('opacity-100', 'scale-100');
+      dropdown.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
+    }
+  }
+
+  const handleFilterButtonClick = (e: MouseEvent) => {
+    e.stopPropagation();
+    toggleDropdown();
+  };
+
+  const handleCheckboxChange = () => {
+    filterPosts();
+  };
+
+  const handleClearFiltersClick = () => {
+    document.querySelectorAll('input[name="topic"], input[name="year"]').forEach(checkbox => {
+      (checkbox as HTMLInputElement).checked = false;
+    });
+    filterPosts();
+  };
+
+  const handleDocumentClick = (e: MouseEvent) => {
+    const filterButton = document.getElementById('filterButton');
+    const dropdown = document.getElementById('filterDropdown');
+    
+    // Check if the click is outside the button and dropdown
+    if (dropdown && filterButton && !dropdown.contains(e.target as Node) && !filterButton.contains(e.target as Node)) {
+      // Hide dropdown
+      dropdown.classList.remove('opacity-100', 'scale-100');
+      dropdown.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
+    }
+  };
+
   document.addEventListener('astro:page-load', () => {
+    // --- 1. SETUP PHASE: Find elements and add listeners ---
+    const filterButton = document.getElementById('filterButton');
+    const clearFiltersButton = document.getElementById('clearFilters');
+    const checkboxes = document.querySelectorAll('input[name="topic"], input[name="year"]');
+
+    filterButton?.addEventListener('click', handleFilterButtonClick);
+    clearFiltersButton?.addEventListener('click', handleClearFiltersClick);
+    checkboxes.forEach(checkbox => checkbox.addEventListener('change', handleCheckboxChange));
+    
+    // The crucial document listener
+    document.addEventListener('click', handleDocumentClick);
+
+    // Initial run
     updateFilterCount();
     filterPosts();
 
-    function filterPosts() {
+    // --- 2. CLEANUP PHASE: Return a function that removes all listeners ---
+    // This function will be called by Astro before the next page loads.
+    return () => {
+      filterButton?.removeEventListener('click', handleFilterButtonClick);
+      clearFiltersButton?.removeEventListener('click', handleClearFiltersClick);
+      checkboxes.forEach(checkbox => checkbox.removeEventListener('change', handleCheckboxChange));
       
-      // Get selected topics
-      const selectedTopics = Array.from(
-        document.querySelectorAll('input[name="topic"]:checked')
-      ).map(checkbox => (checkbox as HTMLInputElement).value);
-      
-      // Get selected years
-      const selectedYears = Array.from(
-        document.querySelectorAll('input[name="year"]:checked')
-      ).map(checkbox => (checkbox as HTMLInputElement).value);
-
-      const posts = document.querySelectorAll('.blog-post');
-      let visibleCount = 0;
-
-      posts.forEach(post => {
-        const postElement = post as HTMLElement;
-        const category = postElement.dataset.category || [''];
-        const year = postElement.dataset.year || '';
-        const title = postElement.dataset.title || '';
-
-        const matchesCategory = selectedTopics.length === 0 || selectedTopics.some(topic => category.includes(topic));
-        const matchesYear = selectedYears.length === 0 || selectedYears.includes(year);
-
-        if (matchesCategory && matchesYear) {
-          postElement.style.display = 'block';
-          visibleCount++;
-        } else {
-          postElement.style.display = 'none';
-        }
-      });
-
-      // Show/hide no results message
-      const noResults = document.getElementById('noResults');
-      if (noResults) {
-        noResults.style.display = visibleCount === 0 ? 'block' : 'none';
-      }
-
-      // Update filter count badge
-      updateFilterCount();
-    }
-
-    function updateFilterCount() {
-      const selectedTopics = Array.from(document.querySelectorAll<HTMLInputElement>('input[name="topic"]:checked')).map(el => el.value);
-      const selectedYears = Array.from(document.querySelectorAll<HTMLInputElement>('input[name="year"]:checked')).map(el => el.value);
-
-      const selectedItems = [...selectedTopics, ...selectedYears];
-      const filterCount = document.getElementById('filterCount');
-
-      if (!filterCount) return;
-
-      if (selectedItems.length === 0) {
-        filterCount.textContent = "Filter";
-        filterCount.classList.remove('hidden');
-      } else if (selectedItems.length === 1) {
-        filterCount.textContent = selectedItems[0] ?? "Filter";
-        filterCount.classList.remove('hidden');
-      } else {
-        const firstItem = selectedItems[0];
-        const extraCount = selectedItems.length - 1;
-        filterCount.textContent = `${firstItem} +${extraCount}`;
-        filterCount.classList.remove('hidden');
-      }
-    }
-
-    function toggleDropdown() {
-      const dropdown = document.getElementById('filterDropdown');
-      if (!dropdown) return;
-
-      if (dropdown.classList.contains('opacity-0')) {
-        // Show dropdown
-        dropdown.classList.remove('opacity-0', 'scale-95', 'pointer-events-none');
-        dropdown.classList.add('opacity-100', 'scale-100');
-      } else {
-        // Hide dropdown (with transition)
-        dropdown.classList.remove('opacity-100', 'scale-100');
-        dropdown.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
-      }
-    }
-
-    document.addEventListener('click', (e) => {
-      const filterButton = document.getElementById('filterButton');
-      const dropdown = document.getElementById('filterDropdown');
-      
-      if (dropdown && filterButton && !dropdown.contains(e.target as Node) && !filterButton.contains(e.target as Node)) {
-        dropdown.classList.remove('opacity-100', 'scale-100');
-        dropdown.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
-      }
-    });
-
-    // Add event listeners
-    document.getElementById('filterButton')?.addEventListener('click', (e) => {
-      e.stopPropagation();
-      toggleDropdown();
-    });
-
-    document.querySelectorAll('input[name="topic"], input[name="year"]').forEach(checkbox => {
-      checkbox.addEventListener('change', filterPosts);
-    });
-
-    document.getElementById('clearFilters')?.addEventListener('click', () => {
-      document.querySelectorAll('input[name="topic"], input[name="year"]').forEach(checkbox => {
-        (checkbox as HTMLInputElement).checked = false;
-      });
-      filterPosts();
-    });
-
-    // document.addEventListener('DOMContentLoaded', () => {
-    //   updateFilterCount();
-    //   filterPosts();
-    // });
+      // Most importantly, remove the listener from the persistent `document` object
+      document.removeEventListener('click', handleDocumentClick);
+    };
   });
 </script>
