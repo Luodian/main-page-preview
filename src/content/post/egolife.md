@@ -3,6 +3,7 @@ title: "EgoLife"
 description: "Towards Egocentric Life Assistant"
 publishDate: "2025-03-06"
 tags: ["vision", "models", "research"]
+thumbnail: "/images/blog_thumbnails/egolife.png"
 ---
 
 ![teaser](https://github.com/EvolvingLMMs-Lab/EgoLife/blob/main/assets/egolife_teaser.png?raw=true)

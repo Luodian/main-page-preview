@@ -2,17 +2,18 @@
 title: "Sparse Autoencoder Made Easy"
 description: "A framework that allows you to apply Sparse AutoEncoder on any models"
 publishDate: "2025-07-12"
-tags: ["mech-interp", "training", "models", "research"]
+tags: ["research", "mech-interp", "training", "models"]
+thumbnail: "/images/blog_thumbnails/sae_made_easy.png"
 ---
 
 <img width="3804" height="3497" alt="PixPin_2025-07-10_22-33-42" src="https://github.com/user-attachments/assets/59bf4ef7-e14c-4464-be3a-ba6fbf16ae48" />
 
-
-SAE is inspired by a wealth of Sparse Autoencoder (SAE) work from Anthropic, OpenAI, Google, and the open-source community. SAE has become a powerful and widely-used tool in the field of explainable AI. 
+SAE is inspired by a wealth of Sparse Autoencoder (SAE) work from Anthropic, OpenAI, Google, and the open-source community. SAE has become a powerful and widely-used tool in the field of explainable AI.
 
 This project aims to provide a simple and flexible interface that allows users to inject SAE modules into their models at any layer with minimal effort. We adopt the elegant design of huggingface's `peft` and regard SAE training as a kind of parameter efficient tuning, as long as the target is an `nn.Module`, SAE can be easily integrated and trained with only few lines.
 
 ## Design Philosophy
+
 The code design takes inspiration from PEFT, as we believe SAE shares many structural similarities with PEFT-based methods. By inheriting from a BaseTuner class, we enable seamless SAE integration into existing models.
 
 With this design, injecting an SAE module is as simple as:
@@ -83,6 +84,7 @@ python examples/data_process/llava_ov_clevr.py --push_to_hub --hf_repo_path lmms
 ## Training
 
 Our trainer implementation builds on top of existing frameworks and supports the following features:
+
 - ZeRO-1/2/3 training
 - Weights & Biases (WandB) logging
 
@@ -105,11 +107,12 @@ We provide a simple training recipe to help you get started quickly. You're also
 
 <img width="2140" height="1830" alt="image" src="https://github.com/user-attachments/assets/2e092402-fcfb-4002-badb-55e135cd56b1" />
 
-
 ## Related Work and Citation
+
 If you find this repository useful, please consider checking out our [previous paper](https://arxiv.org/pdf/2411.14982) on applying Sparse Autoencoders (SAE) to Large Multimodal Models, accepted at ICCV 2025.
 
 You can cite our work as follows:
+
 ```shell
 @misc{zhang2024largemultimodalmodelsinterpret,
       title={Large Multi-modal Models Can Interpret Features in Large Multi-modal Models},

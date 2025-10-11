@@ -3,6 +3,7 @@ title: "Multimodal-SAE"
 description: "Large Multi-modal Models Can Interpret Features in Large Multi-modal Models"
 publishDate: "2024-11-15"
 tags: ["vision", "models", "mech-interp", "tools", "research"]
+thumbnail: "/images/blog_thumbnails/multimodal_sae.png"
 ---
 
 ![Banner](https://github.com/EvolvingLMMs-Lab/multimodal-sae/blob/main/assets/banner.png?raw=true)

@@ -2,47 +2,71 @@ import { type CollectionEntry, getCollection } from "astro:content";
 
 /** filter out draft posts based on the environment */
 export async function getAllPosts(): Promise<CollectionEntry<"post">[]> {
-	return await getCollection("post", ({ data }) => {
-		return import.meta.env.PROD ? !data.draft : true;
-	});
+  return await getCollection("post", ({ data }) => {
+    return import.meta.env.PROD ? !data.draft : true;
+  });
 }
 
 /** groups posts by year (based on option siteConfig.sortPostsByUpdatedDate), using the year as the key
  *  Note: This function doesn't filter draft posts, pass it the result of getAllPosts above to do so.
  */
 export function groupPostsByYear(posts: CollectionEntry<"post">[]) {
-	return posts.reduce<Record<string, CollectionEntry<"post">[]>>((acc, post) => {
-		const year = post.data.publishDate.getFullYear();
-		if (!acc[year]) {
-			acc[year] = [];
-		}
-		acc[year]?.push(post);
-		return acc;
-	}, {});
+  return posts.reduce<Record<string, CollectionEntry<"post">[]>>(
+    (acc, post) => {
+      const year = post.data.publishDate.getFullYear();
+      if (!acc[year]) {
+        acc[year] = [];
+      }
+      acc[year]?.push(post);
+      return acc;
+    },
+    {}
+  );
 }
 
 /** returns all tags created from posts (inc duplicate tags)
  *  Note: This function doesn't filter draft posts, pass it the result of getAllPosts above to do so.
  *  */
 export function getAllTags(posts: CollectionEntry<"post">[]) {
-	return posts.flatMap((post) => [...post.data.tags]);
+  return posts.flatMap((post) => [...post.data.tags]);
 }
 
 /** returns all unique tags created from posts
  *  Note: This function doesn't filter draft posts, pass it the result of getAllPosts above to do so.
  *  */
 export function getUniqueTags(posts: CollectionEntry<"post">[]) {
-	return [...new Set(getAllTags(posts))];
+  return [...new Set(getAllTags(posts))];
 }
 
 /** returns a count of each unique tag - [[tagName, count], ...]
  *  Note: This function doesn't filter draft posts, pass it the result of getAllPosts above to do so.
  *  */
-export function getUniqueTagsWithCount(posts: CollectionEntry<"post">[]): [string, number][] {
-	return [
-		...getAllTags(posts).reduce(
-			(acc, t) => acc.set(t, (acc.get(t) ?? 0) + 1),
-			new Map<string, number>(),
-		),
-	].sort((a, b) => b[1] - a[1]);
+export function getUniqueTagsWithCount(
+  posts: CollectionEntry<"post">[]
+): [string, number][] {
+  return [
+    ...getAllTags(posts).reduce(
+      (acc, t) => acc.set(t, (acc.get(t) ?? 0) + 1),
+      new Map<string, number>()
+    ),
+  ].sort((a, b) => b[1] - a[1]);
+}
+
+export function getUniqueYearsAndTags(posts: CollectionEntry<"post">[]) {
+  const years = new Set<number>();
+  const tags = new Set<string>();
+
+  for (const post of posts) {
+    // Extract year
+    const year = post.data.publishDate.getFullYear();
+    years.add(year);
+
+    // Extract tags
+    post.data.tags?.forEach((tag) => tags.add(tag));
+  }
+
+  return {
+    years: Array.from(years).sort((a, b) => b - a), // sorted descending
+    tags: Array.from(tags).sort((a, b) => a.localeCompare(b)), // alphabetically
+  };
 }
