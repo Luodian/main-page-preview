@@ -2,7 +2,8 @@
 title: "LLaVA-OneVision-1.5: Fully Open Framework for Democratized Multimodal Training"
 description: "LLaVA-OneVision1.5 introduces a novel family of fully open-source Large Multimodal Models (LMMs) that achieves state-of-the-art performance with substantially lower cost through training on native resolution images."
 publishDate: "2025-09-30"
-tags: ["vision", "multimodal", "research", "llava", "megatron"]
+tags: ["research", "vision", "multimodal", "llava", "megatron"]
+thumbnail: "/images/blog_thumbnails/llava_ov_1_5.png"
 ---
 
 <figure>
@@ -11,21 +12,15 @@ tags: ["vision", "multimodal", "research", "llava", "megatron"]
 </p>
 </figure>
 
-**LLaVA-OneVision1.5** introduces a novel family of **fully open-source** Large Multimodal Models (LMMs) that achieves **state-of-the-art performance**  with substantially **lower cost** through training on **native resolution** images.
-
+**LLaVA-OneVision1.5** introduces a novel family of **fully open-source** Large Multimodal Models (LMMs) that achieves **state-of-the-art performance** with substantially **lower cost** through training on **native resolution** images.
 
 ## Key Features
 
 - **Superior Performance**
-A family of fully open-source large multimodal models demonstrating 
-    - Superior performance across multiple multimodal benchmarks
-    - outperforming **Qwen2.5-VL** in most evaluation tasks.
-
+  A family of fully open-source large multimodal models demonstrating - Superior performance across multiple multimodal benchmarks - outperforming **Qwen2.5-VL** in most evaluation tasks.
 
 - **High-Quality Data at Scale**
-Meticulously curated **pre-training and SFT data** with rigorous filtering and quality control.
-    - Concept-balanced, highly diverse, high-quality caption data
-    - Comprehensive instruction fine-tuning data covering a wide range of tasks
+  Meticulously curated **pre-training and SFT data** with rigorous filtering and quality control. - Concept-balanced, highly diverse, high-quality caption data - Comprehensive instruction fine-tuning data covering a wide range of tasks
 
 <figure>
 <p align="center">
@@ -34,9 +29,9 @@ Meticulously curated **pre-training and SFT data** with rigorous filtering and q
 </figure>
 
 - **Ultra-Efficient Training Framework** Complete end-to-end training framework designed for maximum efficiency:
-    - USD 16000 total budget for full model training on A100 GPUs  (USD 0.6 per GPU/Hour)
-    - Built on **MegatronLM** with support for **MoE**, **FP8**, and **long sequence parallelization**
-    - Optimized codebase for cost-effective scaling
+  - USD 16000 total budget for full model training on A100 GPUs (USD 0.6 per GPU/Hour)
+  - Built on **MegatronLM** with support for **MoE**, **FP8**, and **long sequence parallelization**
+  - Optimized codebase for cost-effective scaling
 
 <figure>
 <p align="center">
@@ -44,12 +39,11 @@ Meticulously curated **pre-training and SFT data** with rigorous filtering and q
 </p>
 </figure>
 
-
 - **Fully Open Framework** for community access and reproducibility:
-    - High-quality pre-training & SFT data
-    - Complete training framework & code
-    - Training recipes & configurations
-    - Comprehensive training logs & metrics
+  - High-quality pre-training & SFT data
+  - Complete training framework & code
+  - Training recipes & configurations
+  - Comprehensive training logs & metrics
 
 <figure>
 <p align="center">
@@ -62,32 +56,32 @@ Meticulously curated **pre-training and SFT data** with rigorous filtering and q
 We open-source LLaVA-OneVision-1.5 to facilitate future development of LMMs in the community:
 
 ### 🚀 [Training Code](https://github.com/EvolvingLMMs-Lab/LLaVA-OneVision-1.5)
+
 Cook a SOTA model with our released training code and reproduction scripts, [click here](https://github.com/EvolvingLMMs-Lab/LLaVA-OneVision-1.5).
 
 ### 🤗 [Model Checkpoints](https://huggingface.co/collections/lmms-lab/llava-onevision-15-68d385fe73b50bd22de23713)
 
 ## Models
 
-| Model                    | HF Link                                                                                      |
-|--------------------------|--------------------------------------------------------------------------------------------------------|
-| LLaVA-OV-1.5-4B-Instruct | [🤗 HF / 4B-Instruct](https://huggingface.co/lmms-lab/LLaVA-OneVision-1.5-4B-Instruct)                |
-| LLaVA-OV-1.5-8B-Instruct | [🤗 HF / 8B-Instruct](https://huggingface.co/lmms-lab/LLaVA-OneVision-1.5-8B-Instruct)                |
-| LLaVA-OV-1.5-4B-Base     | [🤗 HF / 4B-Base](https://huggingface.co/lmms-lab/LLaVA-OneVision-1.5-4B-Base)                        |
-| LLaVA-OV-1.5-8B-Base     | [🤗 HF / 8B-Base](https://huggingface.co/lmms-lab/LLaVA-OneVision-1.5-8B-Base)                        |
-
+| Model                    | HF Link                                                                                |
+| ------------------------ | -------------------------------------------------------------------------------------- |
+| LLaVA-OV-1.5-4B-Instruct | [🤗 HF / 4B-Instruct](https://huggingface.co/lmms-lab/LLaVA-OneVision-1.5-4B-Instruct) |
+| LLaVA-OV-1.5-8B-Instruct | [🤗 HF / 8B-Instruct](https://huggingface.co/lmms-lab/LLaVA-OneVision-1.5-8B-Instruct) |
+| LLaVA-OV-1.5-4B-Base     | [🤗 HF / 4B-Base](https://huggingface.co/lmms-lab/LLaVA-OneVision-1.5-4B-Base)         |
+| LLaVA-OV-1.5-8B-Base     | [🤗 HF / 8B-Base](https://huggingface.co/lmms-lab/LLaVA-OneVision-1.5-8B-Base)         |
 
 ### 📊 [Training Datasets](https://huggingface.co/collections/lmms-lab/llava-onevision-15-68d385fe73b50bd22de23713)
+
 Explore comprehensive training datasets
 
-| Description        | Link                                                                                                   |
-|--------------------|--------------------------------------------------------------------------------------------------------|
-| LLaVA-OV-1.5-Mid-Training-85M   | [🤗HF / Mid-Training 85M](https://huggingface.co/datasets/lmms-lab/LLaVA-One-Vision-1.5-Mid-Training-85M) |
-| LLaVA-OV-1.5-Instruct           | [🤗HF / Insturct-Data](https://huggingface.co/datasets/lmms-lab/LLaVA-OneVision-1.5-Insturct-Data)        |
-
+| Description                   | Link                                                                                                      |
+| ----------------------------- | --------------------------------------------------------------------------------------------------------- |
+| LLaVA-OV-1.5-Mid-Training-85M | [🤗HF / Mid-Training 85M](https://huggingface.co/datasets/lmms-lab/LLaVA-One-Vision-1.5-Mid-Training-85M) |
+| LLaVA-OV-1.5-Instruct         | [🤗HF / Insturct-Data](https://huggingface.co/datasets/lmms-lab/LLaVA-OneVision-1.5-Insturct-Data)        |
 
 ### 🔥 [Live Demo](https://huggingface.co/spaces/lmms-lab/LLaVA-OneVision-1.5)
-Try LLaVA-OneVision-1.5 directly in your browser, [click here](https://huggingface.co/spaces/lmms-lab/LLaVA-OneVision-1.5)!
 
+Try LLaVA-OneVision-1.5 directly in your browser, [click here](https://huggingface.co/spaces/lmms-lab/LLaVA-OneVision-1.5)!
 
 ## Quick Start with HuggingFace
 
@@ -144,8 +138,9 @@ print(output_text)
 ```
 
 ## Evaluation
+
 ```
-# pip install git+https://github.com/EvolvingLMMs-Lab/lmms-eval.git  
+# pip install git+https://github.com/EvolvingLMMs-Lab/lmms-eval.git
 
 accelerate launch --num_processes=8 --main_process_port 12399 -m lmms_eval \
     --model=llava_onevision1_5 \
@@ -154,15 +149,15 @@ accelerate launch --num_processes=8 --main_process_port 12399 -m lmms_eval \
     --batch_size=1
 ```
 
-
 ## Citation
 
 If you find LLaVA-OneVision useful for your research, please cite:
+
 ```bibtex
 @inproceedings{LLaVA-OneVision-1.5,
   title={LLaVA-OneVision-1.5: Fully Open Framework for Democratized Multimodal Training},
   author={An, Xiang and Xie, Yin and Yang, Kaicheng and Zhang, Wenkang and Zhao, Xiuwei and Cheng, Zheng and Wang, Yirui and Xu, Songcen and Chen, Changrui and Wu, Chunsheng and Tan, Huajie and Li, Chunyuan and Yang, Jing and Yu, Jie and Wang, Xiyao and Qin, Bin and Wang, Yumeng and Yan, Zizhen and Feng, Ziyong and Liu, Ziwei and Li, Bo and Deng, Jiankang},
-  booktitle={arxiv},  
+  booktitle={arxiv},
   year={2025}
  }
 

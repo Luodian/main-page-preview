@@ -1,9 +1,3 @@
 {
-  "$schema": "https://openapi.vercel.sh/vercel.json",
-  "rewrites": [
-    {
-      "source": "/docs/(.*)",
-      "destination": "https://lmms-eval-docs-beta.vercel.app/docs/$1"
-    }
-  ]
+  "$schema": "https://openapi.vercel.sh/vercel.json"
 }

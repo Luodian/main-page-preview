@@ -48,6 +48,10 @@ export default {
         xs: "320px", // Add xs size
         // xl: '1200px',
       },
+      fontSize: {
+        "2xs": ["0.625rem", { lineHeight: "0.875rem" }], // 10px font, 14px line-height
+        "3xs": ["0.5rem", { lineHeight: "0.75rem" }], // 8px font, 12px line-height
+      },
       maxWidth: {
         lg: "32rem", // default 32rem (512px)
         xl: "36rem", // default 36rem (576px)

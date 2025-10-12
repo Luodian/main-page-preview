@@ -2,15 +2,24 @@
 title: "LLaVA-Critic-R1: Unified Critic and Policy Model Through Reinforcement Learning"
 description: "A family of generative critic VLM trained through GRPO using pairwise critic data, achieving SoTA policy performance at 7B scale while excelling at both evaluation and generation"
 publishDate: "2025-08-29"
-tags: ["vision", "multimodal", "research", "llava", "critic", "reinforcement-learning"]
+tags:
+  [
+    "vision",
+    "multimodal",
+    "research",
+    "llava",
+    "critic",
+    "reinforcement-learning",
+  ]
+thumbnail: "/images/blog_thumbnails/llava_critic_r1.png"
 ---
 
 ![LLaVA-Critic-R1 Performance](./llava_critic_r1_images/llava-critic-r1.png)
-*Figure 1: LLaVA-Critic-R1 is trained on top of the base model Qwen-2.5-VL-7B. Building upon a stronger reasoning VLM, ThinkLite-VL-7B, we further develop LLaVA-Critic-R1+ by applying the same RL critic training procedure. **Left**: Performance comparison of LLaVA-Critic-R1 with other base and reasoning VLMs on multiple visual reasoning, visual understanding, and visual reward benchmarks. LLaVA-Critic-R1 not only significantly outperforms other models in critic performance, but also demonstrates stronger policy capabilities. **Right**: Performance improvement of critic training and test-time self-critic scaling on five common visual reasoning and visual understanding benchmarks. Critic training alone significantly improves the base model's performance. Building upon this, leveraging the dual policy and critic capabilities of LLaVA-Critic-R1 for a "Best-of-128" self-critic scaling procedure at test time leads to a further substantial boost in performance.*
+_Figure 1: LLaVA-Critic-R1 is trained on top of the base model Qwen-2.5-VL-7B. Building upon a stronger reasoning VLM, ThinkLite-VL-7B, we further develop LLaVA-Critic-R1+ by applying the same RL critic training procedure. **Left**: Performance comparison of LLaVA-Critic-R1 with other base and reasoning VLMs on multiple visual reasoning, visual understanding, and visual reward benchmarks. LLaVA-Critic-R1 not only significantly outperforms other models in critic performance, but also demonstrates stronger policy capabilities. **Right**: Performance improvement of critic training and test-time self-critic scaling on five common visual reasoning and visual understanding benchmarks. Critic training alone significantly improves the base model's performance. Building upon this, leveraging the dual policy and critic capabilities of LLaVA-Critic-R1 for a "Best-of-128" self-critic scaling procedure at test time leads to a further substantial boost in performance._
 
 ## Breaking the Critic-Policy Divide
 
-In vision-language modeling, critic models are typically trained to evaluate outputs—assigning scalar scores or pairwise preferences—rather than to generate responses. This separation from policy models, which produce the responses, is so entrenched that critics are rarely considered for direct policy use. 
+In vision-language modeling, critic models are typically trained to evaluate outputs—assigning scalar scores or pairwise preferences—rather than to generate responses. This separation from policy models, which produce the responses, is so entrenched that critics are rarely considered for direct policy use.
 
 **LLaVA-Critic-R1** challenges this convention. We propose to reorganize preference-labeled critic datasets into verifiable training signals and perform reinforcement learning directly on a base generative model, producing a multimodal critic trained to optimize preference judgments while retaining full generation ability.
 
@@ -19,7 +28,6 @@ In vision-language modeling, critic models are typically trained to evaluate out
 LLaVA-Critic-R1 emerges not only as a top-performing critic but also as a competitive policy model—matching or surpassing specialized reasoning VLMs trained with in-domain data across 26 visual reasoning and understanding benchmarks, with an average gain of **+5.7%** over its base model (Qwen-2.5-VL-7B).
 
 Extending this approach to existing strong reasoning VLMs yields **LLaVA-Critic-R1+**, which further advances policy performance without sacrificing critic quality, achieving a state-of-the-art **71.9 on MMMU** at the 7B scale.
-
 
 ## Self-Critique at Test Time
 
@@ -40,10 +48,11 @@ Our approach centers on three key innovations:
 LLaVA-Critic-R1 demonstrates strong performance across diverse benchmarks:
 
 - **Visual Reasoning**: Competitive performance with specialized models on complex reasoning tasks
-- **Critic Evaluation**: Top-tier preference judgment and scalar scoring capabilities  
+- **Critic Evaluation**: Top-tier preference judgment and scalar scoring capabilities
 - **Generation Quality**: Maintained fluency and coherence with strong instruction following
 
 The model comes in two variants:
+
 - **LLaVA-Critic-R1**: Base model trained from Qwen-2.5-VL-7B
 - **LLaVA-Critic-R1+**: Extended approach applied to strong reasoning VLMs
 
@@ -54,12 +63,15 @@ Our results reveal that RL training on critic data can produce a unified model e
 ## Resources
 
 ### 🚀 [Code Repository](https://github.com/LLaVA-VL/LLaVA-NeXT/tree/main/LLaVA-Critic-R1)
+
 Access training code and implementation details
 
 ### 🤗 [Model Collection](https://huggingface.co/collections/lmms-lab/llava-critic-r1-68922484e5822b89fab4aca1)
+
 Download pre-trained model checkpoints
 
 ### 📝 [Paper](https://arxiv.org/abs/2509.00676)
+
 Read the full technical paper on arXiv
 
 ## Citation

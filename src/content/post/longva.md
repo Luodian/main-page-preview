@@ -3,10 +3,10 @@ title: "LongVA"
 description: "Long Context Transfer from Language to Vision"
 publishDate: "2024-06-24"
 tags: ["vision", "models", "research"]
+thumbnail: "/images/blog_thumbnails/longva.png"
 ---
 
 ![Banner](https://github.com/EvolvingLMMs-Lab/LongVA/blob/main/vision_niah/niah_output/LongVA-7B/heatmap.png?raw=true)
-
 
 Gemini has amazed the world with its capability to understand hour-long videos. However, we still lack an open-source alternative with similar capabilities. Our latest research presents an innovative solution towards long video LMM, shifting the focus from reducing visual tokens per frame to leveraging the long context capabilities of language models. Here, we present our SoTA video model, Long Video Assistant (LongVA), and our novel benchmark, Visual Needle-In-A-Haystack (V-NIAH).
 

@@ -1,0 +1,276 @@
+---
+import { SlidersHorizontal } from "lucide-astro";
+import type { CollectionEntry } from "astro:content";
+import { getUniqueYearsAndTags } from "@/data/post";
+
+const { posts } = Astro.props as {
+  posts: CollectionEntry<"post">[];
+};
+
+const { years, tags: categories } = getUniqueYearsAndTags(posts);
+---
+
+<section class="max-w-7xl mx-auto py-12">
+  <!-- Filters -->
+  <div class="mb-8">
+    <div class="flex flex-row gap-4 items-start sm:items-center justify-end">
+      <div class="flex gap-3 items-center">
+        
+        <!-- Filter button and dropdown -->
+        <div id="filterContainer" class="relative">
+          <button 
+            id="filterButton"
+            class="px-4 py-2 border border-gray-300 rounded-full hover:bg-gray-50 transition-colors font-medium flex items-center gap-2 bg-white"
+          >
+            <span id="filterCount" class="hidden text-sm text-gray-600"></span>
+            <SlidersHorizontal class="w-4 h-4 text-gray-600" />
+          </button>
+
+          <!-- Filter Dropdown -->
+          <div 
+            id="filterDropdown"
+            class="absolute right-0 mt-2 w-[90vw] sm:w-96 bg-white rounded-lg shadow-xl border border-gray-200 z-50 opacity-0 scale-95 pointer-events-none transition-all"
+          >
+            <div class="p-6">
+              <div class="grid grid-cols-2 gap-6">
+                <!-- Topics Column -->
+                <div>
+                  <h3 class="font-semibold text-sm text-gray-900 mb-3">Topics</h3>
+                  <div class="space-y-2">
+                    {categories.map(category => (
+                      <label class="flex items-center gap-2 cursor-pointer group">
+                        <input 
+                          type="checkbox" 
+                          name="topic"
+                          value={category}
+                          class="w-4 h-4 flex-shrink-0 rounded border-gray-300 text-blue-600 focus:ring-blue-500 cursor-pointer"
+                        />
+                        <span class="text-sm text-gray-700 group-hover:text-gray-900 ">{category}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+
+                <!-- Years Column -->
+                <div>
+                  <h3 class="font-semibold text-sm text-gray-900 mb-3">Years</h3>
+                  <div class="space-y-2">
+                    {years.map((year, index) => (
+                      <label class="flex items-center gap-2 cursor-pointer group">
+                        <input 
+                          type="checkbox" 
+                          name="year"
+                          value={year}
+                          checked={index === 0}
+                          class="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 cursor-pointer"
+                        />
+                        <span class="text-sm text-gray-700 group-hover:text-gray-900">{year}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <!-- Clear Filters Button -->
+              <div class="mt-6 pt-4 border-t border-gray-200">
+                <button 
+                  id="clearFilters"
+                  class="text-sm text-blue-600 hover:text-blue-700 font-medium"
+                >
+                  Clear all filters
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Blog Posts Grid -->
+  <div id="blogGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {posts.map(post => (
+      <article class="blog-post group" data-category={post.data.tags} data-year={post.data.publishDate.getFullYear()} data-title={post.data.title.toLowerCase()}>
+        <a href={`/posts/${post.id}/`} class="block">
+          <div class="overflow-hidden rounded-2xl mb-4">
+            <img 
+              src={post.data.thumbnail || "/images/featured-4.jpg"}
+              alt={post.data.title}
+              class="w-full h-48 sm:h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+            />
+          </div>
+          <p class="!text-xs sm:!text-sm text-gray-500 mb-2">{post.data.publishDate.toLocaleDateString("en-US", {month: "short", day: "2-digit", year: "numeric"})}</p>
+          <h3 class="!text-sm sm:!text-lg font-semibold mb-3 text-gray-900 group-hover:text-gray-600 transition-colors line-clamp-2">
+            {post.data.title}
+          </h3>
+          <span class="inline-block py-[0.125rem] sm:py-1 px-2 bg-slate-200 text-slate-600 !text-2xs sm:!text-xs rounded-full">
+            {post.data.tags[0]}
+          </span>
+        </a>
+      </article>
+    ))}
+  </div>
+
+  <!-- No Results Message -->
+  <div id="noResults" class="hidden text-center py-12">
+    <p class="text-gray-500 text-lg">No posts found matching your filters.</p>
+  </div>
+</section>
+
+<script>
+  function updateFilterCount() {
+    const selectedTopics = Array.from(document.querySelectorAll<HTMLInputElement>('input[name="topic"]:checked')).map(el => el.value);
+    const selectedYears = Array.from(document.querySelectorAll<HTMLInputElement>('input[name="year"]:checked')).map(el => el.value);
+
+    const selectedItems = [...selectedTopics, ...selectedYears];
+    const filterCount = document.getElementById('filterCount');
+
+    if (!filterCount) return;
+
+    if (selectedItems.length === 0) {
+      filterCount.textContent = "Filter";
+      filterCount.classList.remove('hidden');
+    } else if (selectedItems.length === 1) {
+      filterCount.textContent = selectedItems[0] ?? "Filter";
+      filterCount.classList.remove('hidden');
+    } else {
+      const firstItem = selectedItems[0];
+      const extraCount = selectedItems.length - 1;
+      filterCount.textContent = `${firstItem} +${extraCount}`;
+      filterCount.classList.remove('hidden');
+    }
+  }
+
+  function filterPosts() {
+    // Get selected topics
+    const selectedTopics = Array.from(
+      document.querySelectorAll('input[name="topic"]:checked')
+    ).map(checkbox => (checkbox as HTMLInputElement).value);
+    
+    // Get selected years
+    const selectedYears = Array.from(
+      document.querySelectorAll('input[name="year"]:checked')
+    ).map(checkbox => (checkbox as HTMLInputElement).value);
+
+    const posts = document.querySelectorAll('.blog-post');
+    let visibleCount = 0;
+
+    posts.forEach(post => {
+      const postElement = post as HTMLElement;
+      const category = postElement.dataset.category || [''];
+      const year = postElement.dataset.year || '';
+      const title = postElement.dataset.title || '';
+
+      const matchesCategory = selectedTopics.length === 0 || selectedTopics.some(topic => category.includes(topic));
+      const matchesYear = selectedYears.length === 0 || selectedYears.includes(year);
+
+      if (matchesCategory && matchesYear) {
+        postElement.style.display = 'block';
+        visibleCount++;
+      } else {
+        postElement.style.display = 'none';
+      }
+    });
+
+    // Show/hide no results message
+    const noResults = document.getElementById('noResults');
+    if (noResults) {
+      noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+    }
+
+    // Update filter count badge
+    updateFilterCount();
+  }
+
+  function toggleDropdown() {
+    const dropdown = document.getElementById('filterDropdown');
+    if (!dropdown) return;
+
+    if (dropdown.classList.contains('opacity-0')) {
+      // Show dropdown
+      dropdown.classList.remove('opacity-0', 'scale-95', 'pointer-events-none');
+      dropdown.classList.add('opacity-100', 'scale-100');
+    } else {
+      // Hide dropdown (with transition)
+      dropdown.classList.remove('opacity-100', 'scale-100');
+      dropdown.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
+    }
+  }
+
+  const handleFilterButtonClick = (e: MouseEvent) => {
+    e.stopPropagation();
+    toggleDropdown();
+    console.log("Filter button clicked, toggling dropdown.");
+  };
+
+  const handleCheckboxChange = () => {
+    filterPosts();
+  };
+
+  const handleClearFiltersClick = () => {
+    document.querySelectorAll('input[name="topic"], input[name="year"]').forEach(checkbox => {
+      (checkbox as HTMLInputElement).checked = false;
+    });
+    filterPosts();
+  };
+
+  const handleDocumentClick = (e: MouseEvent) => {
+    const filterButton = document.getElementById('filterButton');
+    const dropdown = document.getElementById('filterDropdown');
+    
+    // Check if the click is outside the button and dropdown
+    if (dropdown && filterButton && !dropdown.contains(e.target as Node) && !filterButton.contains(e.target as Node)) {
+      // Hide dropdown
+      dropdown.classList.remove('opacity-100', 'scale-100');
+      dropdown.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
+    }
+  };
+
+  const initialiseFilterButton = () => {
+    const filterContainer = document.getElementById('filterContainer');
+    
+    // check if filterContainer exists
+    if (!filterContainer) return;
+
+    // remove existing event listener to prevent duplicates
+    const newFilterGroup = filterContainer.cloneNode(true) as HTMLElement;
+    if (filterContainer.parentNode) {
+      filterContainer.parentNode.replaceChild(newFilterGroup, filterContainer);
+    }
+
+    // re-attach event listener
+    const filterButton = document.getElementById('filterButton');
+    const clearFiltersButton = document.getElementById('clearFilters');
+    const checkboxes = document.querySelectorAll('input[name="topic"], input[name="year"]');
+
+    filterButton?.addEventListener('click', handleFilterButtonClick);
+    clearFiltersButton?.addEventListener('click', handleClearFiltersClick);
+    checkboxes.forEach(checkbox => checkbox.addEventListener('change', handleCheckboxChange));
+    document.addEventListener('click', handleDocumentClick);
+
+    // initial run
+    updateFilterCount();
+    filterPosts();
+  };
+
+  document.addEventListener("DOMContentLoaded", () => {
+    console.log("Setting up filter listeners and initial state on DOMContentLoaded.");
+    initialiseFilterButton();
+  });
+
+  document.addEventListener('astro:page-load', () => {
+    console.log("Astro page load detected, re-initializing filter button.");
+    initialiseFilterButton();
+  });
+
+  document.addEventListener('astro:before-swap', () => {
+    document.removeEventListener('click', handleDocumentClick);
+  });
+
+  if (document.readyState === "loading") {
+    console.log("Document still loading, waiting for DOMContentLoaded.");
+  } else {
+    console.log("Document already loaded, initializing filter button immediately.");
+    initialiseFilterButton();
+  }
+</script>
