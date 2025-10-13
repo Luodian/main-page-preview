@@ -3,6 +3,7 @@ title: "Aero-1-Audio"
 description: "Aero-1-Audio is a 1.5B compact audio model capable of handling a range of audio tasks, including speech recognition, audio understanding, and audio instructions following."
 publishDate: "2025-04-29"
 tags: ["audio", "models", "research"]
+thumbnail: "/images/blog_thumbnails/aero-1-audio.gif"
 ---
 
 [![Pix-Pin-2025-04-28-12-16-06.gif](https://i.postimg.cc/NfMJfZ51/Pix-Pin-2025-04-28-12-16-06.gif)](https://postimg.cc/V5xBKG96)
@@ -35,12 +36,12 @@ We present the contributions of our data mixture here. Our SFT data mixture incl
 [![Data-distribution.png](https://i.postimg.cc/MZbP0f7J/Data-distribution.png)](https://postimg.cc/c6CB0HkF)
 [![training-time.png](https://i.postimg.cc/Hn26TFYk/training-time.png)](https://postimg.cc/XBrf8HBR)
 
-*The hours of some training datasets are estimated and may not be fully accurate
+\*The hours of some training datasets are estimated and may not be fully accurate
 <br>
 One of the key strengths of our training recipe lies in the quality and quantity of our data. Our training dataset consists of approximately 5 billion tokens, corresponding to around 50,000 hours of audio. Compared to models such as Qwen-Omni and Phi-4, our dataset is over 100 times smaller, yet our model achieves competitive performance. All data is sourced from publicly available open-source datasets, highlighting the sample efficiency of our training approach. A detailed breakdown of our data distribution is provided below, along with comparisons to other models.
 
-
 ## What's insightful
+
 In this release, our primary focus is on developing an audio model capable of handling multiple audio tasks. The following examples showcase its core abilities across tasks such as audio understanding and speech recognition. Most notably, we highlight the model's capability to perform long-form ASR, as demonstrated in the example below.
 
 ### Long ASR
@@ -57,8 +58,7 @@ A common approach for current long-form ASR tasks is to split the audio into sma
 
 The image above presents a heatmap comparison of different models performing ASR tasks on a video with varying audio input lengths. As shown in the heatmap, Qwen-Omni and Phi-4 exhibit instability across different lengths and do not consistently produce the desired output.
 
-*Note: The ground truth is derived from the auto-generated subtitles downloaded from YouTube. Therefore, the WER does not necessarily imply that our model achieves perfect results, but rather demonstrates that our model is comparable to the YouTube ASR pipeline.*
-
+_Note: The ground truth is derived from the auto-generated subtitles downloaded from YouTube. Therefore, the WER does not necessarily imply that our model achieves perfect results, but rather demonstrates that our model is comparable to the YouTube ASR pipeline._
 
 #### Model's Output
 
@@ -83,7 +83,7 @@ The conversation covered Nvidia's focus on inference over training, the partners
 Aero Audio is able to generate the complete ASR output and accurately identify the full transcript.
 
 :::collapsible{summary="Aero (full chunk)"}
-Welcome to the brainstorm episode eighty two frank downing joining us recap of nvidia's gtc conference that is the gpu technology conference frank what happened what were the big takeaways i on my side i saw a gm and in video partnering but we can circle back to that what was 
+Welcome to the brainstorm episode eighty two frank downing joining us recap of nvidia's gtc conference that is the gpu technology conference frank what happened what were the big takeaways i on my side i saw a gm and in video partnering but we can circle back to that what was
 
 ...
 
@@ -149,12 +149,12 @@ In the previous release, LibriSpeech split their audio files into smaller chunks
 
 We present the evaluation of various models on the unchunked LibriSpeech dataset. The average result is calculated by averaging the WER score differences across the same splits. All models show some degradation when handling longer audio, whereas our model exhibits the least amount of performance drop.
 
-
 ## Evaluation Result
 
 We then present the full evaluation result here with the evaluation scores
 
 ### ASR Benchmarks
+
 <style type="text/css">
 .tg  {border-collapse:collapse;border-spacing:0;}
 .tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
@@ -427,13 +427,14 @@ We then test our model's understanding result across 3 dimensions, Audio Analysi
 
 We conducted evaluations on AIR-Bench-Chat and MMAU for audio analysis and understanding. Our model achieved an average score of 5.35, outperforming Mini-Omni2 and Vita. For Audio Instruction Following, we evaluated on OpenHermes and Alpaca-Audio, following the same pipeline as AudioBench. Our model demonstrates a strong ability to understand instructions in speech and provide correct responses. Additionally, when evaluated on AIR-Bench-Foundation for Audio Scene Understanding, our model outperformed Phi-4-Multimodal in the sound and music dimensions. Overall, the average score of our model indicates strong performance relative to other models with larger parameter sizes.
 
-
 ## Training Techniques
 
 ### Dynamic Batch Size
+
 We implemented a dynamic batching strategy based on the estimated token length to control the batch size per device. In many cases, using a fixed batch size requires setting it conservatively small to avoid out-of-memory (OOM) errors on longer samples, which leads to underutilization of computing resources. To address this, we group samples into batches such that the total token length stays within a predefined threshold, thereby minimizing computational waste and improving efficiency.
 
 ### Sequence Packing
+
 To further optimize dynamic batching, we implemented sequence packing for both the audio encoder and the language model, enabling larger batch sizes and faster training. This operation was then fused with the Liger kernel to achieve even higher throughput and lower memory usage. With a fixed packing length of 4096 to regulate the dynamic batch size, the average Model FLOP Utilization (MFU) was limited to 0.03. However, with sequence packing enabled, the average MFU increased to approximately 0.34, demonstrating a significant improvement in training efficiency.
 
 <style type="text/css">
@@ -485,7 +486,6 @@ We tested our implementations on different settings to demonstrate the efficienc
 
 ## Contributor List
 
-
 > alphabetical order
 
 <address class="author"><a rel="author" href="https://brianboli.com/">Bo Li*</a></address>
@@ -501,7 +501,7 @@ We tested our implementations on different settings to demonstrate the efficienc
 <address class="author"><a rel="author" href="https://scholar.google.com/citations?user=g-VEnLEAAAAJ&hl=zh-CN">Yezhen Wang*</a></address>
 <address class="author"><a rel="author" href="https://liuziwei7.github.io/">Ziwei Liu</a></address>
 
-**main contributors*
+\*_main contributors_
 
 ## Citation
 

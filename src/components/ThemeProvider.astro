@@ -4,7 +4,10 @@
 
 	function getUserPref() {
 		const storedTheme = typeof localStorage !== "undefined" && localStorage.getItem("theme");
-		return storedTheme || (lightModePref.matches ? "light" : "dark");
+		// return storedTheme || (lightModePref.matches ? "light" : "dark");
+		
+		// return light mode no matter what (dark mode is discontinued)
+		return "light";
 	}
 
 	function setTheme(newTheme) {

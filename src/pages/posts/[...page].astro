@@ -11,6 +11,8 @@ import { collectionDateSort } from "@/utils/date";
 // import type { GetStaticPaths, Page } from "astro";
 import type { GetStaticPaths } from "astro";
 import { Icon } from "astro-icon/components";
+import BlogGrid from "@/components/BlogGrid.astro";
+import FeaturedBlogs from "@/components/FeaturedBlogs.astro";
 
 // Modify getStaticPaths to return a single path with all posts
 export const getStaticPaths = (async () => {
@@ -51,38 +53,21 @@ const meta = {
 	title: "Posts",
 };
 
-// Remove paginationProps definition as it's no longer needed
-// const paginationProps = {
-// 	...(page.url.prev && {
-// 		prevUrl: {
-// 			text: "← Previous Page",
-// 			url: page.url.prev,
-// 		},
-// 	}),
-// 	...(page.url.next && {
-// 		nextUrl: {
-// 			text: "Next Page →",
-// 			url: page.url.next,
-// 		},
-// 	}),
-// };
-
 // Group posts using the full allPosts list
-const groupedByYear = groupPostsByYear(allPosts);
-const descYearKeys = Object.keys(groupedByYear).sort((a, b) => +b - +a);
+// const groupedByYear = groupPostsByYear(allPosts);
+// const descYearKeys = Object.keys(groupedByYear).sort((a, b) => +b - +a);
 ---
 
 <PageLayout meta={meta}>
-	<h1 class="title mb-6 flex items-center gap-2">
-		Posts
-		{/* 
-		<a class="text-accent-two" href="/rss.xml" target="_blank">
-			<span class="sr-only">RSS feed</span>
-			<Icon aria-hidden="true" class="h-6 w-6" focusable="false" name="mdi:rss" />
-		</a>
-		*/}
+	<!-- <h1 class="title mb-6 flex items-center gap-2 text-black !text-5xl">Featured Blogs</h1>
+	<section></section> -->
+	<h1 class="title mb-2 sm:mb-6 mt-0 sm:mt-20 flex items-center gap-2 text-gray-900 !text-[2rem] sm:!text-[3rem] !font-normal">
+		Featured Posts
 	</h1>
-	<div class="grid gap-y-8 sm:grid-cols-[1fr_auto] sm:gap-x-8">
+	<FeaturedBlogs posts={allPosts} />
+
+	<BlogGrid posts={allPosts} />
+	<!-- <div class="grid gap-y-8 sm:grid-cols-[1fr_auto] sm:gap-x-8">
 		<section aria-label="Blog post list" class="grow">
 			{
 				descYearKeys.map((yearKey) => (
@@ -104,9 +89,6 @@ const descYearKeys = Object.keys(groupedByYear).sort((a, b) => +b - +a);
 				<aside class="md:min-w-[14rem] md:max-w-[14rem] md:basis-[14rem]">
 					<h4 class="title mb-4 flex gap-2">
 						Tags
-						{/*
-						<Icon aria-hidden="true" class="mb-1 h-6 w-6" focusable="false" name="hugeicons:tags" />
-						*/}
 					</h4>
 					<ul class="flex flex-wrap gap-2">
 						{uniqueTags.map((tag) => (
@@ -127,21 +109,8 @@ const descYearKeys = Object.keys(groupedByYear).sort((a, b) => +b - +a);
 							</a>
 						</span>	
 					</ul>
-					{/*
-					<span class="mt-4 block sm:text-end">
-						<a
-							aria-label="View all blog categories"
-							class="font-medium text-accent sm:hover:text-accent-two"
-							href="/tags/"
-						>
-							View all →
-						</a>
-					</span>
-					*/}
 				</aside>
 			)
 		}
-	</div>
-	{/* Remove the Pagination component */}
-	{/* <Pagination {...paginationProps} /> */}
+	</div> -->
 </PageLayout>

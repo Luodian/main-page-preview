@@ -10,25 +10,16 @@
     "noImplicitAny": true,
     "noImplicitThis": true,
     "baseUrl": ".",
-    "lib": [
-      "es2022",
-      "dom",
-      "dom.iterable"
-    ],
+    "lib": ["es2022", "dom", "dom.iterable"],
     "paths": {
-      "@/*": [
-        "src/*"
-      ]
-    },
+      "@/*": ["src/*"]
+    }
   },
   "include": [
     ".astro/types.d.ts",
-    "**/*"
+    "src/**/*.astro",
+    "src/**/*.ts",
+    "src/**/*.tsx"
   ],
-  "exclude": [
-    "node_modules",
-    "**/node_modules/*",
-    ".vscode",
-    "dist"
-  ]
+  "exclude": ["node_modules", "**/node_modules/*", ".vscode", "dist"]
 }
