@@ -2,7 +2,8 @@
 title: "Improved MM-Search-R1: Reasoning and Action in Multimodal Search"
 description: "We improve MMSearch-R1 by integrating improved reasoning capabilities into the model"
 publishDate: "2025-08-06"
-tags: ["vision", "models", "research"]
+tags: ["models", "vision", "research"]
+thumbnail: "/images/blog_thumbnails/mmsearch_r1_improved.png"
 ---
 
 Our previous work, MMSearch-R1, represents a paradigm shift in multimodal AI as the first framework to employ end-to-end reinforcement learning for autonomous tool invocation in large multimodal models (LMMs). By enabling models to independently determine when and how to leverage external search tools, MMSearch-R1 achieves both high efficiency and state-of-the-art performance on open-world tasks, marking a significant advance in practical AI deployment.
@@ -10,6 +11,7 @@ Our previous work, MMSearch-R1, represents a paradigm shift in multimodal AI as 
 What began as a specialized tool-calling model has since evolved into a general-purpose reasoning engine that seamlessly integrates knowledge retrieval with cognitive processing. This evolution offers critical insights into the future of autonomous AI systems: the most capable agents will not only be able to think deeply, but also actively seek and utilize relevant information as needed.
 
 # Reasoning-improved Search
+
 Despite MMSearch-R1's strong performance, we observed limitations in its ability to adapt to complex, dynamic information needs. To address these constraints, we propose a reasoning-first agent paradigm that emphasizes the following core capabilities:
 
 1. Intelligent search: The model reasons about its knowledge gaps to make decisions about when and how to invoke search tools
@@ -18,6 +20,7 @@ Despite MMSearch-R1's strong performance, we observed limitations in its ability
 4. Performance: The approach delivers fundamental advances in multimodal reasoning, not just incremental improvements
 
 ## Training Recipe
+
 Prior work in multimodal reasoning has demonstrated that training with verifiable rewards can significantly enhance a model's capabilities in understanding and solving complex STEM problems.
 In our initial experiments, we evaluated numerous multimodal STEM datasets. We discovered that many existing datasets suffer from various limitations: some lack sufficient difficulty for advanced models, while others contain noisy annotations, incomplete visual-text alignments, or unverifiable ground truth answers. These issues can produce unreliable reward signals that destabilize reinforcement learning training.
 To address these challenges, we curated a comprehensive high-quality training set consisting of: MMPR[1], MMK12[2], MMR1[3], Multi-subject-RLVR[4], ScienceQA.
@@ -39,11 +42,12 @@ Our RL training stage follows DAPO[5] with the following modifications:
 - Learning Rate Schedule: We implement a sigmoid-based decay schedule. The sigmoid schedule provides smooth S-shaped transitions that stabilize early training and asymptotically approach target rates without discontinuities. We keeps the base learning rate to $2e-6$ and the warmup steps to 60 steps with sigmoid curve progression. The decay is a sigmoid function reducing to 90% of base rate (final LR $\approx 1.8e-6$).
 - Improved Exploration: We set the clip high ratio to 0.3 in the GRPO/PPO surrogate loss to encourage exploration and stabilize entropy dynamics.
 
-Our reward function employs a two-stage hierarchical approach combining mathematical verification with LLM-based evaluation. We first apply a static mathematical verifier to assess answer correctness for questions with deterministic solutions. When the verifier returns zero — indicating either incorrect answers or inability to verify, we employ an LLM-as-judge for secondary assessment to handle questions requiring semantic evaluation or those with multiple valid representations (e.g., "teal blue" vs. "blue"), the LLM would judge based on given images, questions, answers and model predictions. 
+Our reward function employs a two-stage hierarchical approach combining mathematical verification with LLM-based evaluation. We first apply a static mathematical verifier to assess answer correctness for questions with deterministic solutions. When the verifier returns zero — indicating either incorrect answers or inability to verify, we employ an LLM-as-judge for secondary assessment to handle questions requiring semantic evaluation or those with multiple valid representations (e.g., "teal blue" vs. "blue"), the LLM would judge based on given images, questions, answers and model predictions.
 
 This design prioritizes computational verification for efficiency while leveraging LLM evaluation for complex semantic cases.
 
 ## Result
+
 Based on this foundation, we can build a very strong STEM-focused reasoning model that surpasses the rest of open models.
 
 <div class="overflow-x-auto">
@@ -113,7 +117,7 @@ Based on this foundation, we can build a very strong STEM-focused reasoning mode
   </div>
 </div>
 
-With this reasoning foundation, we can go further to improve the model's search abilities. We first implemented a two-stage training process to seamlessly integrate search capabilities. This approach ensures that search becomes a natural extension of the model's reasoning process rather than a separate module. 
+With this reasoning foundation, we can go further to improve the model's search abilities. We first implemented a two-stage training process to seamlessly integrate search capabilities. This approach ensures that search becomes a natural extension of the model's reasoning process rather than a separate module.
 
 From the figure, compared with our original MMSearch baseline, which was built on Qwen-2.5-VL-7B (referred to as Instruct → Search in this context), we can observe that the model achieved good improvements. The reasoning-first approach enabled more intelligent search decisions, better query formulation, and more effective utilization of retrieved information.
 
@@ -129,15 +133,17 @@ One of the most intriguing findings emerged during our evaluation of STEM tasks 
 
 These performance drops highlight critical insight: without effective reasoning capabilities to guide their search strategies, models tend to default to inefficient search behaviors. This not only results in unnecessary computational overhead but can also introduce irrelevant information, ultimately degrading the quality of answer generation.
 
-| Search Ratio | MM-K12 | MathVerse (testmini) | MathVision (testmini) | MathVista (testmini) | MMMU (val) |
-|--------------------|-------|----------------------|----------------------|----------------------|-------------------------|
-| Reason -> Search (Search Prompt) | 16.8 | 22.9 | 9.5 | 12.5 | 24.7 |
+| Search Ratio                     | MM-K12 | MathVerse (testmini) | MathVision (testmini) | MathVista (testmini) | MMMU (val) |
+| -------------------------------- | ------ | -------------------- | --------------------- | -------------------- | ---------- |
+| Reason -> Search (Search Prompt) | 16.8   | 22.9                 | 9.5                   | 12.5                 | 24.7       |
 
 # Reason to Act for General Search Model
+
 To achieve a robust balance between reasoning and search performance across general-domain tasks, we choose to integrate the training into one stage for both capabilities. Our goal is to build a model that not only retrieves relevant information efficiently but also demonstrates advanced reasoning over searched information.
 
 ## Training Recipe
-We unify the training process by adopting a ReACT-style prompt template, inspired by [REACT PAPER], which allows the model to interleave reasoning and action (search) steps within a single trajectory. This template is a slight refinement of the standard Search prompt, and full implementation details are provided in the Appendix. 
+
+We unify the training process by adopting a ReACT-style prompt template, inspired by [REACT PAPER], which allows the model to interleave reasoning and action (search) steps within a single trajectory. This template is a slight refinement of the standard Search prompt, and full implementation details are provided in the Appendix.
 
 The table below summarizes the lineage and training data for each model variant, clarifying the distinctions in model initialization and supervision strategies. For comprehensive information on hyperparameters and training dynamics, please refer to the Appendix.
 
@@ -245,12 +251,12 @@ The General STEM model showed that enhancing reasoning capabilities alone can le
 
 ---
 
-| Models | Infoseek | MMSearch | FVQA | SimpleVQA |
-|--------|----------|----------|------|-----------|
-| Qwen2.5-VL-7B | 20.1 | 12.8 | 20.3 | 38.4 |
-| MMSearch | 55.1 | 53.8 | 58.4 | 57.4 |
-| Reasoning -> Search | 58.5 | 57.1 | 57.9 | 57.7 |
-| General Search | 52.0 | 54.9 | 52.8 | 57.0 |
+| Models              | Infoseek | MMSearch | FVQA | SimpleVQA |
+| ------------------- | -------- | -------- | ---- | --------- |
+| Qwen2.5-VL-7B       | 20.1     | 12.8     | 20.3 | 38.4      |
+| MMSearch            | 55.1     | 53.8     | 58.4 | 57.4      |
+| Reasoning -> Search | 58.5     | 57.1     | 57.9 | 57.7      |
+| General Search      | 52.0     | 54.9     | 52.8 | 57.0      |
 
 ---
 
@@ -265,6 +271,7 @@ Additional experiments with reduced STEM data, increased search data ratios, and
 These findings demonstrate that the key to multimodal model performance lies not in maximizing search frequency, but in developing sophisticated reasoning mechanisms that determine when external information retrieval adds value to complex query resolution.
 
 # Case Study
+
 We show the following interesting cases to demonstrate versatile abilities of our final model.
 
 ## Case: MME
@@ -279,8 +286,8 @@ In this case, the model is tasked with composing an email to Abdullah Shahid Sia
 
 ![Figure5](./mmsearch_images/case_abd.png)
 
-
 # Reference
+
 [1] https://huggingface.co/datasets/OpenGVLab/MMPR-v1.2
 
 [2] https://huggingface.co/datasets/FanqingM/MMK12
@@ -314,8 +321,8 @@ Answer the user's question based on the provided image. Examine the image carefu
 <search>image</search>: which searches user provided image on Google and returns image-related visual entity/concept/knowledge for further reason-to-act. The search results are placed between <observation> and </observation> tags.
 <search>text query</search>:  which generates a text query and sent to Google and returns some snippets containing the answer for further reason-to-act. The search results are placed between <observation> and </observation> tags. Note that sometimes the snippets do not contain the answer, and some alternative search might be needed.
 
-  Your output format should be one of the following three formats:  
-  <reason> YOUR THINKING PROCESS </reason> 
+  Your output format should be one of the following three formats:
+  <reason> YOUR THINKING PROCESS </reason>
   <answer> YOUR ANSWER AFTER GETTING ENOUGH INFORMATION </answer>
    or
   <reason> YOUR THINKING PROCESS </reason>

@@ -3,6 +3,7 @@ title: "LMMs-Eval"
 description: "Reality Check on the Evaluation of Large Multimodal Models"
 publishDate: "2024-07-17"
 tags: ["benchmarks", "models", "evaluation", "tools", "research"]
+thumbnail: "/images/blog_thumbnails/lmms_eval.png"
 ---
 
 ![Banner](https://camo.githubusercontent.com/fcf179566ff0a9e40aed13cc848bbf4544e516cee79635b8571b0dcc60eb925a/68747470733a2f2f692e706f7374696d672e63632f4b766b4c7a6246392f575832303234313231322d3031343430302d32782e706e67)

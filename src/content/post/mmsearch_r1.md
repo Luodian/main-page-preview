@@ -3,6 +3,7 @@ title: "Multimodal Search R1"
 description: "MMSearch-R1 is a new method for image retrieval that uses a combination of a large language model and a retrieval-augmented model to achieve state-of-the-art performance"
 publishDate: "2025-06-01"
 tags: ["vision", "models", "research"]
+thumbnail: "/images/blog_thumbnails/mmsearch_r1.png"
 ---
 
 <div style="display: flex; justify-content: center;">
@@ -10,7 +11,6 @@ tags: ["vision", "models", "research"]
 </div>
 
 🔗 [Code](https://github.com/EvolvingLMMs-Lab/multimodal-search-r1) | [Paper](https://arxiv.org/abs/2506.00000) | [Model](https://huggingface.co/EvolvingLMMs-Lab/MMSearch-R1-7B) | [Data](https://huggingface.co/datasets/EvolvingLMMs-Lab/FVQA)
-
 
 MMSearch-R1 is the first end-to-end RL-based solution designed to equip LMMs with the capability to perform search on demand in real-world internet environments. It outperforms same-sized RAG baselines and approaches the performance of larger models while requiring significantly fewer search calls.
 
@@ -27,7 +27,7 @@ Scaling up vision-language paired data has become a widely adopted paradigm for 
 
 Integrating search capabilities into LMMs offers a promising solution to above limitations. However, existing approaches such as Retrieval-Augmented Generation (RAG) and prompt-based agents remain suboptimal. RAG methods rely on a fixed retrieve-then-generate pipeline grounded in static corpora, often leading to over-retrieval, high computational cost, and the unrealistic assumption that all necessary information is already available. This rigid setup fails to reflect the dynamic and unpredictable nature of real-world scenarios. In contrast, prompt-based agents can access real-time search engines, but their parameters are not optimized through learning, preventing them from truly acquiring effective search behaviors or adapting to open-world environments.
 
-To address these limitations, we aim to train LMMs that can interact with real-world environments and acquire three essential search-related capabilities: (1) *when to search*, (2) *what to search for*, and (3) *how to reason over search results to answer user queries*. Building on these goals, we introduce **MMSearch-R1**, the first end-to-end reinforcement learning framework designed to empower LMMs with on-demand search capabilities in open, internet-based environments. Our efforts are summarized as follows:
+To address these limitations, we aim to train LMMs that can interact with real-world environments and acquire three essential search-related capabilities: (1) _when to search_, (2) _what to search for_, and (3) _how to reason over search results to answer user queries_. Building on these goals, we introduce **MMSearch-R1**, the first end-to-end reinforcement learning framework designed to empower LMMs with on-demand search capabilities in open, internet-based environments. Our efforts are summarized as follows:
 
 - **Dataset Construction** We propose an automated approach to construct a multimodal search VQA dataset by estimating the model's familiarity with each question. This enables the generation of search-required and search-free samples, further complemented by manually annotated test data covering diverse knowledge types and difficulty levels.
 - **Multimodal Search Tool Integration** We develop a real-world search pipeline combining an image search tool and a text search tool, enabling LMMs to retrieve relevant visual and textual information for unfamiliar inputs.
@@ -81,7 +81,7 @@ We evaluated MMSearch-R1 against both closed-source models (GPT-4o and Gemini 2.
   </figcaption>
 </figure>
 
-- ***Finding 1: RL training enables models to better recognize the boundaries of their knowledge and perform on-demand search more effectively.*** As shown in Table 1, MMSearch-R1-7B outperforms same-sized RAG-based models by an average of **3%** in accuracy while reducing the average search rate by **32.9%**, across both in-domain and out-of-domain test sets. This demonstrates that our RL-trained model achieves higher correctness with fewer search calls, indicating more efficient and selective use of external information.
+- **_Finding 1: RL training enables models to better recognize the boundaries of their knowledge and perform on-demand search more effectively._** As shown in Table 1, MMSearch-R1-7B outperforms same-sized RAG-based models by an average of **3%** in accuracy while reducing the average search rate by **32.9%**, across both in-domain and out-of-domain test sets. This demonstrates that our RL-trained model achieves higher correctness with fewer search calls, indicating more efficient and selective use of external information.
 
 <figure>
   <img src="https://i.postimg.cc/sXyXWpmk/MMSearch-R1-Figure4.png" alt="MMSearch-R1-Blog-Fig4">
@@ -90,8 +90,8 @@ We evaluated MMSearch-R1 against both closed-source models (GPT-4o and Gemini 2.
   </figcaption>
 </figure>
 
-- ***Finding 2: RL training enhances the model's ability to generate effective text queries and summarize retrieved information.*** To evaluate the ablities of query generation and information summarization, we follow a fixed RAG setup where both image and text search are executed for every question. This isolates the model's ability to interact with retrieved information. As shown in Figure 4(a), MMSearch-R1-7B consistently outperforms the base model on both in-domain and out-of-domain tasks.
-- ***Finding 3: RL improves the model's ability to utilize its internal knowledge.*** As shown in Figure 4(b), there is a clear upward trend in the *Correct without Search* proportion from the base model to the RL-trained model. These gains indicate that the RL-trained model can answer substantially more questions correctly without invoking the search tool, demonstrating improved recall and reasoning based on its internal knowledge.
+- **_Finding 2: RL training enhances the model's ability to generate effective text queries and summarize retrieved information._** To evaluate the ablities of query generation and information summarization, we follow a fixed RAG setup where both image and text search are executed for every question. This isolates the model's ability to interact with retrieved information. As shown in Figure 4(a), MMSearch-R1-7B consistently outperforms the base model on both in-domain and out-of-domain tasks.
+- **_Finding 3: RL improves the model's ability to utilize its internal knowledge._** As shown in Figure 4(b), there is a clear upward trend in the _Correct without Search_ proportion from the base model to the RL-trained model. These gains indicate that the RL-trained model can answer substantially more questions correctly without invoking the search tool, demonstrating improved recall and reasoning based on its internal knowledge.
 
 <figure>
   <img src="https://i.postimg.cc/28JSGpTF/MMSearch-R1-Figure5.png" alt="MMSearch-R1-Blog-Fig5">
@@ -100,9 +100,8 @@ We evaluated MMSearch-R1 against both closed-source models (GPT-4o and Gemini 2.
   </figcaption>
 </figure>
 
-
-- ***Finding 4: RL achieves greater performance improvements and exhibits higher data efficiency compared to supervised SFT.*** We distill GPT-4o's behavior on our collected VQA samples to construct SFT data, and fine-tune Qwen2.5-VL-7B on it. This serves as a supervised learning baseline for comparison against our reinforcement learning-trained model. As shown in Figure 5(a), the results show that the model trained with RL consistently outperforms the one trained with SFT across all tasks, despite being trained on only about half as much data.
-- ***Finding 5: Training with balanced data and a search penalty in the reward effectively guide the model to perform on-demand search.*** Figure 5(b) illustrates the training dynamics of reward and search ratio during reinforcement learning. Removing either the search penalty or data balancing leads to distinct trade-offs. Although both ablated variants achieve slightly higher rewards, they do so at the cost of overusing the search tool, with search ratios rapidly converging to nearly 100%.
+- **_Finding 4: RL achieves greater performance improvements and exhibits higher data efficiency compared to supervised SFT._** We distill GPT-4o's behavior on our collected VQA samples to construct SFT data, and fine-tune Qwen2.5-VL-7B on it. This serves as a supervised learning baseline for comparison against our reinforcement learning-trained model. As shown in Figure 5(a), the results show that the model trained with RL consistently outperforms the one trained with SFT across all tasks, despite being trained on only about half as much data.
+- **_Finding 5: Training with balanced data and a search penalty in the reward effectively guide the model to perform on-demand search._** Figure 5(b) illustrates the training dynamics of reward and search ratio during reinforcement learning. Removing either the search penalty or data balancing leads to distinct trade-offs. Although both ablated variants achieve slightly higher rewards, they do so at the cost of overusing the search tool, with search ratios rapidly converging to nearly 100%.
 
 ## 4. Conclusion
 
@@ -110,15 +109,15 @@ MMSearch-R1 learns to recognize knowledge gaps, selectively invoke image or text
 
 ## Authors
 
-- [Jinming Wu*](https://www.notion.so/Jinming-Kimmy-Wu-b22c1682d48d47939dcd7c41bf6a6bab?pvs=21)
-- [Zihao Deng*](https://scholar.google.com/citations?user=kMui170AAAAJ&hl=zh-CN)
+- [Jinming Wu\*](https://www.notion.so/Jinming-Kimmy-Wu-b22c1682d48d47939dcd7c41bf6a6bab?pvs=21)
+- [Zihao Deng\*](https://scholar.google.com/citations?user=kMui170AAAAJ&hl=zh-CN)
 - [Wei Li](https://scholar.google.com/citations?user=q8ZrKVIAAAAJ&hl=zh-CN)
 - [Yiding Liu](https://liuyiding.net/)
 - [Bo You](https://scholar.google.com/citations?user=XwY9LXoAAAAJ&hl=zh-CN)
 - [Bo Li](https://brianboli.com/)
 - [Zejun Ma](https://scholar.google.com/citations?user=XwY9LXoAAAAJ&hl=zh-CN)
 
-*equal contribution
+\*equal contribution
 
 ## Citation
 
