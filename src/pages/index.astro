@@ -17,8 +17,8 @@ import LazyImage from "@/components/LazyImage.astro";
 					<!-- Featured Image + Overlay -->
 					<div class="relative w-full h-[60vh] rounded-2xl overflow-hidden shadow-lg">
 						<LazyImage 
-							src="/images/featured-4.jpg" 
-							alt="LLaVA-Critic-R1" 
+							src="/images/featured-3.jpg" 
+							alt="LLaVA-OneVision-1.5" 
 							width={1200} 
 							height={800} 
 							class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-200 ease-out" 
@@ -29,23 +29,22 @@ import LazyImage from "@/components/LazyImage.astro";
 						<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
 						<div class="absolute bottom-6 left-6 right-6 text-white">
 							<h2 class="text-4xl md:text-4xl font-bold mt-3">
-								LLaVA-Critic-R1
+								LLaVA-OneVision-1.5
 							</h2>
 							<p class="mt-2 text-xs font-medium md:text-base text-gray-200">
-								Unified Critic and Policy Model Through Reinforcement Learning,
-								achieving SoTA policy performance at 7B scale.
+								Unified multimodal foundation spanning images, multi-image, and video understanding in one open model.
 							</p>
 						</div>
 					</div>
 	
 					<!-- Buttons under image -->
 					<div class="flex gap-4 mb-4 justify-center md:justify-start">
-						<a href="/posts/llava_critic_r1/" 
+						<a href="/posts/llava_onevision/" 
 							 class="px-5 py-2 border border-gray-300 rounded-full text-gray-700 dark:text-gray-100 
 											hover:border-accent-one hover:text-accent-one transition-all text-[0.625rem] leading-[1rem] md:text-sm font-medium dark:hover:text-accent-base">
 							Get Started
 						</a>
-						<a href="https://github.com/LLaVA-VL/LLaVA-NeXT"
+						<a href="https://llava-vl.github.io/blog/2024-08-05-llava-onevision/"
 							 class="px-5 py-2 border border-gray-300 bg-accent-one rounded-full text-gray-100 dark:text-gray-900 
 											hover:border-accent-one hover:bg-transparent hover:text-accent-one dark:hover:text-gray-200 transition-all text-[0.625rem] leading-[1rem] md:text-sm font-medium dark:font-medium dark:hover:font-normal">
 							Learn More
@@ -80,12 +79,12 @@ import LazyImage from "@/components/LazyImage.astro";
 					</div>
 				</a>
 
-				<!-- Post Card - LLaVA-OneVision -->
-				<a href="/posts/llava_onevision/" class="group flex flex-col gap-4 items-start mb-6">
+				<!-- Post Card - LLaVA-Critic-R1 -->
+				<a href="/posts/llava_critic_r1/" class="group flex flex-col gap-4 items-start mb-6">
 					<div class="w-fill aspect-square rounded-lg overflow-hidden flex-shrink-0">
 						<LazyImage
-						src="/images/featured-3.jpg" 
-						alt="LLaVA-OneVision" 
+						src="/images/featured-4.jpg" 
+						alt="LLaVA-Critic-R1" 
 						width={800} 
 						height={800} 
 						class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform ease-out" 
@@ -97,8 +96,8 @@ import LazyImage from "@/components/LazyImage.astro";
 						/>
 					</div>
 					<div>
-						<h2 class="font-semibold text-lg group-hover:text-accent-one transition-colors">LLaVA-OneVision</h2>
-						<p class="text-sm font-medium text-textColor/70 dark:text-textColorDark/70 line-clamp-2">Frontier Open Multimodal Models.</p>
+						<h2 class="font-semibold text-lg group-hover:text-accent-one transition-colors">LLaVA-Critic-R1</h2>
+						<p class="text-sm font-medium text-textColor/70 dark:text-textColorDark/70 line-clamp-2">Unified critic and policy model through reinforcement learning at the 7B scale.</p>
 					</div>
 				</a>
 
@@ -310,6 +309,5 @@ import LazyImage from "@/components/LazyImage.astro";
 
 
 </PageLayout>
-
 
 
