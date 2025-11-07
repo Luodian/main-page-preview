@@ -9,23 +9,25 @@ import { defineConfig, envField } from "astro/config";
 import { siteConfig } from "./src/site.config";
 
 // Remark plugins
-import remarkDirective from "remark-directive"; /* handle ::: directives as nodes */
-import { remarkAdmonitions } from "./src/plugins/remark-admonitions"; /* add admonitions */
+import remarkDirective from "remark-directive";/* handle ::: directives as nodes */
+import { remarkAdmonitions } from "./src/plugins/remark-admonitions";/* add admonitions */
 import { remarkReadingTime } from "./src/plugins/remark-reading-time";
-import { remarkCollapsible } from "./src/plugins/remark-collapsible"; /* add collapsible sections */
-import { remarkLazyImages } from "./src/plugins/remark-lazy-images"; /* add skeleton loading to images */
-import remarkMath from "remark-math"; /* handle LaTeX math */
+import { remarkCollapsible } from "./src/plugins/remark-collapsible";/* add collapsible sections */
+import { remarkLazyImages } from "./src/plugins/remark-lazy-images";/* add skeleton loading to images */
+import remarkMath from "remark-math";/* handle LaTeX math */
 
 // Rehype plugins
 import rehypeExternalLinks from "rehype-external-links";
 import rehypeUnwrapImages from "rehype-unwrap-images";
-import rehypeKatex from "rehype-katex"; /* render LaTeX math */
+import rehypeKatex from "rehype-katex";/* render LaTeX math */
 
 import rehypePrettyCode from "rehype-pretty-code";
 import {
   transformerMetaHighlight,
   transformerNotationDiff,
 } from "@shikijs/transformers";
+
+import react from "@astrojs/react";
 
 // https://astro.build/config
 export default defineConfig({
@@ -41,56 +43,49 @@ export default defineConfig({
           entrypoint: "astro/assets/services/noop",
         },
   },
-  integrations: [
-    icon(),
-    tailwind({
-      applyBaseStyles: false,
-      nesting: true,
-    }),
-    sitemap(),
-    mdx(),
-    robotsTxt(),
-    webmanifest({
-      // See: https://github.com/alextim/astro-lib/blob/main/packages/astro-webmanifest/README.md
-      /**
-       * required
-       **/
-      name: siteConfig.title,
-      /**
-       * optional
-       **/
-      // short_name: "Astro_Citrus",
-      description: siteConfig.description,
-      lang: siteConfig.lang,
-      icon: "public/assets/logo.png", // the source for generating favicon & icons
-      icons: [
-        {
-          src: "icons/apple-touch-icon.png", // used in src/components/BaseHead.astro L:26
-          sizes: "180x180",
-          type: "image/png",
-        },
-        {
-          src: "icons/icon-192.png",
-          sizes: "192x192",
-          type: "image/png",
-        },
-        {
-          src: "icons/icon-512.png",
-          sizes: "512x512",
-          type: "image/png",
-        },
-      ],
-      start_url: "/",
-      background_color: "#1d1f21",
-      theme_color: "#2bbc8a",
-      display: "standalone",
-      config: {
-        insertFaviconLinks: false,
-        insertThemeColorMeta: false,
-        insertManifestLink: false,
+  integrations: [icon(), tailwind({
+    applyBaseStyles: false,
+    nesting: true,
+  }), sitemap(), mdx(), robotsTxt(), webmanifest({
+    // See: https://github.com/alextim/astro-lib/blob/main/packages/astro-webmanifest/README.md
+    /**
+     * required
+     **/
+    name: siteConfig.title,
+    /**
+     * optional
+     **/
+    // short_name: "Astro_Citrus",
+    description: siteConfig.description,
+    lang: siteConfig.lang,
+    icon: "public/assets/logo.png", // the source for generating favicon & icons
+    icons: [
+      {
+        src: "icons/apple-touch-icon.png", // used in src/components/BaseHead.astro L:26
+        sizes: "180x180",
+        type: "image/png",
       },
-    }),
-  ],
+      {
+        src: "icons/icon-192.png",
+        sizes: "192x192",
+        type: "image/png",
+      },
+      {
+        src: "icons/icon-512.png",
+        sizes: "512x512",
+        type: "image/png",
+      },
+    ],
+    start_url: "/",
+    background_color: "#1d1f21",
+    theme_color: "#2bbc8a",
+    display: "standalone",
+    config: {
+      insertFaviconLinks: false,
+      insertThemeColorMeta: false,
+      insertManifestLink: false,
+    },
+  }), react()],
   markdown: {
     syntaxHighlight: false,
 

@@ -53,64 +53,17 @@ const meta = {
 	title: "Posts",
 };
 
-// Group posts using the full allPosts list
-// const groupedByYear = groupPostsByYear(allPosts);
-// const descYearKeys = Object.keys(groupedByYear).sort((a, b) => +b - +a);
 ---
 
 <PageLayout meta={meta}>
-	<!-- <h1 class="title mb-6 flex items-center gap-2 text-black !text-5xl">Featured Blogs</h1>
-	<section></section> -->
-	<h1 class="title mb-2 sm:mb-6 mt-0 sm:mt-20 flex items-center gap-2 text-gray-900 !text-[2rem] sm:!text-[3rem] !font-normal">
+	<section class="max-w-[1400px] mx-auto">
+		<h1 class="title mb-2 sm:mb-6 mt-0 sm:mt-20 flex items-center gap-2 text-gray-900 !text-[2rem] sm:!text-[3rem] !font-normal">
 		Featured Posts
 	</h1>
+	</section>
+	
 	<FeaturedBlogs posts={allPosts} />
 
 	<BlogGrid posts={allPosts} />
-	<!-- <div class="grid gap-y-8 sm:grid-cols-[1fr_auto] sm:gap-x-8">
-		<section aria-label="Blog post list" class="grow">
-			{
-				descYearKeys.map((yearKey) => (
-					<>
-						<h4 class="title">{yearKey}</h4>
-						<ul class="mb-8 mt-4 space-y-8 text-start">
-							{groupedByYear[yearKey]?.map((p) => (
-								<li class="grid gap-2 sm:grid-cols-[auto_1fr] sm:[&_q]:col-start-2">
-									<PostPreview post={p} withDesc={true} />
-								</li>
-							))}
-						</ul>
-					</>
-				))
-			}
-		</section>
-		{
-			!!uniqueTags.length && (
-				<aside class="md:min-w-[14rem] md:max-w-[14rem] md:basis-[14rem]">
-					<h4 class="title mb-4 flex gap-2">
-						Tags
-					</h4>
-					<ul class="flex flex-wrap gap-2">
-						{uniqueTags.map((tag) => (
-							<li>
-								<a aria-label={`View all posts with the tag: ${tag}`} href={`/tags/${tag}`}>
-									<Badge variant="muted" title={tag} />
-								</a>
-							</li>
-						))}
-
-						<span class="text-base ms-auto inline-flex items-center h-6 sm:text-end">
-							<a
-								aria-label="View all blog categories"
-								class="font-medium text-accent sm:hover:text-accent-two"
-								href="/tags/"
-							>
-								View all →
-							</a>
-						</span>	
-					</ul>
-				</aside>
-			)
-		}
-	</div> -->
+	
 </PageLayout>

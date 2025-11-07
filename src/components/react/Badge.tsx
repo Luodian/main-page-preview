@@ -1,0 +1,50 @@
+import React from "react";
+
+interface BadgeProps {
+  variant?:
+    | "default"
+    | "accent"
+    | "accent-base"
+    | "accent-one"
+    | "accent-two"
+    | "muted"
+    | "outline"
+    | "inactive";
+  showHash?: boolean;
+  title: string;
+  children?: React.ReactNode;
+}
+
+const Badge: React.FC<BadgeProps> = ({
+  variant = "default",
+  showHash = true,
+  title,
+  children,
+}) => {
+  const badgeClasses = {
+    base: "flex items-baseline pt-[0.075rem] drop-shadow-lg active:drop-shadow-none rounded-lg h-6 px-2 text-sm font-medium transition-colors",
+    variants: {
+      default: "bg-textColor text-bgColor hover:brightness-105",
+      accent: "bg-accent text-bgColor hover:brightness-105",
+      "accent-base": "bg-accent-base text-bgColor hover:brightness-105",
+      "accent-one": "bg-accent-one text-bgColor hover:brightness-105",
+      "accent-two": "bg-accent-two text-bgColor hover:brightness-105",
+      muted:
+        "bg-color-100 text-textColor hover:bg-accent-two hover:text-bgColor drop-shadow-none hover:drop-shadow-lg",
+      outline: "border border-lightest text-textColor drop-shadow-none",
+      inactive: "text-lighter bg-color-100 drop-shadow-none",
+    },
+  };
+
+  const variantClasses = badgeClasses.variants[variant];
+
+  return (
+    <div className={`${badgeClasses.base} ${variantClasses}`}>
+      {showHash && <span className="h-full">#</span>}
+      {title}
+      {children}
+    </div>
+  );
+};
+
+export default Badge;

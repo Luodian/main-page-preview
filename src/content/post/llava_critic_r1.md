@@ -2,6 +2,7 @@
 title: "LLaVA-Critic-R1: Unified Critic and Policy Model Through Reinforcement Learning"
 description: "A family of generative critic VLM trained through GRPO using pairwise critic data, achieving SoTA policy performance at 7B scale while excelling at both evaluation and generation"
 publishDate: "2025-08-29"
+mainTags: ["research"]
 tags:
   [
     "vision",

@@ -2,11 +2,10 @@
 title: "LLaVA-OneVision-1.5: Fully Open Framework for Democratized Multimodal Training"
 description: "LLaVA-OneVision1.5 introduces a novel family of fully open-source Large Multimodal Models (LMMs) that achieves state-of-the-art performance with substantially lower cost through training on native resolution images."
 publishDate: "2025-09-30"
+mainTags: ["research"]
 tags: ["research", "vision", "multimodal", "llava", "megatron"]
 thumbnail: "/images/blog_thumbnails/llava_ov_1_5.png"
 ---
-
-
 
 <figure>
 <p align="center">
@@ -16,7 +15,6 @@ thumbnail: "/images/blog_thumbnails/llava_ov_1_5.png"
 
 [Code](https://github.com/EvolvingLMMs-Lab/LLaVA-OneVision-1.5) | [Technical Report](https://arxiv.org/abs/2509.23661) | [Models and Datasets](https://huggingface.co/collections/lmms-lab/llava-onevision-15-68d385fe73b50bd22de23713) | [Demo](https://huggingface.co/spaces/lmms-lab/LLaVA-OneVision-1.5)
 
-
 High performance, low cost, and strong reproducibility!
 
 LLaVA, proposed in 2023, efficiently connects open-source vision encoders with large language models through low-cost alignment, bringing “see—understand—converse” multimodal capabilities to the open ecosystem. It significantly narrows the gap with top-tier closed models and marks an important milestone in open-source multimodal paradigms.
@@ -25,21 +23,17 @@ Starting with a low-cost alignment that bridges “vision encoder + large langua
 
 Although interfaces and architectures for multimodal alignment are trending toward convergence, a truly “reproducible” open-source path still differs from releases that “open weights only.” Qwen2.5-VL and InternVL3.5 set strong baselines in OCR, document understanding, mathematical and cross-image reasoning; however, full data inventories, cleaning and mixing ratios, as well as alignment/sampling and training schedules are often only partially disclosed, making end-to-end reproduction difficult. Molmo, with a cleaner data pipeline and meticulous design, approaches strong closed-source baselines across multiple evaluations and human preference settings; Open-Qwen2VL shows that under a more efficient paradigm, strong comparative performance is achievable even when raw multimodal tokens account for a relatively small proportion. The primary gap today lies in the “reproducibility of recipes and engineering details,” rather than any single choice of model architecture.
 
-
-
 <figure>
 <p align="center">
   <img src="/images/llava_ov_1_5_images/llava_ov_1_5_performance.png" alt="LLaVA-OneVision-1.5 Performance" loading="lazy" width="90%" loading="lazy" />
 </p>
 </figure>
 
-
 LMMs-Lab, focused on the goals of high performance, low cost, and strong reproducibility, releases on top of the LLaVA‑OneVision framework a fully open, concept-balanced 85M pretraining dataset (LLaVA‑OV‑1.5‑Mid‑Training‑85M) and a carefully curated 22M instruction dataset (LLaVA‑OV‑1.5‑Instruct‑22M). We retain a compact three-stage pipeline (Stage‑1 language–image alignment; Stage‑1.5 concept balancing and high-quality knowledge injection; Stage‑2 instruction tuning), combine offline parallel data packing (up to ~11× padding compression) with Megatron‑LM plus a distributed optimizer, and complete Stage‑1.5 pretraining of an 8B‑scale VL model on 128 A800 GPUs in about four days.
 
 Building on this, we introduce LLaVA‑OneVision‑1.5, which inherits and extends the LLaVA series: it adds RICE‑ViT for native-resolution, region-level fine-grained semantic modeling; strengthens chart/document/structured-scene understanding; continues the compact three-stage paradigm to avoid a lengthy curriculum; and emphasizes “**quality–coverage–balance**” across the 85M pretraining and 22M instruction sets. Crucially, it delivers truly end-to-end transparent openness—covering data, training and packing toolchains, configuration scripts, logs, and reproducible evaluation commands with their build and execution details—to enable low-cost reproduction and verifiable extension by the community. Experiments show LLaVA‑OneVision achieves competitive or superior performance to Qwen2.5‑VL on multiple public multimodal benchmarks (see the [technical report](https://arxiv.org/abs/2509.23661)).
 
 ---
-
 
 ## Pretraining Dataset (85M) and Concept Balancing
 
@@ -52,7 +46,6 @@ Building on this, we introduce LLaVA‑OneVision‑1.5, which inherits and exten
 A general-purpose vision–language pretraining dataset (85M) and an instruction-tuning dataset (22M). The 85M pretraining corpus fuses eight heterogeneous sources—COYO-700M, Obelics, DataComp-1B, LAION-CN, ImageNet-21K, SAM-1B, MINT, and Zero250M—yielding roughly 20 million Chinese and 65 million English image–text pairs. To tackle long-tail concept sparsity and noise/missing issues in raw captions, we move beyond raw term frequencies and adopt a feature-driven “concept balancing” strategy: using a MetaCLIP encoder, we embed all images and a 500K-scale concept vocabulary into a shared vector space, retrieve the Top-K most similar concepts for each image, tally concept frequencies, and then apply inverse-frequency weighted resampling. This suppresses high-frequency background classes and boosts rare fine-grained entities, attributes, and scenes, substantially flattening the long-tail distribution. We then use a high-quality captioner to generate aligned bilingual (Chinese/English) augmented descriptions. Systematic experiments show that, under the same or lower token budget, scaling high-quality data combined with concept-balanced sampling delivers significant and reproducible gains in multimodal understanding, long-tail recognition, and instruction generalization.
 
 ---
-
 
 ## Instruction Dataset (22M)
 
@@ -73,6 +66,7 @@ The 22M instruction dataset covers eight categories: Caption, Chart & Table, Cod
 To raise the floor for OCR, tables/documents, region‑level understanding, and downstream instruction reasoning, LLaVA‑OneVision‑1.5 adopts our in‑house MVT v1.5 (RICE‑ViT) as the vision backbone.
 
 Compared to CLIP/SigLIP‑style contrastive models that rely on global alignment only, RICE‑ViT addresses the structural bottleneck of representing an instance with a single global vector by introducing a unified Region Cluster Discrimination mechanism:
+
 - trained on 450M images and 2.4B candidate regions
 - explicitly models local entities/text blocks and their context via region‑cluster discrimination plus region‑aware attention
 - uses 2D rotary position encoding (2D RoPE) for native multi‑resolution support
@@ -87,7 +81,6 @@ During multimodal fusion, a lightweight projection followed by full‑parameter 
 </p>
 </figure>
 
-
 ### 2) Three‑Stage Learning Pipeline
 
 - Stage‑1: Language–image alignment  
@@ -99,15 +92,14 @@ During multimodal fusion, a lightweight projection followed by full‑parameter 
 - Stage‑2: Visual instruction alignment  
   Continue full‑parameter training on the 22M instruction set plus multi‑source visual instruction corpora such as FineVision to improve task generalization, reasoning organization, and response‑format control.
 
-
 ### 3) Offline Parallel Data Packing
 
 To reduce padding waste from multimodal sequence‑length variance and improve effective token utilization, we adopt offline parallel packing:
+
 - hash‑bucket clustering by sample length or length ranges to cut global sorting/scanning costs
 - multithreaded concatenation of multiple short samples into fixed‑length sequences close to the target length during data prep
 
 This one‑pass, corpus‑wide pipeline is deterministic and reproducible, avoiding the runtime instability and extra CPU overhead of online dynamic packing. On the 85M pretraining set, it achieves up to ~11× effective padding compression (defined as original total padding tokens / post‑packing total padding tokens) compared to the baseline.
-
 
 ### 4) Hybrid Parallelism and Efficient Long‑Context Training
 
@@ -120,7 +112,6 @@ On a 128×A800 cluster, Stage‑1.5 for an 8B model (85M samples, native resolut
   <img src="/images/llava_ov_1_5_images/llava_ov_1_5_efficiency.png" alt="LLaVA-OneVision-1.5 Open Framework" loading="lazy" width="90%" loading="lazy" />
 </p>
 </figure>
-
 
 ## Open-Source Resources
 
