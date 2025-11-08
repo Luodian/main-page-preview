@@ -1,0 +1,36 @@
+---
+interface Props {
+  images: Array<{
+    src: string;
+    alt: string;
+    caption?: string;
+  }>;
+  columns?: number;
+}
+
+const { images, columns = 2 } = Astro.props;
+const gridCols = {
+  1: 'grid-cols-1',
+  2: 'grid-cols-1 md:grid-cols-2',
+  3: 'grid-cols-1 md:grid-cols-3',
+  4: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-4'
+}[columns] || 'grid-cols-1 md:grid-cols-2';
+---
+
+<div class={`my-6 grid gap-4 ${gridCols}`}>
+  {images.map((image) => (
+    <figure class="space-y-2">
+      <img 
+        src={image.src} 
+        alt={image.alt}
+        class="w-full h-auto rounded-lg shadow-md hover:shadow-lg transition-shadow"
+        loading="lazy"
+      />
+      {image.caption && (
+        <figcaption class="text-sm text-lighter text-center italic">
+          {image.caption}
+        </figcaption>
+      )}
+    </figure>
+  ))}
+</div>

@@ -70,15 +70,13 @@ const coverImage = (note.data as any)?.image as string | undefined;
 			"max-h-48 md:max-h-56 overflow-hidden relative": isPreview,
 			// Allow first two blocks to render so a following blockquote shows up
 			"[&>*:nth-child(n+3)]:hidden": isPreview,
-			"[&>img]:hidden [&>p>img]:hidden": isPreview,
+			// Hide ALL images in preview mode when we have a cover image
+			"[&_img]:!hidden": isPreview && coverImage,
+			// Hide other elements in preview mode
 			"[&>pre]:hidden [&>figure]:hidden [&>table]:hidden [&>iframe]:hidden [&>video]:hidden": isPreview,
 			"[&>ul]:hidden [&>ol]:hidden": isPreview,
 			// Clamp the first two text blocks if they are long
 			"[&>p:nth-child(-n+2)]:line-clamp-4 [&>blockquote:nth-child(-n+2)]:line-clamp-4": isPreview,
-			// Subtle bottom fade for previews
-			// "[&::after]:content-[''] [&::after]:pointer-events-none [&::after]:absolute [&::after]:bottom-0 [&::after]:left-0 [&::after]:right-0 [&::after]:h-10 [&::after]:bg-gradient-to-t [&::after]:from-bgColor/95 dark:[&::after]:from-bgColorDark/95 [&::after]:to-transparent": isPreview,
-			// "[&>p]:line-clamp-4": isPreview,
-			// "[&>p:not(:first-of-type)]:hidden": isPreview,
 		}} 
 	>
 		<Content />

@@ -1,0 +1,30 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+import Masthead from '@/components/react/Masthead';
+
+interface Props {
+	content: CollectionEntry<"post">;
+}
+
+const { content } = Astro.props;
+
+const postSeries = content.data.seriesId
+    ? await getCollection("series")
+          .then(series => series.find(s => s.id === content.data.seriesId))
+          .catch(err => {
+            console.error("Failed to find series:", err);
+            return null;
+          })
+    : null;
+
+// Create props object with proper types for strict optional properties
+const mastheadProps = {
+  content,
+  ...(postSeries && { postSeries })
+};
+---
+
+<Masthead 
+  client:load 
+  {...mastheadProps}
+/>

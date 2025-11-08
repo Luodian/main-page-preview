@@ -2,6 +2,7 @@
 import { render } from "astro:content";
 import { getAllPosts } from "@/data/post";
 import PostLayout from "@/layouts/BlogPost.astro";
+import MDXPostLayout from "@/layouts/MDXBlogPost.astro";
 import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
 
 // If you're using an adaptor in SSR mode, getStaticPaths wont work -> https://docs.astro.build/en/guides/routing/#modifying-the-slug-example-for-ssr
@@ -17,8 +18,17 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+
+// Check if this is an MDX file
+const isMDX = post.id.endsWith('.mdx');
 ---
 
-<PostLayout post={post}>
-	<Content />
-</PostLayout>
+{isMDX ? (
+  <MDXPostLayout frontmatter={post.data}>
+    <Content />
+  </MDXPostLayout>
+) : (
+  <PostLayout post={post}>
+    <Content />
+  </PostLayout>
+)}

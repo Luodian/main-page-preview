@@ -1,0 +1,27 @@
+---
+import BlogPost from './BlogPost.astro';
+import { type CollectionEntry } from 'astro:content';
+
+const { frontmatter } = Astro.props;
+
+// Create a post object that matches the CollectionEntry structure
+const post = {
+  data: frontmatter,
+  id: frontmatter.id || frontmatter.slug || '',
+  collection: 'post' as const,
+  body: '', // MDX body will be handled by the slot
+  rendered: {
+    html: '', // Not used for MDX, content comes through slot
+    metadata: {
+      headings: [],
+      frontmatter: frontmatter,
+      imagePaths: [],
+      remarkPluginFrontmatter: {}
+    }
+  }
+} satisfies CollectionEntry<"post">;
+---
+
+<BlogPost post={post}>
+  <slot />
+</BlogPost>

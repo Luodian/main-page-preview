@@ -1,0 +1,14 @@
+---
+import { menuLinks, siteConfig } from "@/site.config";
+import Header from '@/components/react/Header';
+
+// Get current path for active state
+const currentPath = Astro.url.pathname;
+---
+
+<Header 
+  client:load 
+  siteConfig={siteConfig}
+  menuLinks={menuLinks}
+  currentPath={currentPath}
+/>
