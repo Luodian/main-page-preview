@@ -167,12 +167,9 @@ Enhanced code blocks with copy functionality and professional styling.
 
 ````mdx
 <CodeDemo title="Installation" language="bash" showCopy={true}>
-```bash
-npm install package-name
-````
-
+  ```bash npm install package-name ```
 </CodeDemo>
-```
+````
 
 **Props:**
 
@@ -223,6 +220,47 @@ Professional resource links with icons and metadata.
   ]}
 />
 ```
+
+### ResponsiveImage
+
+Optimized responsive images with lazy loading, captions, and flexible styling.
+
+```mdx
+<ResponsiveImage
+  src="/images/example.jpg"
+  alt="Description of the image"
+  caption="Optional image caption"
+  align="center"
+  maxWidth="80%"
+  rounded={true}
+/>
+```
+
+**Props:**
+
+- `src`: string - Image source URL (required)
+- `alt`: string - Alt text for accessibility (required)
+- `caption?`: string - Optional caption text below image
+- `align?`: "left" | "center" | "right" - Image alignment (default: "center")
+- `maxWidth?`: string - Maximum width constraint (default: "90%")
+- `rounded?`: boolean - Apply rounded corners (default: true)
+- `className?`: string - Additional CSS classes
+- `loading?`: "lazy" | "eager" - Loading strategy (default: "lazy")
+
+**Features:**
+
+- Automatic responsive sizing
+- Lazy loading by default
+- Hover shadow effects
+- Error handling with console logging
+- Semantic HTML with `<figure>` and `<figcaption>`
+
+### Other MDX Components
+
+- **Callout**: `<Callout type="info|warning|error|success" title="Title">Content</Callout>`
+- **Gallery**: `<Gallery images={[{src, alt, caption}]} columns={3} />`
+- **LiveCodeEditor**: `<LiveCodeEditor defaultCode="console.log('Hello')" />`
+- **Badge**: `<Badge variant="outline">Label</Badge>`
 
 ## Author Management
 
