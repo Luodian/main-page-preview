@@ -1,0 +1,46 @@
+---
+interface Props {
+  title?: string;
+  language?: string;
+  showCopy?: boolean;
+}
+
+const { title, language = 'javascript', showCopy = true } = Astro.props;
+---
+
+<div class="my-6 border border-special-light rounded-lg overflow-hidden">
+  {title && (
+    <div class="bg-accent-base/5 px-4 py-2 border-b border-special-light">
+      <h4 class="font-semibold text-accent-base">{title}</h4>
+    </div>
+  )}
+  <div class="relative">
+    <slot />
+    {showCopy && (
+      <button class="copy-demo-button absolute top-2 right-2 bg-bgColor/80 hover:bg-bgColor px-2 py-1 rounded text-xs font-medium text-light hover:text-accent-two transition-colors">
+        Copy
+      </button>
+    )}
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.copy-demo-button').forEach(button => {
+      button.addEventListener('click', async () => {
+        const codeBlock = button.parentElement?.querySelector('pre code');
+        if (codeBlock) {
+          const code = codeBlock.textContent;
+          if (code) {
+            await navigator.clipboard.writeText(code);
+            const originalText = button.textContent;
+            button.textContent = 'Copied!';
+            setTimeout(() => {
+              button.textContent = originalText;
+            }, 1500);
+          }
+        }
+      });
+    });
+  });
+</script>

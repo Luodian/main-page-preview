@@ -1,0 +1,31 @@
+---
+import { type CollectionEntry } from "astro:content";
+import PostFooter from '@/components/react/PostFooter';
+
+interface Props {
+	content: CollectionEntry<"post">;
+}
+
+const { content } = Astro.props;
+
+// Extract data from frontmatter
+const defaultAuthor = { name: "Anonymous" };
+const authors = content.data.authors || 
+  (content.data.author ? [content.data.author] : [defaultAuthor]);
+
+const topics = content.data.tags || [];
+
+// Create props object with proper types
+const postFooterProps = {
+  authors,
+  topics,
+  ...(content.data.acknowledgement && { acknowledgement: content.data.acknowledgement }),
+  ...(content.data.bibtex && { bibtex: content.data.bibtex }),
+  year: content.data.year || new Date(content.data.publishDate).getFullYear()
+};
+---
+
+<PostFooter 
+  client:load 
+  {...postFooterProps}
+/>

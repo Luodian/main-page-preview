@@ -1,6 +1,5 @@
 import React from "react";
 import type { CollectionEntry } from "astro:content";
-import Badge from "./Badge";
 import FormattedDate from "./FormattedDate";
 import Separator from "./Separator";
 import LazyImage from "./LazyImage";
@@ -107,7 +106,7 @@ const Masthead: React.FC<MastheadProps> = ({ content, postSeries }) => {
 
       {/* Description */}
       <p
-        className="text-textColor max-w-3xl text-sm md:text-base mx-4 md:mx-auto"
+        className="text-textColor text-center max-w-3xl text-sm md:text-base mx-4 md:mx-auto"
         data-pagefind-body
       >
         {content.data.description}

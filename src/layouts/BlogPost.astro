@@ -2,6 +2,7 @@
 import { type CollectionEntry, render } from "astro:content";
 import SeriesPanel from "@/components/SeriesPanel.astro";
 import MastheadReact from "@/components/blog/MastheadReact.astro";
+import PostFooterReact from "@/components/blog/PostFooterReact.astro";
 import BackToTopButtonReact from "@/components/BackToTopButtonReact.astro";
 import { Icon } from "astro-icon/components";
 import PageLayout from "@/layouts/Base.astro";
@@ -30,9 +31,9 @@ const { headings } = await render(post);
 		</article>
 	</div>
 
-	<BackToTopButtonReact />
+	<PostFooterReact content={post} />
 
-</PageLayout>
+	<BackToTopButtonReact /></PageLayout>
 
 <!-- Copy code button -->
 <script>

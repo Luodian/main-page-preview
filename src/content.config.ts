@@ -39,6 +39,24 @@ const post = defineCollection({
       // Series
       seriesId: z.string().optional(), // Поле для связи с серией
       orderInSeries: z.number().optional(), // Опционально: для сортировки в серии
+      // Author and PostFooter fields
+      author: z
+        .object({
+          name: z.string(),
+          url: z.string().optional(),
+        })
+        .optional(),
+      authors: z
+        .array(
+          z.object({
+            name: z.string(),
+            url: z.string().optional(),
+          })
+        )
+        .optional(),
+      acknowledgement: z.string().optional(),
+      bibtex: z.string().optional(),
+      year: z.number().optional(),
       // End
     }),
 });

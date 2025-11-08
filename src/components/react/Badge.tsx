@@ -1,50 +1,47 @@
 import React from "react";
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "@/lib/utils";
 
-interface BadgeProps {
-  variant?:
-    | "default"
-    | "accent"
-    | "accent-base"
-    | "accent-one"
-    | "accent-two"
-    | "muted"
-    | "outline"
-    | "inactive";
+const badgeVariants = cva(
+  "inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
+  {
+    variants: {
+      variant: {
+        default:
+          "border-transparent font-medium bg-accent-base text-bgColor hover:bg-accent-base/80",
+        secondary:
+          "border-transparent font-medium bg-accent-base/10 text-accent-base hover:bg-accent-base/20",
+        destructive:
+          "border-transparent bg-red-500 text-white hover:bg-red-500/80",
+        outline: "text-textColor border-special-light",
+        accent: "border-transparent bg-accent text-bgColor hover:bg-accent/80",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+    },
+  }
+);
+
+export interface BadgeProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof badgeVariants> {
   showHash?: boolean;
-  title: string;
-  children?: React.ReactNode;
 }
 
-const Badge: React.FC<BadgeProps> = ({
-  variant = "default",
-  showHash = true,
-  title,
+function Badge({
+  className,
+  variant,
+  showHash = false,
   children,
-}) => {
-  const badgeClasses = {
-    base: "flex items-baseline pt-[0.075rem] drop-shadow-lg active:drop-shadow-none rounded-lg h-6 px-2 text-sm font-medium transition-colors",
-    variants: {
-      default: "bg-textColor text-bgColor hover:brightness-105",
-      accent: "bg-accent text-bgColor hover:brightness-105",
-      "accent-base": "bg-accent-base text-bgColor hover:brightness-105",
-      "accent-one": "bg-accent-one text-bgColor hover:brightness-105",
-      "accent-two": "bg-accent-two text-bgColor hover:brightness-105",
-      muted:
-        "bg-color-100 text-textColor hover:bg-accent-two hover:text-bgColor drop-shadow-none hover:drop-shadow-lg",
-      outline: "border border-lightest text-textColor drop-shadow-none",
-      inactive: "text-lighter bg-color-100 drop-shadow-none",
-    },
-  };
-
-  const variantClasses = badgeClasses.variants[variant];
-
+  ...props
+}: BadgeProps) {
   return (
-    <div className={`${badgeClasses.base} ${variantClasses}`}>
-      {showHash && <span className="h-full">#</span>}
-      {title}
+    <div className={cn(badgeVariants({ variant }), className)} {...props}>
+      {showHash && "#"}
       {children}
     </div>
   );
-};
+}
 
-export default Badge;
+export { Badge, badgeVariants };

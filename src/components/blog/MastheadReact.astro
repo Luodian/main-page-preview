@@ -16,10 +16,15 @@ const postSeries = content.data.seriesId
             return null;
           })
     : null;
+
+// Create props object with proper types for strict optional properties
+const mastheadProps = {
+  content,
+  ...(postSeries && { postSeries })
+};
 ---
 
 <Masthead 
   client:load 
-  content={content}
-  postSeries={postSeries}
+  {...mastheadProps}
 />

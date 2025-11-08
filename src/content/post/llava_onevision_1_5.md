@@ -5,6 +5,22 @@ publishDate: "2025-09-30"
 mainTags: ["research"]
 tags: ["research", "vision", "multimodal", "llava", "megatron"]
 thumbnail: "/images/blog_thumbnails/llava_ov_1_5.png"
+authors:
+  - name: "Bo Li"
+    url: "https://sites.google.com/view/boli-academic"
+  - name: "Yuanhan Zhang"
+    url: "https://zhangyuanhan-ai.github.io/"
+  - name: "LMMS-Lab Team"
+    url: "https://lmms-lab.github.io/"
+acknowledgement: "We thank the open-source community and all contributors for their valuable feedback and support."
+year: 2025
+bibtex: |
+  @article{li2025llava,
+    title={LLaVA-OneVision-1.5: Fully Open Framework for Democratized Multimodal Training},
+    author={Li, Bo and Zhang, Yuanhan and others},
+    journal={arXiv preprint arXiv:2509.23661},
+    year={2025}
+  }
 ---
 
 <figure>

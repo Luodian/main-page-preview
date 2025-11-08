@@ -120,7 +120,7 @@ const postSeries = content.data.seriesId
 		content.data.tags?.length ? (
 			<Icon aria-hidden="true" class="flex-shrink-0 inline-block h-6 w-6 text-accent-base" focusable="false" name="solar:tag-line-duotone" />	
 			<>
-				{content.data.tags.map((tag) => (
+				{content.data.tags.map((tag: string) => (
 					<a aria-label={`View all posts with the tag: ${tag}`} href={`/tags/${tag}`}>
 						<Badge variant="accent-two" title={tag} />
 					</a>

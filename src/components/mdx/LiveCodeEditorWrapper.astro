@@ -1,0 +1,18 @@
+---
+import LiveCodeEditorReact from './LiveCodeEditor.tsx';
+
+interface Props {
+  title?: string;
+  language?: string;
+  editable?: boolean;
+}
+
+const { title, language, editable } = Astro.props;
+---
+
+<LiveCodeEditorReact 
+  title={title}
+  language={language}
+  editable={editable}
+  client:load 
+/>

@@ -38,10 +38,65 @@ Markdown File → Content Schema → Route Generation → Layout Application →
 
 ### Content Structure
 
-- `src/content/post/` - Blog post markdown files
+- `src/content/post/` - Blog post markdown and MDX files
 - `src/content/series/` - Blog series definitions
 - `src/content/note/` - Note/quick thoughts
 - `public/images/blog_thumbnails/` - Post thumbnail images
+
+### MDX Components
+
+- `src/components/mdx/` - Custom components for MDX files
+  - `Callout.astro` - Info, warning, success, error callouts
+  - `CodeDemo.astro` - Enhanced code blocks with copy functionality
+  - `Gallery.astro` - Image galleries with captions
+  - `LiveCodeEditor.tsx` - Interactive JavaScript code editor
+- `src/layouts/MDXBlogPost.astro` - Layout for MDX files with component imports
+
+## MDX Support
+
+### Writing MDX Posts
+
+Create `.mdx` files in `src/content/post/` to use custom components alongside markdown:
+
+````mdx
+---
+title: "My Enhanced Post"
+description: "Using custom components"
+publishDate: "2025-11-08"
+tags: ["mdx", "components"]
+---
+
+import { Callout, CodeDemo } from "@/layouts/MDXBlogPost.astro";
+
+# Regular Markdown
+
+<Callout type="info" title="Enhanced Content">
+  You can use **markdown** inside components!
+</Callout>
+
+<CodeDemo title="Example Code">
+```javascript
+console.log("Hello from MDX!");
+````
+
+</CodeDemo>
+```
+
+### Available MDX Components
+
+- **Callout**: Info/warning/success/error callouts with markdown support
+- **CodeDemo**: Enhanced code blocks with copy functionality
+- **Gallery**: Multi-column image galleries with captions
+- **LiveCodeEditor**: Interactive JavaScript code editor (React)
+- **Badge**: Inline tags and labels
+- **LazyImage**: Optimized image loading
+
+### MDX vs Markdown
+
+- Use `.mdx` for posts with custom components or interactivity
+- Use `.md` for simple text-based posts
+- Both use the same frontmatter schema
+- Both support the same styling and features
 
 ## Content Schema (src/content.config.ts)
 
