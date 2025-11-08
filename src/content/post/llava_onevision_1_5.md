@@ -10,9 +10,35 @@ authors:
     main: true
   - name: "Yuanhan Zhang"
     main: true
-  - name: "LMMS-Lab Team"
+  - name: "Xiang An"
+  - name: "Yin Xie"
+  - name: "Kaicheng Yang"
+  - name: "Wenkang Zhang"
+  - name: "Xiuwei Zhao"
+  - name: "Zheng Cheng"
+  - name: "Yirui Wang"
+  - name: "Songcen Xu"
+  - name: "Changrui Chen"
+  - name: "Chunsheng Wu"
+  - name: "Huajie Tan"
+  - name: "Chunyuan Li"
+  - name: "Jing Yang"
+  - name: "Jie Yu"
+  - name: "Xiyao Wang"
+  - name: "Bin Qin"
+  - name: "Yumeng Wang"
+  - name: "Zizhen Yan"
+  - name: "Ziyong Feng"
+  - name: "Ziwei Liu"
+  - name: "Jiankang Deng"
+  - name: "Dong Guo"
+  - name: "Renrui Zhang"
+  - name: "Feng Li"
+  - name: "Hao Zhang"
+  - name: "Kaichen Zhang"
+  - name: "Peiyuan Zhang"
+  - name: "Yanwei Li"
 acknowledgement: "We thank the open-source community and all contributors for their valuable feedback and support."
-year: 2025
 bibtex: |
   @inproceedings{LLaVA-OneVision-1.5,
     title={LLaVA-OneVision-1.5: Fully Open Framework for Democratized Multimodal Training},

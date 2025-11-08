@@ -58,7 +58,6 @@ const post = defineCollection({
         .optional(),
       acknowledgement: z.string().optional(),
       bibtex: z.string().optional(),
-      year: z.number().optional(),
       // End
     }),
 });

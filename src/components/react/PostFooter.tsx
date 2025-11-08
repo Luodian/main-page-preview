@@ -14,7 +14,7 @@ interface PostFooterProps {
   topics: string[];
   acknowledgement?: string;
   bibtex?: string;
-  year?: string | number;
+  publishDate: Date;
 }
 
 export default function PostFooter({
@@ -22,11 +22,14 @@ export default function PostFooter({
   topics,
   acknowledgement,
   bibtex,
-  year,
+  publishDate,
 }: PostFooterProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
   const [isMobileCopied, setIsMobileCopied] = useState(false);
+
+  // Extract year from publishDate
+  const year = publishDate.getFullYear();
 
   const handleCopyBibtex = async () => {
     if (!bibtex) return;
@@ -62,11 +65,9 @@ export default function PostFooter({
       <div className="w-full max-w-7xl mx-auto rounded-lg bg-accent-base/5 border border-special-light p-6 space-y-6 mt-8">
         {/* Topics/Tags Section */}
         <div className="flex flex-wrap gap-2">
-          {year && (
-            <Badge variant="default" showHash={false}>
-              {String(year)}
-            </Badge>
-          )}
+          <Badge variant="default" showHash={false}>
+            {year}
+          </Badge>
           {topics.map((topic) => (
             <Badge key={topic} variant="secondary" showHash={false}>
               {topic.charAt(0).toUpperCase() + topic.slice(1)}
@@ -102,11 +103,9 @@ export default function PostFooter({
               </span>
             ))}
           </div>
-          {/* Main Contributors Note */}
+          {/* Main Authors Note */}
           {authors.some((author) => author.main) && (
-            <p className="text-xs text-lighter mt-2 pt-2">
-              * Main Contributors
-            </p>
+            <p className="text-xs text-lighter mt-2 pt-2">* Main Authors</p>
           )}
         </div>
 

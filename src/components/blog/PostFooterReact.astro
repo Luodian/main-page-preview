@@ -23,9 +23,9 @@ const topics = content.data.tags || [];
 const postFooterProps = {
   authors,
   topics,
+  publishDate: content.data.publishDate,
   ...(content.data.acknowledgement && { acknowledgement: content.data.acknowledgement }),
   ...(content.data.bibtex && { bibtex: content.data.bibtex }),
-  year: content.data.year || new Date(content.data.publishDate).getFullYear()
 };
 ---
 
