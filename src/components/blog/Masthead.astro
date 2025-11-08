@@ -6,6 +6,7 @@ import FormattedDate from "@/components/FormattedDate.astro";
 import { Icon } from "astro-icon/components";
 import Separator from "../Separator.astro";
 import LazyImage from "@/components/LazyImage.astro";
+import { getReadingTimeFromContent } from "@/utils/readingTime";
 
 interface Props {
 	content: CollectionEntry<"post">;
@@ -16,6 +17,8 @@ const {
 
 } = Astro.props;
 
+// Get reading time with smart fallback
+const readingTime = getReadingTimeFromContent(content);
 
 const dateTimeOptions: Intl.DateTimeFormatOptions = {
 	month: "long",
@@ -76,8 +79,7 @@ const postSeries = content.data.seriesId
 	<Separator type="dot" />
 	<span class="flex items-center h-[1.75rem]">
 		<Icon aria-hidden="true" class="flex items-center inline-block h-4 w-4 me-1" focusable="false" name="hugeicons:book-open-01" />
-		{/* @ts-ignore:next-line. TODO: add reading time to collection schema? */}
-		{content.rendered?.metadata?.frontmatter?.readingTime ? `${content.rendered.metadata.frontmatter.readingTime}` : "Less than one minute read"}
+		{readingTime}
 	</span>
 	{
 		content.data.updatedDate && (

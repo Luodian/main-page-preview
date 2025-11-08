@@ -1,6 +1,16 @@
-# Blog & Portfolio Site
+# LMMS Blog & Portfolio Site
 
-A modern, responsive blog and portfolio website built with Astro.
+A modern, responsive blog and portfolio website built with Astro, featuring advanced content authoring with MDX, interactive React components, and a sophisticated content management system for research publications and technical documentation.
+
+## Features ✨
+
+- **MDX Support**: Enhanced markdown with React components
+- **Interactive Components**: CodeDemo, ResourceCard, and more
+- **Content Collections**: Type-safe content management for posts, notes, and series
+- **Author Management**: Centralized author database with automatic URL resolution
+- **Related Posts**: Smart recommendation system with manual overrides
+- **Responsive Design**: Mobile-first approach with dark/light mode support
+- **SEO Optimized**: Comprehensive metadata and Open Graph support
 
 ## Getting Started
 
@@ -54,152 +64,364 @@ pnpm preview
 npm run preview
 ```
 
-## Contributing Content
+## Content Creation Guide
 
-### Adding Blog Posts
+### Blog Posts
 
-1. Create a new markdown file in `src/content/post/`
-2. Add the required frontmatter:
+Create rich, interactive blog posts using either Markdown (`.md`) or MDX (`.mdx`) files in `src/content/post/`.
+
+#### Basic Post Structure
 
 ```yaml
 ---
 title: "Your Post Title"
-description: "A brief description of your post (50-160 characters)"
-publishDate: "2024-01-15T00:00:00-00:00"
-tags: ["tag1", "tag2"] # Optional
-draft: false # Optional, set to true to hide from production
+description: "SEO-optimized description (50-160 characters recommended)"
+publishDate: "2024-01-15T00:00:00Z"
+# Primary tags for categorization
+mainTags: ["ai", "research"] # recommended to only use 1 or 2 mainTags
+tags: ["ai", "research", "machine-learning", "computer-vision"] # Additional tags (include mainTags again)
 ---
-Your post content here...
+# Your content here
 ```
 
-#### Post Frontmatter Fields
+#### Complete Frontmatter Reference
 
-| Field         | Required | Description                                |
-| ------------- | -------- | ------------------------------------------ |
-| title         | Yes      | Post title (max 60 characters)             |
-| description   | Yes      | SEO description (50-160 characters)        |
-| publishDate   | Yes      | ISO 8601 format date                       |
-| tags          | No       | Array of tag strings                       |
-| draft         | No       | Hide post from production (default: false) |
-| coverImage    | No       | Object with `src` and `alt` properties     |
-| updatedDate   | No       | Date when post was last updated            |
-| seriesId      | No       | Group posts into a series                  |
-| orderInSeries | No       | Order within a series                      |
+| Field             | Type        | Required | Description                                  | Used In                       |
+| ----------------- | ----------- | -------- | -------------------------------------------- | ----------------------------- |
+| `title`           | string      | ✓        | Post title (recommended: max 60 chars)       | All components, SEO           |
+| `description`     | string      | ✓        | SEO meta description (50-160 chars)          | SEO, social shares            |
+| `publishDate`     | date/string | ✓        | Publication date (ISO 8601 format)           | Post listing, sorting         |
+| `mainTags`        | array       | ✓        | Primary categories (used for related posts)  | BlogGrid filters, KeepReading |
+| `tags`            | array       |          | Additional tags for detailed categorization  | Tag pages, search             |
+| `thumbnail`       | string      |          | Featured image URL for post previews         | BlogGrid, KeepReading         |
+| `coverImage`      | object      |          | `{src: image(), alt: string}` for hero image | BlogPost layout               |
+| `draft`           | boolean     |          | Hide from production (default: false)        | Content filtering             |
+| `ogImage`         | string      |          | Custom Open Graph image                      | Social media shares           |
+| `updatedDate`     | date/string | ✓        | Last modification date                       | Post footer                   |
+| `seriesId`        | string      |          | Link to series collection                    | Series navigation             |
+| `orderInSeries`   | number      |          | Position within series                       | Series ordering               |
+| `author`          | object      |          | Single author `{name, url?, main?}`          | Post footer, bylines          |
+| `authors`         | array       |          | Multiple authors (same format as author)     | Post footer, bylines          |
+| `acknowledgement` | string      |          | Acknowledgment text                          | Post footer                   |
+| `bibtex`          | string      |          | BibTeX citation                              | Post footer                   |
+| `related`         | array       |          | Manual related post IDs (max 3)              | KeepReading component         |
 
-### Adding Notes
+#### Content Format Options
 
-1. Create a new markdown file in `src/content/note/`
-2. Add the required frontmatter:
+**Markdown (.md)**: Traditional markdown with all standard features
+
+```markdown
+# Heading
+
+Regular markdown content with **bold** and _italic_ text.
+```
+
+**MDX (.mdx)**: Enhanced markdown with React components
+
+````mdx
+import { CodeDemo, ResourceCard } from "@/components/mdx/components";
+
+# Enhanced Content
+
+<CodeDemo title="Python Example">```python print("Hello, World!") ```</CodeDemo>
+````
+
+### Notes
+
+Create quick thoughts and informal content in `src/content/note/`.
 
 ```yaml
 ---
-title: "Note Title"
-publishDate: "2024-01-15T00:00:00-00:00"
+title: "Quick Note Title"
+publishDate: "2024-01-15T18:26:00Z"
 description: "Optional description"
+image: "https://example.com/image.jpg" # Optional thumbnail
 ---
 Your note content...
 ```
 
-### Adding Authors
+### Series
 
-Authors are managed in the `authors.yaml` file in the project root. This centralized approach makes it easy to maintain author information across all posts.
-
-#### Adding a New Author
-
-1. Open `authors.yaml` in the project root
-2. Add a new entry under the `authors` section:
+Group related posts into series using `src/content/series/`.
 
 ```yaml
-"Author Name":
-  name: "Author Name"
-  url: "https://author-website.com"
-  affiliation: "Institution Name" # Optional
+---
+title: "Series Title"
+description: "Series description"
+featured: true # Show in featured series list
+---
 ```
 
-#### Using Authors in Posts
+Reference in posts using:
 
-In your post frontmatter, reference authors by name:
+```yaml
+seriesId: "your-series-id"
+orderInSeries: 1
+```
+
+## MDX Components
+
+### CodeDemo
+
+Enhanced code blocks with copy functionality and professional styling.
+
+````mdx
+<CodeDemo title="Installation" language="bash" showCopy={true}>
+```bash
+npm install package-name
+````
+
+</CodeDemo>
+```
+
+**Props:**
+
+- `title?`: string - Optional header title
+- `language?`: string - Language for syntax highlighting (default: "bash")
+- `showCopy?`: boolean - Show copy button (default: true)
+
+### ResourceCard
+
+Professional resource links with icons and metadata.
+
+```mdx
+<ResourceCard
+  title="Project Resources"
+  description="Essential links and materials"
+  resources={[
+    {
+      type: "github",
+      title: "Source Code",
+      description: "Complete implementation",
+      url: "https://github.com/user/repo",
+    },
+    {
+      type: "paper",
+      title: "Research Paper",
+      url: "https://arxiv.org/abs/2024.12345",
+    },
+  ]}
+/>
+```
+
+**Resource Types:** `github`, `paper`, `model`, `dataset`, `demo`, `link`
+
+**Grouped Resources:**
+
+```mdx
+<ResourceCard
+  groups={[
+    {
+      type: "model",
+      title: "Model Variants",
+      description: "Different model configurations",
+      items: [
+        { name: "Base Model", url: "https://...", metadata: "7B params" },
+        { name: "Large Model", url: "https://...", metadata: "13B params" },
+      ],
+    },
+  ]}
+/>
+```
+
+## Author Management
+
+Authors are centrally managed in `authors.yaml` for consistency across all posts. It is recommended to maintain a updated authors.yaml so it can be reused in future posts.
+
+### Adding Authors
+
+Edit `authors.yaml`:
+
+```yaml
+authors:
+  "Author Name":
+    name: "Author Name"
+    url: "https://author-website.com"
+    affiliation: "Institution Name" # Optional
+```
+
+### Using Authors in Posts
+
+Reference by name in frontmatter:
 
 ```yaml
 authors:
   - name: "Author Name"
-    main: true # Optional: mark as main contributor (shows asterisk)
-  - name: "Another Author"
+    main: true # Shows asterisk for main contributor
+  - name: "Co-Author Name"
+    url: "https://co-author-website.com" # Overwrites authors.yaml
 ```
 
-**Benefits:**
+If no authors are listed, then defaults to `LMMs-Lab Team`
 
-- URLs are automatically resolved from `authors.yaml`
-- Consistent author information across all posts
-- Easy to update author URLs in one place
-- Support for main contributor marking with asterisks
+**Fallback Behavior:**
 
-### Writing Tips
+- If author exists in `authors.yaml`: Uses database information
+- If author not in database: Uses frontmatter data directly
+- URLs can be overridden in frontmatter if needed
 
-- Use meaningful file names - they become the URL slugs
-- Organize related posts with tags
-- Set `draft: true` while working on posts
-- Include alt text for all images
-- Follow existing code style conventions
+## Component Usage Guide
 
-### Markdown Features
+### Related Posts System
 
-The site supports:
+The KeepReading component automatically suggests related posts using a smart algorithm:
 
-- Standard Markdown syntax
-- MDX components
-- Code blocks with syntax highlighting
-- Admonitions (callouts/alerts)
-- Tables, lists, and blockquotes
+1. **Manual relations** (frontmatter `related` field) - highest priority
+2. **MainTag matches** - posts sharing primary categories
+3. **Latest posts** - fallback for new content
+
+### Content Schema Validation
+
+All content is validated using Zod schemas defined in `src/content.config.ts`:
+
+- Type safety at build time
+- Automatic transformations (date parsing, tag normalization)
+- Clear error messages for invalid content
+
+### Default Behaviors
+
+- **Draft posts**: Hidden in production, visible in development
+- **Missing thumbnails**: Graceful fallback to default images
+- **Author URLs**: Auto-resolved from authors.yaml database
+- **Related posts**: Smart algorithm with manual override capability
+- **Tags**: Automatically lowercased and deduplicated
+- **Images**: Lazy loading with skeleton placeholders
 
 ## Project Structure
 
 ```
 src/
 ├── content/
-│   ├── post/       # Blog posts
-│   └── note/       # Notes
-├── pages/          # Site pages
-├── components/     # Reusable components
-├── layouts/        # Page layouts
-└── styles/         # Global styles
+│   ├── post/           # Blog posts (.md, .mdx)
+│   ├── note/           # Notes and quick thoughts
+│   └── series/         # Post series definitions
+├── components/
+│   ├── mdx/           # MDX-specific components
+│   │   ├── CodeDemo.astro
+│   │   ├── ResourceCard.tsx
+│   │   ├── Callout.astro
+│   │   └── Gallery.astro
+│   ├── blog/          # Blog-specific components
+│   ├── react/         # React components
+│   └── ui/            # Base UI components
+├── layouts/
+│   ├── BlogPost.astro     # Standard markdown layout
+│   ├── MDXBlogPost.astro  # MDX layout with imports
+│   └── Base.astro         # Site-wide layout
+├── pages/             # Site pages and API routes
+└── styles/            # Global styles and themes
 ```
 
 ## Configuration
 
-Main configuration files:
+### Main Config Files
 
 - `src/site.config.ts` - Site metadata and settings
-- `astro.config.ts` - Astro configuration
-- `src/content/config.ts` - Content schema definitions
+- `astro.config.ts` - Astro and MDX configuration
+- `src/content.config.ts` - Content schema definitions
+- `authors.yaml` - Author database
+- `tailwind.config.ts` - Styling and typography
+
+### Environment Setup
+
+```bash
+# Development
+pnpm dev
+
+# Type checking
+pnpm astro sync
+
+# Build validation
+pnpm build
+```
+
+## Advanced Features
+
+### Markdown Processing Pipeline
+
+**Remark Plugins** (Content Processing):
+
+- Reading time calculation
+- Custom directives (:::note, :::warning)
+- Math equation support
+- Collapsible sections
+
+**Rehype Plugins** (HTML Processing):
+
+- Syntax highlighting (rehype-pretty-code)
+- External link handling
+- Image optimization
+- Math rendering (KaTeX)
+
+### Styling System
+
+**Tailwind Typography**: Custom "citrus" prose theme
+
+```css
+prose-citrus {
+  /* Headings with accent colors */
+  prose-headings:text-accent-base
+
+  /* Enhanced links */
+  prose-a:text-accent
+
+  /* Professional code blocks */
+  prose-pre:bg-neutral-50
+}
+```
 
 ## Available Commands
 
-| Command          | Description               |
-| ---------------- | ------------------------- |
-| `pnpm dev`       | Start development server  |
-| `pnpm build`     | Build for production      |
-| `pnpm preview`   | Preview production build  |
-| `pnpm postbuild` | Build search index        |
-| `pnpm sync`      | Generate TypeScript types |
+| Command            | Description               |
+| ------------------ | ------------------------- |
+| `pnpm dev`         | Start development server  |
+| `pnpm build`       | Build for production      |
+| `pnpm preview`     | Preview production build  |
+| `pnpm astro sync`  | Generate TypeScript types |
+| `pnpm astro check` | Type checking             |
 
-## Contributing Guidelines
+## Writing Guidelines
+
+### Content Best Practices
+
+- **File naming**: Use kebab-case, descriptive names (becomes URL slug)
+- **Frontmatter**: Always include required fields
+- **Images**: Optimize before adding, include alt text
+- **Tags**: Use consistent, lowercase tags
+- **Series**: Group related content for better navigation
+
+### MDX Best Practices
+
+- Import components at the top of MDX files
+- Use semantic component props
+- Test interactive components in development
+- Maintain consistent spacing around components
+
+### SEO Optimization
+
+- Write compelling meta descriptions (50-160 characters)
+- Use descriptive titles (under 60 characters)
+- Include relevant keywords in tags
+- Optimize images with proper alt text
+- Leverage OpenGraph metadata for social sharing
+
+## Contributing
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/your-feature`)
-3. Make your changes
+3. Add your content or make changes
 4. Test locally with `pnpm build`
-5. Commit your changes
-6. Push to your fork
-7. Open a pull request
+5. Commit your changes with clear messages
+6. Push to your fork and open a pull request
 
 ### Code Style
 
-- Follow existing conventions in the codebase
-- Use TypeScript where applicable
-- Ensure responsive design works on mobile
-- Test in both light and dark modes
+- Follow existing TypeScript conventions
+- Use semantic HTML in components
+- Ensure responsive design works on all devices
+- Test both light and dark modes
+- Validate content schema compliance
 
 ## License
 
-MIT
+MIT - Feel free to use this template for your own projects!

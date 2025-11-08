@@ -4,6 +4,7 @@ import FormattedDate from "./FormattedDate";
 import Separator from "./Separator";
 import LazyImage from "./LazyImage";
 import { HiCalendar, HiBookOpen } from "react-icons/hi";
+import { getReadingTimeFromContent } from "@/utils/readingTime";
 
 interface MastheadProps {
   content: CollectionEntry<"post">;
@@ -15,11 +16,8 @@ const Masthead: React.FC<MastheadProps> = ({ content, postSeries }) => {
     month: "long",
   };
 
-  // Get reading time from content metadata
-  const readingTime = (content as any).rendered?.metadata?.frontmatter
-    ?.readingTime
-    ? `${(content as any).rendered.metadata.frontmatter.readingTime}`
-    : "Less than one minute read";
+  // Get reading time with smart fallback
+  const readingTime = getReadingTimeFromContent(content);
 
   return (
     <div className="max-w-5xl mx-auto px-3 md:px-0">
