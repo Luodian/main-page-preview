@@ -44,6 +44,7 @@ const post = defineCollection({
         .object({
           name: z.string(),
           url: z.string().optional(),
+          main: z.boolean().optional(),
         })
         .optional(),
       authors: z
@@ -51,6 +52,7 @@ const post = defineCollection({
           z.object({
             name: z.string(),
             url: z.string().optional(),
+            main: z.boolean().optional(),
           })
         )
         .optional(),

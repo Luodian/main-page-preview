@@ -9,6 +9,7 @@ interface PostFooterProps {
   authors: Array<{
     name: string;
     url?: string;
+    main?: boolean;
   }>;
   topics: string[];
   acknowledgement?: string;
@@ -84,17 +85,29 @@ export default function PostFooter({
                 {author.url ? (
                   <a
                     href={author.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="underline hover:text-accent-base transition-colors"
                   >
                     {author.name}
+                    {author.main ? "*" : ""}
                   </a>
                 ) : (
-                  author.name
+                  <>
+                    {author.name}
+                    {author.main ? "*" : ""}
+                  </>
                 )}
                 {index < authors.length - 1 && ", "}
               </span>
             ))}
           </div>
+          {/* Main Contributors Note */}
+          {authors.some((author) => author.main) && (
+            <p className="text-xs text-lighter mt-2 pt-2">
+              * Main Contributors
+            </p>
+          )}
         </div>
 
         {/* Acknowledgement Section (Optional) */}
@@ -109,7 +122,7 @@ export default function PostFooter({
 
         {/* BibTeX Export Section (Optional) */}
         {bibtex && (
-          <div className="pt-4 border-t border-black/20">
+          <div className="pt-4 border-t border-black/20 justify-end flex">
             {/* Desktop: Modal Button */}
             <button
               onClick={() => setIsModalOpen(true)}

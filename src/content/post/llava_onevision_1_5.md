@@ -7,19 +7,25 @@ tags: ["research", "vision", "multimodal", "llava", "megatron"]
 thumbnail: "/images/blog_thumbnails/llava_ov_1_5.png"
 authors:
   - name: "Bo Li"
-    url: "https://sites.google.com/view/boli-academic"
+    main: true
   - name: "Yuanhan Zhang"
-    url: "https://zhangyuanhan-ai.github.io/"
+    main: true
   - name: "LMMS-Lab Team"
-    url: "https://lmms-lab.github.io/"
 acknowledgement: "We thank the open-source community and all contributors for their valuable feedback and support."
 year: 2025
 bibtex: |
-  @article{li2025llava,
+  @inproceedings{LLaVA-OneVision-1.5,
     title={LLaVA-OneVision-1.5: Fully Open Framework for Democratized Multimodal Training},
-    author={Li, Bo and Zhang, Yuanhan and others},
-    journal={arXiv preprint arXiv:2509.23661},
+    author={An, Xiang and Xie, Yin and Yang, Kaicheng and Zhang, Wenkang and Zhao, Xiuwei and Cheng, Zheng and Wang, Yirui and Xu, Songcen and Chen, Changrui and Wu, Chunsheng and Tan, Huajie and Li, Chunyuan and Yang, Jing and Yu, Jie and Wang, Xiyao and Qin, Bin and Wang, Yumeng and Yan, Zizhen and Feng, Ziyong and Liu, Ziwei and Li, Bo and Deng, Jiankang},
+    booktitle={arxiv},
     year={2025}
+  }
+
+  @article{lillava,
+    title={LLaVA-OneVision: Easy Visual Task Transfer},
+    author={Li, Bo and Zhang, Yuanhan and Guo, Dong and Zhang, Renrui and Li, Feng and Zhang, Hao and Zhang, Kaichen and Zhang, Peiyuan and Li, Yanwei and Liu, Ziwei and Li, Chunyuan},
+    journal={Transactions on Machine Learning Research}
+    year={2024}
   }
 ---
 
@@ -225,24 +231,4 @@ accelerate launch --num_processes=8 --main_process_port 12399 -m lmms_eval \
     --model_args=pretrained=lmms-lab/LLaVA-OneVision-1.5-8B-Instruct,attn_implementation=flash_attention_2,max_pixels=3240000 \
     --tasks=mmmu_val,mmmu_pro_standard,mmbench_en_test,mmerealworld,mmerealworld_cn,ai2d,ai2d_no_mask,vstar_bench,chartqa,charxiv,docvqa_test,mathvista_testmini,mmstar,scienceqa \
     --batch_size=1
-```
-
-## Citation
-
-If you find LLaVA-OneVision useful for your research, please cite:
-
-```bibtex
-@inproceedings{LLaVA-OneVision-1.5,
-  title={LLaVA-OneVision-1.5: Fully Open Framework for Democratized Multimodal Training},
-  author={An, Xiang and Xie, Yin and Yang, Kaicheng and Zhang, Wenkang and Zhao, Xiuwei and Cheng, Zheng and Wang, Yirui and Xu, Songcen and Chen, Changrui and Wu, Chunsheng and Tan, Huajie and Li, Chunyuan and Yang, Jing and Yu, Jie and Wang, Xiyao and Qin, Bin and Wang, Yumeng and Yan, Zizhen and Feng, Ziyong and Liu, Ziwei and Li, Bo and Deng, Jiankang},
-  booktitle={arxiv},
-  year={2025}
- }
-
-@article{lillava,
-  title={LLaVA-OneVision: Easy Visual Task Transfer},
-  author={Li, Bo and Zhang, Yuanhan and Guo, Dong and Zhang, Renrui and Li, Feng and Zhang, Hao and Zhang, Kaichen and Zhang, Peiyuan and Li, Yanwei and Liu, Ziwei and Li, Chunyuan},
-  journal={Transactions on Machine Learning Research}
-  year={2024}
-}
 ```
