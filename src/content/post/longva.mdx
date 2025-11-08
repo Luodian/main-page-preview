@@ -31,7 +31,7 @@ acknowledgement: "This work presents an innovative approach to long video unders
 bibtex: "@article{zhang2024longva,\n  title={LongVA: Long Context Transfer from Language to Vision},\n  author={Zhang, Peiyuan and Zhang, Kaichen and Li, Bo and Zeng, Guangtao and Yang, Jingkang and Zhang, Yuanhan and Wang, Ziyue and Tan, Haoran and Li, Chunyuan and Liu, Ziwei},\n  journal={arXiv preprint arXiv:2406.16852},\n  year={2024}\n}"
 ---
 
-import { ResponsiveImage } from "@/components/mdx/components";
+import { ResponsiveImage, ResourceCard } from "@/components/mdx/components";
 
 <ResponsiveImage
   src="https://github.com/EvolvingLMMs-Lab/LongVA/blob/main/vision_niah/niah_output/LongVA-7B/heatmap.png?raw=true"
@@ -126,8 +126,27 @@ LongVA establishes a foundation for:
 3. **Efficient Video Processing** - Optimizing computational requirements
 4. **Benchmark Development** - Creating more comprehensive evaluation metrics
 
-## Resources
-
-- 🚀 **[GitHub Repository](https://github.com/EvolvingLMMs-Lab/LongVA)** - Source code and implementation
-- 📊 **[V-NIAH Benchmark](https://github.com/EvolvingLMMs-Lab/LongVA)** - Evaluation framework
-- 🤗 **Model Checkpoints** - Pre-trained models for research and development
+<ResourceCard
+  title="LongVA Resources"
+  description="Complete resources for LongVA including source code, evaluation benchmark, and pre-trained models"
+  resources={[
+    {
+      type: "github",
+      title: "GitHub Repository",
+      description: "Source code and implementation",
+      url: "https://github.com/EvolvingLMMs-Lab/LongVA",
+    },
+    {
+      type: "link",
+      title: "V-NIAH Benchmark",
+      description: "Evaluation framework",
+      url: "https://github.com/EvolvingLMMs-Lab/LongVA",
+    },
+    {
+      type: "model",
+      title: "Model Checkpoints",
+      description: "Pre-trained models for research and development",
+      url: "https://github.com/EvolvingLMMs-Lab/LongVA",
+    },
+  ]}
+/>

@@ -26,7 +26,7 @@ authors:
 bibtex: "@article{huang2025highres,\n  title={High-Resolution Visual Reasoning via Multi-Turn Grounding-Based Reinforcement Learning},\n  author={Huang, Xinyu and Dong, Yuhao and Li, Wei and Wu, Jinming and Deng, Zihao and Li, Bo and Ma, Zejun},\n  url={https://github.com/EvolvingLMMs-Lab/MGPO},\n  year={2025}\n}"
 ---
 
-import { ResponsiveImage } from "@/components/mdx/components";
+import { ResponsiveImage, ResourceCard } from "@/components/mdx/components";
 
 <ResponsiveImage
   src="https://i.postimg.cc/26yHF2ZT/v2-0ae2cec95c7e5a2b67fd74203c5f5120-1440w.jpg"
@@ -35,7 +35,19 @@ import { ResponsiveImage } from "@/components/mdx/components";
   maxWidth="100%"
 />
 
-[Code@Github](https://github.com/EvolvingLMMs-Lab/MGPO)
+<ResourceCard
+  title="Project Resources"
+  description="Access the complete MGPO implementation and research materials"
+  resources={[
+    {
+      type: "github",
+      title: "MGPO Repository",
+      description:
+        "Complete implementation of Multi-turn Grounding-based Policy Optimization",
+      url: "https://github.com/EvolvingLMMs-Lab/MGPO",
+    },
+  ]}
+/>
 
 ## 1. Introduction
 

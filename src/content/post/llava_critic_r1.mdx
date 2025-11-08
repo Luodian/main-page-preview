@@ -25,7 +25,7 @@ acknowledgement: "This work represents a collaborative effort in advancing the c
 bibtex: "@article{llava-critic-r1-2025,\n  title={LLaVA-Critic-R1: Unified Critic and Policy Model Through Reinforcement Learning},\n  author={Wang, Xiyao and Li, Chunyuan and Yang, Jianwei and Zhang, Kai and Liu, Bo and Xiong, Tianyi and Huang, Furong},\n  journal={arXiv preprint arXiv:2509.00676},\n  year={2025}\n}"
 ---
 
-import { ResponsiveImage } from "@/components/mdx/components";
+import { ResponsiveImage, ResourceCard } from "@/components/mdx/components";
 
 <ResponsiveImage
   src="/images/llava_critic_r1_images/llava-critic-r1.png"
@@ -77,16 +77,27 @@ The model comes in two variants:
 
 Our results reveal that RL training on critic data can produce a unified model excelling at both evaluation and generation, offering a simple path toward scalable, self-improving multimodal systems. This work demonstrates that the traditional separation between critics and policies is not necessary—a single model can excel at both tasks simultaneously.
 
-## Resources
-
-### 🚀 [Code Repository](https://github.com/LLaVA-VL/LLaVA-NeXT/tree/main/LLaVA-Critic-R1)
-
-Access training code and implementation details
-
-### 🤗 [Model Collection](https://huggingface.co/collections/lmms-lab/llava-critic-r1-68922484e5822b89fab4aca1)
-
-Download pre-trained model checkpoints
-
-### 📝 [Paper](https://arxiv.org/abs/2509.00676)
-
-Read the full technical paper on arXiv
+<ResourceCard
+  title="Project Resources"
+  description="Access code, models, and research paper for LLaVA-Critic-R1"
+  resources={[
+    {
+      type: "github",
+      title: "Code Repository",
+      description: "Access training code and implementation details",
+      url: "https://github.com/LLaVA-VL/LLaVA-NeXT/tree/main/LLaVA-Critic-R1",
+    },
+    {
+      type: "model",
+      title: "Model Collection",
+      description: "Download pre-trained model checkpoints",
+      url: "https://huggingface.co/collections/lmms-lab/llava-critic-r1-68922484e5822b89fab4aca1",
+    },
+    {
+      type: "paper",
+      title: "Research Paper",
+      description: "Read the full technical paper on arXiv",
+      url: "https://arxiv.org/abs/2509.00676",
+    },
+  ]}
+/>

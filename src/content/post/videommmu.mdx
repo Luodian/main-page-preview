@@ -30,7 +30,7 @@ authors:
 bibtex: "@article{hu2025videommmu,\n    title={Video-MMMU: Evaluating Knowledge Acquisition from Multi-Discipline Professional Videos},\n    author={Kairui Hu and Penghao Wu and Fanyi Pu and Wang Xiao and Yuanhan Zhang and Xiang Yue and Bo Li and Ziwei Liu},\n    journal={arXiv preprint arXiv:2501.13826},\n    year={2025},\n    url={https://arxiv.org/abs/2501.13826}\n}"
 ---
 
-import { ResponsiveImage } from "@/components/mdx/components";
+import { ResponsiveImage, ResourceCard } from "@/components/mdx/components";
 
 <ResponsiveImage
   src="/images/videommmu_images/figure1.png"
@@ -247,12 +247,36 @@ Video-MMMU represents a **paradigm shift** from traditional video understanding 
 - **Memory Integration** - Better mechanisms for knowledge storage and retrieval
 - **Transfer Learning** - Improving cross-domain knowledge application
 
-## 🔗 Resources
-
-- 🌐 **[Project Website](https://videommmu.github.io/)** - Comprehensive benchmark information
-- 📄 **[Research Paper](https://arxiv.org/abs/2501.13826)** - Detailed methodology and analysis
-- 🤗 **[Dataset](https://huggingface.co/datasets/lmms-lab/VideoMMMU)** - Complete benchmark dataset
-- 💻 **[GitHub Repository](https://github.com/EvolvingLMMs-Lab/VideoMMMU)** - Evaluation code and tools
+<ResourceCard
+  title="Video-MMMU Resources"
+  description="Complete benchmark resources including dataset, evaluation tools, research paper, and project information"
+  resources={[
+    {
+      type: "link",
+      title: "Project Website",
+      description: "Comprehensive benchmark information",
+      url: "https://videommmu.github.io/",
+    },
+    {
+      type: "paper",
+      title: "Research Paper",
+      description: "Detailed methodology and analysis",
+      url: "https://arxiv.org/abs/2501.13826",
+    },
+    {
+      type: "dataset",
+      title: "Video-MMMU Dataset",
+      description: "Complete benchmark dataset",
+      url: "https://huggingface.co/datasets/lmms-lab/VideoMMMU",
+    },
+    {
+      type: "github",
+      title: "GitHub Repository",
+      description: "Evaluation code and tools",
+      url: "https://github.com/EvolvingLMMs-Lab/VideoMMMU",
+    },
+  ]}
+/>
 
 ## 🎯 Getting Started
 

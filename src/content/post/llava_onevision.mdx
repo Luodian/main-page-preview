@@ -31,7 +31,7 @@ acknowledgement: "This work is a collaboration between researchers from ByteDanc
 bibtex: "@article{li2024llava-onevision,\n  title={LLaVA-OneVision: Easy Visual Task Transfer},\n  author={Li, Bo and Zhang, Yuanhan and Guo, Dong and Zhang, Renrui and Li, Feng and Zhang, Hao and Zhang, Kaichen and Li, Yanwei and Liu, Ziwei and Li, Chunyuan},\n  journal={arXiv preprint arXiv:2408.03326},\n  year={2024}\n}"
 ---
 
-import { ResponsiveImage } from "@/components/mdx/components";
+import { ResponsiveImage, ResourceCard } from "@/components/mdx/components";
 
 <ResponsiveImage
   src="https://llava-vl.github.io/blog/2024-08-05-llava-onevision/demos/fig1.png"
@@ -81,25 +81,39 @@ Seamlessly process and understand content across single images, multiple images,
 
 Importantly, the design of LLaVA-OneVision allows strong transfer learning across different modalities/scenarios. In particular, strong video understanding and cross-scenario capabilities are demonstrated through task transfer from images to videos, showcasing the model's ability to generalize learned representations across visual domains.
 
-## Open-Source Resources
-
-We open-source LLaVA-OneVision to facilitate future development of LMMs in the community:
-
-### 🚀 [Training Code](https://github.com/LLaVA-VL/LLaVA-NeXT)
-
-Cook a SOTA model with our released training code and reproduction scripts
-
-### 🤗 [Model Checkpoints](https://huggingface.co/collections/lmms-lab/llava-onevision-66a259c3526e15166d6bba37)
-
-Access pre-trained model checkpoints in all three sizes (0.5B, 7B, 72B)
-
-### 📊 [Training Datasets](https://huggingface.co/datasets/lmms-lab/LLaVA-OneVision-Data)
-
-Explore comprehensive training datasets for Single-Image and OneVision stages
-
-### 🔥 [Live Demo](https://llava-vl.github.io/blog/2024-08-05-llava-onevision/)
-
-Try LLaVA-OneVision directly in your browser
+<ResourceCard
+  title="Open-Source Resources"
+  description="Complete LLaVA-OneVision resources to facilitate future development of LMMs in the community"
+  resources={[
+    {
+      type: "github",
+      title: "Training Code",
+      description:
+        "Cook a SOTA model with our released training code and reproduction scripts",
+      url: "https://github.com/LLaVA-VL/LLaVA-NeXT",
+    },
+    {
+      type: "model",
+      title: "Model Checkpoints",
+      description:
+        "Access pre-trained model checkpoints in all three sizes (0.5B, 7B, 72B)",
+      url: "https://huggingface.co/collections/lmms-lab/llava-onevision-66a259c3526e15166d6bba37",
+    },
+    {
+      type: "dataset",
+      title: "Training Datasets",
+      description:
+        "Explore comprehensive training datasets for Single-Image and OneVision stages",
+      url: "https://huggingface.co/datasets/lmms-lab/LLaVA-OneVision-Data",
+    },
+    {
+      type: "demo",
+      title: "Live Demo",
+      description: "Try LLaVA-OneVision directly in your browser",
+      url: "https://llava-vl.github.io/blog/2024-08-05-llava-onevision/",
+    },
+  ]}
+/>
 
 ## Development Roadmap
 

@@ -30,7 +30,7 @@ acknowledgement: "This work represents a breakthrough in search-augmented multim
 bibtex: "@article{wu2025searchr1,\n  title={Search-R1: A Multimodal Search-Augmented Reinforcement Learning Framework for LMMs},\n  author={Wu, Jinming and Deng, Zihao and Li, Wei and Liu, Yiding and You, Bo and Li, Bo and Ma, Zejun},\n  url={https://github.com/EvolvingLMMs-Lab/multimodal-search-r1},\n  year={2025}\n}"
 ---
 
-import { ResponsiveImage } from "@/components/mdx/components";
+import { ResponsiveImage, ResourceCard } from "@/components/mdx/components";
 
 <ResponsiveImage
   src="https://i.postimg.cc/dtq2PjtQ/istockphoto-1519732762-612x612.jpg"
@@ -200,9 +200,33 @@ MMSearch-R1 represents a significant advancement in multimodal AI, learning to:
 
 Our framework outperforms same-sized RAG baselines and approaches larger model performance while requiring significantly fewer search calls. This work lays the groundwork for building multimodal agents that are both adaptive and interactive, paving the way for the next major advancement in multimodal intelligence.
 
-## Resources
-
-- 🚀 **[GitHub Repository](https://github.com/EvolvingLMMs-Lab/multimodal-search-r1)** - Complete implementation
-- 📄 **[Research Paper](https://arxiv.org/abs/2506.00000)** - Detailed methodology and results
-- 🤗 **[Model Checkpoints](https://huggingface.co/EvolvingLMMs-Lab/MMSearch-R1-7B)** - Pre-trained models
-- 📊 **[FVQA Dataset](https://huggingface.co/datasets/EvolvingLMMs-Lab/FVQA)** - Training and evaluation data
+<ResourceCard
+  title="Project Resources"
+  description="Complete implementation, research paper, models, and datasets for MMSearch-R1"
+  resources={[
+    {
+      type: "github",
+      title: "GitHub Repository",
+      description: "Complete implementation",
+      url: "https://github.com/EvolvingLMMs-Lab/multimodal-search-r1",
+    },
+    {
+      type: "paper",
+      title: "Research Paper",
+      description: "Detailed methodology and results",
+      url: "https://arxiv.org/abs/2506.00000",
+    },
+    {
+      type: "model",
+      title: "Model Checkpoints",
+      description: "Pre-trained models",
+      url: "https://huggingface.co/EvolvingLMMs-Lab/MMSearch-R1-7B",
+    },
+    {
+      type: "dataset",
+      title: "FVQA Dataset",
+      description: "Training and evaluation data",
+      url: "https://huggingface.co/datasets/EvolvingLMMs-Lab/FVQA",
+    },
+  ]}
+/>

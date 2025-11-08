@@ -27,11 +27,10 @@ authors:
   - name: "Zhengkai Jiang"
   - name: "Tat-Seng Chua"
   - name: "Ziwei Liu"
-acknowledgement: "This groundbreaking work in multimodal mechanistic interpretability builds upon Anthropic's pioneering research in SAE-based feature interpretation, extending these methods to the multimodal domain for the first time."
 bibtex: "@article{li2024multimodal-sae,\n  title={Large Multi-modal Models Can Interpret Features in Large Multi-modal Models},\n  author={Li, Shaozhi and Wang, Xiong and Zhang, Yue and Yang, Jingkang and Wang, Keze and Jiang, Zhengkai and Chua, Tat-Seng and Liu, Ziwei},\n  journal={arXiv preprint arXiv:2411.10982},\n  year={2024}\n}"
 ---
 
-import { ResponsiveImage } from "@/components/mdx/components";
+import { ResponsiveImage, ResourceCard } from "@/components/mdx/components";
 
 <ResponsiveImage
   src="https://github.com/EvolvingLMMs-Lab/multimodal-sae/blob/main/assets/banner.png?raw=true"
@@ -150,14 +149,36 @@ Our approach is validated through:
 - **Cross-Model Validation** - Testing interpretation across different model sizes
 - **Semantic Consistency** - Verifying feature stability and meaning
 
-## Open Source Resources
-
-We provide comprehensive resources for the research community:
-
-- 🚀 **[GitHub Repository](https://github.com/EvolvingLMMs-Lab/multimodal-sae)** - Complete implementation and code
-- 📊 **Training Scripts** - SAE training and integration pipelines
-- 🔧 **Interpretation Tools** - Auto-explanation pipeline implementation
-- 📖 **Documentation** - Detailed guides for reproduction and extension
+<ResourceCard
+  title="Open Source Resources"
+  description="Comprehensive resources for the research community to reproduce and extend our multimodal SAE work"
+  resources={[
+    {
+      type: "github",
+      title: "GitHub Repository",
+      description: "Complete implementation and code",
+      url: "https://github.com/EvolvingLMMs-Lab/multimodal-sae",
+    },
+    {
+      type: "link",
+      title: "Training Scripts",
+      description: "SAE training and integration pipelines",
+      url: "https://github.com/EvolvingLMMs-Lab/multimodal-sae",
+    },
+    {
+      type: "link",
+      title: "Interpretation Tools",
+      description: "Auto-explanation pipeline implementation",
+      url: "https://github.com/EvolvingLMMs-Lab/multimodal-sae",
+    },
+    {
+      type: "link",
+      title: "Documentation",
+      description: "Detailed guides for reproduction and extension",
+      url: "https://github.com/EvolvingLMMs-Lab/multimodal-sae",
+    },
+  ]}
+/>
 
 ## Conclusion
 

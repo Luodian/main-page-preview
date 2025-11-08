@@ -27,7 +27,11 @@ authors:
 bibtex: "@article{li2025aero,\n  title={Aero: Audio-enhanced large language models},\n  author={Li, Bo and Chen Change Loy and Pu Fanyi and Yang Jingkang and Zhang Kaichen and Hu Kairui and Thang Luu Minh and Trung Nguyen Quang and Cong Pham Ba and Liu Shuai and Wang Yezhen and Liu Ziwei},\n  url={https://www.lmms-lab.com/posts/aero_audio/},\n  year={2025}\n}"
 ---
 
-import { ResponsiveImage, Collapsible } from "@/components/mdx/components";
+import {
+  ResponsiveImage,
+  Collapsible,
+  ResourceCard,
+} from "@/components/mdx/components";
 
 <ResponsiveImage
   src="https://i.postimg.cc/NfMJfZ51/Pix-Pin-2025-04-28-12-16-06.gif"
@@ -38,7 +42,42 @@ import { ResponsiveImage, Collapsible } from "@/components/mdx/components";
 
 ## What is Aero Audio?
 
-[Github](https://github.com/EvolvingLMMs-Lab/Aero-1/blob/main/README.md) | [Playground](https://huggingface.co/spaces/lmms-lab/Aero-1-Audio-Demo) | [Models](https://huggingface.co/lmms-lab/Aero-1-Audio-1.5B) | [Evaluation Results](https://github.com/EvolvingLMMs-Lab/lmms-eval/pull/658) | [Cookbook](https://www.lmms-lab.com/posts/lmms-lab-docs/aero_audio/)
+<ResourceCard
+  title="Aero-1-Audio Resources"
+  description="Complete implementation, interactive demos, models, evaluation results, and documentation for Aero-1-Audio"
+  resources={[
+    {
+      type: "github",
+      title: "GitHub Repository",
+      description: "Complete implementation and source code",
+      url: "https://github.com/EvolvingLMMs-Lab/Aero-1/blob/main/README.md",
+    },
+    {
+      type: "demo",
+      title: "Interactive Playground",
+      description: "Try Aero-1-Audio live demo",
+      url: "https://huggingface.co/spaces/lmms-lab/Aero-1-Audio-Demo",
+    },
+    {
+      type: "model",
+      title: "Model Checkpoints",
+      description: "Pre-trained Aero-1-Audio models",
+      url: "https://huggingface.co/lmms-lab/Aero-1-Audio-1.5B",
+    },
+    {
+      type: "link",
+      title: "Evaluation Results",
+      description: "Comprehensive evaluation benchmarks",
+      url: "https://github.com/EvolvingLMMs-Lab/lmms-eval/pull/658",
+    },
+    {
+      type: "link",
+      title: "Documentation",
+      description: "Complete usage cookbook and guides",
+      url: "https://www.lmms-lab.com/posts/lmms-lab-docs/aero_audio/",
+    },
+  ]}
+/>
 
 `Aero-1-Audio` is a compact audio model adept at various audio tasks, including speech recognition, audio understanding, and following audio instructions. It is part of the `Aero-1` series, the first generation of lightweight multimodal models developed by LMMs-Lab, with future expansions planned across additional modalities.
 
