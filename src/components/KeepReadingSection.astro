@@ -25,7 +25,7 @@ async function getRelatedPosts(post: CollectionEntry<"post">) {
   if (post.data.related && post.data.related.length > 0) {
     // Find specified related posts
     const specifiedPosts = post.data.related
-      .map(relatedId => sortedPosts.find(p => p.id === relatedId || p.slug === relatedId))
+      .map(relatedId => sortedPosts.find(p => p.id === relatedId))
       .filter(Boolean) as CollectionEntry<"post">[];
     
     relatedPosts = [...specifiedPosts];
@@ -71,7 +71,7 @@ const transformedPosts = relatedPosts.map(post => ({
     day: "numeric"
   }),
   href: `/posts/${post.id}/`,
-  image: post.data.thumbnail,
+  ...(post.data.thumbnail && { image: post.data.thumbnail }),
   imageQuery: post.data.title
 }));
 ---
