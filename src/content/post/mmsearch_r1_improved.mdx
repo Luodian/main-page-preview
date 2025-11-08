@@ -17,6 +17,7 @@ thumbnail: "/images/blog_thumbnails/mmsearch_r1_improved.png"
 ---
 
 import { ResponsiveImage } from "@/components/mdx/components";
+import CodeDemo from "@/components/mdx/CodeDemo.astro";
 
 Our previous work, MMSearch-R1, represents a paradigm shift in multimodal AI as the first framework to employ end-to-end reinforcement learning for autonomous tool invocation in large multimodal models (LMMs). By enabling models to independently determine when and how to leverage external search tools, MMSearch-R1 achieves both high efficiency and state-of-the-art performance on open-world tasks, marking a significant advance in practical AI deployment.
 
@@ -324,38 +325,39 @@ In this case, the model is tasked with composing an email to Abdullah Shahid Sia
 
 # Appendix
 
-## Reasoning Template
-
+<CodeDemo title="Reasoning Template">
 ```bash
 {question}
 Please reason step by step. Output the thinking process within <think> </think> tags and final answer within <answer> </answer> tags.
 ```
+</CodeDemo>
 
-## Search Template
 
+<CodeDemo title="Search Template">
 ```bash
 Answer the user's question based on the provided image. Examine the image carefully and identify any recognizable entities, such as faces, objects, locations, events, logos, or text. Determine whether you have sufficient knowledge to confidently recognize the main visual element and answer the user's question. If so, first explain your reasoning, then provide a clear and direct answer.\nIf you are unable to confidently identify the visual element, stop and invoke the image search tool by appending the string <search><img></search> at the end of your response. This will trigger a Google Lens search using the original image to retrieve relevant information that can help you confirm the visual content.\nOnce you have sufficient visual understanding, combine it with the user's question and assess whether you can confidently answer. If so, answer the question directly using your own knowledge. If not, invoke the text search tool by generating a concise and specific query, and output it in the format <text_search>your query here</text_search> at the end of your response. Carefully craft your query to accurately retrieve the information needed to help answer the question. The text search tool will then use Google Search to return relevant information based on your query.\nYou must include your reasoning inside <reason>...</reason> before taking any action, whether it is calling the image search tool, generating a text search query, or providing a final answer. The reasoning may involve analysis of the original image and question, interpretation of search results, or logical steps leading to the final answer.\nAll search results will be placed inside <information> and </information> and returned to you. When you are ready to answer the question, wrap your final answer between <answer> and </answer>, without detailed illustrations. For example: <answer>Titanic</answer>.\nHere is the image and the question:\n<image>
 {question}
 ```
+</CodeDemo>
 
-## ReACT Template
-
+<CodeDemo title="ReACT Template">
 ```bash
 # System Message
-  You are a helpful assistant. You should strictly follow reason-to-act thinking process to answer user provided question. Namely, you should first analyze the question & observation (e.g., user provided image or search results) and then inform the following action. The thinking process should be within <reason> and </reason> tags. The actions you can choose are:
+You are a helpful assistant. You should strictly follow reason-to-act thinking process to answer user provided question. Namely, you should first analyze the question & observation (e.g., user provided image or search results) and then inform the following action. The thinking process should be within <reason> and </reason> tags. The actions you can choose are:
 <answer>xxxxx</answer>:  which returns the answer within <answer> and </answer> tags, and finishes the task.
 <search>image</search>: which searches user provided image on Google and returns image-related visual entity/concept/knowledge for further reason-to-act. The search results are placed between <observation> and </observation> tags.
 <search>text query</search>:  which generates a text query and sent to Google and returns some snippets containing the answer for further reason-to-act. The search results are placed between <observation> and </observation> tags. Note that sometimes the snippets do not contain the answer, and some alternative search might be needed.
 
-  Your output format should be one of the following three formats:
-  <reason> YOUR THINKING PROCESS </reason>
-  <answer> YOUR ANSWER AFTER GETTING ENOUGH INFORMATION </answer>
-   or
-  <reason> YOUR THINKING PROCESS </reason>
-  <search> IMAGE </search>
-  or
-  <reason> YOUR THINKING PROCESS </reason>
-  <search> YOUR GENERATED TEXT QUERY FOR HELPING YOU FIND INFORMATION ON GOOGLE TO ANSWER USER QUESTION </search>
+Your output format should be one of the following three formats:
+<reason> YOUR THINKING PROCESS </reason>
+<answer> YOUR ANSWER AFTER GETTING ENOUGH INFORMATION </answer>
+or
+<reason> YOUR THINKING PROCESS </reason>
+<search> IMAGE </search>
+or
+<reason> YOUR THINKING PROCESS </reason>
+<search> YOUR GENERATED TEXT QUERY FOR HELPING YOU FIND INFORMATION ON GOOGLE TO ANSWER USER QUESTION </search>
 
-  Only output the final answer (in words, numbers or phrase) inside the <answer></answer> tags, without any explanations or extra information. If this is a yes-or-no question, you should only answer yes or no.
+Only output the final answer (in words, numbers or phrase) inside the <answer></answer> tags, without any explanations or extra information. If this is a yes-or-no question, you should only answer yes or no.
 ```
+</CodeDemo>

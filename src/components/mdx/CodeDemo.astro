@@ -5,24 +5,49 @@ interface Props {
   showCopy?: boolean;
 }
 
-const { title, language = 'javascript', showCopy = true } = Astro.props;
+const { title, language = 'bash', showCopy = true } = Astro.props;
 ---
 
-<div class="my-6 border border-special-light rounded-lg overflow-hidden">
+<div class="CodeDemo max-w-3xl mx-auto border border-special-light rounded-lg overflow-hidden">
   {title && (
-    <div class="bg-accent-base/5 px-4 py-2 border-b border-special-light">
+    <div class="bg-transparent px-4 py-2 border-b border-special-light">
       <h4 class="font-semibold text-accent-base">{title}</h4>
     </div>
   )}
-  <div class="relative">
-    <slot />
+  <div class="relative bg-neutral-50">
+    <div class="overflow-x-auto bg-neutral-50">
+      <slot />
+    </div>
     {showCopy && (
-      <button class="copy-demo-button absolute top-2 right-2 bg-bgColor/80 hover:bg-bgColor px-2 py-1 rounded text-xs font-medium text-light hover:text-accent-two transition-colors">
+      <button class="copy-demo-button absolute top-2 right-2 bg-bgColor/90 hover:bg-bgColor px-3 py-1 rounded text-xs font-medium text-light hover:text-accent-two transition-colors border border-special-light/50 shadow-sm z-10">
         Copy
       </button>
     )}
   </div>
 </div>
+
+<style>
+  /* Ensure pre elements maintain background across full width */
+  .CodeDemo :global(pre) {
+    min-width: 100%;
+    margin: 0 !important;
+    width: max-content;
+    background-color: rgb(250 250 250) !important; /* bg-neutral-50 */
+  }
+  
+  /* Ensure code blocks have consistent background */
+  .CodeDemo :global(pre code) {
+    display: block;
+    min-width: max-content;
+    width: 100%;
+    background-color: rgb(250 250 250) !important; /* bg-neutral-50 */
+  }
+  
+  /* Ensure the scrollable container has the right background */
+  .CodeDemo .overflow-x-auto {
+    background-color: rgb(250 250 250); /* bg-neutral-50 */
+  }
+</style>
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {

@@ -26,6 +26,7 @@ bibtex: "@misc{zhang2024largemultimodalmodelsinterpret,\n      title={Large Mult
 ---
 
 import { ResponsiveImage } from "@/components/mdx/components";
+import CodeDemo from "@/components/mdx/CodeDemo.astro";
 
 <ResponsiveImage
   src="https://github.com/user-attachments/assets/59bf4ef7-e14c-4464-be3a-ba6fbf16ae48"
@@ -48,6 +49,7 @@ The code design takes inspiration from **PEFT**, as we believe SAE shares many s
 
 With this design, injecting an SAE module is as simple as:
 
+<CodeDemo title="" language="python">
 ```python
 import torch
 import torch.nn as nn
@@ -72,22 +74,26 @@ model = inject_adapter_in_model(config, model)
 # Check if the adapter was injected correctly
 result = model(torch.randn(1, 512, 10))
 ```
+</CodeDemo>
 
 ### PEFT-Style Workflow
 
 You can also obtain a PEFT-wrapped model using the magic function from the PEFT library. **The rest of your workflow remains the same:**
 
+<CodeDemo title="" language="python">
 ```python
 # Get the PEFT model
 peft_model = get_peft_sae_model(model, config)
 
 result = peft_model(torch.randn(1, 512, 10))
 ```
+</CodeDemo>
 
 ### Model Persistence
 
 Loading and saving is similar to `PeftModel`:
 
+<CodeDemo title="" language="python">
 ```python
 peft_model.save_pretrained("test_save_peft_model")
 
@@ -99,6 +105,7 @@ peft_model = PeftSaeModel.from_pretrained(
     low_cpu_mem_usage=True,
 )
 ```
+</CodeDemo>
 
 ## 📊 Data Processing
 
@@ -115,6 +122,7 @@ You are free to customize the preprocessing logic and define keys for different 
 
 An example preprocessing script is available at `examples/data_process/llava_ov_clevr.py`:
 
+<CodeDemo title="" language="bash">
 ```bash
 python examples/data_process/llava_ov_clevr.py \
     --push_to_hub \
@@ -123,6 +131,7 @@ python examples/data_process/llava_ov_clevr.py \
     --split train \
     --target_hf_repo_path lmms-lab/LLaVA-OneVision-Data-SAE
 ```
+</CodeDemo>
 
 ## 🚀 Training
 

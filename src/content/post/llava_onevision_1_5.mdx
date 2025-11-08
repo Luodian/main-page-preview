@@ -57,6 +57,7 @@ bibtex: |
 
 import ResponsiveImage from "../../components/mdx/ResponsiveImage.tsx";
 import { ResourceCard } from "../../components/mdx/ResourceCard.tsx";
+import CodeDemo from "../../components/mdx/CodeDemo.astro";
 
 <ResponsiveImage
   src="/images/llava_ov_1_5_images/llava_ov_1_5_megatron_plus_rice_and_qwen.gif"
@@ -230,19 +231,23 @@ On a 128×A800 cluster, Stage‑1.5 for an 8B model (85M samples, native resolut
   ]}
 />
 
-## Quick Start with HuggingFace
+{/* prettier-ignore-start */}
 
+<CodeDemo title="Quick Start with HuggingFace" language="python">
 ```python
 from transformers import AutoTokenizer, AutoProcessor, AutoModelForCausalLM
 from qwen_vl_utils import process_vision_info
+
 model_path = "lmms-lab/LLaVA-One-Vision-1.5-8B-Instruct"
 
 # default: Load the model on the available device(s)
+
 model = AutoModelForCausalLM.from_pretrained(
     model_path, torch_dtype="auto", device_map="auto", trust_remote_code=True
 )
 
 # default processor
+
 processor = AutoProcessor.from_pretrained(model_path, trust_remote_code=True)
 
 messages = [
@@ -259,6 +264,7 @@ messages = [
 ]
 
 # Preparation for inference
+
 text = processor.apply_chat_template(
     messages, tokenize=False, add_generation_prompt=True
 )
@@ -273,7 +279,8 @@ inputs = processor(
 inputs = inputs.to("cuda")
 
 # Inference: Generation of the output
-generated_ids = model.generate(**inputs, max_new_tokens=1024)
+
+generated_ids = model.generate(inputs, max_new_tokens=1024)
 generated_ids_trimmed = [
     out_ids[len(in_ids) :] for in_ids, out_ids in zip(inputs.input_ids, generated_ids)
 ]
@@ -283,15 +290,17 @@ output_text = processor.batch_decode(
 print(output_text)
 
 ```
+</CodeDemo>
+{/* prettier-ignore-end */}
 
-## Evaluation
-
-```
+<CodeDemo title="Model Evaluation">
+```bash
 # pip install git+https://github.com/EvolvingLMMs-Lab/lmms-eval.git
-
 accelerate launch --num_processes=8 --main_process_port 12399 -m lmms_eval \
-    --model=llava_onevision1_5 \
-    --model_args=pretrained=lmms-lab/LLaVA-OneVision-1.5-8B-Instruct,attn_implementation=flash_attention_2,max_pixels=3240000 \
-    --tasks=mmmu_val,mmmu_pro_standard,mmbench_en_test,mmerealworld,mmerealworld_cn,ai2d,ai2d_no_mask,vstar_bench,chartqa,charxiv,docvqa_test,mathvista_testmini,mmstar,scienceqa \
-    --batch_size=1
+ --model=llava_onevision1_5 \
+ --model_args=pretrained=lmms-lab/LLaVA-OneVision-1.5-8B-Instruct,attn_implementation=flash_attention_2,max_pixels=3240000 \
+ --tasks=mmmu_val,mmmu_pro_standard,mmbench_en_test,mmerealworld,mmerealworld_cn,ai2d,ai2d_no_mask,vstar_bench,chartqa,charxiv,docvqa_test,mathvista_testmini,mmstar,scienceqa \
+ --batch_size=1
+
 ```
+</CodeDemo>

@@ -31,6 +31,7 @@ bibtex: "@article{hu2025videommmu,\n    title={Video-MMMU: Evaluating Knowledge 
 ---
 
 import { ResponsiveImage, ResourceCard } from "@/components/mdx/components";
+import CodeDemo from "@/components/mdx/CodeDemo.astro";
 
 <ResponsiveImage
   src="/images/videommmu_images/figure1.png"
@@ -153,9 +154,11 @@ A core innovation in Video-MMMU is its shift from measuring only final performan
 
 #### Δknowledge Formula
 
+<CodeDemo title="" showCopy={false}>
 ```
 Δknowledge = (Acc_after_video - Acc_before_video) / (100% - Acc_before_video) × 100%
 ```
+</CodeDemo>
 
 #### Evaluation Process
 
@@ -170,9 +173,11 @@ If the model succeeds after watching, it demonstrates successful knowledge acqui
 
 This setup mirrors a human's natural educational process:
 
+<CodeDemo title="" showCopy={false}>
 ```
 Don't know → Learn by watching → Apply the knowledge
 ```
+</CodeDemo>
 
 ## 🔍 Key Insights
 

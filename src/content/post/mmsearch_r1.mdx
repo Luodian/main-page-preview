@@ -31,6 +31,7 @@ bibtex: "@article{wu2025searchr1,\n  title={Search-R1: A Multimodal Search-Augme
 ---
 
 import { ResponsiveImage, ResourceCard } from "@/components/mdx/components";
+import CodeDemo from "@/components/mdx/CodeDemo.astro";
 
 <ResponsiveImage
   src="https://i.postimg.cc/dtq2PjtQ/istockphoto-1519732762-612x612.jpg"
@@ -38,8 +39,6 @@ import { ResponsiveImage, ResourceCard } from "@/components/mdx/components";
   maxWidth="100%"
   caption="MMSearch-R1: Bridging the gap between internal knowledge and external search"
 />
-
-🔗 [Code](https://github.com/EvolvingLMMs-Lab/multimodal-search-r1) | [Paper](https://arxiv.org/abs/2506.00000) | [Model](https://huggingface.co/EvolvingLMMs-Lab/MMSearch-R1-7B) | [Data](https://huggingface.co/datasets/EvolvingLMMs-Lab/FVQA)
 
 **MMSearch-R1** is the first end-to-end RL-based solution designed to equip LMMs with the capability to perform search on demand in real-world internet environments. It outperforms same-sized RAG baselines and approaches the performance of larger models while requiring significantly fewer search calls.
 
@@ -114,9 +113,11 @@ Our framework equips models with two types of search tools:
 
 Our reward system consists of two components:
 
+<CodeDemo title="" showCopy={false}>
 ```
 reward = (1 - α) × Acc_Score × Search_Penalty + α × Format_Score
 ```
+</CodeDemo>
 
 - **Accuracy Score** - Exact string match against ground truth (1 for correct, 0 otherwise)
 - **Search Penalty** - Applied to correct responses that used search, encouraging internal knowledge use
