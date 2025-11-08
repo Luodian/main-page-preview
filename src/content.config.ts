@@ -58,6 +58,8 @@ const post = defineCollection({
         .optional(),
       acknowledgement: z.string().optional(),
       bibtex: z.string().optional(),
+      // Related posts
+      related: z.array(z.string()).max(3).optional(),
       // End
     }),
 });

@@ -62,7 +62,7 @@ export default function PostFooter({
 
   return (
     <>
-      <div className="w-full max-w-7xl mx-auto rounded-lg bg-accent-base/5 border border-special-light p-6 space-y-6 mt-8">
+      <div className="w-[90%] max-w-7xl mx-auto rounded-lg bg-accent-base/5 border border-special-light p-6 space-y-6 mt-8">
         {/* Topics/Tags Section */}
         <div className="flex flex-wrap gap-2">
           <Badge variant="default" showHash={false}>

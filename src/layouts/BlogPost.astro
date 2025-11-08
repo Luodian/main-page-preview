@@ -4,6 +4,7 @@ import SeriesPanel from "@/components/SeriesPanel.astro";
 import MastheadReact from "@/components/blog/MastheadReact.astro";
 import PostFooterReact from "@/components/blog/PostFooterReact.astro";
 import BackToTopButtonReact from "@/components/BackToTopButtonReact.astro";
+import KeepReadingSection from "@/components/KeepReadingSection.astro";
 import { Icon } from "astro-icon/components";
 import PageLayout from "@/layouts/Base.astro";
 import { cn } from "@/lib/utils";
@@ -88,7 +89,11 @@ const { headings } = await render(post);
 		</article>
 	</div>
 
+	
+
 	<PostFooterReact content={post} />
+
+	<KeepReadingSection currentPost={post} />
 
 	<BackToTopButtonReact />
 </PageLayout>
