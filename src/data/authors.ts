@@ -32,8 +32,8 @@ export const AUTHORS: Record<string, AuthorData> = loadAuthorsFromYaml();
 // Helper function to get author data with URL priority
 export function getAuthorWithUrl(authorInput: {
   name: string;
-  url?: string;
-  main?: boolean;
+  url?: string | undefined;
+  main?: boolean | undefined;
 }): {
   name: string;
   url?: string;
@@ -58,7 +58,11 @@ export function getAuthorWithUrl(authorInput: {
 
 // Helper function to get all author data for a list
 export function processAuthorsList(
-  authors: Array<{ name: string; url?: string; main?: boolean }>
+  authors: Array<{
+    name: string;
+    url?: string | undefined;
+    main?: boolean | undefined;
+  }>
 ): Array<{ name: string; url?: string; main?: boolean }> {
   return authors.map(getAuthorWithUrl);
 }

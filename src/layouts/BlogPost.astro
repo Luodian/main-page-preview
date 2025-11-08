@@ -6,6 +6,7 @@ import PostFooterReact from "@/components/blog/PostFooterReact.astro";
 import BackToTopButtonReact from "@/components/BackToTopButtonReact.astro";
 import { Icon } from "astro-icon/components";
 import PageLayout from "@/layouts/Base.astro";
+import { cn } from "@/lib/utils";
 
 interface Props {
 	post: CollectionEntry<"post">;
@@ -23,9 +24,65 @@ const { headings } = await render(post);
 
 	<MastheadReact content={post} />
 	
-	<div class="mt-6 flex sm:grid-cols-[auto_1fr] md:items-start gap-x-8">
-		<article class="grid flex-grow grid-cols-1 break-words pt-4" data-pagefind-body>
-			<div class="prose prose-citrus max-w-5xl mx-auto flex-grow prose-headings:font-semibold prose-headings:text-accent-base prose-headings:before:text-accent-two sm:prose-th:before:content-none">
+	<div class={cn(
+		"mt-6 flex gap-x-8 justify-center",
+		"w-screen md:w-full"
+	)}>
+		<article class={cn(
+			"grid grid-cols-1 break-words pt-4",
+			"px-4 md:px-0"
+		)} data-pagefind-body>
+			<div class={cn(
+				// Layout
+				"justify-center w-[100%] mx-auto",
+				"max-w-screen md:max-w-5xl",
+				
+				// Prose base
+				"prose prose-citrus",
+				
+				// Headings
+				"prose-headings:font-semibold prose-headings:text-slate-950",
+				"md:prose-headings:max-w-3xl md:prose-headings:mx-auto",
+
+				// Lists
+				"md:prose-li:max-w-3xl md:prose-li:mx-auto",
+
+				// Blockquotes
+				"md:prose-blockquote:max-w-3xl md:prose-blockquote:mx-auto",
+
+				// Tables - container with horizontal scroll
+				"[&_table]:w-full md:[&_table]:w-fit [&_table]:max-w-3xl [&_table]:mx-auto",
+				"[&_table]:overflow-x-auto [&_table]:block [&_table]:whitespace-nowrap",
+				"[&_table]:border-collapse [&_table]:border-spacing-0",
+				"[&_td]:whitespace-nowrap [&_th]:whitespace-nowrap",
+				"[&_td]:px-3 [&_td]:py-2 [&_th]:px-3 [&_th]:py-2",
+				"sm:prose-th:before:content-none",
+				"[&_td]:text-xs [&_th]:text-xs md:[&_td]:text-base md:[&_th]:text-base",
+
+				// Paragraphs
+				"prose-p:text-justify prose-p:text-xs md:prose-p:text-base",
+				"md:prose-p:max-w-3xl md:prose-p:mx-auto",
+				
+				// Inline Code
+				"prose-code:bg-gray-100 prose-code:text-red-600 prose-code:px-1",
+				"prose-code:rounded-sm prose-code:text-sm prose-code:font-semibold",
+				"prose-code:leading-none prose-code:align-baseline",
+				"prose-code:before:content-none prose-code:after:content-none", // Remove default quotes
+				"[&_:not(pre)>code]:py-0 [&_:not(pre)>code]:my-0",
+				
+				// Strong
+				"md:prose-strong:max-w-3xl md:prose-strong:mx-auto",
+
+				// Summary
+				"md:prose-summary:max-w-3xl md:prose-summary:mx-auto",
+
+				// Ins tags (for model names/emphasis)
+				"[&_ins]:max-w-3xl [&_ins]:mx-auto [&_ins]:block",
+
+				// Iframes
+				"[&:has(>iframe)]:aspect-video [&:has(>iframe)]:w-full [&:has(>iframe)]:max-w-3xl [&:has(>iframe)]:mx-auto",
+				"[&_iframe]:aspect-video [&_iframe]:w-full md:[&_iframe]:max-w-3xl md:[&_iframe]:mx-auto",
+			)}>
 				<slot />
 			</div>
 		</article>
@@ -33,213 +90,5 @@ const { headings } = await render(post);
 
 	<PostFooterReact content={post} />
 
-	<BackToTopButtonReact /></PageLayout>
-
-<!-- Copy code button -->
-<script>
-	// Wait for the content to fully load
-	document.addEventListener("DOMContentLoaded", () => {
-		// Find all pre blocks
-		document.querySelectorAll("pre").forEach((pre) => {
-			// Check if the button already exists
-			if (!pre.querySelector(".copy-code")) {
-				// Create the button
-				const copyButton = document.createElement("button");
-				copyButton.className =
-				"absolute flex items-center justify-center bg-bgColor h-6 font-medium overflow-hidden rounded-md text-light hover:text-accent-two font-sans text-sm font-medium top-2 right-2";
-
-				// Create the span element that will hold the button text
-				const buttonText = document.createElement("span");
-				buttonText.innerText = "Copy"; // Initial text
-				buttonText.className = "flex items-center block w-full h-full px-2 bg-[var(--code-title-bg)]"; // Set the span to take up full width with background color
-
-				copyButton.appendChild(buttonText); // Append span to the button
-
-				// Add the button inside pre
-				pre.appendChild(copyButton);
-
-				// Event handler for copying text
-				copyButton.addEventListener("click", async () => {
-					const code = pre.querySelector("code")?.textContent;
-					if (code) {
-						await navigator.clipboard.writeText(code);
-						buttonText.innerText = "Copied!"; // Change text to "Copied!"
-
-						// After 1.5 seconds, change the text back to "Copy"
-						setTimeout(() => {
-							buttonText.innerText = "Copy";
-						}, 1500);
-					}
-				});
-			}
-		});
-	});
-</script>
-
-<script>
-	const ANIMATION_DURATION = 300;
-	// Get the button and panel elements
-	const togglePanelBtn = document.getElementById("toggle-panel");
-	const closePanelBtn = document.getElementById("close-panel");
-	const seriesPanel = document.getElementById("series-panel");
-	const togglePanelMobileBtn = document.getElementById("toggle-panel-mobile");
-
-	// Ensure the seriesPanel exists
-	if (!seriesPanel) {
-		console.error("Element series-panel not found");
-		throw new Error("series-panel is required");
-	}
-
-	// Function to check if the panel is visible
-	const isPanelVisible = () => {
-		// The panel is considered not visible if it has the 'hidden' class.
-		return !seriesPanel.classList.contains("hidden");
-	};
-
-	// Function to hide the panel
-	const hidePanel = () => {
-		seriesPanel.classList.add("opacity-0", "-translate-x-full");
-		setTimeout(() => {
-			seriesPanel.classList.remove("block", "lg:block");
-			seriesPanel.classList.add("hidden");
-		}, ANIMATION_DURATION);
-	};
-
-	// Function to show the panel
-	const showPanel = () => {
-		seriesPanel.classList.remove("hidden");
-		seriesPanel.classList.add("block", "lg:block");
-		setTimeout(() => {
-			seriesPanel.classList.remove("opacity-0", "-translate-x-full");
-		}, 10);
-	};
-
-	// Common event handler for both buttons
-	const togglePanel = () => {
-		if (isPanelVisible()) {
-			hidePanel(); // If visible, hide it
-		} else {
-			showPanel(); // If hidden, show it
-		}
-	};
-
-	// Event handlers for both buttons
-	if (togglePanelBtn) {
-		togglePanelBtn.addEventListener("click", togglePanel);
-	} else {
-		console.error("Element toggle-panel not found");
-	}
-
-	if (togglePanelMobileBtn) {
-		togglePanelMobileBtn.addEventListener("click", togglePanel);
-	} else {
-		console.error("Element toggle-panel-mobile not found");
-	}
-
-	if (closePanelBtn) {
-		closePanelBtn.addEventListener("click", hidePanel);
-	} else {
-		console.error("Element close-panel not found");
-	}
-</script>
-
-<script>
-	// Get the button and panel elements
-	const toggleTocBtn = document.getElementById('toggle-toc');
-	const closeTocBtn = document.getElementById('close-toc');
-	const tocPanel = document.getElementById('toc-panel');
-	const toggleTocMobileBtn = document.getElementById("toggle-toc-mobile");
-
-	// Check for the panel's presence (required for functionality)
-	if (!tocPanel) {
-		console.error('Element toc-panel not found');
-		throw new Error('toc-panel is required');
-	}
-
-	// Function to check if the table of contents is visible
-	const isTocVisible = () => {
-		const isScreenMd = window.matchMedia("(min-width: 768px)").matches;
-		return (
-			(isScreenMd && tocPanel.classList.contains("md:block")) ||
-			(!isScreenMd && !tocPanel.classList.contains("hidden"))
-		);
-	};
-
-	// Function to hide the panel
-	const hideToc = () => {
-		tocPanel.classList.add('hidden');
-		tocPanel.classList.remove('md:block');
-	};
-
-	// Function to show the panel
-	const showToc = () => {
-		tocPanel.classList.remove('hidden');
-		tocPanel.classList.add('md:block');
-	};
-
-	// Common event handler for both buttons
-	const toggleToc = () => {
-		if (isTocVisible()) {
-			hideToc(); // If visible, hide it
-		} else {
-			showToc(); // If hidden, show it
-		}
-	};
-	
-	// Add event handler for the toggle button
-	if (toggleTocBtn) {
-		toggleTocBtn.addEventListener("click", toggleToc);
-	} else {
-		console.error('Element toggle-toc not found');
-	}
-
-	// Add event handler for the toggle button (mobile)
-	if (toggleTocMobileBtn) {
-		toggleTocMobileBtn.addEventListener("click", toggleToc);
-	} else {
-		console.error('Element toggle-toc-mobile not found');
-	}
-
-	// Add event handler for the close button
-	if (closeTocBtn) {
-		closeTocBtn.addEventListener('click', hideToc);
-	} else {
-		console.error('Element close-toc not found');
-	}
-</script>
-
-<script>
-	// Wait for the content to fully load
-	document.addEventListener("DOMContentLoaded", () => {
-		const buttonsPanel = document.getElementById("buttons-panel");
-		
-		if (buttonsPanel) {
-			buttonsPanel.classList.add("fixed");
-			console.log("Class 'fixed' added to the buttons-panel element.");
-		} else {
-			console.error("Element with ID 'buttons-panel' not found.");
-		}
-	});
-</script>
-
-<!-- Copy code button -->
-
-
-
-<script>
-	// Center and make markdown tables scrollable without overflowing the container
-	document.addEventListener("DOMContentLoaded", () => {
-		const proseRoot = document.querySelector('.prose');
-		if (!proseRoot) return;
-		proseRoot.querySelectorAll('table').forEach((table) => {
-			const parent = table.parentElement;
-			if (!parent) return;
-			// Skip if already wrapped
-			if (parent.classList.contains('table-scroll-center')) return;
-			const wrapper = document.createElement('div');
-			wrapper.className = 'table-scroll-center overflow-x-auto w-full flex justify-center';
-			parent.insertBefore(wrapper, table);
-			wrapper.appendChild(table);
-		});
-	});
-</script>
+	<BackToTopButtonReact />
+</PageLayout>

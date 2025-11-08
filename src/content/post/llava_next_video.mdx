@@ -2,9 +2,26 @@
 title: "LLaVA-Video"
 description: "Video Instruction Tuning With Synthetic Data"
 publishDate: "2024-09-30"
-tags: ["vision", "models", "research"]
+mainTags: ["models"]
+tags:
+  [
+    "vision",
+    "models",
+    "research",
+    "video",
+    "multimodal",
+    "llava",
+    "instruction-tuning",
+  ]
 thumbnail: "/images/blog_thumbnails/llava_next_video.png"
+authors:
+  - name: "LMMs-Lab Team"
+    main: true
+acknowledgement: "This work presents LLaVA-Video, a video large multimodal model trained on high-quality synthetic instruction-following data, demonstrating strong performance across video understanding benchmarks."
+bibtex: "@article{zhang2024llavavideo,\n  title={LLaVA-Video: Video Instruction Tuning With Synthetic Data},\n  author={Zhang, Yuanhan and Li, Bo and Liu, Haotian and Lee, Yong Jae and Gui, Liangke and Fu, Di and Feng, Jiashi and Liu, Ziwei and Li, Chunyuan},\n  journal={arXiv preprint arXiv:2410.02713},\n  year={2024}\n}"
 ---
+
+import { ResponsiveImage } from "@/components/mdx/components";
 
 The development of video large multimodal models (LMMs) has been hindered by the difficulty of curating large amounts of high-quality raw data from the web. To address this, we consider an alternative approach, creating a high-quality synthetic dataset specifically for video instruction-following, namely LLaVA-Video-178K. This dataset includes key tasks such as detailed captioning, open-ended question-answering (QA), and multiple-choice QA. By training on this proposed dataset, in combination with existing visual instruction tuning data, we introduce LLaVA-Video, a new video LMM. Our experiments demonstrate that LLaVA-Video achieves strong performance across various video benchmarks, highlighting the effectiveness of our dataset. We plan to release the dataset, its generation pipeline, and the model checkpoints.
 
@@ -33,5 +50,7 @@ We carefully select from our collected data sources to form a balanced and compr
 We provide a comparison of high-quality instruction-following video-language datasets, with a focus on synthetic data created with strong AI models, as shown in Table 1.
 
 A broad collection of dynamic videos. In terms of video sources, although LLaVA-Hound contains the largest number of videos, 44% of its video data are sourced from WebVid, where most videos are static. ShareGPT4Video includes 30% of its videos from Pexels, ,Pixabay, and Mixkit, which are aesthetically good but also mostly static. Additionally, the majority of its videos come from Panda-70M, which are short clips from longer videos, suggesting simpler plots. In contrast, we carefully select video sources that offer dynamic, untrimmed videos with complex plots, which are crucial for developing a powerful video understanding model.
+
 High frames per second. Regarding frame sampling in language annotations, the proposed dataset considers 1 FPS, while other datasets consider much lower FPS. LLaVA-Hound uniformly samples 10 frames from videos of any length. The average FPS is 0.008, which may miss some fine details. ShareGPT4Video picks key frames using CLIP based on frame uniqueness. This method might also miss subtle changes in the video because CLIP embeddings do not capture fine-grained dynamics well. Our method samples FPS=1 without using key frame selection algorithms, ensuring that detailed temporal information can be expressed in annotations with high coverage.
+
 Diverse tasks. The proposed dataset considers three common task types, including caption, free-form, and closed-form QA, while existing datasets only consider a subset. Meanwhile, the quality and number of samples in our dataset is higher.

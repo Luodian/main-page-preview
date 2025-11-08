@@ -22,7 +22,7 @@ const Masthead: React.FC<MastheadProps> = ({ content, postSeries }) => {
     : "Less than one minute read";
 
   return (
-    <div className="max-w-5xl mx-auto">
+    <div className="max-w-5xl mx-auto px-3 md:px-0">
       {/* Tags and Series */}
       <div className="mb-4 flex flex-wrap justify-center gap-2 mx-auto">
         {/* Tags */}

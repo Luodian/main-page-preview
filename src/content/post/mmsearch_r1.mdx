@@ -1,0 +1,208 @@
+---
+title: "MMSearch-R1: Multimodal Search with Reinforcement Learning"
+description: "The first end-to-end RL-based solution designed to equip LMMs with the capability to perform search on demand in real-world internet environments"
+publishDate: "2025-06-01"
+mainTags: ["models"]
+tags:
+  [
+    "vision",
+    "multimodal",
+    "research",
+    "reinforcement-learning",
+    "search",
+    "retrieval",
+    "vqa",
+    "rl",
+    "internet",
+  ]
+thumbnail: "/images/blog_thumbnails/mmsearch_r1.png"
+authors:
+  - name: "Jinming Wu"
+    main: true
+  - name: "Zihao Deng"
+    main: true
+  - name: "Wei Li"
+  - name: "Yiding Liu"
+  - name: "Bo You"
+  - name: "Bo Li"
+  - name: "Zejun Ma"
+acknowledgement: "This work represents a breakthrough in search-augmented multimodal reasoning, developed by the Evolving LMMs Lab and collaborating institutions."
+bibtex: "@article{wu2025searchr1,\n  title={Search-R1: A Multimodal Search-Augmented Reinforcement Learning Framework for LMMs},\n  author={Wu, Jinming and Deng, Zihao and Li, Wei and Liu, Yiding and You, Bo and Li, Bo and Ma, Zejun},\n  url={https://github.com/EvolvingLMMs-Lab/multimodal-search-r1},\n  year={2025}\n}"
+---
+
+import { ResponsiveImage } from "@/components/mdx/components";
+
+<ResponsiveImage
+  src="https://i.postimg.cc/dtq2PjtQ/istockphoto-1519732762-612x612.jpg"
+  alt="MMSearch-R1 Thumbnail"
+  maxWidth="100%"
+  caption="MMSearch-R1: Bridging the gap between internal knowledge and external search"
+/>
+
+🔗 [Code](https://github.com/EvolvingLMMs-Lab/multimodal-search-r1) | [Paper](https://arxiv.org/abs/2506.00000) | [Model](https://huggingface.co/EvolvingLMMs-Lab/MMSearch-R1-7B) | [Data](https://huggingface.co/datasets/EvolvingLMMs-Lab/FVQA)
+
+**MMSearch-R1** is the first end-to-end RL-based solution designed to equip LMMs with the capability to perform search on demand in real-world internet environments. It outperforms same-sized RAG baselines and approaches the performance of larger models while requiring significantly fewer search calls.
+
+<ResponsiveImage
+  src="https://i.postimg.cc/1X75bbSS/MMSearch-R1-Figure1.png"
+  alt="MMSearch-R1 Overview Figure"
+  maxWidth="100%"
+  caption="Figure 1: MMSearch-R1 learns to recognize the boundaries of its knowledge and perform on-demand search, significantly reducing the number of searches required while outperforming RAG-based models on knowledge-intensive and info-seeking VQA tasks."
+/>
+
+## 1. Introduction
+
+Scaling up vision-language paired data has become a widely adopted paradigm for Large Multimodal Models (LMMs) to acquire grounded knowledge of the visual world. Although this static training strategy has proven effective, it remains limited in capturing complex and evolving real-world knowledge. In particular, state-of-the-art LMMs continue to struggle with:
+
+- **Long-tail facts** and newly emerging information
+- **Domain-specific content** restricted by privacy or copyright constraints
+- **Knowledge-intensive** and information-seeking visual question answering tasks
+
+As a result, their performance remains suboptimal, frequently generating hallucinated outputs when confronted with inputs beyond their training distribution.
+
+### Current Limitations
+
+Existing approaches such as **Retrieval-Augmented Generation (RAG)** and **prompt-based agents** remain suboptimal:
+
+- **RAG methods** rely on fixed retrieve-then-generate pipelines, leading to over-retrieval and high computational costs
+- **Prompt-based agents** can access real-time search engines but lack parameter optimization through learning
+
+### Our Solution: MMSearch-R1
+
+To address these limitations, we introduce **MMSearch-R1**, training LMMs to acquire three essential search-related capabilities:
+
+1. **When to search** - Recognizing knowledge boundaries
+2. **What to search for** - Formulating effective queries
+3. **How to reason** over search results to answer user queries
+
+## Key Contributions
+
+- **🏗️ Dataset Construction** - Automated approach to construct multimodal search VQA dataset
+- **🔧 Multimodal Search Tool Integration** - Real-world search pipeline with image and text tools
+- **🧠 Wiser Search via Reinforcement Learning** - GRPO-based RL framework for optimal search decisions
+- **🌐 Open-Sourced Framework** - Complete model, dataset, and training framework release
+
+## 2. Method
+
+### 2.1. Building Iterative Multimodal Search-Integrated RL Framework
+
+<ResponsiveImage
+  src="https://i.postimg.cc/4d53QmFm/MMSearch-R1-Figure2.png"
+  alt="MMSearch-R1 Training Framework"
+  maxWidth="100%"
+  caption="Figure 2: Illustration of training in MMSearch-R1. Top: The GRPO training pipeline integrated with multimodal search tools. Bottom: A detailed view of the rollout process and search tool execution."
+/>
+
+We built on **veRL** and adopt standard **GRPO** as our base RL algorithm, with modifications to allow search interactions during the rollout process.
+
+#### Multimodal Search Tools
+
+Our framework equips models with two types of search tools:
+
+1. **Image Search Tool**
+
+   - Takes input image and returns top-5 visually similar webpages
+   - Each result includes thumbnail and title
+   - Enables identification of unfamiliar visual entities
+
+2. **Text Search Pipeline**
+   - Model formulates queries based on user questions
+   - Retrieves relevant webpages and processes content
+   - Provides concise summaries for accurate answering
+
+#### Reward Modeling
+
+Our reward system consists of two components:
+
+```
+reward = (1 - α) × Acc_Score × Search_Penalty + α × Format_Score
+```
+
+- **Accuracy Score** - Exact string match against ground truth (1 for correct, 0 otherwise)
+- **Search Penalty** - Applied to correct responses that used search, encouraging internal knowledge use
+- **Format Score** - Ensures model follows required output structure
+
+### 2.2. Curating Search-balanced VQA Datasets
+
+<ResponsiveImage
+  src="https://i.postimg.cc/rswwnMvg/MMSearch-R1-Figure3.png"
+  alt="FVQA Dataset Construction"
+  maxWidth="100%"
+  caption="Figure 3: Illustration of data construction process of FVQA dataset: (a) Automated pipeline for visual knowledge-required VQA samples collection; (b) Knowledge taxonomy; (c) Overall pipeline showing composition and origin of FVQA from various sources."
+/>
+
+We construct **FactualVQA (FVQA)**, a search-balanced dataset following three key criteria:
+
+1. **Coverage of Both Search-Required/Free Questions**
+2. **Concise and Verifiable Answers**
+3. **Diversity in Knowledge and Difficulty**
+
+#### Data Construction Pipeline
+
+- **VQA Collection** - Gather candidates requiring visual or textual knowledge
+- **Search Balancing** - Use preliminary model to classify search requirements
+- **Human Annotation** - Ensure diversity, authenticity, and label quality
+
+## 3. Experimental Findings
+
+We evaluated MMSearch-R1 against both closed-source models (GPT-4o, Gemini 2.5 Pro) and open-source models (Qwen2.5-VL series) on knowledge-intensive VQA tasks.
+
+<ResponsiveImage
+  src="https://i.postimg.cc/kgbXhjpr/MMSearch-R1-Table1.png"
+  alt="Performance Results Table"
+  maxWidth="100%"
+  caption="Table 1: Performance of MMSearch-R1 across benchmarks. 'Acc (%)' denotes accuracy evaluated by LLM-as-Judge, while 'SR (%)' represents the search ratio."
+/>
+
+### Key Findings
+
+#### Finding 1: Enhanced Knowledge Boundary Recognition
+
+MMSearch-R1-7B outperforms same-sized RAG-based models by an average of **3%** in accuracy while reducing the average search rate by **32.9%**.
+
+<ResponsiveImage
+  src="https://i.postimg.cc/sXyXWpmk/MMSearch-R1-Figure4.png"
+  alt="Performance Comparison Analysis"
+  maxWidth="100%"
+  caption="Figure 4: (a) Performance comparison between Base model and RL-trained model under RAG workflow. (b) Answer behavior breakdown of Base (inner circle) and RL (outer circle) models."
+/>
+
+#### Finding 2: Improved Query Generation and Summarization
+
+RL training enhances the model's ability to generate effective text queries and summarize retrieved information under fixed RAG setup.
+
+#### Finding 3: Better Internal Knowledge Utilization
+
+Clear upward trend in _Correct without Search_ proportion demonstrates improved recall and reasoning based on internal knowledge.
+
+<ResponsiveImage
+  src="https://i.postimg.cc/28JSGpTF/MMSearch-R1-Figure5.png"
+  alt="Training Dynamics Analysis"
+  maxWidth="100%"
+  caption="Figure 5: (a) Performance improvements of SFT and RL over Base across five VQA datasets. (b) Training dynamics of reward and search ratio for different strategies."
+/>
+
+#### Finding 4: RL vs. Supervised Learning
+
+RL consistently outperforms SFT across all tasks despite being trained on only about half as much data, demonstrating superior data efficiency.
+
+#### Finding 5: Balanced Training Effectiveness
+
+Training with balanced data and search penalty effectively guides the model to perform on-demand search without overusing the search tool.
+
+## 4. Conclusion
+
+MMSearch-R1 represents a significant advancement in multimodal AI, learning to:
+
+- **Recognize knowledge gaps** and boundaries
+- **Selectively invoke** image or text search
+- **Reason effectively** over retrieved content
+
+Our framework outperforms same-sized RAG baselines and approaches larger model performance while requiring significantly fewer search calls. This work lays the groundwork for building multimodal agents that are both adaptive and interactive, paving the way for the next major advancement in multimodal intelligence.
+
+## Resources
+
+- 🚀 **[GitHub Repository](https://github.com/EvolvingLMMs-Lab/multimodal-search-r1)** - Complete implementation
+- 📄 **[Research Paper](https://arxiv.org/abs/2506.00000)** - Detailed methodology and results
+- 🤗 **[Model Checkpoints](https://huggingface.co/EvolvingLMMs-Lab/MMSearch-R1-7B)** - Pre-trained models
+- 📊 **[FVQA Dataset](https://huggingface.co/datasets/EvolvingLMMs-Lab/FVQA)** - Training and evaluation data

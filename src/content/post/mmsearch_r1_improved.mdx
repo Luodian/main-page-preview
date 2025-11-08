@@ -2,9 +2,21 @@
 title: "Improved MM-Search-R1: Reasoning and Action in Multimodal Search"
 description: "We improve MMSearch-R1 by integrating improved reasoning capabilities into the model"
 publishDate: "2025-08-06"
-tags: ["models", "vision", "research"]
+mainTags: ["research"]
+tags:
+  [
+    "models",
+    "vision",
+    "research",
+    "multimodal",
+    "search",
+    "reasoning",
+    "reinforcement-learning",
+  ]
 thumbnail: "/images/blog_thumbnails/mmsearch_r1_improved.png"
 ---
+
+import { ResponsiveImage } from "@/components/mdx/components";
 
 Our previous work, MMSearch-R1, represents a paradigm shift in multimodal AI as the first framework to employ end-to-end reinforcement learning for autonomous tool invocation in large multimodal models (LMMs). By enabling models to independently determine when and how to leverage external search tools, MMSearch-R1 achieves both high efficiency and state-of-the-art performance on open-world tasks, marking a significant advance in practical AI deployment.
 
@@ -121,15 +133,19 @@ With this reasoning foundation, we can go further to improve the model's search 
 
 From the figure, compared with our original MMSearch baseline, which was built on Qwen-2.5-VL-7B (referred to as Instruct → Search in this context), we can observe that the model achieved good improvements. The reasoning-first approach enabled more intelligent search decisions, better query formulation, and more effective utilization of retrieved information.
 
-![Figure1](./mmsearch_images/figure0.png)
-
-> Accuracy across four multimodal benchmarks (Infoseek, MMSearch, FVQA, and SimpleVQA). The Reasoning to Search paradigm consistently outperforms or matches Instruct -> Search, especially on Infoseek and MMSearch, demonstrating the benefit of reasoning-first strategies in complex information retrieval tasks.
+<ResponsiveImage
+  src="/images/mmsearch_images/figure0.png"
+  alt="Accuracy across four multimodal benchmarks"
+  caption="Accuracy across four multimodal benchmarks (Infoseek, MMSearch, FVQA, and SimpleVQA). The Reasoning to Search paradigm consistently outperforms or matches Instruct -> Search, especially on Infoseek and MMSearch, demonstrating the benefit of reasoning-first strategies in complex information retrieval tasks."
+/>
 
 One of the most intriguing findings emerged during our evaluation of STEM tasks (e.g., MMMU, MathVision) using Search prompts. We observed a counterintuitive phenomenon: excessive searching actually led to decreased performance. Specifically, models employing Search prompts tended to over-rely on external searches, frequently initiating queries for information that could have been inferred through reasoning or was already available internally.
 
-![Figure2](./mmsearch_images/figure2.png)
-
-> Accuracy comparison across five challenging reasoning datasets. Results indicate that while integrating search generally helps, excessive or unguided searching can lower performance. This underscores the need for precise reasoning-guided search prompting to achieve optimal results in complex multimodal reasoning tasks.
+<ResponsiveImage
+  src="/images/mmsearch_images/figure2.png"
+  alt="Accuracy comparison across five challenging reasoning datasets"
+  caption="Accuracy comparison across five challenging reasoning datasets. Results indicate that while integrating search generally helps, excessive or unguided searching can lower performance. This underscores the need for precise reasoning-guided search prompting to achieve optimal results in complex multimodal reasoning tasks."
+/>
 
 These performance drops highlight critical insight: without effective reasoning capabilities to guide their search strategies, models tend to default to inefficient search behaviors. This not only results in unnecessary computational overhead but can also introduce irrelevant information, ultimately degrading the quality of answer generation.
 
@@ -262,9 +278,11 @@ The General STEM model showed that enhancing reasoning capabilities alone can le
 
 Our results reveal that MMSearchR1 achieves the highest accuracy across all benchmarks, significantly outperforming standard General Search configurations. The key differentiator is search utilization: MMSearchR1 demonstrates search ratios up to $61.6\%$ on Infoseek, compared to $28.5\%$ for General Search.
 
-![Figure3](./mmsearch_images/figure3.png)
-
-> MMSearchR1 achieves the highest accuracy across all benchmarks, significantly outperforming standard General Search configurations. The key differentiator is search utilization: MMSearchR1 demonstrates search ratios up to $61.6\%$ on Infoseek, compared to $28.5\%$ for General Search.
+<ResponsiveImage
+  src="/images/mmsearch_images/figure3.png"
+  alt="MMSearchR1 performance comparison"
+  caption="MMSearchR1 achieves the highest accuracy across all benchmarks, significantly outperforming standard General Search configurations. The key differentiator is search utilization: MMSearchR1 demonstrates search ratios up to $61.6\%$ on Infoseek, compared to $28.5\%$ for General Search."
+/>
 
 We found a strong positive correlation (Pearson r = 0.911) between search ratio and model performance, indicating that increased search engagement directly improves accuracy. However, this relationship has limits—excessive or undirected search introduces computational costs and answer noise that can degrade reliability.
 Additional experiments with reduced STEM data, increased search data ratios, and shortened warmup periods (60 vs 45 steps) confirmed that better performance requires strategic search integration. Models perform best when search is invoked selectively through explicit reasoning about information needs, balancing enhanced knowledge access against computational efficiency.
@@ -278,13 +296,21 @@ We show the following interesting cases to demonstrate versatile abilities of ou
 
 In this example from the MME benchmark, the model is required to answer a question about a statue located in the National Gallery of Art in Washington, D.C. The process begins with the model analyzing the query image to determine what additional information is needed. It then performs searches for visually similar images, systematically evaluates the retrieved results, and conducts follow-up searches from different perspectives to verify its findings. This iterative search-and-reasoning approach allows the model to gather comprehensive evidence before arriving at a well-supported conclusion.
 
-![Figure4](./mmsearch_images/case_mme.png)
+<ResponsiveImage
+  src="/images/mmsearch_images/case_mme.png"
+  alt="MME benchmark case study"
+  caption="Example from the MME benchmark showing the model's iterative search-and-reasoning approach to identify a statue in the National Gallery of Art."
+/>
 
 ## Case: Writing Email to a Public Figure
 
 In this case, the model is tasked with composing an email to Abdullah Shahid Sial, a public figure. To accomplish this effectively, the model must gather comprehensive information about him through internet searches, including his social media presence (Twitter), official website, professional background, and other publicly available information sources.
 
-![Figure5](./mmsearch_images/case_abd.png)
+<ResponsiveImage
+  src="/images/mmsearch_images/case_abd.png"
+  alt="Email composition case study"
+  caption="Case study showing the model's research process when tasked with writing an email to Abdullah Shahid Sial, demonstrating comprehensive information gathering capabilities."
+/>
 
 # Reference
 

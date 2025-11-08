@@ -1,0 +1,171 @@
+---
+title: "Multimodal-SAE: Interpreting Features in Large Multimodal Models"
+description: "Large Multi-modal Models Can Interpret Features in Large Multi-modal Models - First demonstration of SAE feature interpretation in the multimodal domain"
+publishDate: "2024-11-15"
+mainTags: ["models"]
+tags:
+  [
+    "vision",
+    "multimodal",
+    "mechanistic-interpretability",
+    "sparse-autoencoders",
+    "research",
+    "analysis",
+    "steering",
+    "llava",
+    "interpretability",
+  ]
+thumbnail: "/images/blog_thumbnails/multimodal_sae.png"
+authors:
+  - name: "Shaozhi Li"
+    main: true
+  - name: "Xiong Wang"
+    main: true
+  - name: "Yue Zhang"
+  - name: "Jingkang Yang"
+  - name: "Keze Wang"
+  - name: "Zhengkai Jiang"
+  - name: "Tat-Seng Chua"
+  - name: "Ziwei Liu"
+acknowledgement: "This groundbreaking work in multimodal mechanistic interpretability builds upon Anthropic's pioneering research in SAE-based feature interpretation, extending these methods to the multimodal domain for the first time."
+bibtex: "@article{li2024multimodal-sae,\n  title={Large Multi-modal Models Can Interpret Features in Large Multi-modal Models},\n  author={Li, Shaozhi and Wang, Xiong and Zhang, Yue and Yang, Jingkang and Wang, Keze and Jiang, Zhengkai and Chua, Tat-Seng and Liu, Ziwei},\n  journal={arXiv preprint arXiv:2411.10982},\n  year={2024}\n}"
+---
+
+import { ResponsiveImage } from "@/components/mdx/components";
+
+<ResponsiveImage
+  src="https://github.com/EvolvingLMMs-Lab/multimodal-sae/blob/main/assets/banner.png?raw=true"
+  alt="Multimodal-SAE Banner"
+  maxWidth="100%"
+  caption="Multimodal-SAE: First demonstration of SAE-based feature interpretation in Large Multimodal Models"
+/>
+
+## Overview
+
+For the **first time in the multimodal domain**, we demonstrate that features learned by **Sparse Autoencoders (SAEs)** in a smaller Large Multimodal Model (LMM) can be effectively interpreted by a larger LMM. Our work introduces the use of SAEs to analyze the open-semantic features of LMMs, providing a breakthrough solution for feature interpretation across various model scales.
+
+## Inspiration and Motivation
+
+This research is inspired by **Anthropic's remarkable work** on applying SAEs to interpret features in large-scale language models. In multimodal models, we discovered intriguing features that:
+
+- **Correlate with diverse semantics** across visual and textual modalities
+- **Can be leveraged to steer model behavior** for precise control
+- **Enable deeper understanding** of LMM functionality and decision-making
+
+## Technical Approach
+
+### SAE Training Pipeline
+
+The **Sparse Autoencoder (SAE)** is trained using a targeted approach:
+
+1. **Integration Strategy** - SAE integrated into a specific layer of the model
+2. **Frozen Architecture** - All other model components remain frozen during training
+3. **Training Data** - Utilizes LLaVA-NeXT dataset for comprehensive multimodal coverage
+4. **Feature Learning** - Learns sparse, interpretable representations of multimodal features
+
+### Auto-Explanation Pipeline
+
+Our novel **auto-explanation pipeline** analyzes visual features through:
+
+- **Activation Region Analysis** - Identifies where features activate in visual inputs
+- **Semantic Correlation** - Maps features to interpretable semantic concepts
+- **Cross-Modal Understanding** - Leverages larger LMMs for feature interpretation
+- **Automated Processing** - Scalable interpretation without manual annotation
+
+## Feature Steering and Control
+
+<ResponsiveImage
+  src="https://github.com/EvolvingLMMs-Lab/multimodal-sae/blob/main/assets/steer.png?raw=true"
+  alt="Feature Steering Demonstration"
+  maxWidth="100%"
+  caption="Demonstration of feature steering: These learned features can be used to control model behavior and generate desired outputs"
+/>
+
+### Behavioral Control Capabilities
+
+The learned features enable **precise model steering** by:
+
+- **Selective Feature Activation** - Amplifying specific semantic features
+- **Behavioral Modification** - Directing model attention and responses
+- **Interpretable Control** - Understanding why specific outputs are generated
+- **Fine-Grained Manipulation** - Precise control over model behavior
+
+## Key Contributions
+
+### 🔬 **First Multimodal SAE Implementation**
+
+Pioneering application of SAE methodology to multimodal models, opening new research directions in mechanistic interpretability.
+
+### 🎯 **Cross-Scale Feature Interpretation**
+
+Demonstration that smaller LMMs can learn features interpretable by larger models, enabling scalable analysis approaches.
+
+### 🎮 **Model Steering Capabilities**
+
+Practical application of learned features for controllable model behavior and output generation.
+
+### 🔄 **Auto-Explanation Pipeline**
+
+Automated methodology for interpreting visual features without requiring manual semantic labeling.
+
+## Research Impact
+
+### Mechanistic Interpretability Advancement
+
+This work represents a significant advancement in understanding how multimodal models process and integrate information across modalities.
+
+### Practical Applications
+
+- **Model Debugging** - Understanding failure modes and biases
+- **Controllable Generation** - Steering model outputs for specific applications
+- **Safety and Alignment** - Better control over model behavior
+- **Feature Analysis** - Deep understanding of learned representations
+
+### Future Directions
+
+Our methodology opens new research avenues in:
+
+1. **Cross-Modal Feature Analysis** - Understanding feature interactions across modalities
+2. **Scalable Interpretability** - Extending to larger and more complex models
+3. **Real-Time Steering** - Dynamic control during inference
+4. **Safety Applications** - Preventing harmful or biased outputs
+
+## Technical Details
+
+### Architecture Integration
+
+The SAE is carefully integrated to:
+
+- **Preserve Model Performance** - Minimal impact on original capabilities
+- **Capture Rich Features** - Learn meaningful sparse representations
+- **Enable Interpretation** - Facilitate analysis by larger models
+- **Support Steering** - Allow runtime behavioral modification
+
+### Evaluation Methodology
+
+Our approach is validated through:
+
+- **Feature Interpretability** - Qualitative analysis of learned features
+- **Steering Effectiveness** - Quantitative measurement of behavioral control
+- **Cross-Model Validation** - Testing interpretation across different model sizes
+- **Semantic Consistency** - Verifying feature stability and meaning
+
+## Open Source Resources
+
+We provide comprehensive resources for the research community:
+
+- 🚀 **[GitHub Repository](https://github.com/EvolvingLMMs-Lab/multimodal-sae)** - Complete implementation and code
+- 📊 **Training Scripts** - SAE training and integration pipelines
+- 🔧 **Interpretation Tools** - Auto-explanation pipeline implementation
+- 📖 **Documentation** - Detailed guides for reproduction and extension
+
+## Conclusion
+
+**Multimodal-SAE** represents a breakthrough in multimodal mechanistic interpretability, providing the first successful demonstration of SAE-based feature interpretation in the multimodal domain. Our work enables:
+
+- **Deeper Understanding** of how LMMs process multimodal information
+- **Practical Control** over model behavior through feature steering
+- **Scalable Interpretation** methods for increasingly complex models
+- **Foundation Research** for future advances in multimodal AI safety and control
+
+This research establishes a new paradigm for understanding and controlling Large Multimodal Models, with significant implications for AI safety, controllability, and interpretability research.

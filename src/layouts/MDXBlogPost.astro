@@ -1,24 +1,6 @@
 ---
 import BlogPost from './BlogPost.astro';
 import { type CollectionEntry } from 'astro:content';
-import Callout from '@/components/mdx/Callout.astro';
-import CodeDemo from '@/components/mdx/CodeDemo.astro';
-import Gallery from '@/components/mdx/Gallery.astro';
-import LiveCodeEditor from '@/components/mdx/LiveCodeEditorWrapper.astro';
-import { Badge } from '@/components/react/Badge.tsx';
-import FormattedDate from '@/components/react/FormattedDate.tsx';
-import LazyImage from '@/components/react/LazyImage.tsx';
-
-// Export components to make them available in MDX
-export { 
-  Callout, 
-  CodeDemo, 
-  Gallery, 
-  LiveCodeEditor,
-  Badge,
-  FormattedDate,
-  LazyImage
-};
 
 const { frontmatter } = Astro.props;
 

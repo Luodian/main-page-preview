@@ -1,0 +1,133 @@
+---
+title: "LongVA: Long Context Transfer from Language to Vision"
+description: "Long Context Transfer from Language to Vision - An innovative solution towards long video LMM, leveraging long context capabilities of language models"
+publishDate: "2024-06-24"
+mainTags: ["models"]
+tags:
+  [
+    "vision",
+    "multimodal",
+    "research",
+    "video",
+    "long-context",
+    "transfer-learning",
+    "benchmark",
+  ]
+thumbnail: "/images/blog_thumbnails/longva.png"
+authors:
+  - name: "Peiyuan Zhang"
+    main: true
+  - name: "Kaichen Zhang"
+    main: true
+  - name: "Bo Li"
+  - name: "Guangtao Zeng"
+  - name: "Jingkang Yang"
+  - name: "Yuanhan Zhang"
+  - name: "Ziyue Wang"
+  - name: "Haoran Tan"
+  - name: "Chunyuan Li"
+  - name: "Ziwei Liu"
+acknowledgement: "This work presents an innovative approach to long video understanding by leveraging language model capabilities, developed by the Evolving LMMs Lab and collaborating institutions."
+bibtex: "@article{zhang2024longva,\n  title={LongVA: Long Context Transfer from Language to Vision},\n  author={Zhang, Peiyuan and Zhang, Kaichen and Li, Bo and Zeng, Guangtao and Yang, Jingkang and Zhang, Yuanhan and Wang, Ziyue and Tan, Haoran and Li, Chunyuan and Liu, Ziwei},\n  journal={arXiv preprint arXiv:2406.16852},\n  year={2024}\n}"
+---
+
+import { ResponsiveImage } from "@/components/mdx/components";
+
+<ResponsiveImage
+  src="https://github.com/EvolvingLMMs-Lab/LongVA/blob/main/vision_niah/niah_output/LongVA-7B/heatmap.png?raw=true"
+  alt="LongVA Visual Needle-in-a-Haystack Heatmap"
+  maxWidth="100%"
+  caption="LongVA's performance on Visual Needle-In-A-Haystack benchmark showing accurate retrieval across long video sequences"
+/>
+
+## Overview
+
+**Gemini** has amazed the world with its capability to understand hour-long videos. However, we still lack an open-source alternative with similar capabilities. Our latest research presents an innovative solution towards long video LMM, shifting the focus from reducing visual tokens per frame to leveraging the long context capabilities of language models.
+
+Here, we present our **state-of-the-art video model, Long Video Assistant (LongVA)**, and our novel benchmark, **Visual Needle-In-A-Haystack (V-NIAH)**.
+
+## Key Innovations
+
+### 🔄 Long Context Transfer
+
+We discovered and verified that the **long context capability of language models can be directly transferred to the video domain** in modality-aligned multi-modal models. On V-NIAH, LongVA is the **only open-source model** capable of accurately retrieving visual information from inputs with:
+
+- **2000+ frames**
+- **200K+ visual tokens**
+
+### 🎯 UniRes: Unified Visual Encoding
+
+We proposed **UniRes**, a unified visual encoding scheme that encodes both images and videos. In UniRes, a video is encoded the same as multiple image crops in a sequence.
+
+**Key Benefits:**
+
+- Leverages the Long Context Transfer property
+- Enables superior zero-shot performance in video tasks
+- **No video-specific training data required**
+
+## Performance Highlights
+
+### 🏆 State-of-the-Art Results
+
+LongVA achieves **state-of-the-art performance** on the comprehensive **Video-MME benchmarks** among 7B models.
+
+**Key Performance Features:**
+
+- Performance increases with denser sampling of video frames
+- Superior zero-shot capabilities on video understanding tasks
+- Comprehensive ablation studies validating improvement sources
+
+### 📊 V-NIAH Benchmark
+
+Our novel **Visual Needle-In-A-Haystack (V-NIAH)** benchmark provides:
+
+- Rigorous evaluation of long-context visual understanding
+- Testing retrieval accuracy across extended video sequences
+- Open-source evaluation framework for the community
+
+## Technical Architecture
+
+### Multi-Modal Alignment
+
+LongVA demonstrates that language models' inherent long-context capabilities can be effectively transferred to visual domains through proper modality alignment.
+
+### Scalable Design
+
+The architecture scales efficiently with:
+
+- Increased frame sampling rates
+- Extended sequence lengths
+- Larger visual token counts
+
+## Research Impact
+
+### Open-Source Alternative
+
+LongVA provides the first viable open-source alternative to proprietary long-video understanding systems, enabling:
+
+- Academic research advancement
+- Commercial application development
+- Community-driven improvements
+
+### Methodology Innovation
+
+The long context transfer approach opens new research directions in:
+
+- Cross-modal capability transfer
+- Efficient video processing
+- Unified multi-modal architectures
+
+## Future Directions
+
+LongVA establishes a foundation for:
+
+1. **Extended Context Models** - Pushing beyond current frame limits
+2. **Multi-Modal Transfer Learning** - Applying insights to other modalities
+3. **Efficient Video Processing** - Optimizing computational requirements
+4. **Benchmark Development** - Creating more comprehensive evaluation metrics
+
+## Resources
+
+- 🚀 **[GitHub Repository](https://github.com/EvolvingLMMs-Lab/LongVA)** - Source code and implementation
+- 📊 **[V-NIAH Benchmark](https://github.com/EvolvingLMMs-Lab/LongVA)** - Evaluation framework
+- 🤗 **Model Checkpoints** - Pre-trained models for research and development

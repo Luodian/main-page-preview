@@ -26,14 +26,15 @@ export function remarkLazyImages(): Plugin<[], Root> {
       // Only process absolute paths that start with / and are not local assets
       console.log("Processing image with skeleton:", node.url);
 
-      // Transform the image node to HTML that uses skeleton loading
+      // Transform the image node to HTML that uses skeleton loading and is mobile responsive
       const html = `
-<div class="relative" style="display: block; width: 100%; height: 100%;">
+<div class="relative my-6 mx-auto max-w-full" style="display: block; width: 100%; max-width: 100%;">
   <div class="skeleton-loader absolute top-0 left-0 w-full h-full z-20 rounded-lg" style="width: 100%; height: 200px; background: linear-gradient(90deg, transparent 25%, rgba(0, 0, 0, 0.08) 50%, transparent 75%); background-size: 200% 100%; animation: skeleton-loading 1.5s infinite;"></div>
   <img 
     src="${node.url}" 
     alt="${node.alt || ""}" 
-    class="opacity-0 transition-opacity duration-300 relative z-10 w-full h-auto rounded-lg"
+    class="opacity-0 transition-opacity duration-300 relative z-10 w-full h-auto max-w-full object-contain rounded-lg hover:shadow-lg"
+    style="width: 100%; height: auto; max-width: 100%; display: block;"
     loading="lazy"
     onload="this.style.opacity = '1'; this.previousElementSibling.style.display = 'none';"
   />

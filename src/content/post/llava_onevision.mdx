@@ -2,11 +2,43 @@
 title: "LLaVA-OneVision: Easy Visual Task Transfer"
 description: "The first single model that can simultaneously push the performance boundaries of open LMMs in three important computer vision scenarios: single-image, multi-image, and video"
 publishDate: "2024-08-05"
-tags: ["vision", "multimodal", "research", "llava", "video"]
+mainTags: ["models"]
+tags:
+  [
+    "vision",
+    "multimodal",
+    "research",
+    "llava",
+    "video",
+    "multi-image",
+    "transfer-learning",
+  ]
 thumbnail: "/images/blog_thumbnails/llava_onevision.png"
+authors:
+  - name: "Bo Li"
+    main: true
+  - name: "Yuanhan Zhang"
+    main: true
+  - name: "Dong Guo"
+  - name: "Renrui Zhang"
+  - name: "Feng Li"
+  - name: "Hao Zhang"
+  - name: "Kaichen Zhang"
+  - name: "Yanwei Li"
+  - name: "Ziwei Liu"
+  - name: "Chunyuan Li"
+acknowledgement: "This work is a collaboration between researchers from ByteDance, NTU, CUHK, and HKUST, building upon the strong foundation of the LLaVA project series."
+bibtex: "@article{li2024llava-onevision,\n  title={LLaVA-OneVision: Easy Visual Task Transfer},\n  author={Li, Bo and Zhang, Yuanhan and Guo, Dong and Zhang, Renrui and Li, Feng and Zhang, Hao and Zhang, Kaichen and Li, Yanwei and Liu, Ziwei and Li, Chunyuan},\n  journal={arXiv preprint arXiv:2408.03326},\n  year={2024}\n}"
 ---
 
-![LLaVA-OneVision](https://llava-vl.github.io/blog/2024-08-05-llava-onevision/demos/fig1.png)
+import { ResponsiveImage } from "@/components/mdx/components";
+
+<ResponsiveImage
+  src="https://llava-vl.github.io/blog/2024-08-05-llava-onevision/demos/fig1.png"
+  alt="LLaVA-OneVision"
+  maxWidth="100%"
+  caption="LLaVA-OneVision: A unified model for single-image, multi-image, and video understanding"
+/>
 
 ## Overview
 
@@ -77,20 +109,3 @@ LLaVA-OneVision represents a significant milestone in our iterative improvements
 - Improved OCR performance
 - Expanded world knowledge
 - Advanced multimodal understanding
-
-## Citation
-
-If you find LLaVA-OneVision useful for your research, please cite:
-
-```bibtex
-@article{li2024llava-onevision,
-  title={LLaVA-OneVision: Easy Visual Task Transfer},
-  author={Li, Bo and Zhang, Yuanhan and Guo, Dong and Zhang, Renrui and Li, Feng and Zhang, Hao and Zhang, Kaichen and Li, Yanwei and Liu, Ziwei and Li, Chunyuan},
-  journal={arXiv preprint arXiv:2408.03326},
-  year={2024}
-}
-```
-
-## Acknowledgments
-
-This work is a collaboration between researchers from ByteDance, NTU, CUHK, and HKUST, building upon the strong foundation of the LLaVA project series.
