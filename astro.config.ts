@@ -27,6 +27,8 @@ import {
   transformerNotationDiff,
 } from "@shikijs/transformers";
 
+import react from "@astrojs/react";
+
 // https://astro.build/config
 export default defineConfig({
   image: {
@@ -90,6 +92,7 @@ export default defineConfig({
         insertManifestLink: false,
       },
     }),
+    react(),
   ],
   markdown: {
     syntaxHighlight: false,

@@ -14,7 +14,7 @@ import { SquareArrowOutUpRight } from "lucide-astro";
 			TODO: This approach is not optimal and requires improvements. 
   			- Too many absolutely positioned elements can affect performance. 
   		-->	
-	<div class="md:hidden absolute top-0 left-1/2 -ml-[50vw] w-screen min-h-screen pointer-events-none blur-2xl">
+	<!-- <div class="md:hidden absolute top-0 left-1/2 -ml-[50vw] w-screen min-h-screen pointer-events-none blur-2xl">
 		<div class="absolute top-[-90%] right-[25%] w-[75%] h-full bg-gradient-to-b from-blue-300 via-pink-300 to-transparent rounded-full opacity-40 dark:opacity-5"></div>
 		<div class="absolute top-[-90%] left-[25%] w-[75%] h-full bg-gradient-to-b from-blue-300 via-pink-300 to-transparent rounded-full opacity-40 dark:opacity-5"></div>
 		<div class="absolute top-[-85%] right-[25%] w-[55%] h-full bg-gradient-to-b from-purple-300 via-blue-300 to-transparent rounded-full opacity-40 dark:opacity-5"></div>
@@ -23,14 +23,14 @@ import { SquareArrowOutUpRight } from "lucide-astro";
 		<div class="absolute top-[-75%] right-[-25%] w-[65%] h-full bg-gradient-to-b from-purple-300 via-blue-300 to-transparent rounded-full opacity-30 dark:opacity-5"></div>
 		<div class="absolute top-[-85%] left-[-30%] w-[85%] h-full bg-gradient-to-b from-indigo-300 via-orange-300 to-transparent rounded-full opacity-60 dark:opacity-5"></div>
 		<div class="absolute top-[-85%] right-[-30%] w-[85%] h-full bg-gradient-to-b from-orange-300 via-indigo-300 to-transparent rounded-full opacity-60 dark:opacity-5"></div>
-	</div>
+	</div> -->
 	
 	<div class="w-full justify-between sm:flex-col">
 		<div class="flex items-center gap-x-2">
 			<a
 				aria-label={siteConfig.title}
 				aria-current={Astro.url.pathname === "/" ? "page" : false}
-				class="group flex h-8 items-center hover:filter-none sm:relative"
+				class="group flex h-8 items-center hover:filter-none sm:relative md:ml-10"
 				href="/"
 			>	
 				<!-- Logo -->
@@ -42,23 +42,22 @@ import { SquareArrowOutUpRight } from "lucide-astro";
 				</div>
 				-->
 				<!-- <img src="/assets/logo.png" alt={siteConfig.title} class="inline-block h-10 w-auto" /> -->
-				<div class="text-2xl md:text-4xl font-bold text-accent-base">LMMs-Lab</div>
+				<div class="text-2xl md:text-4xl font-bold text-slate-950">LMMs-Lab</div>
 				
 			</a>
 
-			<div class="ml-auto w-fit">
+			<div class="ml-auto w-fit md:mr-10">
 				<div id="buttons-panel" class="top-4 md:top-8 -ml-[4.5rem] flex items-center space-x-4">
 					<nav
 						aria-label="Main menu"
-						class="hidden md:flex items-center gap-x-4 font-medium text-xl text-accent-two mr-2"
+						class="hidden md:flex items-center gap-x-6 font-medium text-xl mr-2"
 						id="main-navigation-menu"
 					>	
-						<!-- Ссылки меню -->
 						{
 							menuLinks.map((link) => (
 								<a
 									aria-current={Astro.url.pathname === link.path ? "page" : false}
-									class="opacity-70 hover:opacity-100 transition-opacity flex items-center gap-1"
+									class="opacity-70 hover:opacity-100 transition-opacity flex items-center gap-1 text-slate-950"
 									data-astro-prefetch={!link.is_external}
 									href={link.path}
 									target={link.is_external ? "_blank" : undefined}
@@ -111,31 +110,12 @@ import { SquareArrowOutUpRight } from "lucide-astro";
 		id="drawer-body"
 		class="absolute inset-0 transform bg-bgColor transition-all duration-300 ease-in-out"
 	>
-		<!-- Background 
-			TODO: This approach is not optimal and requires improvements. 
-  			- Too many absolutely positioned elements can affect performance. 
-  		-->		
-		<div class="fixed top-0 left-1/2 -ml-[50vw] w-screen pointer-events-none min-h-screen overflow-x-hidden overflow-y-visible blur-2xl">
-				<!--
-				<div class="fixed blur-xl top-0 left-0 w-full h-16 md:h-20 bg-gradient-to-b from-indigo-300 via-purple-300 to-transparent opacity-10 dark:opacity-5"></div>
-				-->
-				<div class="absolute top-[-90%] right-[25%] w-[75%] h-full bg-gradient-to-b from-blue-300 via-pink-300 to-transparent rounded-full opacity-40 dark:opacity-5"></div>
-				<div class="absolute top-[-90%] left-[25%] w-[75%] h-full bg-gradient-to-b from-blue-300 via-pink-300 to-transparent rounded-full opacity-40 dark:opacity-5"></div>
-				<div class="absolute top-[-85%] right-[25%] w-[55%] h-full bg-gradient-to-b from-purple-300 via-blue-300 to-transparent rounded-full opacity-40 dark:opacity-5"></div>
-				<div class="absolute top-[-85%] left-[25%] w-[55%] h-full bg-gradient-to-b from-indigo-300 via-orange-300 to-transparent rounded-full opacity-40 dark:opacity-5"></div>
-				<div class="absolute top-[-75%] left-[-25%] w-[65%] h-full bg-gradient-to-b from-blue-300 via-pink-300 to-transparent rounded-full opacity-30 dark:opacity-5"></div>
-				<div class="absolute top-[-75%] right-[-25%] w-[65%] h-full bg-gradient-to-b from-purple-300 via-blue-300 to-transparent rounded-full opacity-30 dark:opacity-5"></div>
-				<div class="absolute top-[-85%] left-[-30%] w-[85%] h-full bg-gradient-to-b from-indigo-300 via-orange-300 to-transparent rounded-full opacity-60 dark:opacity-5"></div>
-				<!-- <div class="absolute top-[-85%] right-[-30%] w-[85%] h-full bg-gradient-to-b from-orange-300 via-indigo-300 to-transparent rounded-full opacity-60 dark:opacity-5"></div> -->
-		
-		</div>	
-		
+
 		<nav
 			aria-label="Mobile navigation menu"
 			class="text-lg absolute inset-0 flex flex-col items-center justify-center gap-y-4 text-center font-medium text-accent-two"
 			id="nav-menu-mobile"
 		>
-			<!-- Ссылки меню -->
 			{
 				menuLinks.map((link) => (
 					<a

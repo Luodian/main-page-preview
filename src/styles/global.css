@@ -4,6 +4,16 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Force zero vertical padding/margin on inline code */
+.prose :not(pre) > code {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  line-height: 1 !important;
+  vertical-align: baseline !important;
+}
+
 /* @font-face {
   font-family: "Inter";
   src: url("../assets/fonts/Inter_24pt-Regular.ttf") format("truetype");
@@ -409,4 +419,38 @@
     transparent 75%
   ) !important;
   background-size: 200% 100% !important;
+}
+
+/* Ensure all images in prose content are mobile responsive */
+.prose img,
+.prose-citrus img {
+  max-width: 100% !important;
+  width: 100% !important;
+  height: auto !important;
+  object-fit: contain;
+  display: block !important;
+}
+
+/* Make figures responsive */
+.prose figure,
+.prose-citrus figure {
+  max-width: 100%;
+  margin: 1.5rem auto;
+}
+
+/* Override any fixed width attributes on images */
+.prose img[width],
+.prose-citrus img[width] {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+/* Ensure images in HTML figures are responsive */
+.prose figure img,
+.prose-citrus figure img {
+  max-width: 100%;
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
 }

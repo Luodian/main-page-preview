@@ -129,7 +129,7 @@ export default {
               },
             },
 
-            // Стиль для блоков кода
+            // Style for code blocks
             pre: {
               "@apply relative py-1.5": "",
             },

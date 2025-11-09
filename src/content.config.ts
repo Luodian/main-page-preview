@@ -23,6 +23,10 @@ const post = defineCollection({
         .optional(),
       draft: z.boolean().default(false),
       ogImage: z.string().optional(),
+      mainTags: z
+        .array(z.string())
+        .default([])
+        .transform(removeDupsAndLowerCase),
       tags: z.array(z.string()).default([]).transform(removeDupsAndLowerCase),
       publishDate: z
         .string()
@@ -35,6 +39,27 @@ const post = defineCollection({
       // Series
       seriesId: z.string().optional(), // Поле для связи с серией
       orderInSeries: z.number().optional(), // Опционально: для сортировки в серии
+      // Author and PostFooter fields
+      author: z
+        .object({
+          name: z.string(),
+          url: z.string().optional(),
+          main: z.boolean().optional(),
+        })
+        .optional(),
+      authors: z
+        .array(
+          z.object({
+            name: z.string(),
+            url: z.string().optional(),
+            main: z.boolean().optional(),
+          })
+        )
+        .optional(),
+      acknowledgement: z.string().optional(),
+      bibtex: z.string().optional(),
+      // Related posts
+      related: z.array(z.string()).max(3).optional(),
       // End
     }),
 });

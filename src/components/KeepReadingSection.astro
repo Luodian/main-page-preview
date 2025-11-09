@@ -1,0 +1,87 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+import { KeepReading } from "@/components/react/KeepReading";
+
+interface Props {
+  currentPost: CollectionEntry<"post">;
+}
+
+const { currentPost } = Astro.props;
+
+// Function to get related posts based on logic
+async function getRelatedPosts(post: CollectionEntry<"post">) {
+  const allPosts = await getCollection("post", ({ data }) => {
+    return !data.draft && data.publishDate <= new Date();
+  });
+
+  // Sort posts by publish date (newest first)
+  const sortedPosts = allPosts
+    .filter(p => p.id !== post.id) // Exclude current post
+    .sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime());
+
+  let relatedPosts: CollectionEntry<"post">[] = [];
+  
+  // If related posts are specified in frontmatter
+  if (post.data.related && post.data.related.length > 0) {
+    // Find specified related posts
+    const specifiedPosts = post.data.related
+      .map(relatedId => sortedPosts.find(p => p.id === relatedId))
+      .filter(Boolean) as CollectionEntry<"post">[];
+    
+    relatedPosts = [...specifiedPosts];
+  }
+
+  // Fill remaining slots with posts that share mainTags
+  if (relatedPosts.length < 3) {
+    const remainingSlots = 3 - relatedPosts.length;
+    const relatedPostIds = new Set(relatedPosts.map(p => p.id));
+    
+    const tagMatchedPosts = sortedPosts
+      .filter(p => !relatedPostIds.has(p.id))
+      .filter(p => p.data.mainTags.some(tag => post.data.mainTags.includes(tag)))
+      .slice(0, remainingSlots);
+    
+    relatedPosts = [...relatedPosts, ...tagMatchedPosts];
+  }
+
+  // If still not enough, just fill with latest posts
+  if (relatedPosts.length < 3) {
+    const remainingSlots = 3 - relatedPosts.length;
+    const relatedPostIds = new Set(relatedPosts.map(p => p.id));
+    
+    const latestPosts = sortedPosts
+      .filter(p => !relatedPostIds.has(p.id))
+      .slice(0, remainingSlots);
+    
+    relatedPosts = [...relatedPosts, ...latestPosts];
+  }
+
+  return relatedPosts;
+}
+
+const relatedPosts = await getRelatedPosts(currentPost);
+
+// Transform posts to the format expected by KeepReading component
+const transformedPosts = relatedPosts.map(post => ({
+  title: post.data.title,
+  category: post.data.mainTags[0] || "General",
+  date: post.data.publishDate.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric"
+  }),
+  href: `/posts/${post.id}/`,
+  ...(post.data.thumbnail && { image: post.data.thumbnail }),
+  imageQuery: post.data.title
+}));
+---
+
+{transformedPosts.length > 0 && (
+  <div class="max-w-6xl mx-auto px-4">
+    <KeepReading 
+      posts={transformedPosts}
+      viewAllHref="/posts"
+      client:load 
+    />
+  </div>
+)}

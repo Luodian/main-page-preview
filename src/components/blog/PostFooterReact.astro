@@ -1,0 +1,39 @@
+---
+import { type CollectionEntry } from "astro:content";
+import PostFooter from '@/components/react/PostFooter';
+import { processAuthorsList } from '@/data/authors';
+
+interface Props {
+	content: CollectionEntry<"post">;
+}
+
+const { content } = Astro.props;
+
+// Extract data from frontmatter
+const defaultAuthor: { name: string; url?: string; main?: boolean } = { 
+  name: "LMMS-Lab Team", 
+  url: "https://lmms-lab.github.io", 
+  main: false 
+};
+const rawAuthors = content.data.authors || 
+  (content.data.author ? [content.data.author] : [defaultAuthor]);
+
+// Process authors with centralized data and URL priority
+const authors = processAuthorsList(rawAuthors);
+
+const topics = content.data.tags || [];
+
+// Create props object with proper types
+const postFooterProps = {
+  authors,
+  topics,
+  publishDate: content.data.publishDate,
+  ...(content.data.acknowledgement && { acknowledgement: content.data.acknowledgement }),
+  ...(content.data.bibtex && { bibtex: content.data.bibtex }),
+};
+---
+
+<PostFooter 
+  client:load 
+  {...postFooterProps}
+/>
