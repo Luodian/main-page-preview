@@ -101,7 +101,7 @@ export function ResourceCard({
                 </div>
                 <div className="min-w-0">
                   <div className="flex items-center gap-2">
-                    <span className="font-medium text-foreground text-xs md:text-base group-hover:text-primary transition-colors">
+                    <span className="font-medium text-foreground text-right text-xs md:text-base group-hover:text-primary transition-colors">
                       {resource.title}
                     </span>
                     <GoLinkExternal className="h-3 w-3 md:h-4 md:w-4 text-muted-foreground group-hover:text-foreground transition-colors flex-shrink-0" />
