@@ -56,14 +56,15 @@ const meta = {
 ---
 
 <PageLayout meta={meta}>
-	<section class="max-w-[1400px] mx-auto">
+	<section class="max-w-7xl mx-auto">
 		<h1 class="title mb-2 sm:mb-6 mt-0 sm:mt-20 flex items-center gap-2 text-gray-900 !text-[2rem] sm:!text-[3rem] !font-normal">
 		Featured Posts
 	</h1>
 	</section>
-	
-	<FeaturedBlogs posts={allPosts} />
+	<section class="w-screen px-4 max-w-7xl mx-auto">
+		<FeaturedBlogs posts={allPosts} />
 
-	<BlogGrid posts={allPosts} />
+		<BlogGrid posts={allPosts} />
+	</section>
 	
 </PageLayout>

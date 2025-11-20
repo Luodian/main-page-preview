@@ -89,7 +89,7 @@ export function ResourceCard({
                 href={resource.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-start gap-3 p-4 rounded-lg bg-slate-50 text-slate-950 hover:bg-slate-100 hover:no-underline transition-colors group"
+                className="flex justify-between md:justify-start items-center md:items-start gap-3 p-4 rounded-lg bg-slate-50 text-slate-950 hover:bg-slate-100 hover:no-underline transition-colors group"
               >
                 <div className="flex items-center gap-2 min-w-[100px]">
                   <div className="text-muted-foreground group-hover:text-foreground transition-colors">
@@ -99,14 +99,14 @@ export function ResourceCard({
                     {resourceLabels[resource.type]}
                   </Badge>
                 </div>
-                <div className="flex-1min-w-0">
+                <div className="min-w-0">
                   <div className="flex items-center gap-2">
-                    <span className="font-medium text-foreground text-sm md:text-base group-hover:text-primary transition-colors">
+                    <span className="font-medium text-foreground text-right text-xs md:text-base group-hover:text-primary transition-colors">
                       {resource.title}
                     </span>
                     <GoLinkExternal className="h-3 w-3 md:h-4 md:w-4 text-muted-foreground group-hover:text-foreground transition-colors flex-shrink-0" />
                   </div>
-                  <div className="flex justify-start">
+                  <div className="hidden md:flex justify-start">
                     {resource.description && (
                       <p className="text-xs md:text-sm opacity-70 text-start mt-1 leading-relaxed mb-2">
                         {resource.description}
@@ -151,7 +151,10 @@ export function ResourceCard({
                             {item.name}
                           </span>
                           {item.metadata && (
-                            <Badge variant="secondary" className="text-xs">
+                            <Badge
+                              variant="secondary"
+                              className="text-xs ml-auto whitespace-nowrap"
+                            >
                               {item.metadata}
                             </Badge>
                           )}
