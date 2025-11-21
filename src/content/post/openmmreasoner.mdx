@@ -1,0 +1,221 @@
+---
+title: "OpenMMReasoner: Pushing the Frontiers for Multimodal Reasoning with an Open and General Recipe"
+description: "OpenMMReasoner introduces a systematic study on constructing high-quality SFT and RL datasets for multimodal reasoning, demonstrating that both source diversity and answer diversity are crucial for building reliable supervision signals."
+publishDate: "2025-11-21"
+mainTags: ["models"]
+tags:
+  [
+    "vision",
+    "multimodal",
+    "research",
+    "analysis",
+    "reasoning"
+  ]
+thumbnail: "/images/blog_thumbnails/openmmreasoner.png"
+authors:
+  - name: "Kaichen Zhang"
+    main: true
+  - name: "Keming Wu"
+    main: true
+  - name: "Zuhao Yang"
+  - name: "Kairui Hu"
+  - name: "Bin Wang"
+  - name: "Ziwei Liu"
+  - name: "Xingxuan Li"
+  - name: "Lidong Bing"
+bibtex: "@misc{zhang2025openmmreasonerpushingfrontiersmultimodal,
+      title={OpenMMReasoner: Pushing the Frontiers for Multimodal Reasoning with an Open and General Recipe}, 
+      author={Kaichen Zhang and Keming Wu and Zuhao Yang and Kairui Hu and Bin Wang and Ziwei Liu and Xingxuan Li and Lidong Bing},
+      year={2025},
+      eprint={2511.16334},
+      archivePrefix={arXiv},
+      primaryClass={cs.AI},
+      url={https://arxiv.org/abs/2511.16334}, 
+}"
+---
+import ResponsiveImage from "../../components/mdx/ResponsiveImage.tsx";
+import { ResourceCard } from "../../components/mdx/ResourceCard.tsx";
+
+<div style="text-align: center;">
+
+[Paper](https://arxiv.org/abs/2511.16334) | [Code](https://github.com/EvolvingLMMs-Lab/OpenMMReasoner) | [SFT Data](https://huggingface.co/datasets/OpenMMReasoner/OpenMMReasoner-SFT-874K) | [RL Data](https://huggingface.co/datasets/OpenMMReasoner/OpenMMReasoner-RL-74K) | [Model](https://huggingface.co/OpenMMReasoner/OpenMMReasoner-RL) | [Project Page](https://evolvinglmms-lab.github.io/OpenMMReasoner/)
+
+</div>
+
+## Overview
+
+Our contributions are threefold:
+
+**(1) High-quality multimodal reasoning data curation.**  
+We provide the first systematic study on constructing SFT and RL datasets for multimodal reasoning, showing that both source diversity and answer diversity are crucial for building reliable supervision signals.
+
+**(2) A strong and reproducible SFT recipe.**  
+We introduce a robust SFT pipeline with step-by-step validation, careful teacher-model selection, and cross-domain data integration, enabling the construction of a high-quality cold-start reasoning dataset.
+
+**(3) An advanced RL training recipe.**  
+Through an extensive comparison of GSPO, GRPO, and DAPO, we identify the most stable and scalable RL strategy and build a reliable RL pipeline that significantly strengthens multimodal reasoning performance.
+
+<ResponsiveImage
+  src="/images/openmmreasoner_images/teaser.png"
+  alt="OpenMMReasoner Performance Comparison"
+  maxWidth="100%"
+/>
+
+**Performance Comparison with State-of-the-Art Large Multimodal Reasoning Models across Various Benchmarks.** Our proposed **OpenMMReasoner** consistently outperforms competing methods, highlighting its effectiveness in complex reasoning tasks.
+
+---
+
+## OpenMMReasoner-Data
+
+**OpenMMReasoner-Data** presents two training recipes covering both the SFT and RL phases. The pipeline begins by collecting diverse data sources and selecting teacher models to generate new answer traces. During the RL phase, we explore different algorithm choices and filtering strategies, leading to our final optimized recipe.
+
+<ResponsiveImage
+  src="/images/openmmreasoner_images/pipeline.png"
+  alt="OpenMMReasoner Pipeline"
+  maxWidth="100%"
+/>
+
+<ResponsiveImage
+  src="/images/openmmreasoner_images/data_distribution.png"
+  alt="Data Distribution"
+  maxWidth="100%"
+/>
+
+---
+
+## Experimental Results on Visual Reasoning Benchmarks
+
+We evaluate our approach on a suite of public visual reasoning benchmarks. Extensive evaluations demonstrate that our training recipe not only surpasses strong baselines but also highlights the critical role of data quality and training design in shaping multimodal reasoning performance. Notably, our method achieves a **11.6%** improvement over the Qwen2.5-VL-7B-Instruct baseline across nine multimodal reasoning benchmarks, establishing a solid empirical foundation for future large-scale multimodal reasoning research.
+
+<ResponsiveImage
+  src="/images/openmmreasoner_images/main_exp.png"
+  alt="Main Experimental Results"
+  maxWidth="100%"
+/>
+
+---
+
+## Analysis and Insights for SFT
+
+Our Analysis and Insights for SFT are as follows:
+
+**(1) Answer diversity enhances reasoning.**  
+Increasing the diversity of generated answers consistently improves the model's overall reasoning performance, even when using the same question sources, suggesting that exposure to varied solutions strengthens understanding.
+
+**(2) Teacher model selection is crucial.**  
+Distilling from a strong teacher model substantially boosts the model's reasoning ability while maintaining high data efficiency. Careful selection for teacher model directly affects the quality of the distilled dataset and the final model performance.
+
+**(3) Over-filtering reduces diversity and performance.**  
+The best results are achieved without excessive filtering, indicating that maintaining greater answer diversity encourages more robust reasoning abilities.
+
+**(4) Cross-domain knowledge improves generalization.**  
+Incorporating diverse data from multiple domains consistently enhances the model's overall reasoning capabilities across tasks.
+
+<ResponsiveImage
+  src="/images/openmmreasoner_images/teacher_model.png"
+  alt="Teacher Model Analysis"
+  maxWidth="100%"
+/>
+
+<ResponsiveImage
+  src="/images/openmmreasoner_images/diversity.png"
+  alt="Answer Diversity Analysis"
+  maxWidth="100%"
+/>
+
+<ResponsiveImage
+  src="/images/openmmreasoner_images/cross_domain.png"
+  alt="Cross-domain Analysis"
+  maxWidth="100%"
+/>
+
+---
+
+## Analysis and Insights for RL
+
+Our Analysis and Insights for RL are as follows:
+
+**(1) GSPO outperforms other algorithms.**  
+GSPO demonstrates superior stability and faster convergence compared to alternative methods in multimodal RL training.
+
+**(2) Token efficiency is crucial.**  
+While increasing reasoning steps at test time can improve performance, excessive tokens reduce efficiency. Our results show that a smaller reasoning budget can achieve comparable or even better accuracy.
+
+**(3) Reasoning ability transfers across domains.**  
+Gains in reasoning during training consistently translate into stronger performance across multiple domains.
+
+<ResponsiveImage
+  src="/images/openmmreasoner_images/RL_exp.png"
+  alt="RL Experimental Results"
+  maxWidth="100%"
+/>
+
+<ResponsiveImage
+  src="/images/openmmreasoner_images/RL_curve.png"
+  alt="RL Training Curves"
+  maxWidth="100%"
+/>
+
+<ResponsiveImage
+  src="/images/openmmreasoner_images/val_curves.png"
+  alt="Validation Curves"
+  maxWidth="100%"
+/>
+
+<ResponsiveImage
+  src="/images/openmmreasoner_images/rollout_num_exp_curves.png"
+  alt="Rollout Number Experiment Curves"
+  maxWidth="100%"
+/>
+
+---
+
+<ResourceCard
+  title="Open-Source Resources"
+  description="We open-source OpenMMReasoner to facilitate future development of multimodal reasoning in the community"
+  resources={[
+    {
+      type: "github",
+      title: "Code Repository",
+      description: "Complete training and evaluation code for OpenMMReasoner",
+      url: "https://github.com/EvolvingLMMs-Lab/OpenMMReasoner",
+    },
+    {
+      type: "paper",
+      title: "Technical Report",
+      description: "Read our paper on arXiv",
+      url: "https://arxiv.org/abs/2511.16334",
+    },
+  ]}
+  groups={[
+    {
+      type: "model",
+      title: "Model Checkpoint",
+      description: "Pre-trained model with RL optimization",
+      items: [
+        {
+          name: "OpenMMReasoner-RL",
+          url: "https://huggingface.co/OpenMMReasoner/OpenMMReasoner-RL",
+          metadata: "7B",
+        },
+      ],
+    },
+    {
+      type: "dataset",
+      title: "Training Datasets",
+      description: "High-quality SFT and RL datasets",
+      items: [
+        {
+          name: "OpenMMReasoner-SFT-874K",
+          url: "https://huggingface.co/datasets/OpenMMReasoner/OpenMMReasoner-SFT-874K",
+          metadata: "874K",
+        },
+        {
+          name: "OpenMMReasoner-RL-74K",
+          url: "https://huggingface.co/datasets/OpenMMReasoner/OpenMMReasoner-RL-74K",
+          metadata: "74K",
+        },
+      ],
+    },
+  ]}
+/>
