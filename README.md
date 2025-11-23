@@ -230,6 +230,7 @@ Optimized responsive images with lazy loading, captions, and flexible styling.
   src="/images/example.jpg"
   alt="Description of the image"
   caption="Optional image caption"
+  variant="max"
   align="center"
   maxWidth="80%"
   rounded={true}
@@ -242,7 +243,8 @@ Optimized responsive images with lazy loading, captions, and flexible styling.
 - `alt`: string - Alt text for accessibility (required)
 - `caption?`: string - Optional caption text below image
 - `align?`: "left" | "center" | "right" - Image alignment (default: "center")
-- `maxWidth?`: string - Maximum width constraint (default: "90%")
+- `variant?`: "aligned" | "max" - Width behavior (default: "aligned" matches blog text width ~48rem; use "max" for full-width images)
+- `maxWidth?`: string - Optional max-width override (only used when `variant="max"`)
 - `rounded?`: boolean - Apply rounded corners (default: true)
 - `className?`: string - Additional CSS classes
 - `loading?`: "lazy" | "eager" - Loading strategy (default: "lazy")

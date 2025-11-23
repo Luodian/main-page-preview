@@ -12,16 +12,18 @@ interface ResponsiveImageProps {
   caption?: string;
   align?: "left" | "center" | "right";
   maxWidth?: string;
+  variant?: "max" | "aligned";
 }
 
 const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
   src,
   alt,
-  maxWidth = "90%",
+  maxWidth,
   className = "",
   rounded = true,
   caption,
   align = "center",
+  variant = "aligned",
 }) => {
   const alignmentClasses = {
     left: "mr-auto",
@@ -29,8 +31,21 @@ const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
     right: "ml-auto",
   };
 
+  const variantClasses: Record<NonNullable<ResponsiveImageProps["variant"]>, string> = {
+    aligned: "w-full max-w-full md:max-w-3xl",
+    max: "w-full max-w-full",
+  };
+
+  const computedMaxWidth =
+    variant === "max"
+      ? maxWidth ?? "100%"
+      : "min(100%, 48rem)";
+
   return (
-    <figure className={`my-6 ${alignmentClasses[align]}`} style={{ maxWidth }}>
+    <figure
+      className={`my-6 ${alignmentClasses[align]} ${variantClasses[variant]}`}
+      style={computedMaxWidth ? { maxWidth: computedMaxWidth } : undefined}
+    >
       <img
         src={src}
         alt={alt}
