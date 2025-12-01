@@ -111,7 +111,7 @@ const Header: React.FC<HeaderProps> = ({
               aria-expanded={isMobileMenuOpen}
               aria-haspopup="menu"
               aria-label="Open main menu"
-              className="group relative h-8 w-8 rounded-lg bg-color-100 hover:bg-accent-base/10 text-accent-base md:invisible md:hidden"
+              className="group relative h-8 w-8 rounded-lg text-accent-base md:invisible md:hidden"
               type="button"
               onClick={toggleMobileMenu}
             >
