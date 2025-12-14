@@ -135,7 +135,8 @@ export default {
             },
 
             code: {
-              "@apply px-2 py-1 text-sm rounded-lg bg-color-150": "",
+              "@apply px-1.5 py-0.5 rounded-md bg-color-150": "",
+              fontSize: "0.8em",
             },
 
             kbd: {
@@ -304,7 +305,7 @@ export default {
         sm: {
           css: {
             code: {
-              fontSize: theme("fontSize.sm")[0],
+              fontSize: "0.8em",
               fontWeight: "400",
             },
           },

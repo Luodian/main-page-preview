@@ -373,7 +373,7 @@
 
   /* Стиль для инлайнового кода (rehype pretty code переопределяет стили в tailwind.config.css) */
   :not(pre) > code {
-    @apply bg-[var(--code-inline-bg)] px-2 py-1 text-sm rounded-lg;
+    @apply bg-[var(--code-inline-bg)] px-1.5 py-0.5 text-[0.8em] rounded-md;
   }
 
   /* Стиль для кнопки копирования кода rehype-pretty-copy (кнопка реализована отдельно) */
