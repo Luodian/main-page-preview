@@ -23,56 +23,174 @@ authors:
   - name: "Xiang An"
   - name: "Bo Li"
 acknowledgement: "Project led by Changrui Chen and Jiankang Deng. Built upon contributions from the LLaVA-OneVision community."
-bibtex: "@article{zhu2025llava-ov-rl,\n  title={LLaVA-OneVision-1.5-RL: Unlocking Multimodal Reasoning via Lightweight Reinforcement Learning},\n  author={Zhu, Didi and Qu, Zhiyu and Chen, Zerui and Gkagkos, Polydefkis and An, Xiang and Li, Bo},\n  journal={arXiv preprint arXiv:2509.23661},\n  year={2025}\n}"
----
+bibtex: "@inproceedings{LLaVA-OneVision-1.5,
+  title={LLaVA-OneVision-1.5: Fully Open Framework for Democratized Multimodal Training},
+  author={An, Xiang and Xie, Yin and Yang, Kaicheng and Zhang, Wenkang and Zhao, Xiuwei and Cheng, Zheng and Wang, Yirui and Xu, Songcen and Chen, Changrui and Wu, Chunsheng and Tan, Huajie and Li, Chunyuan and Yang, Jing and Yu, Jie and Wang, Xiyao and Qin, Bin and Wang, Yumeng and Yan, Zizhen and Feng, Ziyong and Liu, Ziwei and Li, Bo and Deng, Jiankang},
+  booktitle={arXiv},
+  year={2025}
+}
 
+@inproceedings{xie2025region,
+  title={Region-based Cluster Discrimination for Visual Representation Learning},
+  author={Xie, Yin and Yang, Kaicheng and An, Xiang and Wu, Kun and Zhao, Yongle and Deng, Weimo and Ran, Zimin and Wang, Yumeng and Feng, Ziyong and Miles, Roy and Elezi, Ismail and Deng, Jiankang},
+  booktitle={ICCV},
+  year={2025}
+}
+
+@article{lillava,
+  title={LLaVA-OneVision: Easy Visual Task Transfer},
+  author={Li, Bo and Zhang, Yuanhan and Guo, Dong and Zhang, Renrui and Li, Feng and Zhang, Hao and Zhang, Kaichen and Zhang, Peiyuan and Li, Yanwei and Liu, Ziwei and Li, Chunyuan},
+  journal={Transactions on Machine Learning Research},
+  year={2024}
+}"
+---
 import { ResponsiveImage, ResourceCard } from "@/components/mdx/components";
 
-<ResponsiveImage
-  src="https://mvp-ai-lab.github.io/LLaVA-OneVision-1.5-RL/static/images/pipeline.png"
-  alt="LLaVA-OneVision-1.5-RL Pipeline"
-  maxWidth="100%"
-  caption="LLaVA-OneVision-1.5-RL: Unlocking multimodal reasoning through lightweight reinforcement learning post-training"
-/>
+<div style="text-align: center;">
+
+[Paper](https://arxiv.org/abs/2509.23661) | [Code](https://github.com/EvolvingLMMs-Lab/-LLaVA-OneVision-1.5-RL) | [Model](https://huggingface.co/mvp-lab/LLAVA-OV-1.5-8B-RL) | [Data](https://huggingface.co/datasets/mvp-lab/LLaVA-OneVision-1.5-RL-Data) | [Base Model](https://github.com/EvolvingLMMs-Lab/LLaVA-OneVision-1.5)
+
+</div>
 
 ## Overview
 
-**LLaVA-OneVision-1.5-RL** applies reinforcement learning post-training to enhance reasoning capabilities in multimodal models. Using the GRPO framework with rule-based rewards on a curated dataset of 67,000 examples, the model learns to generate explicit chain-of-thought reasoning. This approach demonstrates significant improvements on complex STEM, coding, and reasoning tasks while preserving general visual understanding performance.
+**LLaVA-OneVision-1.5-RL** presents an RL post-training stage utilizing 67K curated examples with discrepancy-based selection to generate explicit chain-of-thought reasoning, achieving significant performance gains on STEM, coding, and reasoning benchmarks while maintaining visual understanding capabilities.
 
-This release represents **Stage 3** in a multi-phase project, building upon large-scale pre-training (85M samples) and supervised fine-tuning (22M samples) completed in earlier stages.
+Our contributions are threefold:
 
-## Key Contributions
+**(1) Discrepancy-Driven Data Curation.**
+We identify tasks where model performance gap exists between Pass@N and Pass@1 metrics, targeting "latent capability" rather than knowledge injection.
 
-### Data Curation Strategy
+**(2) Rule-Based Reward System.**
+We employ domain-specific verification rules rather than learned preference models, enabling precise feedback across STEM, grounding, spatial reasoning, counting, coding, OCR, and diagram tasks.
 
-The training data is carefully curated using two key strategies:
+**(3) Two-Stage Curriculum Training.**
+We design a training curriculum that first stabilizes concise task performance with answer-only RL, then unlocks deeper reasoning through chain-of-thought RL.
 
-- **Discrepancy-based selection**: Measures Pass@N versus Pass@1 divergence to identify latent capabilities
-- **Reward-based sampling**: Filters for medium-difficulty instances that provide optimal learning signals
+<ResponsiveImage
+  src="/images/llava_onevision_1.5_rl_images/rl_2stage_data.png"
+  alt="RL Training Data Distribution"
+  maxWidth="100%"
+  caption="Distribution of task categories in the RL training data (67K total instances)"
+/>
 
-This results in a high-quality dataset of 67K training examples spanning STEM, coding, and reasoning tasks.
+---
 
-### Training Methodology
+## RL Data Strategy
 
-The model employs a sophisticated two-stage curriculum:
+### Discrepancy-Driven Selection
 
-1. **Answer-only RL**: Initial training phase focusing on correct answer generation
-2. **Chain-of-thought RL**: Advanced phase training explicit reasoning chains
+We identify tasks where model performance gap exists between Pass@N and Pass@1 metrics. This approach targets "latent capability" rather than knowledge injection, ensuring the model learns to better utilize its existing knowledge.
 
-Training uses Group Relative Policy Optimization (GRPO) within the asynchronous AReaL framework, with a mixed-prompt approach that maintains perception skills alongside reasoning development.
+### Reward-Based Sampling
+
+Multiple candidate responses are filtered by average reward scores to exclude trivial and unsolvable cases, focusing on medium-difficulty instances that provide optimal learning signals.
+
+---
+
+## Reward System Architecture
+
+We employ a rule-based paradigm with domain-specific verification rules rather than learned preference models:
+
+| Category | Source | Reward Design |
+|----------|--------|---------------|
+| STEM | ViRL39K | Choice accuracy & math expression equivalence |
+| Grounding | Ref-L4, VigoRL-SA | IoU between predicted/reference boxes; choice accuracy |
+| Spatial | VigoRL-SAT | Choice accuracy |
+| Counting | PixmoCount | Numeric token equivalence |
+| Coding | WebCode2M, UniSVG | Token/tag overlap; SVG rendering similarity [0,1] |
+| OCR | InfoVQA | Text similarity |
+| Diagram | AI2D | Choice accuracy |
+
+---
+
+## Two-Stage Training Procedure
+
+Training uses Group Relative Policy Optimization (GRPO) within the AReaL asynchronous framework:
+
+### Stage 1: Answer-only RL
+
+Normal split training with instruction *"Put ONLY your final answer within `<answer></answer>`."* This stage stabilizes concise task performance.
+
+### Stage 2: Chain-of-Thought RL
+
+Long-reasoning data with instruction *"Think and solve... within `<think></think>`..."* This stage unlocks deeper reasoning capabilities. A small proportion of normal-set examples are interspersed to prevent forgetting perception skills.
+
+---
 
 ## Performance Results
 
-LLaVA-OneVision-1.5-RL achieves significant improvements across reasoning benchmarks:
+### Core Capability Enhancement
 
-| Benchmark | Improvement |
-|-----------|-------------|
-| WeMath | +7.9 |
-| MathVision | +8.8 |
-| MMMU-Pro | +10.5 |
-| **Average** | **+6.0** |
+**General VQA Benchmarks (Average +1.0):**
 
-The model demonstrates strong gains in spatial reasoning, grounding, and coding tasks while preserving general visual understanding capabilities.
+| Benchmark | Base | +RL |
+|-----------|------|-----|
+| MMStar | 67.7 | 68.2 |
+| MMBench (EN) | 84.1 | 85.7 |
+| MMBench (CN) | 81.0 | 84.2 |
+| MME-RealWorld (EN) | 61.7 | 63.4 |
+| CV-Bench | 80.7 | 82.9 |
+| RealWorldQA | 68.1 | 68.4 |
+
+**Reasoning Tasks (Average +6.0):**
+
+| Benchmark | Base | +RL | Δ |
+|-----------|------|-----|---|
+| MathVista Mini | 69.6 | 72.3 | +2.7 |
+| WeMath | 61.5 | 69.4 | **+7.9** |
+| MathVision | 25.6 | 34.4 | **+8.8** |
+| MMMU Validation | 55.4 | 58.8 | +3.4 |
+| MMMU-Pro | 25.2 | 35.7 | **+10.5** |
+
+**OCR & Chart (Average +0.0):**
+
+| Benchmark | Base | +RL |
+|-----------|------|-----|
+| ChartQA | 86.5 | 87.4 |
+| DocVQA | 95.0 | 91.9 |
+| InfoVQA | 78.4 | 76.6 |
+
+---
+
+## Extended Capability Analysis
+
+<ResponsiveImage
+  src="/images/llava_onevision_1.5_rl_images/rl_extend_performance.png"
+  alt="Extended Performance Comparison"
+  maxWidth="100%"
+  caption="Performance comparison of LLaVA-OV-1.5 and corresponding RL version on Spatial Reasoning & Grounding and Coding tasks"
+/>
+
+**Spatial & Grounding:** RL "fast mode" significantly enhances fine-grained perception on SAT and Ref-L4 benchmarks.
+
+**Coding:** "Thinking" mode achieves highest scores on Design2Code and UniSVG, demonstrating chain-of-thought benefits for structural code generation.
+
+---
+
+## Development Roadmap
+
+This release represents **Stage 3** in a multi-phase project:
+
+| Stage | Focus | Data Scale |
+|-------|-------|------------|
+| Stage 1 & 1.5 | Pre-training & Mid-training | 85M multimodal samples |
+| Stage 2 | Visual instruction tuning (SFT) | 22M instruction-following samples |
+| **Stage 3 (Current)** | **RL post-training with GRPO** | **67K curated samples** |
+
+---
+
+## Acknowledgements
+
+We thank the following projects and frameworks:
+
+- [AReaL](https://github.com/inclusionAI/AReaL): Lightning-Fast RL for LLM Reasoning and Agents
+- [sglang](https://github.com/sgl-project/sglang): Fast serving framework for LLMs and vision language models
+- [lmms-eval](https://github.com/EvolvingLMMs-Lab/lmms-eval): Standardized evaluation framework
+- [LLaVA](https://github.com/haotian-liu/LLaVA): Large Language-and-Vision Assistant
+- [LLaVA-NeXT](https://github.com/LLaVA-VL/LLaVA-NeXT): Next-generation multi-modal assistant
+
+---
 
 <ResourceCard
   title="Open-Source Resources"
@@ -90,23 +208,43 @@ The model demonstrates strong gains in spatial reasoning, grounding, and coding 
       description: "RL training code and reproduction scripts",
       url: "https://github.com/EvolvingLMMs-Lab/-LLaVA-OneVision-1.5-RL",
     },
+  ]}
+  groups={[
     {
       type: "model",
-      title: "8B Model Checkpoint",
-      description: "Pre-trained LLaVA-OV-1.5-8B-RL model",
-      url: "https://huggingface.co/mvp-lab/LLAVA-OV-1.5-8B-RL",
+      title: "Model Checkpoints",
+      description: "Pre-trained models with RL optimization",
+      items: [
+        {
+          name: "LLAVA-OV-1.5-8B-RL",
+          url: "https://huggingface.co/mvp-lab/LLAVA-OV-1.5-8B-RL",
+          metadata: "8B",
+        },
+      ],
     },
     {
       type: "dataset",
-      title: "Training Data (67K)",
-      description: "Curated RL training dataset",
-      url: "https://huggingface.co/datasets/mvp-lab/LLaVA-OneVision-1.5-RL-Data",
+      title: "Training Datasets",
+      description: "Curated RL training data",
+      items: [
+        {
+          name: "LLaVA-OneVision-1.5-RL-Data",
+          url: "https://huggingface.co/datasets/mvp-lab/LLaVA-OneVision-1.5-RL-Data",
+          metadata: "67K",
+        },
+      ],
     },
     {
       type: "github",
       title: "Base Model",
-      description: "LLaVA-OneVision-1.5 base repository",
-      url: "https://github.com/EvolvingLMMs-Lab/LLaVA-OneVision-1.5",
+      description: "LLaVA-OneVision-1.5 foundation",
+      items: [
+        {
+          name: "LLaVA-OneVision-1.5",
+          url: "https://github.com/EvolvingLMMs-Lab/LLaVA-OneVision-1.5",
+          metadata: "Base",
+        },
+      ],
     },
   ]}
 />
