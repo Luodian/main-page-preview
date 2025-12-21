@@ -5,9 +5,34 @@ publishDate: "2024-07-17"
 mainTags: ["tools", "benchmarks"]
 tags: ["benchmarks", "models", "evaluation", "tools", "research"]
 thumbnail: "/images/blog_thumbnails/lmms_eval.png"
+authors:
+  - name: "Kaichen Zhang"
+    main: true
+  - name: "Bo Li"
+    main: true
+  - name: "Peiyuan Zhang"
+    main: true
+  - name: "Fanyi Pu"
+  - name: "Joshua Adrian Cahyono"
+  - name: "Kairui Hu"
+  - name: "Shuai Liu"
+  - name: "Yuanhan Zhang"
+  - name: "Jingkang Yang"
+  - name: "Chunyuan Li"
+  - name: "Ziwei Liu"
+bibtex: |
+  @misc{zhang2024lmmsevalrealitycheckevaluation,
+        title={LMMs-Eval: Reality Check on the Evaluation of Large Multimodal Models},
+        author={Kaichen Zhang and Bo Li and Peiyuan Zhang and Fanyi Pu and Joshua Adrian Cahyono and Kairui Hu and Shuai Liu and Yuanhan Zhang and Jingkang Yang and Chunyuan Li and Ziwei Liu},
+        year={2024},
+        eprint={2407.12772},
+        archivePrefix={arXiv},
+        primaryClass={cs.CL},
+        url={https://arxiv.org/abs/2407.12772},
+  }
 ---
 
-import { ResponsiveImage } from "@/components/mdx/components";
+import { ResponsiveImage, ResourceCard, CodeDemo } from "@/components/mdx/components";
 
 <ResponsiveImage
   src="https://camo.githubusercontent.com/fcf179566ff0a9e40aed13cc848bbf4544e516cee79635b8571b0dcc60eb925a/68747470733a2f2f692e706f7374696d672e63632f4b766b4c7a6246392f575832303234313231322d3031343430302d32782e706e67"
@@ -15,12 +40,122 @@ import { ResponsiveImage } from "@/components/mdx/components";
   caption="LMMs-Eval: A comprehensive evaluation framework for Large Multimodal Models"
 />
 
-In today's world, we're on an exciting journey toward creating Artificial General Intelligence (AGI), much like the enthusiasm of the 1960s moon landing. This journey is powered by advanced large language models (LLMs) and large multimodal models (LMMs), which are complex systems capable of understanding, learning, and performing a wide variety of human tasks.
+<div style="text-align: center;">
 
-To gauge how advanced these models are, we use a variety of evaluation benchmarks. These benchmarks are tools that help us understand the capabilities of these models, showing us how close we are to achieving AGI.
+[Paper](https://arxiv.org/abs/2407.12772) | [GitHub](https://github.com/EvolvingLMMs-Lab/lmms-eval) | [Documentation](https://github.com/EvolvingLMMs-Lab/lmms-eval/tree/main/docs) | [Discord](https://discord.gg/zdkwKUqrPy)
 
-However, finding and using these benchmarks is a big challenge. The necessary benchmarks and datasets are spread out and hidden in various places like Google Drive, Dropbox, and different school and research lab websites. It feels like we're on a treasure hunt, but the maps are scattered everywhere.
+</div>
 
-In the field of language models, there has been a valuable precedent set by the work of lm-evaluation-harness. They offer integrated data and model interfaces, enabling rapid evaluation of language models and serving as the backend support framework for the open-llm-leaderboard, and has gradually become the underlying ecosystem of the era of foundation models.
+## Why LMMs-Eval?
 
-We humbly obsorbed the exquisite and efficient design of lm-evaluation-harness and introduce lmms-eval, an evaluation framework meticulously crafted for consistent and efficient evaluation of LMM.
+We're on an exciting journey toward creating Artificial General Intelligence (AGI), much like the enthusiasm of the 1960s moon landing. This journey is powered by advanced large language models (LLMs) and large multimodal models (LMMs), which are complex systems capable of understanding, learning, and performing a wide variety of human tasks.
+
+To gauge how advanced these models are, we use a variety of evaluation benchmarks. These benchmarks are tools that help us understand the capabilities of these models, showing us how close we are to achieving AGI. However, finding and using these benchmarks is a big challenge. The necessary benchmarks and datasets are spread out and hidden in various places like Google Drive, Dropbox, and different school and research lab websites. It feels like we're on a treasure hunt, but the maps are scattered everywhere.
+
+In the field of language models, there has been a valuable precedent set by the work of [lm-evaluation-harness](https://github.com/EleutherAI/lm-evaluation-harness). They offer integrated data and model interfaces, enabling rapid evaluation of language models and serving as the backend support framework for the open-llm-leaderboard, and has gradually become the underlying ecosystem of the era of foundation models.
+
+We humbly absorbed the exquisite and efficient design of lm-evaluation-harness and introduce [lmms-eval](https://github.com/EvolvingLMMs-Lab/lmms-eval), an evaluation framework meticulously crafted for consistent and efficient evaluation of LMM. For more details, please refer to our [paper](https://arxiv.org/abs/2407.12772).
+
+## Key Features
+
+- **Multi-modality support**: Text, image, video, and audio evaluations
+- **100+ supported tasks** across different modalities
+- **30+ supported models** including vision-language and audio models
+- **Response caching** and accelerated inference options (vLLM, SGLang, tensor parallelism)
+- **OpenAI-compatible API support** for diverse model architectures
+- **Reproducible results** with version-controlled environments using `uv`
+
+## Supported Models
+
+LMMs-Eval supports a wide range of models including:
+
+- **LLaVA series**: LLaVA-1.5, LLaVA-OneVision, LLaVA-OneVision 1.5
+- **Qwen series**: Qwen2-VL, Qwen2.5-VL
+- **Commercial APIs**: GPT-4o, GPT-4o Audio Preview, Gemini 1.5 Pro
+- **Audio models**: Aero-1-Audio, Gemini Audio
+- **Other open models**: InternVL-2, VILA, LongVA, LLaMA-3.2-Vision
+
+## Supported Benchmarks
+
+### Vision
+MME, COCO, VQAv2, TextVQA, GQA, MMVP, ChartQA, DocVQA, OCRVQA, LLaVA-Bench, MMMU, MathVista
+
+### Video
+EgoSchema, PerceptionTest, VideoMME, MVBench, LongVideoBench, TemporalBench, VideoMathQA
+
+### Audio
+AIR-Bench, Clotho-AQA, LibriSpeech, VoiceBench, WenetSpeech
+
+### Reasoning
+CSBench, SciBench, MedQA, SuperGPQA, PhyX
+
+## Installation
+
+<CodeDemo title="Installation with uv (Recommended)" language="bash">
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+git clone https://github.com/EvolvingLMMs-Lab/lmms-eval
+cd lmms-eval
+uv pip install -e ".[all]"
+```
+</CodeDemo>
+
+## Usage
+
+<CodeDemo title="Basic Evaluation" language="bash">
+```bash
+# Evaluate LLaVA-OneVision on multiple benchmarks
+accelerate launch --num_processes=8 -m lmms_eval \
+  --model=llava_onevision \
+  --model_args=pretrained=lmms-lab/llava-onevision-qwen2-7b-ov \
+  --tasks=mmmu_val,mmbench_en,mathvista_testmini \
+  --batch_size=1
+
+# See all options
+python -m lmms_eval --help
+```
+</CodeDemo>
+
+## Latest Release (v0.5)
+
+The October 2025 release features:
+- Comprehensive audio evaluation expansion
+- Response caching capabilities
+- 5 new models (GPT-4o Audio Preview, Gemma-3, LongViLA-R1, LLaVA-OneVision 1.5)
+- 50+ new benchmark variants
+- Enhanced reproducibility tools
+
+## Community
+
+With **3.4k+ stars**, **460+ forks**, and **157+ contributors**, LMMs-Eval has become the standard evaluation framework for multimodal models in the research community.
+
+<ResourceCard
+  title="LMMs-Eval Resources"
+  description="Complete resources for evaluating large multimodal models"
+  resources={[
+    {
+      type: "github",
+      title: "GitHub Repository",
+      description: "Source code, documentation, and examples",
+      url: "https://github.com/EvolvingLMMs-Lab/lmms-eval",
+    },
+    {
+      type: "paper",
+      title: "Research Paper",
+      description: "LMMs-Eval: Reality Check on the Evaluation of Large Multimodal Models",
+      url: "https://arxiv.org/abs/2407.12772",
+    },
+    {
+      type: "link",
+      title: "Documentation",
+      description: "Task list, model guides, and usage instructions",
+      url: "https://github.com/EvolvingLMMs-Lab/lmms-eval/tree/main/docs",
+    },
+    {
+      type: "dataset",
+      title: "Datasets",
+      description: "Curated evaluation datasets on Hugging Face",
+      url: "https://huggingface.co/lmms-lab",
+    },
+  ]}
+/>
