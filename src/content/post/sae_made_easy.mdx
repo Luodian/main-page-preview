@@ -25,7 +25,7 @@ authors:
 bibtex: "@misc{zhang2024largemultimodalmodelsinterpret,\n      title={Large Multi-modal Models Can Interpret Features in Large Multi-modal Models},\n      author={Kaichen Zhang and Yifei Shen and Bo Li and Ziwei Liu},\n      year={2024},\n      eprint={2411.14982},\n      archivePrefix={arXiv},\n      primaryClass={cs.CV},\n      url={https://arxiv.org/abs/2411.14982}\n}"
 ---
 
-import { ResponsiveImage, CodeDemo } from "@/components/mdx/components";
+import { ResponsiveImage, CodeDemo, ResourceCard } from "@/components/mdx/components";
 
 <ResponsiveImage
   src="https://github.com/user-attachments/assets/59bf4ef7-e14c-4464-be3a-ba6fbf16ae48"
@@ -241,3 +241,28 @@ Accelerate mechanistic interpretability research with production-ready tools and
 5. **Analyze** learned features for interpretability insights
 
 **SAE Made Easy** democratizes access to sparse autoencoder research, enabling researchers and practitioners to easily integrate interpretability tools into their workflows.
+
+<ResourceCard
+  title="Open Source Resources"
+  description="Comprehensive resources for the research community to reproduce and extend our multimodal SAE work"
+  resources={[
+    {
+      type: "github",
+      title: "GitHub Repository",
+      description: "Complete implementation and code",
+      url: "https://github.com/EvolvingLMMs-Lab/sae",
+    },
+    {
+      type: "link",
+      title: "Training Scripts",
+      description: "SAE training and integration pipelines",
+      url: "https://github.com/EvolvingLMMs-Lab/sae/tree/main/examples",
+    },
+    {
+      type: "link",
+      title: "Interpretation Tools",
+      description: "Auto-explanation pipeline implementation",
+      url: "https://github.com/EvolvingLMMs-Lab/multimodal-sae",
+    },
+  ]}
+/>
