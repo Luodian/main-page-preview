@@ -1,6 +1,6 @@
 ---
 title: "LLaVA-Video"
-description: "Video Instruction Tuning With Synthetic Data"
+description: "LLaVA-Video: Video Instruction Tuning With Synthetic Data"
 publishDate: "2024-09-30"
 mainTags: ["models"]
 tags:
@@ -17,36 +17,89 @@ thumbnail: "/images/blog_thumbnails/llava_next_video.png"
 authors:
   - name: "Yuanhan Zhang"
     main: true
+  - name: "Jinming Wu"
+    main: true
+  - name: "Wei Li"
+    main: true
   - name: "Bo Li"
     main: true
-  - name: "Haotian Liu"
-    main: true
-  - name: "Yong Jae Lee"
-    main: true
-  - name: "Liangke Gui"
-    main: true
-  - name: "Di Fu"
-    main: true
-  - name: "Jiashi Feng"
-    main: true
+  - name: "Zejun Ma"
   - name: "Ziwei Liu"
   - name: "Chunyuan Li"
-bibtex: "@article{zhang2024llavavideo,\n  title={LLaVA-Video: Video Instruction Tuning With Synthetic Data},\n  author={Zhang, Yuanhan and Li, Bo and Liu, Haotian and Lee, Yong Jae and Gui, Liangke and Fu, Di and Feng, Jiashi and Liu, Ziwei and Li, Chunyuan},\n  journal={arXiv preprint arXiv:2410.02713},\n  year={2024}\n}"
+bibtex: "@article{zhang2024llavavideo,
+  title={LLaVA-Video: Video Instruction Tuning With Synthetic Data},
+  author={Zhang, Yuanhan and Wu, Jinming and Li, Wei and Li, Bo and Ma, Zejun and Liu, Ziwei and Li, Chunyuan},
+  journal={Transactions on Machine Learning Research},
+  year={2025}
+}"
 ---
 
-import { ResponsiveImage } from "@/components/mdx/components";
+<ResourceCard
+  title="LLaVA-Video Resources"
+  description="Complete implementation, interactive demos, models, evaluation results, and documentation for LLaVA-Video"
+  resources={[
+    {
+      type: "github",
+      title: "GitHub Repository",
+      description: "Complete implementation and source code",
+      url: "https://github.com/LLaVA-VL/LLaVA-NeXT/",
+    },
+    {
+      type: "model",
+      title: "Model Checkpoints",
+      description: "LLaVA-Video-7B models",
+      url: "https://huggingface.co/lmms-lab/LLaVA-Video-7B-Qwen2",
+    },
+    {
+      type: "link",
+      title: "Dataset Link",
+      description: "LLaVA-Video-178K Dataset",
+      url: "https://huggingface.co/datasets/lmms-lab/LLaVA-Video-178K",
+    },
+    {
+      type: "link",
+      title: "Documentation",
+      description: "Complete usage cookbook and guides",
+      url: "https://github.com/LLaVA-VL/LLaVA-NeXT/blob/main/docs/LLaVA_Video_1003.md",
+    },
+  ]}
+/>
+
+import {
+  ResponsiveImage,
+  ResourceCard,
+} from "@/components/mdx/components";
+
 
 The development of video large multimodal models (LMMs) has been hindered by the difficulty of curating large amounts of high-quality raw data from the web. To address this, we consider an alternative approach, creating a high-quality synthetic dataset specifically for video instruction-following, namely LLaVA-Video-178K. This dataset includes key tasks such as detailed captioning, open-ended question-answering (QA), and multiple-choice QA. By training on this proposed dataset, in combination with existing visual instruction tuning data, we introduce LLaVA-Video, a new video LMM. Our experiments demonstrate that LLaVA-Video achieves strong performance across various video benchmarks, highlighting the effectiveness of our dataset. We plan to release the dataset, its generation pipeline, and the model checkpoints.
 
 ## Video Instruction-Following Data Synthesis
 
+
 A high-quality dataset for video instruction-tuning is crucial for developing effective video-language models. We identify a key factor in building such datasets: ensuring richness and diversity in both video content and its language annotations. We perform comprehensive survey on the existing video benchmarks, covering across various public video captioning and question-answering datasets, then identify ten unique video sources that contribute to over 40 video-language benchmarks. From each source, we select videos that exhibit significant temporal dynamics. To maintain diversity in the annotations, we establish a pipeline capable of generating detailed captions for videos of any length. Additionally, we define 16 types of questions that guide GPT-4o in creating question-answer pairs to assess the perceptual and reasoning skills of the video-language models.
 
 ## Video Sources
 
+<ResponsiveImage
+  src="/public/images/llava_video/video_source_page.jpg"
+  alt="Video Sources for LLaVA-Video"
+  maxWidth="100%"
+  caption="Video sources in the proposed LLaVA-Video-178K. The relationship between 10
+video sources we have utilized and other existing video-language datasets."
+/>
+
 We noticed that although different video-language datasets focus on various video understanding tasks , most are sourced from ten main video sources, which offer a wide range of video data from different websites, viewpoints, and domains. The relationship between these ten selected video datasets and others is shown in figure below. We select the dynamic video from these source, we detail the video selection logic in the paper.
 
 ## Automated Generation for Video Detail Description
+
+<ResponsiveImage
+  src="/public/images/llava_video/llava_video_data_creation_page-0001.jpg"
+  alt="LLaVA-Video Data Creation"
+  maxWidth="100%"
+  caption="The video detail description creation pipeline. A three-level creation pipeline is considered,
+with each level developed via a recurrent approach. Note that t is the index of time internal at its own level,
+and T is the last time internal index"
+/>
 
 For selected videos, we use GPT-4o to systematically describe their content. We start by sampling video frames at one frame per second (fps). However, due to the input size constraints of GPT-4o, we cannot use all sampled frames. Instead, we describe the videos sequentially, as shown in figure below. We create descriptions at three distinct levels, detailed below.
 
