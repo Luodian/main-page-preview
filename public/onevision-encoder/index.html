@@ -594,7 +594,7 @@
                     Standard contrastive learning (e.g., CLIP) is limited by batch size—negative samples are drawn only from the current batch, typically 32K-64K examples. This creates a narrow view of the embedding space and leads to suboptimal representations. Our approach maintains a <strong>global concept bank of 2M clustered centers</strong>, enabling each training sample to contrast against a diverse, representative set of negatives regardless of batch composition. This produces more discriminative embeddings with better-separated semantic clusters.
                 </p>
                 <figure class="figure-centered flex-col">
-                    <img src="images/global_contrastive_comparison.webm" alt="Global Contrastive Learning Visualization" class="w-full max-w-5xl rounded-lg">
+                    <video src="images/global_contrastive_comparison.webm" autoplay loop muted playsinline class="w-full max-w-5xl rounded-lg"></video>
                     <!-- <figcaption class="text-center text-gray-500 text-xs mt-4 italic max-w-3xl">
                         Left: CLIP's batch-level contrastive learning with limited negatives. Right: Our global contrastive approach with clustered positive centers (green) contrasting against 60 diverse negative samples (red/orange) drawn from a 2M concept bank.
                     </figcaption> -->
