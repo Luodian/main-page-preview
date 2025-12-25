@@ -264,6 +264,147 @@
             border-right: 2px solid #d1d5db;
             padding: 10px 10px;
         }
+
+        /* --- Mobile Responsive Styles --- */
+        @media (max-width: 768px) {
+            /* Navigation - Mobile hamburger menu */
+            .mobile-menu-button {
+                display: block;
+                background: none;
+                border: none;
+                cursor: pointer;
+                padding: 0.5rem;
+            }
+
+            .mobile-menu-button i {
+                font-size: 1.5rem;
+                color: #1f2937;
+            }
+
+            .mobile-nav {
+                display: none;
+                position: fixed;
+                top: 64px;
+                left: 0;
+                right: 0;
+                background: white;
+                border-bottom: 1px solid #e5e7eb;
+                padding: 1rem;
+                z-index: 40;
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            }
+
+            .mobile-nav.active {
+                display: block;
+            }
+
+            .mobile-nav a {
+                display: block;
+                padding: 0.75rem 0;
+                border-bottom: 1px solid #f3f4f6;
+            }
+
+            .mobile-nav a:last-child {
+                border-bottom: none;
+            }
+
+            /* Hero Section - Reduce text sizes */
+            .hero-bg {
+                padding-top: 6rem !important;
+                padding-bottom: 3rem !important;
+            }
+
+            h1 {
+                font-size: 2.5rem !important;
+                line-height: 1.2 !important;
+            }
+
+            h1 + p {
+                font-size: 1.125rem !important;
+            }
+
+            /* Buttons - Stack vertically on mobile */
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            /* Section headings */
+            h3 {
+                font-size: 1.5rem !important;
+            }
+
+            /* Tables - Enable horizontal scroll */
+            .table-wrapper,
+            .overflow-x-auto {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .data-table,
+            .results-table {
+                min-width: 800px;
+            }
+
+            /* Feature cards - Full width on mobile */
+            .feature-card {
+                padding: 1.5rem 1rem;
+            }
+
+            /* Image grid - Adjust for mobile */
+            #image-grid-codec,
+            #image-grid-sampling {
+                transform: scale(0.6);
+                transform-origin: top left;
+                margin-bottom: -40px;
+            }
+
+            /* Pipeline GIF controls - Adjust spacing */
+            #pipelinePrevBtn,
+            #pipelineNextBtn {
+                width: 36px;
+                height: 36px;
+            }
+
+            #pipelineDots button {
+                width: 8px !important;
+                height: 8px !important;
+            }
+
+            /* Padding adjustments */
+            section {
+                padding-top: 2rem !important;
+                padding-bottom: 2rem !important;
+            }
+
+            /* Font size adjustments */
+            body {
+                font-size: 0.9rem;
+            }
+
+            .text-base,
+            p {
+                font-size: 0.875rem !important;
+            }
+
+            .text-xs {
+                font-size: 0.65rem !important;
+            }
+        }
+
+        /* Tablets and small laptops */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            /* Slightly reduce text sizes for tablets */
+            h1 {
+                font-size: 3.5rem !important;
+            }
+
+            .table-wrapper,
+            .overflow-x-auto {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+        }
     </style>
 </head>
 <body class="text-gray-800 bg-slate-50">
@@ -275,18 +416,27 @@
                 <div class="flex-shrink-0 flex items-center gap-2">
                     <span class="font-bold text-lg tracking-tight text-gray-900">OneVision Encoder</span>
                 </div>
+                <!-- Desktop Navigation -->
                 <div class="hidden md:block">
-                    <div class="ml-10 flex items-center space-x-10">
+                    <div class="ml-10 flex items-baseline space-x-10">
                         <a href="#abstract" class="nav-link">Introduction</a>
                         <a href="#method" class="nav-link">Method</a>
                         <a href="#results" class="nav-link">Results</a>
                         <a href="#bibtex" class="nav-link">BibTeX</a>
-                        <a href="https://lmms-lab.com" class="btn btn-secondary text-sm py-1.5 px-3">
-                            <i class="fa-solid fa-arrow-left text-xs"></i> LMMs-Lab
-                        </a>
                     </div>
                 </div>
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden mobile-menu-button" id="mobileMenuBtn" aria-label="Toggle mobile menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
             </div>
+        </div>
+        <!-- Mobile Navigation Menu -->
+        <div class="mobile-nav md:hidden" id="mobileMenu">
+            <a href="#abstract" class="nav-link">Introduction</a>
+            <a href="#method" class="nav-link">Method</a>
+            <a href="#results" class="nav-link">Results</a>
+            <a href="#bibtex" class="nav-link">BibTeX</a>
         </div>
     </nav>
 
@@ -333,19 +483,19 @@
                 We present <strong>OneVision Encoder</strong>, a vision transformer that resolves this trade-off using principles from HEVC video compression. Instead of sampling sparse frames densely (all patches from few frames), we sample dense frames sparsely (important patches from many frames). Our codec-style patch selection identifies temporally-salient regions—areas with motion, object interactions, or semantic changes—and processes only these informative patches.
             </p>
             <p class="text-gray-600 text-base mb-6">
-                Combined with global contrastive learning using a 2M concept bank, OneVision Encoder achieves state-of-the-art results on video benchmarks (MVBench, VideoMME, Perception Test) and image understanding tasks (AI2D, ChartQA, OCRBench), while reducing processed patches by <strong>75-98%</strong>. This enables processing 64 frames with less computation than traditional 8-frame approaches.
+                Combined with global contrastive learning using a 2M concept bank, OneVision Encoder achieves state-of-the-art results on video benchmarks (MVBench, VideoMME, Perception Test) and image understanding tasks (DocVQA, ChartQA, OCRBench).
             </p>
             <figure class="mt-8 flex flex-col items-center">
-                <img src="images/method.jpeg" alt="OneVision Encoder Method Overview" class="w-full max-w-4xl rounded-lg">
-                <figcaption class="text-center text-gray-500 text-xs mt-4 italic max-w-3xl">
+                <img src="images/method.png" alt="OneVision Encoder Method Overview" class="w-full max-w-4xl rounded-lg">
+                <!-- <figcaption class="text-center text-gray-500 text-xs mt-4 italic max-w-3xl">
                     Overview of the OneVision Encoder architecture: Dense video-codec decomposition, chunk-wise sampling, and contrastive learning with class embeddings.
-                </figcaption>
+                </figcaption> -->
             </figure>
         </div>
-    </section>
+    <!-- </section> -->
 
     <!-- Method Section -->
-    <section id="method" class="py-20 bg-slate-50">
+    <!-- <section id="method" class="py-20 bg-slate-50"> -->
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
             <!-- Tooltip for position display -->
@@ -405,22 +555,34 @@
                 <!-- Interactive GIF Display with Case Switching -->
                 <div style="max-width: 1100px; margin: 0 auto;">
                     <div id="pipelineGifContainer" style="position: relative; border-radius: 0.75rem; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);">
-                        <video id="pipelineGifImage" src="images/case1.webm" autoplay loop muted playsinline style="width: 100%; height: auto; border-radius: 0.75rem; display: block; transition: opacity 0.3s ease;"></video>
+                        <img id="pipelineGifImage" src="images/case1.webm" alt="Video Processing Pipeline" style="width: 100%; height: auto; border-radius: 0.75rem; display: block; transition: opacity 0.3s ease;">
                     </div>
-                    
+
                     <p id="pipelineDescription" class="text-center text-gray-500 text-xs mt-4 italic max-w-3xl mx-auto">
                         Complete video processing pipeline showing the four stages from original video to codec-style compressed representation. Each stage demonstrates how our approach progressively identifies and extracts temporally-salient patches while maintaining rich motion information.
                     </p>
                 </div>
 
-                <!-- Pagination Dots -->
-                <div id="pipelineDots" style="display: flex; justify-content: center; gap: 0.75rem; margin-top: 1.5rem; align-items: center;">
-                    <!-- Dots will be inserted here by JavaScript -->
+                <!-- Pagination Dots with Arrows -->
+                <div style="display: flex; justify-content: center; align-items: center; gap: 1rem; margin-top: 1.5rem;">
+                    <!-- Left Arrow -->
+                    <button id="pipelinePrevBtn" aria-label="Previous case" style="background: rgba(255, 255, 255, 0.9); border: 1px solid #e5e7eb; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease; box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1);">
+                        <i class="fa-solid fa-chevron-left" style="color: #1f2937; font-size: 1rem;"></i>
+                    </button>
+
+                    <div id="pipelineDots" style="display: flex; justify-content: center; gap: 0.75rem; align-items: center;">
+                        <!-- Dots will be inserted here by JavaScript -->
+                    </div>
+
+                    <!-- Right Arrow -->
+                    <button id="pipelineNextBtn" aria-label="Next case" style="background: rgba(255, 255, 255, 0.9); border: 1px solid #e5e7eb; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease; box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1);">
+                        <i class="fa-solid fa-chevron-right" style="color: #1f2937; font-size: 1rem;"></i>
+                    </button>
                 </div>
 
-                <p class="text-center text-gray-500 text-xs mt-6 italic max-w-2xl mx-auto">
+                <!-- <p class="text-center text-gray-500 text-xs mt-6 italic max-w-2xl mx-auto">
                     Key insight: By processing dense frames sparsely (selecting important patches) rather than sparse frames densely (processing all patches), we capture richer temporal information with less computation.
-                </p>
+                </p> -->
             </div>
 
             <!-- 3. Global Contrastive Learning -->
@@ -429,25 +591,18 @@
                     Global Contrastive Learning
                 </h3>
                 <p class="text-gray-600 text-base mb-4">
-                    Standard contrastive learning (e.g., CLIP) is limited by batch size—negative samples are drawn only from the current batch, typically 32K-64K examples. This creates a narrow view of the embedding space and leads to suboptimal representations.
-                </p>
-                <p class="text-gray-600 text-base mb-6">
-                    Our approach maintains a <strong>global concept bank of 2M clustered centers</strong>, enabling each training sample to contrast against a diverse, representative set of negatives regardless of batch composition. This produces more discriminative embeddings with better-separated semantic clusters.
+                    Standard contrastive learning (e.g., CLIP) is limited by batch size—negative samples are drawn only from the current batch, typically 32K-64K examples. This creates a narrow view of the embedding space and leads to suboptimal representations. Our approach maintains a <strong>global concept bank of 2M clustered centers</strong>, enabling each training sample to contrast against a diverse, representative set of negatives regardless of batch composition. This produces more discriminative embeddings with better-separated semantic clusters.
                 </p>
                 <figure class="figure-centered flex-col">
-                    <video src="images/global_contrastive_comparison.webm" autoplay loop muted playsinline alt="Global Contrastive Learning Visualization" class="w-full max-w-5xl rounded-lg"></video>
-                    <figcaption class="text-center text-gray-500 text-xs mt-4 italic max-w-3xl">
+                    <img src="images/global_contrastive_comparison.webm" alt="Global Contrastive Learning Visualization" class="w-full max-w-5xl rounded-lg">
+                    <!-- <figcaption class="text-center text-gray-500 text-xs mt-4 italic max-w-3xl">
                         Left: CLIP's batch-level contrastive learning with limited negatives. Right: Our global contrastive approach with clustered positive centers (green) contrasting against 60 diverse negative samples (red/orange) drawn from a 2M concept bank.
-                    </figcaption>
+                    </figcaption> -->
                 </figure>
             </div>
 
         </div>
-    </section>
 
-
-    <!-- Results Section -->
-    <section id="results" class="py-20 bg-slate-50">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- <h2 class="text-3xl font-bold text-gray-900 mb-10 text-center">Experimental Results</h2> -->
 
@@ -473,8 +628,8 @@
                             <tr class="header-group">
                                 <th rowspan="2" style="vertical-align: middle; min-width: 140px;">Task</th>
                                 <th rowspan="2" style="vertical-align: middle; min-width: 220px;">Benchmark</th>
+                                <th colspan="2" style="min-width: 140px;">Qwen3-4B-Instruct2507</th>
                                 <th colspan="2" style="min-width: 140px;">Qwen2.5-1.5B</th>
-                                <th colspan="2" style="min-width: 140px;">Qwen3-4B</th>
                             </tr>
                             <tr class="sub-header">
                                 <th class="highlight-ours" style="min-width: 140px;">OV-Encoder</th>
@@ -482,129 +637,109 @@
                                 <th class="highlight-ours" style="min-width: 140px;">OV-Encoder</th>
                                 <th style="min-width: 140px;">SigLIP2</th>
                             </tr>
-                            <!-- <tr class="sub-header">
-                                <th class="highlight-ours">1.5B</th>
-                                <th class="highlight-ours">1.5B</th>
-                                <th>4B</th>
-                                <th>4B</th>
-                            </tr> -->
                         </thead>
                         <tbody>
                             <!-- Video Tasks -->
                             <tr>
-                                <td rowspan="7" class="task-group-cell">Video</td>
+                                <td rowspan="6" class="task-group-cell">Video</td>
                                 <td class="row-header">MVBench</td>
+                                <td class="best-val highlight-ours">49.8</td>
+                                <td>47.2</td>
                                 <td class="best-val highlight-ours">46.8</td>
                                 <td>45.9</td>
-                                <td class="best-val highlight-ours">49.8</td>
-                                <td>48.1</td>
                             </tr>
                             <tr>
                                 <td class="row-header">MLVU-dev</td>
+                                <td class="best-val highlight-ours">49.4</td>
+                                <td>48.4</td>
                                 <td class="best-val highlight-ours">48.5</td>
-                                <td>43.6</td>
-                                <td class="highlight-ours">49.4</td>
-                                <td class="best-val">49.9</td>
+                                <td>41.4</td>
                             </tr>
                             <tr>
                                 <td class="row-header">NExT-QA (MC)</td>
-                                <td class="best-val highlight-ours">67.6</td>
-                                <td>67.1</td>
                                 <td class="best-val highlight-ours">71.9</td>
-                                <td>-</td>
-                            </tr>
-                            <tr>
-                                <td class="row-header">NExT-QA-oe</td>
-                                <td class="highlight-ours">23.5</td>
-                                <td>23.5</td>
-                                <td class="highlight-ours">-</td>
-                                <td>-</td>
+                                <td>70.6</td>
+                                <td class="best-val highlight-ours">67.6</td>
+                                <td>66.8</td>
                             </tr>
                             <tr>
                                 <td class="row-header">VideoMME</td>
-                                <td class="best-val highlight-ours">44.2</td>
-                                <td>41.9</td>
                                 <td class="best-val highlight-ours">49.3</td>
-                                <td>-</td>
+                                <td>46.8</td>
+                                <td class="best-val highlight-ours">44.2</td>
+                                <td>42.7</td>
                             </tr>
                             <tr>
                                 <td class="row-header">Perception Test</td>
+                                <td class="best-val highlight-ours">56.7</td>
+                                <td>56.0</td>
                                 <td class="best-val highlight-ours">55.2</td>
                                 <td>54.7</td>
-                                <td class="best-val highlight-ours">56.7</td>
-                                <td>-</td>
                             </tr>
                             <tr>
                                 <td class="row-header">TOMATO</td>
-                                <td class="highlight-ours">20.6</td>
-                                <td class="best-val">21.6</td>
-                                <td class="highlight-ours">-</td>
-                                <td>-</td>
+                                <td class="highlight-ours">21.8</td>
+                                <td class="best-val">22.3</td>
+                                <td class="best-val highlight-ours">20.6</td>
+                                <td>20.2</td>
                             </tr>
                             <!-- Image Tasks -->
                             <tr>
-                                <td rowspan="10" class="task-group-cell">Image</td>
-                                <td class="row-header">AI2D</td>
-                                <td class="best-val highlight-ours">67.1</td>
-                                <td>65.9</td>
-                                <td class="best-val highlight-ours">76.4</td>
-                                <td>73.2</td>
-                            </tr>
-                            <tr>
+                                <td rowspan="8" class="task-group-cell">Image</td>
                                 <td class="row-header">ChartQA</td>
-                                <td class="best-val highlight-ours">67.4</td>
-                                <td>62.6</td>
                                 <td class="best-val highlight-ours">77.8</td>
-                                <td>68.5</td>
-                            </tr>
-                            <tr>
-                                <td class="row-header">TextVQA</td>
-                                <td class="highlight-ours">62.1</td>
-                                <td class="best-val">63.3</td>
-                                <td class="highlight-ours">64.9</td>
-                                <td class="best-val">65.4</td>
+                                <td>76.4</td>
+                                <td class="best-val highlight-ours">67.4</td>
+                                <td>67.2</td>
                             </tr>
                             <tr>
                                 <td class="row-header">DocVQA</td>
-                                <td class="best-val highlight-ours">73.2</td>
-                                <td>72.1</td>
                                 <td class="best-val highlight-ours">79.5</td>
-                                <td>71.9</td>
+                                <td>75.0</td>
+                                <td class="best-val highlight-ours">73.2</td>
+                                <td>70.8</td>
                             </tr>
                             <tr>
                                 <td class="row-header">InfoVQA</td>
-                                <td class="best-val highlight-ours">33.1</td>
-                                <td>29.9</td>
                                 <td class="best-val highlight-ours">45.5</td>
-                                <td>33.8</td>
-                            </tr>
-                            <tr>
-                                <td class="row-header">MMBench-EN</td>
-                                <td class="best-val highlight-ours">68.6</td>
-                                <td>67.3</td>
-                                <td class="best-val highlight-ours">78.5</td>
-                                <td>75.4</td>
-                            </tr>
-                            <tr>
-                                <td class="row-header">MMStar</td>
-                                <td class="best-val highlight-ours">43.5</td>
-                                <td>42.3</td>
-                                <td class="best-val highlight-ours">54.3</td>
-                                <td>49.4</td>
+                                <td>42.0</td>
+                                <td class="best-val highlight-ours">33.1</td>
+                                <td>32.6</td>
                             </tr>
                             <tr>
                                 <td class="row-header">OCRBench</td>
-                                <td class="best-val highlight-ours">533</td>
-                                <td>424</td>
-                                <td class="best-val highlight-ours">630</td>
-                                <td>401</td>
+                                <td class="best-val highlight-ours">630.0</td>
+                                <td>621.0</td>
+                                <td class="highlight-ours">533.0</td>
+                                <td class="best-val">560.0</td>
+                            </tr>
+                            <tr>
+                                <td class="row-header">OCRBench v2</td>
+                                <td class="highlight-ours">26.1</td>
+                                <td>26.1</td>
+                                <td class="best-val highlight-ours">20.5</td>
+                                <td>20.2</td>
+                            </tr>
+                            <tr>
+                                <td class="row-header">MMBench-EN</td>
+                                <td class="highlight-ours">78.5</td>
+                                <td class="best-val">79.6</td>
+                                <td class="highlight-ours">68.6</td>
+                                <td class="best-val">71.2</td>
+                            </tr>
+                            <tr>
+                                <td class="row-header">MMStar</td>
+                                <td class="highlight-ours">54.3</td>
+                                <td class="best-val">55.0</td>
+                                <td class="highlight-ours">43.5</td>
+                                <td class="best-val">46.8</td>
                             </tr>
                             <tr>
                                 <td class="row-header">RealWorldQA</td>
-                                <td class="best-val highlight-ours">57.7</td>
-                                <td>56.3</td>
-                                <td class="best-val highlight-ours">61.2</td>
-                                <td>-</td>
+                                <td class="highlight-ours">61.2</td>
+                                <td class="best-val">62.1</td>
+                                <td class="highlight-ours">57.7</td>
+                                <td class="best-val">61.3</td>
                             </tr>
                         </tbody>
                     </table>
@@ -661,41 +796,42 @@
                                 <i class="fa-solid fa-film mr-2 text-gray-400"></i> 8 Frames
                             </td>
                         </tr>
-
-
-                        <tr>
-                            <td class="sticky-col text-gray-900">SigLIP2</td>
-                            <td>ViT-L/14</td><td>256</td><td class="font-bold text-gray-800 bg-gray-50">56.0</td>
-                            <td>57.9</td><td>53.2</td><td>56.3</td><td>12.8</td><td>58.8</td><td>45.2</td><td>81.3</td><td>82.1</td>
-                        </tr>
-                        <tr>
-                            <td class="sticky-col text-gray-900">AIMv2</td>
-                            <td>ViT-L/14</td><td>224</td><td class="font-bold text-gray-800 bg-gray-50">52.6</td>
-                            <td>53.8</td><td>45.3</td><td>52.9</td><td>11.5</td><td>54.4</td><td>42.7</td><td>79.0</td><td>81.5</td>
-                        </tr>
                         <tr>
                             <td class="sticky-col text-gray-900">MetaCLIP2</td>
                             <td>ViT-L/14</td><td>224</td><td class="font-bold text-gray-800 bg-gray-50">46.3</td>
                             <td>45.9</td><td>30.7</td><td>46.4</td><td>10.2</td><td>44.4</td><td>36.6</td><td>79.1</td><td>77.0</td>
                         </tr>
                         <tr>
+                            <td class="sticky-col text-gray-900">AIMv2</td>
+                            <td>ViT-L/14</td><td>224</td><td class="font-bold text-gray-800 bg-gray-50">52.6</td>
+                            <td>53.8</td><td>45.3</td><td>52.9</td><td>11.5</td><td>54.4</td><td>42.7</td><td>79.0</td><td>81.5</td>
+                        </tr>
+
+                        <tr>
                             <td class="sticky-col text-gray-900">DINOv3</td>
                             <td>ViT-L/14</td><td>224</td><td class="font-bold text-gray-800 bg-gray-50">56.0</td>
                             <td>56.1</td><td>50.7</td><td>58.1</td><td>12.4</td><td>60.0</td><td>47.9</td><td>81.4</td><td>81.4</td>
                         </tr>
+
+                        <tr>
+                            <td class="sticky-col text-gray-900">SigLIP2</td>
+                            <td>ViT-L/14</td><td>256</td><td class="font-bold text-gray-800 bg-gray-50">56.0</td>
+                            <td>57.9</td><td>53.2</td><td>56.3</td><td>12.8</td><td>58.8</td><td>45.2</td><td>81.3</td><td>82.1</td>
+                        </tr>
+
                         <tr class="row-highlight border-t border-b border-blue-100">
                             <td class="sticky-col">
-                                OneVision Encoder <span class="text-[10px] font-normal opacity-80">(Ours)</span>
+                                OV-Encoder <span class="text-[10px] font-normal opacity-80">(Ours)</span>
                             </td>
-                            <td>ViT-L/14</td><td>224</td><td class="highlight-val">58.5</td>
-                            <td>57.0</td><td>59.4</td><td>57.7</td><td>12.4</td><td>61.9</td><td>53.3</td><td>84.4</td><td>82.2</td>
+                            <td>ViT-L/14</td><td>224</td><td class="highlight-val">58.1</td>
+                            <td>57.0</td><td>56.0</td><td>57.7</td><td>12.4</td><td>61.9</td><td>53.3</td><td>84.1</td><td>82.2</td>
                         </tr>
                         <tr class="row-highlight border-t border-b border-blue-100">
                             <td class="sticky-col">
-                                OneVision Encoder-Codec <span class="text-[10px] font-normal opacity-80">(Ours)</span>
+                                OV-Encoder-Codec <span class="text-[10px] font-normal opacity-80">(Ours)</span>
                             </td>
-                            <td>ViT-L/14</td><td>224</td><td class="highlight-val">59.7</td>
-                            <td>58.1</td><td>65.9</td><td>59.6</td><td>12.1</td><td>61.8</td><td>52.9</td><td>84.3</td><td>83.2</td>
+                            <td>ViT-L/14</td><td>224</td><td class="highlight-val">59.8</td>
+                            <td>57.5</td><td>65.9</td><td>59.6</td><td>12.1</td><td>61.8</td><td>53.7</td><td>84.3</td><td>83.2</td>
                         </tr>
 
                         <!-- Group: 16 Frames -->
@@ -704,7 +840,6 @@
                                 <i class="fa-solid fa-film mr-2 text-gray-400"></i> 16 Frames
                             </td>
                         </tr>
-
                         <tr>
                             <td class="sticky-col text-gray-900">MetaCLIP2</td>
                             <td>ViT-L/14</td><td>224</td><td class="font-bold text-gray-800 bg-gray-50">49.7</td>
@@ -716,28 +851,27 @@
                             <td>54.8</td><td>50.0</td><td>55.0</td><td>12.2</td><td>55.0</td><td>42.1</td><td>79.3</td><td>80.9</td>
                         </tr>
                         <tr>
-                            <td class="sticky-col text-gray-900">SigLIP2</td>
-                            <td>ViT-L/14</td><td>256</td><td class="font-bold text-gray-800 bg-gray-50">57.3</td>
-                            <td>59.6</td><td>59.1</td><td>56.0</td><td>13.1</td><td>59.3</td><td>46.2</td><td>82.5</td><td>82.3</td>
-                        </tr>
-                        <tr>
                             <td class="sticky-col text-gray-900">DINOv3</td>
                             <td>ViT-L/14</td><td>224</td><td class="font-bold text-gray-800 bg-gray-50">57.7</td>
                             <td>57.8</td><td>61.1</td><td>57.5</td><td>12.2</td><td>61.3</td><td>48.8</td><td>82.6</td><td>79.8</td>
                         </tr>
-                        <tr class="row-highlight border-t border-b border-blue-100">
+                        <tr>
+                            <td class="sticky-col text-gray-900">SigLIP2</td>
+                            <td>ViT-L/14</td><td>256</td><td class="font-bold text-gray-800 bg-gray-50">57.3</td>
+                            <td>59.6</td><td>59.1</td><td>56.0</td><td>13.1</td><td>59.3</td><td>46.2</td><td>82.5</td><td>82.3</td>
+                        </tr>                        <tr class="row-highlight border-t border-b border-blue-100">
                             <td class="sticky-col">
-                                OneVision Encoder <span class="text-[10px] font-normal opacity-80">(Ours)</span>
+                                OV-Encoder <span class="text-[10px] font-normal opacity-80">(Ours)</span>
                             </td>
-                            <td>ViT-L/14</td><td>224</td><td class="highlight-val">60.4</td>
-                            <td>59.1</td><td>67.7</td><td>58.9</td><td>11.7</td><td>62.2</td><td>55.1</td><td>85.4</td><td>82.8</td>
+                            <td>ViT-L/14</td><td>224</td><td class="highlight-val">59.9</td>
+                            <td>59.0</td><td>65.1</td><td>59.4</td><td>11.7</td><td>62.2</td><td>54.6</td><td>85.4</td><td>81.7</td>
                         </tr>
                         <tr class="row-highlight border-t border-b border-blue-100">
                             <td class="sticky-col">
-                                OneVision Encoder-Codec <span class="text-[10px] font-normal opacity-80">(Ours)</span>
+                                OV-Encoder-Codec <span class="text-[10px] font-normal opacity-80">(Ours)</span>
                             </td>
-                            <td>ViT-L/14</td><td>224</td><td class="highlight-val">60.7</td>
-                            <td>59.2</td><td>68.7</td><td>60.8</td><td>12.8</td><td>62.8</td><td>54.2</td><td>84.7</td><td>82.6</td>
+                            <td>ViT-L/14</td><td>224</td><td class="highlight-val">60.9</td>
+                            <td>59.2</td><td>68.7</td><td>60.8</td><td>12.8</td><td>62.8</td><td>54.3</td><td>85.5</td><td>82.9</td>
                         </tr>
 
                     </tbody>
@@ -826,7 +960,7 @@
                                     <div class="text-xs text-gray-500 mt-0.5">93.8% ↓</div>
                                 </td>
                                 <td class="text-center">
-                                    <div class="highlight-val font-semibold">65.6</div>
+                                    <div class="highlight-val font-semibold">65.9</div>
                                     <div class="text-xs text-gray-500 mt-0.5">87.5% ↓</div>
                                 </td>
                                 <td class="text-center">
@@ -892,7 +1026,7 @@
     <section id="bibtex" class="py-16 bg-slate-50">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <h3 class="text-2xl font-bold text-gray-900 mb-4">BibTeX</h3>
-            <div class="bg-white rounded-lg p-6 border border-gray-200 max-w-2xl mx-auto">
+            <div class="bg-slate-50 p-6 max-w-2xl mx-auto">
                 <pre class="text-sm text-gray-700 overflow-x-auto whitespace-pre-wrap font-mono leading-relaxed">@article{onevision_encoder_2026,
   title={OneVision Encoder: An HEVC-Style Vision Transformer},
   author={LLaVA-OneVision Community Contributors},
@@ -1320,50 +1454,84 @@
 
     <!-- JavaScript for Pipeline Case Switching -->
     <script>
-        // Pipeline cases data - 5 different pipeline visualizations
+        // Mobile Menu Toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const mobileNavLinks = mobileMenu.querySelectorAll('a');
+
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    mobileMenu.classList.toggle('active');
+                    const icon = this.querySelector('i');
+                    if (mobileMenu.classList.contains('active')) {
+                        icon.classList.remove('fa-bars');
+                        icon.classList.add('fa-times');
+                    } else {
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
+                });
+
+                // Close mobile menu when clicking on a link
+                mobileNavLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        mobileMenu.classList.remove('active');
+                        const icon = mobileMenuBtn.querySelector('i');
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    });
+                });
+
+                // Close mobile menu when clicking outside
+                document.addEventListener('click', function(event) {
+                    if (!mobileMenuBtn.contains(event.target) && !mobileMenu.contains(event.target)) {
+                        mobileMenu.classList.remove('active');
+                        const icon = mobileMenuBtn.querySelector('i');
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
+                });
+            }
+        });
+
+        // Pipeline cases data - 7 different pipeline visualizations
         const pipelineCases = [
             {
                 image: 'images/case1.webm',
-                description: 'Complete video processing pipeline showing the four stages from original video to codec-style compressed representation. Each stage demonstrates how our approach progressively identifies and extracts temporally-salient patches while maintaining rich motion information.',
                 title: 'Case 1: Standard Pipeline'
             },
             {
                 image: 'images/case2.webm',
-                description: 'Alternative visualization highlighting the temporal saliency detection process. Shows how motion vectors and semantic changes guide patch selection across the 64-frame sequence.',
                 title: 'Case 2: Saliency Focus'
             },
             {
                 image: 'images/case3.webm',
-                description: 'Demonstrates the compression efficiency by comparing input frames with the selected patches. Achieves 75-98% reduction in patches while preserving critical temporal dynamics.',
                 title: 'Case 3: Compression Analysis'
             },
             {
                 image: 'images/case4.webm',
-                description: 'Shows the codec-style zigzag ordering of patches. This ordering ensures that the most important temporal information is processed first, enabling adaptive computation.',
                 title: 'Case 4: Zigzag Ordering'
             },
             {
                 image: 'images/case5.webm',
-                description: 'Compares our dense-frames-sparse-patches approach with traditional sparse-frames-dense-patches methods. Highlights how processing more frames with selective patches captures richer temporal information.',
                 title: 'Case 5: Comparative Analysis'
             },
-
             {
                 image: 'images/case6.webm',
-                description: 'Compares our dense-frames-sparse-patches approach with traditional sparse-frames-dense-patches methods. Highlights how processing more frames with selective patches captures richer temporal information.',
                 title: 'Case 6: Comparative Analysis'
             },
-
             {
                 image: 'images/case7.webm',
-                description: 'Compares our dense-frames-sparse-patches approach with traditional sparse-frames-dense-patches methods. Highlights how processing more frames with selective patches captures richer temporal information.',
                 title: 'Case 7: Comparative Analysis'
             }
-            
         ];
 
         let currentPipelineCase = 0;
         let isTransitioning = false;
+        let autoPlayInterval = null;
+        let isAutoPlaying = true;
+        const AUTO_PLAY_DELAY = 5000; // 5 seconds between auto-switches
 
         function displayPipelineCase(caseIndex) {
             if (isTransitioning) return;
@@ -1379,8 +1547,6 @@
             setTimeout(() => {
                 // Update content
                 imageElement.src = caseData.image;
-                imageElement.load();
-                imageElement.play();
                 descElement.textContent = caseData.description;
 
                 // Update dots
@@ -1394,6 +1560,35 @@
             }, 300);
         }
 
+        function nextPipelineCase() {
+            currentPipelineCase = (currentPipelineCase + 1) % pipelineCases.length;
+            displayPipelineCase(currentPipelineCase);
+        }
+
+        function prevPipelineCase() {
+            currentPipelineCase = (currentPipelineCase - 1 + pipelineCases.length) % pipelineCases.length;
+            displayPipelineCase(currentPipelineCase);
+        }
+
+        function startAutoPlay() {
+            if (autoPlayInterval) return;
+            isAutoPlaying = true;
+            autoPlayInterval = setInterval(nextPipelineCase, AUTO_PLAY_DELAY);
+        }
+
+        function stopAutoPlay() {
+            if (autoPlayInterval) {
+                clearInterval(autoPlayInterval);
+                autoPlayInterval = null;
+            }
+            isAutoPlaying = false;
+        }
+
+        function restartAutoPlay() {
+            stopAutoPlay();
+            startAutoPlay();
+        }
+
         function updatePipelineDots(activeIndex) {
             const dotsContainer = document.getElementById('pipelineDots');
             dotsContainer.innerHTML = '';
@@ -1401,7 +1596,7 @@
             pipelineCases.forEach((caseData, index) => {
                 const dot = document.createElement('button');
                 const isActive = index === activeIndex;
-                
+
                 dot.style.cssText = `
                     width: ${isActive ? '14px' : '10px'};
                     height: ${isActive ? '14px' : '10px'};
@@ -1417,11 +1612,21 @@
                 dot.setAttribute('aria-label', caseData.title);
                 dot.setAttribute('title', caseData.title);
 
+                // Click to switch case
+                dot.addEventListener('click', function() {
+                    if (currentPipelineCase !== index) {
+                        currentPipelineCase = index;
+                        displayPipelineCase(currentPipelineCase);
+                        restartAutoPlay(); // Restart auto-play timer after manual interaction
+                    }
+                });
+
                 // Hover to switch case and apply visual effects
                 dot.addEventListener('mouseenter', function() {
                     if (currentPipelineCase !== index) {
                         currentPipelineCase = index;
                         displayPipelineCase(currentPipelineCase);
+                        restartAutoPlay(); // Restart auto-play timer after manual interaction
                     }
                     // Visual hover effect
                     if (!isActive) {
@@ -1447,8 +1652,58 @@
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', function() {
             updatePipelineDots(0);
+
+            // Arrow button handlers
+            const prevBtn = document.getElementById('pipelinePrevBtn');
+            const nextBtn = document.getElementById('pipelineNextBtn');
+            const container = document.getElementById('pipelineGifContainer');
+
+            // Previous button
+            prevBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                prevPipelineCase();
+                restartAutoPlay();
+            });
+
+            // Next button
+            nextBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                nextPipelineCase();
+                restartAutoPlay();
+            });
+
+            // Hover effects for arrow buttons
+            [prevBtn, nextBtn].forEach(btn => {
+                btn.addEventListener('mouseenter', function() {
+                    this.style.background = 'rgba(255, 255, 255, 1)';
+                    this.style.transform = 'scale(1.1)';
+                    this.style.boxShadow = '0 10px 15px -3px rgba(0, 0, 0, 0.15)';
+                });
+
+                btn.addEventListener('mouseleave', function() {
+                    this.style.background = 'rgba(255, 255, 255, 0.9)';
+                    this.style.transform = 'scale(1)';
+                    this.style.boxShadow = '0 2px 4px -1px rgba(0, 0, 0, 0.1)';
+                });
+            });
+
+            // Pause auto-play on hover, resume on leave
+            container.addEventListener('mouseenter', function() {
+                if (isAutoPlaying) {
+                    stopAutoPlay();
+                }
+            });
+
+            container.addEventListener('mouseleave', function() {
+                if (!isAutoPlaying) {
+                    startAutoPlay();
+                }
+            });
+
+            // Start auto-play
+            startAutoPlay();
         });
     </script>
-    
+
 </body>
 </html>
