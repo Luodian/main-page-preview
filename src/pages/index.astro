@@ -40,6 +40,28 @@ import LazyImage from "@/components/LazyImage.astro";
 
 			<!-- Right: Smaller Posts -->
 			<div class="flex flex-col gap-6 w-full">
+				<!-- Post Card - OneVision-Encoder -->
+				<a href="/onevision-encoder/" class="group flex flex-col gap-4 items-start mb-6">
+					<div class="w-fill aspect-square rounded-lg overflow-hidden flex-shrink-0">
+						<LazyImage
+						src="/images/blog_thumbnails/onevision_encoder.jpeg"
+						alt="OneVision-Encoder"
+						width={800}
+						height={800}
+						class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform ease-out"
+						format="webp"
+						loading="eager"
+						aspectRatio="1/1"
+						rounded={true}
+						skeletonClass="rounded-lg"
+					/>
+					</div>
+					<div>
+						<h2 class="font-semibold text-lg group-hover:text-accent-one transition-colors">OneVision-Encoder</h2>
+						<p class="text-sm font-medium text-textColor/70 dark:text-textColorDark/70 line-clamp-2">HEVC-style vision transformer with codec-style patch selection.</p>
+					</div>
+				</a>
+
 				<!-- Post Card - LMMs-Eval -->
 				<a href="https://github.com/EvolvingLMMs-Lab/lmms-eval" class="group flex flex-col gap-4 items-start mb-6">
 					<div class="w-fill aspect-square rounded-lg overflow-hidden flex-shrink-0">
