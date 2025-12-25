@@ -12,12 +12,12 @@ import LazyImage from "@/components/LazyImage.astro";
 			
 			<!-- Left: Big Featured Post -->
 			<div class="lg:col-span-2">
-				<a href="/posts/llava_onevision_1_5/" class="group sticky top-6 block">
+				<a href="/onevision-encoder/index.html" class="group sticky top-6 block">
 					<!-- Featured Image + Overlay -->
 					<div class="relative w-full h-[60vh] rounded-2xl overflow-hidden shadow-lg">
 						<LazyImage
-							src="/images/blog_thumbnails/llava_ov_1_5.png"
-							alt="LLaVA-OneVision-1.5"
+							src="/images/blog_thumbnails/onevision_encoder.jpeg"
+							alt="OneVision-Encoder"
 							width={1200}
 							height={800}
 							class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-200 ease-out"
@@ -28,10 +28,10 @@ import LazyImage from "@/components/LazyImage.astro";
 						<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
 						<div class="absolute bottom-6 left-6 right-6 text-white">
 							<h2 class="text-4xl md:text-4xl font-bold mt-3">
-								LLaVA-OneVision-1.5
+								OneVision-Encoder
 							</h2>
 							<p class="mt-2 text-xs font-medium md:text-base text-gray-200">
-								Unified multimodal foundation spanning images, multi-image, and video understanding in one open model.
+								HEVC-style vision transformer with codec-style patch selection.
 							</p>
 						</div>
 					</div>
@@ -40,12 +40,12 @@ import LazyImage from "@/components/LazyImage.astro";
 
 			<!-- Right: Smaller Posts -->
 			<div class="flex flex-col gap-6 w-full">
-				<!-- Post Card - OneVision-Encoder -->
-				<a href="/onevision-encoder/index.html" class="group flex flex-col gap-4 items-start mb-6">
+				<!-- Post Card - LLaVA-OneVision-1.5 -->
+				<a href="/posts/llava_onevision_1_5/" class="group flex flex-col gap-4 items-start mb-6">
 					<div class="w-fill aspect-square rounded-lg overflow-hidden flex-shrink-0">
 						<LazyImage
-						src="/images/blog_thumbnails/onevision_encoder.jpeg"
-						alt="OneVision-Encoder"
+						src="/images/blog_thumbnails/llava_ov_1_5.png"
+						alt="LLaVA-OneVision-1.5"
 						width={800}
 						height={800}
 						class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform ease-out"
@@ -57,8 +57,8 @@ import LazyImage from "@/components/LazyImage.astro";
 					/>
 					</div>
 					<div>
-						<h2 class="font-semibold text-lg group-hover:text-accent-one transition-colors">OneVision-Encoder</h2>
-						<p class="text-sm font-medium text-textColor/70 dark:text-textColorDark/70 line-clamp-2">HEVC-style vision transformer with codec-style patch selection.</p>
+						<h2 class="font-semibold text-lg group-hover:text-accent-one transition-colors">LLaVA-OneVision-1.5</h2>
+						<p class="text-sm font-medium text-textColor/70 dark:text-textColorDark/70 line-clamp-2">Unified multimodal foundation spanning images, multi-image, and video understanding.</p>
 					</div>
 				</a>
 
@@ -106,27 +106,6 @@ import LazyImage from "@/components/LazyImage.astro";
 					</div>
 				</a>
 
-				<!-- Post Card - Aero-1-Audio -->
-				<a href="/posts/aero_audio/" class="group flex flex-col gap-4 items-start">
-					<div class="w-fill aspect-square rounded-lg overflow-hidden flex-shrink-0">
-						<LazyImage
-						src="/images/blog_thumbnails/aero-1-audio.gif"
-						alt="Aero-1-Audio"
-						width={800}
-						height={800}
-						class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform ease-out"
-						format="webp"
-						loading="eager"
-						aspectRatio="1/1"
-						rounded={true}
-						skeletonClass="rounded-lg"
-						/>
-					</div>
-					<div>
-						<h2 class="font-semibold text-lg group-hover:text-accent-one transition-colors">Aero-1-Audio</h2>
-						<p class="text-sm font-medium text-textColor/70 dark:text-textColorDark/70 line-clamp-2">Frontier Open Audio Models.</p>
-					</div>
-				</a>
 			</div>
 		</div>
 	</section>
