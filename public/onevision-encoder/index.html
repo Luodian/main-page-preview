@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OneVision Encoder: An HEVC-Style Vision Transformer</title>
+    <title>OneVision Encoder: HEVC-style vision transformer with codec-style patch selection</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome -->
@@ -371,6 +371,37 @@
                 height: 8px !important;
             }
 
+            /* Pipeline label item styling */
+            /* Pipeline label container styling - positioned above video */
+            .pipeline-labels {
+                display: flex !important;
+                flex-direction: row !important;
+                justify-content: space-around !important;
+                align-items: center !important;
+                margin-bottom: 0.75rem !important;
+                padding: 0 1rem !important;
+                flex-wrap: nowrap !important;
+            }
+            
+            /* Pipeline label item styling */
+            .pipeline-label {
+                flex: 1;
+                text-align: center;
+                font-size: 0.875rem;
+                font-weight: 600;
+                color: #1f2937;
+                white-space: nowrap;
+                padding: 0 0.25rem;
+            }
+            
+            /* Pipeline labels - Make responsive */
+            @media (max-width: 768px) {
+                .pipeline-label {
+                    font-size: 0.65rem;
+                    white-space: normal;
+                }
+            }
+
             /* Padding adjustments */
             section {
                 padding-top: 2rem !important;
@@ -450,7 +481,7 @@
                 <span class="gradient-text">OneVision Encoder</span>
             </h1>
             <p class="text-xl sm:text-2xl text-gray-600 font-light mb-6">
-                An HEVC-Style Vision Transformer
+                HEVC-style vision transformer with codec-style patch selection
             </p>
 
             <div class="mt-8 text-base text-gray-500">
@@ -557,8 +588,18 @@
 
                 <!-- Interactive GIF Display with Case Switching -->
                 <div style="max-width: 1100px; margin: 0 auto;">
-                    <div id="pipelineGifContainer" style="position: relative; border-radius: 0.75rem; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);">
-                        <video id="pipelineGifImage" src="images/case1.webm" autoplay loop muted playsinline style="width: 100%; height: auto; border-radius: 0.75rem; display: block; transition: opacity 0.3s ease;"></video>
+                    <!-- Outer frame containing both labels and video -->
+                    <div style="border-radius: 0.75rem; padding: 1rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); background: #ffffff;">
+                        <!-- Labels Row - positioned above video container -->
+                        <div class="pipeline-labels" style="display: flex; flex-direction: row; justify-content: space-around; align-items: center; margin-bottom: 0.75rem; padding: 0 0.5rem; flex-wrap: nowrap;">
+                            <div class="pipeline-label" style="flex: 1; text-align: center; font-size: 0.875rem; font-weight: 600; color: #1f2937; white-space: nowrap; padding: 0 0.25rem;">Original Video</div>
+                            <div class="pipeline-label" style="flex: 1; text-align: center; font-size: 0.875rem; font-weight: 600; color: #1f2937; white-space: nowrap; padding: 0 0.25rem;">Uniform Frame Sampling</div>
+                            <div class="pipeline-label" style="flex: 1; text-align: center; font-size: 0.875rem; font-weight: 600; color: #1f2937; white-space: nowrap; padding: 0 0.25rem;">Temporal Saliency Detection</div>
+                            <div class="pipeline-label" style="flex: 1; text-align: center; font-size: 0.875rem; font-weight: 600; color: #1f2937; white-space: nowrap; padding: 0 0.25rem;">Codec-Style Patch Extraction</div>
+                        </div>
+                        <div id="pipelineGifContainer" style="position: relative; border-radius: 0.5rem; overflow: hidden;">
+                            <video id="pipelineGifImage" src="images/case1.webm" autoplay loop muted playsinline style="width: 100%; height: auto; border-radius: 0.5rem; display: block; transition: opacity 0.3s ease;"></video>
+                        </div>
                     </div>
 
                     <p id="pipelineDescription" class="text-center text-gray-500 text-xs mt-4 italic max-w-3xl mx-auto">
@@ -623,7 +664,7 @@
             <div class="mt-8">
                 <h3 class="text-2xl font-bold text-gray-900 mb-4">LMM Probe Results</h3>
                 <p class="text-gray-600 mb-6 text-base">
-                    <span class="font-bold">Training on a mixed dataset of 740K samples from LLaVA-OneVision and 800K samples from LLaVA-Video SFT.</span> The training pipeline proceeds directly to Stage 2 fine-tuning. We adopt a streamlined native-resolution strategy inspired by LLaVA-OneVision: when the input frame resolution matches the model's native input size, it is fed directly—without tiling or cropping—to evaluate the ViT's native resolution capability.
+                    <span class="font-bold">Training on a mixed dataset of 740K samples from LLaVA-OneVision and 800K samples from LLaVA-Video SFT.</span> The training pipeline proceeds directly to Stage 2 fine-tuning. Following a streamlined native-resolution strategy inspired by LLaVA-OneVision, input frames whose resolution matches the model’s native input size are fed directly into the model without tiling or cropping, enabling an explicit evaluation of the ViT’s native-resolution representation capability. Furthermore, incorporating codec-style patch selection during training improves the visual–language model’s capability. The complete experimental comparison with the baseline model that does not adopt codec-style patch selection is ongoing, and detailed results will be finalized and reported shortly (TBD).
                 </p>
                 <div class="table-wrapper">
                     <table class="results-table">
@@ -1031,7 +1072,7 @@
             <h3 class="text-2xl font-bold text-gray-900 mb-4">BibTeX</h3>
             <div class="bg-slate-50 p-6 max-w-2xl mx-auto">
                 <pre class="text-sm text-gray-700 overflow-x-auto whitespace-pre-wrap font-mono leading-relaxed">@article{onevision_encoder_2026,
-  title={OneVision Encoder: An HEVC-Style Vision Transformer},
+  title={OneVision Encoder: HEVC-style vision transformer with codec-style patch selection},
   author={LLaVA-OneVision Community Contributors},
   journal={arXiv preprint},
   year={2026}
