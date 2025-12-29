@@ -799,7 +799,9 @@
                 <p class="text-gray-600 mb-6 text-base">
                     Performance comparison of different vision encoders using Attentive Probe evaluation. Models are evaluated using <strong>single clip</strong> input and trained for <strong>10 epochs</strong> across 8 action recognition datasets. Results show average performance and per-dataset scores for 8-frame and 16-frame configurations.
                 </p>
-
+                <p class="text-gray-600 mb-6 text-base">
+                OV-Encoder-Codec (Ours) refers to a variant of OV-Encoder that replaces traditional frame sampling with codec-style input, where dense full-frame inputs are substituted by codec-guided patch reorganization. Under the same attentive probe setting and token budget, patches are selectively reallocated across the input clip based on codec-native motion vectors and residuals, without changing the backbone architecture or training protocol. This results in stronger performance on motion-sensitive datasets, particularly Diving48 and Perception Test.</p>
+                </p>
                 <div class="overflow-x-auto rounded-lg shadow-sm border border-gray-200 max-w-5xl mx-auto">
                 <table class="results-table data-table">
                     <colgroup>
