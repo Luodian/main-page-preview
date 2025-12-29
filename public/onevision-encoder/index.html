@@ -929,13 +929,11 @@
             <!-- Video Compression Performance Section -->
             <div class="mt-8">
                 <h3 class="text-2xl font-bold text-gray-900 mb-4">Patch-Efficient Video Understanding Comparison</h3>
-                <p class="text-gray-600 mb-6 text-base">
-                    Efficiency analysis comparing SigLIP2 with dense full-frame processing and OV-Encoder-Codec under a fixed token budget. It is important to emphasize that OV-Encoder-Codec does not perform temporal downsampling of the input video. All results are obtained from the same 64-frame source video, where codec-native motion vectors and residuals are used to selectively extract a fixed number of spatiotemporal patches distributed across the entire temporal extent.
-                    
-                    For a fair comparison, SigLIP2 is evaluated under the same token budgets and adopts a traditional frame sampling strategy, where each group of 256 patches corresponds to a contiguous RGB frame.
+                <p class="text-gray-600 mb-3 text-base">
+                    Efficiency analysis comparing SigLIP2 with dense full-frame patch processing and OV-Encoder-Codec under a fixed token budget. It is important to emphasize that OV-Encoder-Codec does not perform temporal downsampling of the input video. All results are obtained from the same 64-frame (16384 patches) source video, where codec-native motion vectors and residuals are used to selectively extract a fixed number of spatiotemporal patches distributed across the entire temporal extent.
                 </p>
                 <p class="text-gray-600 mb-6 text-base">
-                    Under a fixed token budget, OV-Encoder-Codec redistributes patches across time to preserve long-range temporal coverage, outperforming SigLIP2 on Diving48 and Perception Test while reducing patch processing by 75.0%–98.4% compared to dense 64-frame inputs.                </p>
+                    For a fair comparison, SigLIP2 is evaluated under the same token budgets and adopts a traditional frame sampling strategy, where each group of 256 patches corresponds to a contiguous RGB frame. Under a fixed token budget, OV-Encoder-Codec redistributes patches across time while preserving their spatial positions, enabling long-range temporal coverage. As a result, it outperforms SigLIP2 on Diving48 and Perception Test while reducing patch processing by 75.0%–98.4% compared to dense processing of 16,384 patches.                </p>
                 <div class="overflow-x-auto rounded-lg shadow-sm border border-gray-200 max-w-5xl mx-auto">
                     <table class="min-w-full divide-y divide-gray-200 data-table">
                         <colgroup>
@@ -952,24 +950,19 @@
                                 <th scope="col" class="sticky-col bg-header-gray text-left">Dataset</th>
                                 <th scope="col" class="bg-header-gray text-center">Model</th>
                                 <th scope="col" class="text-center bg-blue-50">
-                                    <div class="font-semibold">1 Frame</div>
-                                    <div class="text-xs text-gray-500 font-normal">256 Patches</div>
+                                    <div class="font-semibold">256 Patches</div>
                                 </th>
                                 <th scope="col" class="text-center bg-blue-50">
-                                    <div class="font-semibold">2 Frames</div>
-                                    <div class="text-xs text-gray-500 font-normal">512 Patches</div>
+                                    <div class="font-semibold">512 Patches</div>
                                 </th>
                                 <th scope="col" class="text-center bg-blue-50">
-                                    <div class="font-semibold">4 Frames</div>
-                                    <div class="text-xs text-gray-500 font-normal">1024 Patches</div>
+                                    <div class="font-semibold">1024 Patches</div>
                                 </th>
                                 <th scope="col" class="text-center bg-blue-50">
-                                    <div class="font-semibold">8 Frames</div>
-                                    <div class="text-xs text-gray-500 font-normal">2048 Patches</div>
+                                    <div class="font-semibold">2048 Patches</div>
                                 </th>
                                 <th scope="col" class="text-center bg-blue-50">
-                                    <div class="font-semibold">16 Frames</div>
-                                    <div class="text-xs text-gray-500 font-normal">4096 Patches</div>
+                                    <div class="font-semibold">4096 Patches</div>
                                 </th>
                             </tr>
                         </thead>
@@ -981,8 +974,8 @@
                                 </td>
                                 <td class="text-gray-700">
                                     <div class="font-medium">SigLIP2</div>
-                                    <div class="text-xs text-gray-500">(ViT-L/16, 256)</div>
-                                    <div class="text-xs text-gray-600 mt-1"><i class="fa-solid fa-check-circle mr-1"></i>Full-frame input (no compression)</div>
+                                    <div class="text-xs text-gray-500">(ViT-L/16, 256px)</div>
+                                    <div class="text-xs text-gray-600 mt-1"><i class="fa-solid fa-check-circle mr-1"></i>Traditional Frame Sampling (dense patch processing)</div>
                                 </td>
                                 <td class="text-center">19.9</td>
                                 <td class="text-center">28.1</td>
@@ -993,12 +986,12 @@
                             <tr class="row-highlight">
                                 <td class="text-gray-900">
                                     <div class="font-medium">OneVision Encoder-Codec</div>
-                                    <div class="text-xs text-gray-500">(ViT-L/14, 224)</div>
-                                    <div class="text-xs text-green-600 mt-1 font-medium"><i class="fa-solid fa-compress mr-1"></i>64-frame -> N-frame patch reorganization</div>
+                                    <div class="text-xs text-gray-500">(ViT-L/14, 224px)</div>
+                                    <div class="text-xs text-green-600 mt-1 font-medium"><i class="fa-solid fa-compress mr-1"></i>16384 patches -> N patches</div>
                                 </td>
                                 <td class="text-center">
                                     <div class="highlight-val font-semibold">36.0</div>
-                                    <div class="text-xs text-gray-500 mt-0.5">98.4% ↓</div>
+                                    <div class="text-xs text-gray-500 mt-0.5">98.4% ↓ *</div>
                                 </td>
                                 <td class="text-center">
                                     <div class="highlight-val font-semibold">45.5</div>
@@ -1025,8 +1018,8 @@
                                 </td>
                                 <td class="text-gray-700">
                                     <div class="font-medium">SigLIP2</div>
-                                    <div class="text-xs text-gray-500">(ViT-L/16, 256)</div>
-                                    <div class="text-xs text-gray-600 mt-1"><i class="fa-solid fa-check-circle mr-1"></i>Full-frame input (no compression)</div>
+                                    <div class="text-xs text-gray-500">(ViT-L/16, 256px)</div>
+                                    <div class="text-xs text-gray-600 mt-1"><i class="fa-solid fa-check-circle mr-1"></i>Traditional Frame Sampling (dense patch processing)</div>
                                 </td>
                                 <td class="text-center text-gray-400">-</td>
                                 <td class="text-center">48.7</td>
@@ -1037,12 +1030,12 @@
                             <tr class="row-highlight">
                                 <td class="text-gray-900">
                                     <div class="font-medium">OneVision Encoder-Codec</div>
-                                    <div class="text-xs text-gray-500">(ViT-L/14, 224)</div>
-                                    <div class="text-xs text-green-600 mt-1 font-medium"><i class="fa-solid fa-compress mr-1"></i>64-frame -> N-frame patch reorganization</div>
+                                    <div class="text-xs text-gray-500">(ViT-L/14, 224px)</div>
+                                    <div class="text-xs text-green-600 mt-1 font-medium"><i class="fa-solid fa-compress mr-1"></i>16384 patches -> N patches</div>
                                 </td>
                                 <td class="text-center">
                                     <div class="highlight-val font-semibold">41.2</div>
-                                    <div class="text-xs text-gray-500 mt-0.5">98.4% ↓</div>
+                                    <div class="text-xs text-gray-500 mt-0.5">98.4% ↓ </div>
                                 </td>
                                 <td class="text-center">
                                     <div class="highlight-val font-semibold">49.5</div>
@@ -1064,7 +1057,7 @@
                         </tbody>
                     </table>
                 </div>
-                <p class="text-xs text-gray-500 mt-2 text-center max-w-5xl mx-auto">* Percentages under OV-Encoder-Codec indicate patch reduction vs processing all 64 frames (no compression). '<span class="text-xs text-green-600 font-medium"><i class="fa-solid fa-compress mr-1"></i>64-frame → N-frame patch reorganization </span>' indicates patch reorganization for ViT compatibility, where selected patches are grouped into frame-shaped inputs (256 patches per group), rather than frame sampling.</p>
+                <p class="text-xs text-gray-500 mt-2 text-center max-w-5xl mx-auto">* Percentages under OV-Encoder-Codec indicate patch reduction relative to dense processing of all 16384 patches.</p> <p class="text-xs text-gray-500 mt-2 text-center max-w-5xl mx-auto"> '<span class="text-xs text-green-600 font-medium"><i class="fa-solid fa-compress mr-1"></i>16384 patches -> N patches </span>' indicates Codec-Style Patch Selection, where motion-relevant patches are selectively retained instead of temporal frame sampling.</p>
             </div>
 
 
